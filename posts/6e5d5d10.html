@@ -1,0 +1,749 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/icon.png">
+  <link rel="icon" href="/img/icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Nuthecz">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="数据相关 数据存储 数据宽度  图 1  常用存储单位所在字节数与位数 字节序   数据在内存中存储的方式分为大端存储和小端存储   例如：0x12345678，其中12为高位字节数据，78为低位字节数据   大端存储  内存高位地址存放低位字节数据，内存低位地址存放数据高位字节数据   图 2  大端存储 小端存储  内存高位地址存放高位字节数据，内存低位地址存放数据低位字节数据   图 3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="逆向分析实战">
+<meta property="og:url" content="http://example.com/posts/6e5d5d10.html">
+<meta property="og:site_name" content="Nuthecz&#96;Blog">
+<meta property="og:description" content="数据相关 数据存储 数据宽度  图 1  常用存储单位所在字节数与位数 字节序   数据在内存中存储的方式分为大端存储和小端存储   例如：0x12345678，其中12为高位字节数据，78为低位字节数据   大端存储  内存高位地址存放低位字节数据，内存低位地址存放数据高位字节数据   图 2  大端存储 小端存储  内存高位地址存放高位字节数据，内存低位地址存放数据低位字节数据   图 3">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211221642460.JPG">
+<meta property="article:published_time" content="2022-12-11T03:11:30.000Z">
+<meta property="article:modified_time" content="2022-12-19T08:33:33.527Z">
+<meta property="article:author" content="Nuthecz">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211221642460.JPG">
+  
+  
+  
+  <title>逆向分析实战 - Nuthecz`Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Nuthecz</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210041649908.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="逆向分析实战"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-11 11:11" pubdate>
+          2022年12月11日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">逆向分析实战</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1>数据相关</h1>
+<h2 id="数据存储">数据存储</h2>
+<h3 id="数据宽度">数据宽度</h3>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212102310024.png" srcset="/img/loading.gif" lazyload alt="image-20221210231053930"></p>
+<center><strong>图 1  常用存储单位所在字节数与位数</strong></center>
+<h3 id="字节序">字节序</h3>
+<ul>
+<li>
+<p>数据在内存中存储的方式分为<strong>大端存储</strong>和<strong>小端存储</strong></p>
+</li>
+<li>
+<p>例如：0x12345678，其中<strong>12为高位字节数据，78为低位字节数据</strong></p>
+</li>
+</ul>
+<h4 id="大端存储">大端存储</h4>
+<ul>
+<li>内存<strong>高</strong>位地址存放<strong>低</strong>位字节数据，内存<strong>低</strong>位地址存放数据<strong>高</strong>位字节数据</li>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212110040864.png" srcset="/img/loading.gif" lazyload alt="image-20221211004020838"></li>
+</ul>
+<center><strong>图 2  大端存储</strong></center>
+<h4 id="小端存储">小端存储</h4>
+<ul>
+<li>内存<strong>高</strong>位地址存放<strong>高</strong>位字节数据，内存<strong>低</strong>位地址存放数据<strong>低</strong>位字节数据</li>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212110042944.png" srcset="/img/loading.gif" lazyload alt="image-20221211004205917"></li>
+</ul>
+<center><strong>图 3  小端存储</strong></center>
+<h4 id="使用">使用</h4>
+<p>通常情况下</p>
+<ul>
+<li>Windows操作系统兼容的CPU采用小端存储</li>
+<li>UNIX操作系统兼容的CPU多采用大端存储</li>
+<li>网络中传递数据时采用大端存储</li>
+</ul>
+<h4 id="注意">注意</h4>
+<ul>
+<li>对于数据0x01020304,左边为<strong>高位字节</strong></li>
+<li>对于内存存储顺序,一般默认为<strong>低地址到高地址</strong></li>
+</ul>
+<h1>汇编</h1>
+<h2 id="寄存器">寄存器</h2>
+<h3 id="概述">概述</h3>
+<p>与逆向相关的寄存器</p>
+<ul>
+<li>基本寄存器
+<ul>
+<li>8个通用寄存器,6个段寄存器,1个指令指针寄存器,1个标志寄存器</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111532648.png" srcset="/img/loading.gif" lazyload alt="image-20221211153203542"></p>
+<center><strong>图 4  x86 CPU中的基本寄存器</strong></center>
+<ul>
+<li>调试寄存器</li>
+<li>控制寄存器</li>
+</ul>
+<h3 id="通用寄存器">通用寄存器</h3>
+<p>通用寄存器主要用于各种运算和数据的传输,又分为<strong>数据寄存器</strong>和<strong>指针变址寄存器</strong></p>
+<table style="border:none;text-align:center;width:auto;margin: 0 auto;">
+	<tbody>
+		<tr>
+			<td style="padding: 6px"><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111535516.png" srcset="/img/loading.gif" lazyload ></td><td><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111536898.png" srcset="/img/loading.gif" lazyload ></td>
+		</tr>
+        <tr><td><strong>图 5  数据寄存器</strong></td><td><strong>图 6  指针变址寄存器</strong></td></tr>
+	</tbody>
+</table>
+<h4 id="数据寄存器">数据寄存器</h4>
+<p>主要用在算数运算与逻辑运算指令中，常用来保存各种需要计算的值</p>
+<ul>
+<li><strong>EAX</strong>：累加器，在乘法和除法指令中被自动使用；在 Win32 中，一般用在函数的返回值中</li>
+<li><strong>EBX</strong>：基址寄存器，DS 段中的数据指针</li>
+<li><strong>ECX</strong>：计数器，CPU 自动使用 ECX 作为循环计数器，在字符串和循环操作中常用，在循环指令（LOOP）或串操作中，ECX 用来进行循环计数，每执行一次循环，ECX 都会被 CPU 自动减一</li>
+<li><strong>EDX</strong>：数据寄存器</li>
+</ul>
+<h4 id="指针变址寄存器">指针变址寄存器</h4>
+<p>主要用作保存内存地址的指针</p>
+<ul>
+<li><strong>EBP</strong>：扩展基址指针寄存器，SS 段中堆栈内数据指针。EBP 由高级语言用来引用参数和局部变量，通常称为堆栈基址指针寄存器。</li>
+<li><strong>ESP</strong>：堆栈指针寄存器，SS 段中堆栈指针。ESP 用来寻址堆栈上的数据，ESP 寄存器一般不参与算数运算，通常称为堆栈指针寄存器。</li>
+<li><strong>ESI</strong>：源变址寄存器，字符串操作源指针。</li>
+<li><strong>EDI</strong>：目的变址寄存器，字符串操作目标指针。</li>
+</ul>
+<h3 id="段寄存器">段寄存器</h3>
+<p>段寄存器用于存放段的基地址，段是一块预分配的内存区域。有些段存放有程序的指令，有些则存放有程序的变量，另外还有其他的段，如堆栈段存放着函数变量和函数参数等</p>
+<ul>
+<li>16位 CPU 中，段寄存器只有4个，分别是 CS（代码段）、DS（数据段）、SS（堆栈段）和ES（附加数据段）</li>
+<li>32 位的 CPU 中，段寄存器从 4 个扩展为 6 个，分别是 CS、DS、SS、ES、FS 和 GS。FS 和 GS 段寄存器也属于附加的段寄存器</li>
+</ul>
+<h3 id="指令指针寄存器">指令指针寄存器</h3>
+<ul>
+<li>
+<p>指令指针寄存器 <strong>EIP</strong> 是一个 32 位的寄存器，在 16 位的环境中，它的名称是 IP。EIP 寄存器保存着下一条要执行的指令的地址</p>
+</li>
+<li>
+<p>EIP 寄存器的值在程序中是无法直接修改的，只能通过影响 EIP 的指令间接地进行修改，如 JMP、CALL、RET 等指令。此外，通过中断或异常也可以影响 EIP 的值</p>
+</li>
+</ul>
+<h3 id="标志寄存器">标志寄存器</h3>
+<p>在 16 位 CPU 中，标志寄存器称为 <strong>FLAGS</strong>（有的书上是 <strong>PSW</strong>，即程序状态字寄存器）。在 32 位 CPU 中，标志寄存器也扩展为 32 位，被称为 <strong>EFLAGS</strong></p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111545235.png" srcset="/img/loading.gif" lazyload alt="image-20221211154550208"></p>
+<center><strong>图 7  16位的标志寄存器</strong></center>
+<h4 id="条件标志">条件标志</h4>
+<ol>
+<li><strong>OF(OverFlow Flag)</strong>:溢出标志位，用来反映有符号数加减法运算所得结果是否溢出。如果运算超过当前运算位数所能表示的范围，则称为溢出，该标志位被置为 1，否则为 0</li>
+<li><strong>SF(Sign Flag)</strong>:符号标志位，用来反映运算结果的符号位。运算结果为负时为 1，否则为 0</li>
+<li><strong>ZF(Zero Flag)</strong>:零标志位，用来反映运算结果是否为 0。运算结果为 0 时该标志位被置为 1，否则为 0</li>
+<li><strong>AF(Auxiliary carry Flag)</strong>:辅助进位标志位。在字操作时，发生低字节向高字节进位或借位时该标志位被置为 1，否则为 0（注意：在字节操作时，发生低 4 位向高 4 位进位或借位时该标志位被置为 1，否则为 0）</li>
+<li><strong>PF(Parity Flag)</strong>:奇偶标志位，用于反映结果中“1”的个数的奇偶性。如果“1”的个数为偶数，该标志位被置为 1，否则为 0</li>
+<li><strong>CF(Carry Flag)</strong>:进位标志位,运算结果的最高位产生了一个进位或借位，则该标志位被置为 1，否则为 0</li>
+</ol>
+<h4 id="控制标志">控制标志</h4>
+<ol>
+<li><strong>DF(Direction Flag)</strong>:方向标志位，用于串操作指令中，控制地址的变化方向。当 DF 为 0 时，存储器地址自动增加；当 DF 为 1 时，存储器地址自动减少。操作 DF 标志寄存器可以使用指令 CLD 和 STD 进行复位和置位</li>
+<li><strong>IF(Interrupt Flag)</strong>:中断标志位，用于控制外部可屏蔽中断是否可以被处理器响应。当 IF 为 1 时，允许中断；当 IF 为 0 时，则不允许中断。操作 IF 标志寄存器可以使用 CLI 和 STI 进行复位和置位</li>
+<li><strong>TF(Trap Flag)</strong>:陷阱标志位，用于控制处理器是否进入单步操作方式。当 TF 为 0 时，处理器在正常模式下运行；当 TF 为 1 时，处理器单步执行指令，调试器可以逐条指令进行执行就是使用了该标志位</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>逆向分析实战</div>
+      <div>http://example.com/posts/6e5d5d10.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Nuthecz</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/8e41db39.html" title="汇编语言">
+                        <span class="hidden-mobile">汇编语言</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
