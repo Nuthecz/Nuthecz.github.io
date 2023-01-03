@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212221920183.JPG">
 <meta property="article:published_time" content="2022-12-20T10:15:42.000Z">
-<meta property="article:modified_time" content="2022-12-23T08:49:58.941Z">
+<meta property="article:modified_time" content="2023-01-03T14:39:22.612Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212221920183.JPG">
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          5.8k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          33 分钟
+          49 分钟
         
       </span>
     
@@ -400,12 +400,54 @@
 <p>公式一：寄存器 + ret  4 = 参数个数</p>
 </li>
 <li>
-<p>公式二：寄存器 + [ebp+8] +[ebp+0x] = 参数个数</p>
+<p>公式二：寄存器 + [ebp+8] + [ebp+0x] = 参数个数</p>
 </li>
 </ul>
 </li>
 </ol>
-<h2 id="程序入口">程序入口</h2>
+<h2 id="语句">语句</h2>
+<h3 id="if……else">if……else</h3>
+<ul>
+<li>反汇编语句与if语句含义相反，即若if(x&gt;=1)，则反汇编中表达x&lt;1时跳转，否则继续顺序执行</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>	<span class="hljs-keyword">if</span> (x &gt;= <span class="hljs-number">1</span>) &#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;1&quot;</span>);<br>	&#125;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(x&gt;=<span class="hljs-number">3</span>)&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;2&quot;</span>);<br>	&#125;<br>	<span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Error&quot;</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212241152274.png" srcset="/img/loading.gif" lazyload alt="image-20221224115216179"></p>
+<center><strong> if……else语句</strong></center>
+<h3 id="switch">switch</h3>
+<ol>
+<li>
+<p>分支小于4或者数据无规律时，用switch无意义，生成类似if……else的反汇编</p>
+</li>
+<li>
+<p>Switch语句中数值相近时，会自动生成大表(连续数值中多个不存在时，会生成小表)</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Reverse-xiaoyu/p/11711393.html">switch…case…语句分析（大表跟小表何时产生）</a></p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>	<span class="hljs-keyword">switch</span> (x) &#123;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;A&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;D&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">9</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Z&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">default</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Error&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212241120544.png" srcset="/img/loading.gif" lazyload alt="image-20221224112033456"></p>
+<center><strong> Switch语句中的大表</strong></center>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>	<span class="hljs-keyword">switch</span> (x) &#123;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">101</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;A&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">108</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;X&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">109</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Y&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">110</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Z&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">default</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Error&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212241139348.png" srcset="/img/loading.gif" lazyload alt="image-20221224113940294"></p>
+<center><strong> Switch语句中的小表</strong></center>
+<h3 id="while">while</h3>
+<ol>
+<li>根据条件跳转指令所跳转到的地址，可以得到循环语句块的结束地址</li>
+<li>根据 jmp 指令所跳转到的地址，可以得到循环语句块的起始地址</li>
+<li>在还原while 比较时，条件跳转的逻辑与源码相反</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span>&#123;<br>	<span class="hljs-keyword">while</span> (x &lt; y)&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, x);<br>		x++;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212241157555.png" srcset="/img/loading.gif" lazyload alt="image-20221224115755527"></p>
+<center><strong> while语句</strong></center>
+<h3 id="for">for</h3>
+<ol>
+<li>第一个 jmp 指令之前为赋初值部分</li>
+<li>第一个 jmp 指令所跳转的地址为循环条件判定部分起始</li>
+<li>判断条件后面的跳转指令条件成立时跳转的循环体外面</li>
+<li>条件判断跳转指令所指向的地址上面有一个 jmp， jmp地址为表达式3的起始位置</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span>&#123;			<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=x;i&lt;y;i++)&#123;		<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>,i);	<br>	&#125;		<br>&#125;			<br></code></pre></td></tr></table></figure>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212241200812.png" srcset="/img/loading.gif" lazyload alt="image-20221224120045773"></p>
+<center><strong> for语句</strong></center>
 <h1>数据</h1>
 <h2 id="数据类型及存储">数据类型及存储</h2>
 <h3 id="c语言数据类型">c语言数据类型</h3>
@@ -545,6 +587,40 @@
 </li>
 </ul>
 <h4 id="结构体类型">结构体类型</h4>
+<ul>
+<li>本质是大量数据的内存复制</li>
+</ul>
+<h3 id="指针类型">指针类型</h3>
+<h4 id="基础知识">基础知识</h4>
+<ol>
+<li>
+<p>格式：<code>数据类型* 变量名</code></p>
+</li>
+<li>
+<p>宽度为4字节， * 可以是任意数量</p>
+</li>
+<li>
+<p>加减操作(+/-/++/–)都是<code>以数据类型的宽度为标准</code>进行增加或减少，例如：char为1，int为4。</p>
+<p><code>总结</code>：加减增加的是去掉一个 * 之后的数据宽度，若是char **，增加的就是4字节</p>
+</li>
+<li>
+<p><code>两种类型相互加减</code>：</p>
+<ul>
+<li>两个类型相同的带 * 类型的变量可以进行减法操作</li>
+<li>相减的结果要除以去掉一个 * 的数据的宽度</li>
+</ul>
+</li>
+</ol>
+<h4 id="运用">运用</h4>
+<ol>
+<li>
+<p><code>&amp;</code> 是地址符，类型是其后面的类型加一个 * ，任何变量都可以使用&amp;来获取地址，但不能用在常量上</p>
+</li>
+<li>
+<p><code>带 * 类型的变量</code>，可以通过在其变量前加 * 来获取<code>其指向内存中存储的值</code>，即在带 * 类型的变量前面加*，类型是其原来的类型减去一个 * 。</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> x;<br>&amp;x<span class="hljs-comment">//(int*)</span><br>    <br><span class="hljs-type">int</span>* y;<br>*y<span class="hljs-comment">//(int)</span><br></code></pre></td></tr></table></figure>
 <h1>内存</h1>
 <p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212222123177.png" srcset="/img/loading.gif" lazyload alt="image-20221222212351150"></p>
 <h2 id="变量">变量</h2>
