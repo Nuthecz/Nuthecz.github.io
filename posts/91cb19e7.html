@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212221920183.JPG">
 <meta property="article:published_time" content="2022-12-20T10:15:42.000Z">
-<meta property="article:modified_time" content="2023-01-05T13:16:11.092Z">
+<meta property="article:modified_time" content="2023-01-05T14:25:06.168Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212221920183.JPG">
@@ -64,6 +64,10 @@
     <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
+
+
+  
+<link rel="stylesheet" href="/css/fluid-extension.css">
 
 
 
@@ -221,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.2k 字
+          7.6k 字
         
       </span>
     
@@ -232,7 +236,7 @@
         
         
         
-          60 分钟
+          64 分钟
         
       </span>
     
@@ -718,6 +722,23 @@
 <li>&quot;china&quot;字符串存储在常量区内，不可以进行修改</li>
 <li><code>*(x+1)</code>中的x指向的是&quot;china&quot;在常量区的地址，直接对x进行修改就是修改常量区的数据，报错</li>
 <li><code>y[1]</code>中的数组在堆栈中开辟，常量区中的&quot;china&quot;被复制到了eax等寄存器中，成为了变量，修改y就是修改堆栈中的变量部分，所以正常运行。即y[1]不修改常量区内容，而是复制到变量区再进行修改</li>
+</ul>
+<h2 id="内存分配与释放">内存分配与释放</h2>
+<ul>
+<li>自动分配内存(c语言)</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>* ptr;<span class="hljs-comment">//声明指针		</span><br><br><span class="hljs-comment">//在堆中申请内存,分配128个int				</span><br>ptr = (<span class="hljs-type">int</span> *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*<span class="hljs-number">128</span>);	<br><br><span class="hljs-comment">//无论申请的空间大小 一定要进行校验 判断是否申请成功					</span><br><span class="hljs-keyword">if</span>(ptr == <span class="hljs-literal">NULL</span>)&#123;					<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;				<br>&#125;			<br><br><span class="hljs-comment">//初始化分配的内存空间			</span><br><span class="hljs-built_in">memset</span>(ptr,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*<span class="hljs-number">128</span>);			<br>			<br><span class="hljs-comment">//使用。。。			</span><br>*(ptr) = <span class="hljs-number">1</span>;			<br>			<br><span class="hljs-comment">//使用完毕 释放申请的堆空间			</span><br><span class="hljs-built_in">free</span>(ptr);			<br>			<br><span class="hljs-comment">//将指针设置为NULL			</span><br>ptr = <span class="hljs-literal">NULL</span>;			<br></code></pre></td></tr></table></figure>
+<ul>
+<li>注意事项：
+<ol>
+<li>使用 sizeof(类型)*n 来定义申请内存的大小</li>
+<li>malloc 返回类型为 void* 类型  需要强制转换</li>
+<li>无论申请的内存有多小，一定要判断是否申请成功</li>
+<li>申请完空间后要记得初始化</li>
+<li>使用完一定要是否申请的空间</li>
+<li>将指针的值设置为NULL</li>
+</ol>
+</li>
 </ul>
 
                 
