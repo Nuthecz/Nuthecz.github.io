@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211221642460.JPG">
 <meta property="article:published_time" content="2023-02-11T08:18:46.000Z">
-<meta property="article:modified_time" content="2023-02-16T13:10:00.289Z">
+<meta property="article:modified_time" content="2023-02-18T23:28:14.616Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211221642460.JPG">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.8k 字
+          9.1k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          74 分钟
+          77 分钟
         
       </span>
     
@@ -857,6 +857,32 @@
 </ul>
 <h4 id="CPU结构和流程"><a href="#CPU结构和流程" class="headerlink" title="CPU结构和流程"></a>CPU结构和流程</h4><p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202302162015694.png" srcset="/img/loading.gif" lazyload alt="image-20230216201502658"></p>
 <p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202302162014275.png" srcset="/img/loading.gif" lazyload alt="image-20230216201447237"></p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202302190725106.png" srcset="/img/loading.gif" lazyload alt="image-20230219072528065"></p>
+<p><strong>(1)</strong></p>
+<p><strong>CPU</strong>的组成：由算术逻辑运算单元、操作控制器组成。</p>
+<ol>
+<li><p>ALU：算术逻辑运算单元。执行算术运算、逻辑运算并测试</p>
+</li>
+<li><p>操作控制器：协调和指挥整个系统的操作，取指令并执行。</p>
+</li>
+<li><p>A和B—运算器前端的数据暂存器，也称运算寄存器。用来暂存参加运算的操作数</p>
+</li>
+<li><p>R0～R3—-CPU的通用寄存器组。存放操作数。</p>
+</li>
+<li><p>IR-指令寄存器器：保存当前正在执行的指令的指令码</p>
+</li>
+<li><p>PC-程序计数器：其保持的总是将要执行的下一条指令的地址。由于大多数指令都是按顺序来执行的，所以修改的过程通常只是简单的对PC加1。</p>
+</li>
+<li><p>AR—地址寄存器：用来保存当前CPU所访问的内存单元的地址（指令地址或操作数地址）</p>
+</li>
+<li><p>DR—数据（缓冲）寄存器：用来暂存写入内存单元的数据及从内存单元读出的数据</p>
+</li>
+</ol>
+<p><strong>(2)</strong></p>
+<p>取指微指令2分，间接寻址3分，SUB指令3分，微操作标注2分</p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202302190727964.png" srcset="/img/loading.gif" lazyload alt="image-20230219072731944"></p>
+<p><strong>(3)</strong></p>
+<p>如微程序</p>
 <h4 id="指令周期"><a href="#指令周期" class="headerlink" title="指令周期"></a>指令周期</h4><p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202302162017854.png" srcset="/img/loading.gif" lazyload alt="image-20230216201718800"></p>
 <ul>
 <li>方框语言表示指令周期</li>
