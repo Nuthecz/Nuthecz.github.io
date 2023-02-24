@@ -16,12 +16,12 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="参考自：  ​	汇编语言(第四版)————王爽 关于8086CPU本书以 8086CPU 为例，这里描述下简单的性质 win10(64位)安装汇编环境(masm)及使用 16位结构的CPU 运算器一次最多可以处理16位的数据 寄存器的最大宽度为16位 寄存器和运算器之间的通路为16位  物理地址的方法 8086CPU 有20条地址总线，但是其为16位结构，则其采用一种在内部用两个16位地址合成的">
+    <meta name="description" content="参考自：  ​	汇编语言(第四版)————王爽  关于8086CPU 本书以 8086CPU 为例，这里描述下简单的性质 win10(64位)安装汇编环境(masm)及使用  16位结构的CPU  运算器一次最多可以处理16位的数据 寄存器的最大宽度为16位 寄存器和运算器之间的通路为16位   物理地址的方法  8086CPU 有20条地址总线，但是其为16位结构，则其采用一种在内部用两个16">
 <meta property="og:type" content="article">
 <meta property="og:title" content="汇编语言">
 <meta property="og:url" content="http://example.com/posts/8e41db39.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="参考自：  ​	汇编语言(第四版)————王爽 关于8086CPU本书以 8086CPU 为例，这里描述下简单的性质 win10(64位)安装汇编环境(masm)及使用 16位结构的CPU 运算器一次最多可以处理16位的数据 寄存器的最大宽度为16位 寄存器和运算器之间的通路为16位  物理地址的方法 8086CPU 有20条地址总线，但是其为16位结构，则其采用一种在内部用两个16位地址合成的">
+<meta property="og:description" content="参考自：  ​	汇编语言(第四版)————王爽  关于8086CPU 本书以 8086CPU 为例，这里描述下简单的性质 win10(64位)安装汇编环境(masm)及使用  16位结构的CPU  运算器一次最多可以处理16位的数据 寄存器的最大宽度为16位 寄存器和运算器之间的通路为16位   物理地址的方法  8086CPU 有20条地址总线，但是其为16位结构，则其采用一种在内部用两个16">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211122244520.JPG">
 <meta property="article:published_time" content="2022-11-30T13:11:30.000Z">
@@ -87,7 +87,11 @@
 
 
   
-<meta name="generator" content="Hexo 6.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -225,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.6k 字
+          7.2k 字
         
       </span>
     
@@ -236,7 +240,7 @@
         
         
         
-          63 分钟
+          61 分钟
         
       </span>
     
@@ -283,361 +287,444 @@
 <li>参考自：</li>
 </ul>
 <p>​	汇编语言(第四版)————王爽</p>
-<h1 id="关于8086CPU"><a href="#关于8086CPU" class="headerlink" title="关于8086CPU"></a>关于8086CPU</h1><p>本书以 <code>8086CPU</code> 为例，这里描述下简单的性质</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_50918834/article/details/123476647?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-2-123476647-blog-103859037.pc_relevant_vip_default&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-2-123476647-blog-103859037.pc_relevant_vip_default&utm_relevant_index=1">win10(64位)安装汇编环境(masm)及使用</a></p>
-<h2 id="16位结构的CPU"><a href="#16位结构的CPU" class="headerlink" title="16位结构的CPU"></a>16位结构的CPU</h2><ul>
+<h1 id="关于8086cpu"><a class="markdownIt-Anchor" href="#关于8086cpu"></a> 关于8086CPU</h1>
+<p>本书以 <code>8086CPU</code> 为例，这里描述下简单的性质</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_50918834/article/details/123476647?spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-2-123476647-blog-103859037.pc_relevant_vip_default&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-2-123476647-blog-103859037.pc_relevant_vip_default&amp;utm_relevant_index=1">win10(64位)安装汇编环境(masm)及使用</a></p>
+<h2 id="16位结构的cpu"><a class="markdownIt-Anchor" href="#16位结构的cpu"></a> 16位结构的CPU</h2>
+<ul>
 <li>运算器一次最多可以处理16位的数据</li>
 <li>寄存器的最大宽度为16位</li>
 <li>寄存器和运算器之间的通路为16位</li>
 </ul>
-<h2 id="物理地址的方法"><a href="#物理地址的方法" class="headerlink" title="物理地址的方法"></a>物理地址的方法</h2><ul>
+<h2 id="物理地址的方法"><a class="markdownIt-Anchor" href="#物理地址的方法"></a> 物理地址的方法</h2>
+<ul>
 <li>8086CPU 有20条地址总线，但是其为16位结构，则其采用一种在内部用两个16位地址合成的方法来形成一个20位的物理地址</li>
 </ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211302137983.png" srcset="/img/loading.gif" lazyload alt="image-20221130213721942"></p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211302137983.png" srcset="/img/loading.gif" lazyload alt="image-20221130213721942" /></p>
 <center><strong>图 1  8086CPU 相关部件的逻辑结构</strong></center>
-
 <ul>
-<li>地址加法器采用 <strong>物理地址 &#x3D; 段地址(SA) X 16 + 偏移地址(EA)</strong>(段地址与偏移地址都是16位)<ul>
-<li>本质含义为<strong>基础地址 + 偏移地址 &#x3D; 物理地址</strong></li>
+<li>地址加法器采用 <strong>物理地址 = 段地址(SA) X 16 + 偏移地址(EA)</strong>(段地址与偏移地址都是16位)
+<ul>
+<li>本质含义为<strong>基础地址 + 偏移地址 = 物理地址</strong></li>
 <li>其中16为在二进制下左移4位，16进制下左移1位，与偏移量结合相当于增加了4条地址总线</li>
 <li>一个X进制的数据左移1位，相当于乘以X</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211302151831.png" srcset="/img/loading.gif" lazyload alt="image-20221130215138787"></p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211302151831.png" srcset="/img/loading.gif" lazyload alt="image-20221130215138787" /></p>
 <center><strong>图 2  地址加法器的工作过程</strong></center>
-
-<h1 id="Debug使用"><a href="#Debug使用" class="headerlink" title="Debug使用"></a>Debug使用</h1><ul>
+<h1 id="debug使用"><a class="markdownIt-Anchor" href="#debug使用"></a> Debug使用</h1>
+<ul>
 <li><strong>R</strong> 命令查看，改变CPU寄存器的内容</li>
-<li><strong>D</strong> 查看内存中的内容—-<strong>d 段地址:偏移地址</strong></li>
+<li><strong>D</strong> 查看内存中的内容----<strong>d 段地址:偏移地址</strong></li>
 <li><strong>E</strong> 改写内存中的内容</li>
 <li><strong>U</strong> 将内存中的机器指令翻译成汇编指令</li>
 <li><strong>T</strong> 执行一条机器指令</li>
 <li><strong>G</strong> 修改IP的值,即跳转.例如:g 0012</li>
 <li><strong>A</strong> 以汇编指令的格式在内存中写入一条机器指令</li>
-<li><strong>P</strong> 使Debug自动重复执行”loop”相关指令至cx&#x3D;&#x3D;0.也可以执行程序返回(int 21)</li>
+<li><strong>P</strong> 使Debug自动重复执行&quot;loop&quot;相关指令至cx==0.也可以执行程序返回(int 21)</li>
 <li><strong>Q</strong> 退出Debug模式，返回命令行</li>
 </ul>
-<h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><h2 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h2><p>数据寄存器</p>
-<h3 id="AX"><a href="#AX" class="headerlink" title="AX"></a>AX</h3><ul>
+<h1 id="寄存器"><a class="markdownIt-Anchor" href="#寄存器"></a> 寄存器</h1>
+<h2 id="通用寄存器"><a class="markdownIt-Anchor" href="#通用寄存器"></a> 通用寄存器</h2>
+<p>数据寄存器</p>
+<h3 id="ax"><a class="markdownIt-Anchor" href="#ax"></a> AX</h3>
+<ul>
 <li>累加器</li>
 </ul>
-<h3 id="BX"><a href="#BX" class="headerlink" title="BX"></a>BX</h3><ul>
-<li><p><code>mov ax,[bx]</code></p>
+<h3 id="bx"><a class="markdownIt-Anchor" href="#bx"></a> BX</h3>
 <ul>
-<li><p>bx中存放的数据作为一个偏移地址EA,<strong>段地址SA默认在ds中</strong>,将SA:EA处的数据送入ax中.即:</p>
-<p>(ax) &#x3D; ( ( ds ) * 16 + ( bx ) )</p>
+<li>
+<p><code>mov ax,[bx]</code></p>
+<ul>
+<li>
+<p>bx中存放的数据作为一个偏移地址EA,<strong>段地址SA默认在ds中</strong>,将SA:EA处的数据送入ax中.即:</p>
+<p>(ax) = ( ( ds ) * 16 + ( bx ) )</p>
 </li>
 </ul>
 </li>
-<li><p><code>mov ax,[0]</code></p>
+<li>
+<p><code>mov ax,[0]</code></p>
 <ul>
-<li><p>debug和汇编编译器masm对此指令有不用的处理</p>
+<li>
+<p>debug和汇编编译器masm对此指令有不用的处理</p>
 <ul>
 <li>debug中[0]表示ds:0处的数据</li>
 <li>masm中[0]表示数字0</li>
 </ul>
 </li>
-<li><p><strong>解决冲突</strong>: 在”[ ]”的前面显式地给出段地址所在的段寄存器</p>
+<li>
+<p><strong>解决冲突</strong>: 在&quot;[ ]&quot;的前面显式地给出段地址所在的段寄存器</p>
 <ol>
-<li><p>在汇编源程序中,如果用指令访问一个内存单元,则在指令中必须用”[…]”来表示内存单元,如果在”[]”里用一个常量idata直接给出内存单元的拍内衣地址,就要在”[]”的前面显式地给出段地址所在的段寄存器,比如: </p>
+<li>
+<p>在汇编源程序中,如果用指令访问一个内存单元,则在指令中必须用&quot;[…]“来表示内存单元,如果在”[]“里用一个常量idata直接给出内存单元的拍内衣地址,就要在”[]&quot;的前面显式地给出段地址所在的段寄存器,比如:</p>
 <p>mov ax,ds:[0]</p>
 </li>
-<li><p>如果在”[]”里用寄存器,比如bx,简介给出内存单元地偏移地址,则段地址默认在ds中.当然,也可以显式地给出段地址所在地段寄存器,比如: mov ax,ds:[bx]</p>
+<li>
+<p>如果在&quot;[]&quot;里用寄存器,比如bx,简介给出内存单元地偏移地址,则段地址默认在ds中.当然,也可以显式地给出段地址所在地段寄存器,比如: mov ax,ds:[bx]</p>
 </li>
 </ol>
 </li>
 </ul>
 </li>
-<li><p><code>mov ax,[bx+idata]</code></p>
+<li>
+<p><code>mov ax,[bx+idata]</code></p>
 <ul>
 <li>idata表示常量</li>
 <li>偏移地址位(bx)+idata,也可以写成<code>mov ax,idata[bx]</code>或者<code>mov ax,[bx].idata</code></li>
 <li>可以简化代码长度</li>
 </ul>
 </li>
-<li><p><code>mov ax,[bx+si+idata]</code></p>
+<li>
+<p><code>mov ax,[bx+si+idata]</code></p>
 <ul>
 <li>与上面含义相同,展示不同的寻址方式</li>
 </ul>
 </li>
-<li><p><strong>只有bx,si,di,bp四个寄存器可以在”[…]”中进行内存单元的寻址</strong></p>
+<li>
+<p><strong>只有bx,si,di,bp四个寄存器可以在&quot;[…]&quot;中进行内存单元的寻址</strong></p>
 <ul>
 <li>例如:<code>mov ax,[bp+si]</code>,其余寄存器都不可以</li>
 </ul>
 </li>
 </ul>
-<h3 id="CX"><a href="#CX" class="headerlink" title="CX"></a>CX</h3><ul>
+<h3 id="cx"><a class="markdownIt-Anchor" href="#cx"></a> CX</h3>
+<ul>
 <li>计数器，CPU 自动使用 CX 作为循环计数器，在字符串和循环操作中常用，在循环指令（LOOP）或串操作中，CX 用来进行循环计数，每执行一次循环，ECX 都会被 CPU 自动减一</li>
 </ul>
 <p>指针变址寄存器</p>
-<h3 id="SI与DI"><a href="#SI与DI" class="headerlink" title="SI与DI"></a>SI与DI</h3><ul>
+<h3 id="si与di"><a class="markdownIt-Anchor" href="#si与di"></a> SI与DI</h3>
+<ul>
 <li>与bx功能相近,si和di不能够分成两个8位寄存器</li>
 </ul>
-<h2 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h2><ul>
-<li><p>8086CPU的标志寄存器(flag)有16位,其中存储的信息通常被称为程序状态字(PSW)</p>
+<h2 id="标志寄存器"><a class="markdownIt-Anchor" href="#标志寄存器"></a> 标志寄存器</h2>
 <ul>
-<li><p>作用:</p>
+<li>
+<p>8086CPU的标志寄存器(flag)有16位,其中存储的信息通常被称为程序状态字(PSW)</p>
+<ul>
+<li>
+<p>作用:</p>
 <ol>
-<li><p>用来存储相关指令的某些执行结果</p>
+<li>
+<p>用来存储相关指令的某些执行结果</p>
 </li>
-<li><p>用来为CPU执行相关指令提供行为依据</p>
+<li>
+<p>用来为CPU执行相关指令提供行为依据</p>
 </li>
-<li><p>用来控制CPU的相关工作方式</p>
+<li>
+<p>用来控制CPU的相关工作方式</p>
 </li>
 </ol>
 </li>
 </ul>
 </li>
 </ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212152021020.png" srcset="/img/loading.gif" lazyload alt="image-20221215202131982"></p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212152021020.png" srcset="/img/loading.gif" lazyload alt="image-20221215202131982" /></p>
 <center><strong>8086CPU的标志寄存器结构</strong></center>
-
 <ul>
 <li>flag按位起作用,其中1,3,5,12,13,14,14没有作用,不具有任何含义.而<strong>0,2,4,6,7,8,9,10,11</strong>位具有特殊的含义.</li>
 </ul>
-<h3 id="CF标志"><a href="#CF标志" class="headerlink" title="CF标志"></a>CF标志</h3><p><strong>Carry Flag</strong></p>
+<h3 id="cf标志"><a class="markdownIt-Anchor" href="#cf标志"></a> CF标志</h3>
+<p><strong>Carry Flag</strong></p>
 <ul>
 <li>flag的第0位是CF,进位标志位.一般情况下,在进行无符号数运算的时候,它记录了运算结果的最高有效位向更高位的进位值,或从更高位的借位值.</li>
 </ul>
-<h3 id="PF标志"><a href="#PF标志" class="headerlink" title="PF标志"></a>PF标志</h3><p><strong>Parity Even Flag</strong></p>
+<h3 id="pf标志"><a class="markdownIt-Anchor" href="#pf标志"></a> PF标志</h3>
+<p><strong>Parity Even Flag</strong></p>
 <ul>
-<li>flag的第2位是PF,奇偶标志位.它记录相关指令执行后,其结果的所有bit位中1的个数是否位偶数.如果1的个数为偶数,pf &#x3D; 1;如果为奇数,那么pf &#x3D; 0.</li>
+<li>flag的第2位是PF,奇偶标志位.它记录相关指令执行后,其结果的所有bit位中1的个数是否位偶数.如果1的个数为偶数,pf = 1;如果为奇数,那么pf = 0.</li>
 </ul>
-<h3 id="ZF标志"><a href="#ZF标志" class="headerlink" title="ZF标志"></a>ZF标志</h3><p><strong>Zero Flag</strong></p>
+<h3 id="zf标志"><a class="markdownIt-Anchor" href="#zf标志"></a> ZF标志</h3>
+<p><strong>Zero Flag</strong></p>
 <ul>
-<li>flag的第6位是ZF,零标志位.它记录相关指令执行后,其结果是否为0.如果结果为0,那么zf &#x3D; 1;如果结果不为0,zf &#x3D; 0.</li>
+<li>flag的第6位是ZF,零标志位.它记录相关指令执行后,其结果是否为0.如果结果为0,那么zf = 1;如果结果不为0,zf = 0.</li>
 <li>一般add,sub,mul,div,inc,or,and等进行逻辑或算术运算指令会对ZF产生影响.</li>
 </ul>
-<h3 id="SF标志"><a href="#SF标志" class="headerlink" title="SF标志"></a>SF标志</h3><p><strong>Sign Flag</strong></p>
+<h3 id="sf标志"><a class="markdownIt-Anchor" href="#sf标志"></a> SF标志</h3>
+<p><strong>Sign Flag</strong></p>
 <ul>
-<li>flag的第7位是SF,符号标志位.它记录相关指令执行后,其结果是否为负.如果结果为负,sf &#x3D; 1;如果非负,sf &#x3D; 0.</li>
+<li>flag的第7位是SF,符号标志位.它记录相关指令执行后,其结果是否为负.如果结果为负,sf = 1;如果非负,sf = 0.</li>
 <li>它是CPU对有符号数运算结果的一种记录,记录数据的正负,只在有符号数计算中起作用.</li>
 </ul>
-<h3 id="DF标志"><a href="#DF标志" class="headerlink" title="DF标志"></a>DF标志</h3><p><strong>Direction Flag</strong></p>
+<h3 id="df标志"><a class="markdownIt-Anchor" href="#df标志"></a> DF标志</h3>
+<p><strong>Direction Flag</strong></p>
 <ul>
-<li>flag的第10位是DF,方向标志位.在<strong>串处理指令</strong>中,控制每次操作后si,di的增减<ul>
-<li>df &#x3D; 0,每次操作后si,di递增</li>
-<li>df &#x3D; 1,每次操作后si,di递减</li>
+<li>flag的第10位是DF,方向标志位.在<strong>串处理指令</strong>中,控制每次操作后si,di的增减
+<ul>
+<li>df = 0,每次操作后si,di递增</li>
+<li>df = 1,每次操作后si,di递减</li>
 </ul>
 </li>
 </ul>
-<h3 id="OF标志"><a href="#OF标志" class="headerlink" title="OF标志"></a>OF标志</h3><p><strong>Overflow Flag</strong></p>
+<h3 id="of标志"><a class="markdownIt-Anchor" href="#of标志"></a> OF标志</h3>
+<p><strong>Overflow Flag</strong></p>
 <ul>
-<li>flag的第11位是OF,溢出标志位.一般情况下,OF记录了<strong>有符号数</strong>运算的结果是否发生了溢出.如果发生溢出,of &#x3D; 1;如果没有,of &#x3D; 0.</li>
+<li>flag的第11位是OF,溢出标志位.一般情况下,OF记录了<strong>有符号数</strong>运算的结果是否发生了溢出.如果发生溢出,of = 1;如果没有,of = 0.</li>
 <li><strong>注意CF和OF的区别</strong>:CF是对无符号数运算有意义,而OF是对有符号数运算有意义</li>
 </ul>
-<h2 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h2><h3 id="CS和IP"><a href="#CS和IP" class="headerlink" title="CS和IP"></a>CS和IP</h3><ul>
-<li>CS为代码段寄存器，IP为指令指针寄存器<ul>
+<h2 id="段寄存器"><a class="markdownIt-Anchor" href="#段寄存器"></a> 段寄存器</h2>
+<h3 id="cs和ip"><a class="markdownIt-Anchor" href="#cs和ip"></a> CS和IP</h3>
+<ul>
+<li>CS为代码段寄存器，IP为指令指针寄存器
+<ul>
 <li>若设CS中内容为M，IP中内容为N，则8086CPU将从内存 <code>M X 16 + N</code> 单元开始，读取一条指令并执行</li>
 </ul>
 </li>
-<li>8086CPU工作过程<ol>
+<li>8086CPU工作过程
+<ol>
 <li>从<strong>CS:IP</strong>指向的内存单元读取指令，读取的指令进入指令缓冲器</li>
-<li>IP &#x3D; IP + 所读取指令的长度，从而指向下一条指令</li>
+<li>IP = IP + 所读取指令的长度，从而指向下一条指令</li>
 <li>执行指令。转到步骤1，重复这个过程</li>
 </ol>
 </li>
 </ul>
-<h4 id="修改CS、IP的指令"><a href="#修改CS、IP的指令" class="headerlink" title="修改CS、IP的指令"></a>修改CS、IP的指令</h4><ul>
-<li>转移指令:能够改变CS，IP的内容的指令,例如：<strong>jmp指令</strong><ul>
-<li><strong>jmp 段地址:偏移地址</strong><ul>
-<li>用指令中给出的段地址修改CS,偏移地址修改IP</li>
-<li>jmp 2AE3:3  执行后,CS&#x3D;2AE3H,IP&#x3D;0003H,CPU将从2AE33H处读取指令</li>
-</ul>
-</li>
-<li><strong>jmp 某一合法寄存器</strong>,功能为：用寄存器中的值修改IP—-类似mov IP,ax<ul>
-<li>jmp ax<ul>
-<li>执行前:ax&#x3D;1000H,CS&#x3D;2000H,IP&#x3D;0003H</li>
-<li>执行后:ax&#x3D;1000H,CS&#x3D;2000H,<code>IP=1000H</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="DS"><a href="#DS" class="headerlink" title="DS"></a>DS</h3><ul>
-<li><p><strong>DS</strong>用来存放要访问数据的段地址</p>
-</li>
-<li><p><code>mov al,[0]</code> […]表示一个内存单元，[0]中的0表示内存单元的偏移地址，这个时候的<strong>段地址</strong>默认是在ds中( <strong>物理地址 &#x3D; 段地址 X 16 + 偏移地址</strong>)</p>
-</li>
-</ul>
-<h2 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h2><p>8086CPU的入栈和出栈都是以**字(两个字节)**为单位进行的，高地址单元存放高8位(<strong>前面的两字节</strong>)，低地址单元存放低8位(<strong>小端存储</strong>)</p>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212021508126.png" srcset="/img/loading.gif" lazyload alt="image-20221202150812086"></p>
-<center><strong>图 3  8086CPU的栈操作</strong></center>
-
-<h3 id="SS和SP"><a href="#SS和SP" class="headerlink" title="SS和SP"></a>SS和SP</h3><ul>
-<li><p>段寄存器SS和寄存器SP</p>
-</li>
-<li><p>栈顶的段地址存放在SS中，偏移地址存放在SP中</p>
-</li>
-<li><p><strong>任何时刻，SS:SP 指向栈顶元素</strong></p>
-</li>
-<li><p>入栈时，栈顶从高地址向低地址方向增长</p>
-</li>
-<li><p>栈为空时，以<code>10000H~1000FH</code>为栈空间</p>
+<h4 id="修改cs-ip的指令"><a class="markdownIt-Anchor" href="#修改cs-ip的指令"></a> 修改CS、IP的指令</h4>
 <ul>
-<li>SS:SP指向栈空间最高地址单元的下一个单元<ul>
-<li>例如：SS&#x3D;1000H,SP&#x3D;0010H —-10H-FH &#x3D;&#x3D; 1H(字节)</li>
+<li>转移指令:能够改变CS，IP的内容的指令,例如：<strong>jmp指令</strong>
+<ul>
+<li><strong>jmp 段地址:偏移地址</strong>
+<ul>
+<li>用指令中给出的段地址修改CS,偏移地址修改IP</li>
+<li>jmp 2AE3:3  执行后,CS=2AE3H,IP=0003H,CPU将从2AE33H处读取指令</li>
 </ul>
 </li>
-<li>该单元的地址为栈最底部的<code>字</code>单元的地址+2。<ul>
-<li>例如：栈最底部<code>字</code>单元的地址为1000:000E,所以栈空时，SP &#x3D; 0010H</li>
+<li><strong>jmp 某一合法寄存器</strong>,功能为：用寄存器中的值修改IP----类似mov IP,ax
+<ul>
+<li>jmp ax
+<ul>
+<li>执行前:ax=1000H,CS=2000H,IP=0003H</li>
+<li>执行后:ax=1000H,CS=2000H,<code>IP=1000H</code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><code>push</code> 先将记录栈顶偏移地址的SP寄存器中的内容减2，使得SS:SP指向新的栈顶单元，然后再将寄存器中的数据送入SS：SP指向的新的栈顶单元</p>
-</li>
-<li><p>注意栈顶超界问题</p>
+</ul>
 </li>
 </ul>
-<h3 id="BP"><a href="#BP" class="headerlink" title="BP"></a>BP</h3><ul>
+<h3 id="ds"><a class="markdownIt-Anchor" href="#ds"></a> DS</h3>
+<ul>
+<li>
+<p><strong>DS</strong>用来存放要访问数据的段地址</p>
+</li>
+<li>
+<p><code>mov al,[0]</code> […]表示一个内存单元，[0]中的0表示内存单元的偏移地址，这个时候的<strong>段地址</strong>默认是在ds中( <strong>物理地址 = 段地址 X 16 + 偏移地址</strong>)</p>
+</li>
+</ul>
+<h2 id="栈"><a class="markdownIt-Anchor" href="#栈"></a> 栈</h2>
+<p>8086CPU的入栈和出栈都是以**字(两个字节)**为单位进行的，高地址单元存放高8位(<strong>前面的两字节</strong>)，低地址单元存放低8位(<strong>小端存储</strong>)</p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212021508126.png" srcset="/img/loading.gif" lazyload alt="image-20221202150812086" /></p>
+<center><strong>图 3  8086CPU的栈操作</strong></center>
+<h3 id="ss和sp"><a class="markdownIt-Anchor" href="#ss和sp"></a> SS和SP</h3>
+<ul>
+<li>
+<p>段寄存器SS和寄存器SP</p>
+</li>
+<li>
+<p>栈顶的段地址存放在SS中，偏移地址存放在SP中</p>
+</li>
+<li>
+<p><strong>任何时刻，SS:SP 指向栈顶元素</strong></p>
+</li>
+<li>
+<p>入栈时，栈顶从高地址向低地址方向增长</p>
+</li>
+<li>
+<p>栈为空时，以<code>10000H~1000FH</code>为栈空间</p>
+<ul>
+<li>SS:SP指向栈空间最高地址单元的下一个单元
+<ul>
+<li>例如：SS=1000H,SP=0010H ----10H-FH == 1H(字节)</li>
+</ul>
+</li>
+<li>该单元的地址为栈最底部的<code>字</code>单元的地址+2。
+<ul>
+<li>例如：栈最底部<code>字</code>单元的地址为1000:000E,所以栈空时，SP = 0010H</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>push</code> 先将记录栈顶偏移地址的SP寄存器中的内容减2，使得SS:SP指向新的栈顶单元，然后再将寄存器中的数据送入SS：SP指向的新的栈顶单元</p>
+</li>
+<li>
+<p>注意栈顶超界问题</p>
+</li>
+</ul>
+<h3 id="bp"><a class="markdownIt-Anchor" href="#bp"></a> BP</h3>
+<ul>
 <li><strong>基数指针寄存器BP(base pointer)</strong> 是一个寄存器，它的用途有点特殊，是和堆栈指针SP联合使用的，作为SP校准使用的，只有在寻找堆栈里的数据和使用个别的寻址方式时候才能用到,例如:堆栈中压入了很多数据或者地址，你肯定想通过SP来访问这些数据或者地址，但SP是要指向栈顶的，是不能随便乱改的，这时候你就需要使用BP，把SP的值传递给BP，通过BP来寻找堆栈里数据或者地址</li>
 <li>只要在[…]中使用寄存器bp,而指令中没有显性地给出段地址,<strong>段地址就默认在ss中</strong></li>
 </ul>
-<h2 id="段的综述"><a href="#段的综述" class="headerlink" title="段的综述"></a>段的综述</h2><ul>
-<li>用段存放数据,定义为:”<strong>数据段</strong>“ —-DS + []</li>
-<li>用段存放代码,定义为:”<strong>代码段</strong>“ —-CS + IP</li>
-<li>用段充当栈,  定义为:”<strong>栈段</strong>“   —-SS + SP</li>
+<h2 id="段的综述"><a class="markdownIt-Anchor" href="#段的综述"></a> 段的综述</h2>
+<ul>
+<li>用段存放数据,定义为:“<strong>数据段</strong>” ----DS + []</li>
+<li>用段存放代码,定义为:“<strong>代码段</strong>” ----CS + IP</li>
+<li>用段充当栈,  定义为:“<strong>栈段</strong>”   ----SS + SP</li>
 </ul>
-<h1 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h1><h2 id="源程序"><a href="#源程序" class="headerlink" title="源程序"></a>源程序</h2><ul>
-<li><p>汇编指令与伪指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;assume为假设，假设某一段寄存器和程序中的某一个用segment…ends定义的段相联系<br>;此代码将用作代码段的段codesg和CPU中的段寄存器cs联系起来<br>assume cs:codesg<br><br>;定义一个段，段的名称为“codesg”，这个段从此开始<br>;&quot;codesg&quot;为标号，指代了一个地址<br>codesg segment<br><br>	mov ax,0123H<br>	mov bx,0456H<br>	add ax,bx<br>	add ax,ax<br>	<br>	;这两条指令实现程序返回<br>	mov ax,4c00H<br>	int 21H<br><br>;名称为“codesg”的段到此结束<br>codesg ends<br><br>;汇编程序结束<br>end<br><br></code></pre></td></tr></table></figure></li>
+<h1 id="程序"><a class="markdownIt-Anchor" href="#程序"></a> 程序</h1>
+<h2 id="源程序"><a class="markdownIt-Anchor" href="#源程序"></a> 源程序</h2>
+<ul>
+<li>
+<p>汇编指令与伪指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;assume为假设，假设某一段寄存器和程序中的某一个用segment…ends定义的段相联系<br>;此代码将用作代码段的段codesg和CPU中的段寄存器cs联系起来<br>assume cs:codesg<br><br>;定义一个段，段的名称为“codesg”，这个段从此开始<br>;&quot;codesg&quot;为标号，指代了一个地址<br>codesg segment<br><br>	mov ax,0123H<br>	mov bx,0456H<br>	add ax,bx<br>	add ax,ax<br>	<br>	;这两条指令实现程序返回<br>	mov ax,4c00H<br>	int 21H<br><br>;名称为“codesg”的段到此结束<br>codesg ends<br><br>;汇编程序结束<br>end<br><br></code></pre></td></tr></table></figure>
+</li>
 </ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212021629583.png" srcset="/img/loading.gif" lazyload alt="image-20221202162931534"></p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212021629583.png" srcset="/img/loading.gif" lazyload alt="image-20221202162931534" /></p>
 <center><strong>图 4  与结束相关的概念</strong></center>
-
-
-
-<h2 id="编译与连接"><a href="#编译与连接" class="headerlink" title="编译与连接"></a>编译与连接</h2><ul>
+<h2 id="编译与连接"><a class="markdownIt-Anchor" href="#编译与连接"></a> 编译与连接</h2>
+<ul>
 <li><strong>编译</strong>:使用编译器对源程序文件(.asm)中的<strong>源程序</strong>进行编译,产生<strong>目标文件</strong>(.obj)</li>
 <li>连接:使用连接程序对<strong>目标文件</strong>进行连接,生成可在操作系统中直接运行的<strong>可执行文件</strong>(.exe)</li>
 </ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212042046362.png" srcset="/img/loading.gif" lazyload alt="image-20221204204616313"></p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212042046362.png" srcset="/img/loading.gif" lazyload alt="image-20221204204616313" /></p>
 <center><strong>图 5  汇编程序从写出到执行的过程</strong></center>
-
-<h2 id="执行"><a href="#执行" class="headerlink" title="执行"></a>执行</h2><ul>
+<h2 id="执行"><a class="markdownIt-Anchor" href="#执行"></a> 执行</h2>
+<ul>
 <li>DOS系统的shell(<strong>command</strong>.com,也称为命令解释器)将可执行文件的程序加载入内存,设置CS:IP指向程序入口,此后command停止,CPU运行程序</li>
-<li>DOS系统中.EXE文件中程序的加载过程<ul>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212121618376.png" srcset="/img/loading.gif" lazyload alt="image-20221212161826290"></li>
+<li>DOS系统中.EXE文件中程序的加载过程
+<ul>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212121618376.png" srcset="/img/loading.gif" lazyload alt="image-20221212161826290" /></li>
 </ul>
 </li>
 </ul>
 <center><strong>图 6  EXE文件中程序加载过程</strong></center>
-
 <ol>
-<li><p>程序加载后,ds中存放着程序所在内存区的段地址,这个内存区的偏移地址为0,则程序所在的内存区的地址为ds:0</p>
+<li>
+<p>程序加载后,ds中存放着程序所在内存区的段地址,这个内存区的偏移地址为0,则程序所在的内存区的地址为ds:0</p>
 </li>
-<li><p>这个内存区的前256个字节中存放的是PSP,DOS用来和程序及进行通信.从256字节处向后的空间存放的是程序</p>
-<p>(即 <strong>( CS ) &#x3D; ( DS ) + 10H</strong> )</p>
+<li>
+<p>这个内存区的前256个字节中存放的是PSP,DOS用来和程序及进行通信.从256字节处向后的空间存放的是程序</p>
+<p>(即 <strong>( CS ) = ( DS ) + 10H</strong> )</p>
 </li>
 </ol>
-<h2 id="寻址方式"><a href="#寻址方式" class="headerlink" title="寻址方式"></a>寻址方式</h2><p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212130940356.png" srcset="/img/loading.gif" lazyload alt="image-20221213094011306"></p>
+<h2 id="寻址方式"><a class="markdownIt-Anchor" href="#寻址方式"></a> 寻址方式</h2>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212130940356.png" srcset="/img/loading.gif" lazyload alt="image-20221213094011306" /></p>
 <center><strong>图 7  寻址方式小结</strong></center>
-
-<h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><h2 id="loop"><a href="#loop" class="headerlink" title="loop"></a>loop</h2><ul>
+<h1 id="指令"><a class="markdownIt-Anchor" href="#指令"></a> 指令</h1>
+<h2 id="loop"><a class="markdownIt-Anchor" href="#loop"></a> loop</h2>
+<ul>
 <li>格式: <code>loop 标号</code></li>
 <li>循环指令,所有的循环指令都是短转移,在对应的机器码中<strong>包含转移的位移,而不是目的地址</strong>(即包含到目的地址的位移)</li>
-<li>CPU执行loop指令的时候,要进行两部操作<ul>
-<li>(1) ( cx ) &#x3D; ( cx ) - 1</li>
+<li>CPU执行loop指令的时候,要进行两部操作
+<ul>
+<li>(1) ( cx ) = ( cx ) - 1</li>
 <li>(2) 判断 cx 中的值,不为零则转至标号处执行程序,如果为零则向下执行</li>
 </ul>
 </li>
 </ul>
-<h2 id="and"><a href="#and" class="headerlink" title="and"></a>and</h2><ul>
+<h2 id="and"><a class="markdownIt-Anchor" href="#and"></a> and</h2>
+<ul>
 <li>逻辑与指令,<strong>按位进行与运算</strong></li>
 <li>可将操作对象的相应位设为0,其他位不变</li>
 <li>例如:将al的第六位设为0:and al,10111111B,可适用于大小写转化</li>
 </ul>
-<h2 id="or"><a href="#or" class="headerlink" title="or"></a>or</h2><ul>
+<h2 id="or"><a class="markdownIt-Anchor" href="#or"></a> or</h2>
+<ul>
 <li>逻辑或指令,<strong>按位进行或运算</strong></li>
 <li>可将操作对象的相应位设为1,其他位不变</li>
 </ul>
-<h2 id="inc和dec"><a href="#inc和dec" class="headerlink" title="inc和dec"></a>inc和dec</h2><ul>
-<li><code>inc dx</code>—-dx中的数据加1</li>
-<li><code>dec dx</code>—-dx中的数据减1</li>
+<h2 id="inc和dec"><a class="markdownIt-Anchor" href="#inc和dec"></a> inc和dec</h2>
+<ul>
+<li><code>inc dx</code>----dx中的数据加1</li>
+<li><code>dec dx</code>----dx中的数据减1</li>
 </ul>
-<h2 id="div"><a href="#div" class="headerlink" title="div"></a>div</h2><ul>
-<li><p>除法指令</p>
+<h2 id="div"><a class="markdownIt-Anchor" href="#div"></a> div</h2>
+<ul>
+<li>
+<p>除法指令</p>
 <ol>
 <li>除数:有8位和16位两种,在一个reg或内存单元中</li>
 <li>被除数:默认放在AX或DX和AX中,如果除数为8位,被除数则为16位,默认在AX中存放;如果除数为16位,被除数则为32位,在DX和AX中存放,DX存放高16位,AX存放低16位</li>
 <li>结果:如果除数为8位,则AL存储除法操作的商,AH存储除法操作的余数;如果除数为16位,则AX存储除法操作的商,DX存储除法操作的余数</li>
 </ol>
 </li>
-<li><p>例如:<code>div byte ptr ds:[0]</code></p>
+<li>
+<p>例如:<code>div byte ptr ds:[0]</code></p>
 <ul>
-<li>(al) &#x3D; (ax) &#x2F;  ( (ds) * 16 + 0) )的商</li>
-<li>(ah) &#x3D; (ax) &#x2F;  ( (ds) * 16 + 0) )的余数</li>
+<li>(al) = (ax) /  ( (ds) * 16 + 0) )的商</li>
+<li>(ah) = (ax) /  ( (ds) * 16 + 0) )的余数</li>
 </ul>
 </li>
 </ul>
-<h2 id="mul"><a href="#mul" class="headerlink" title="mul"></a>mul</h2><ul>
-<li><p>乘法指令</p>
+<h2 id="mul"><a class="markdownIt-Anchor" href="#mul"></a> mul</h2>
+<ul>
+<li>
+<p>乘法指令</p>
 <ol>
 <li>两个相乘的数:两个数要么都是8位,要么都是16位.如果是8位,一个默认放在AL中,另一个放在8位reg或内存字节单元中;如果是16位,一个默认在AX中,另一个放在16位reg或内存单元中.</li>
 <li>结果:如果8位乘法,结果默认放在AX中;如果16位乘法,结果高位默认在DX中存放,低位在AX中放.</li>
 </ol>
 </li>
-<li><p>格式</p>
+<li>
+<p>格式</p>
 <ul>
 <li><code>mul reg</code></li>
 <li><code>mul 内存单元</code>(内存单元可以用不同寻址方式给出)</li>
 </ul>
 </li>
 </ul>
-<h2 id="jmp"><a href="#jmp" class="headerlink" title="jmp"></a>jmp</h2><ul>
-<li><p>无条件转义指令,可以只修改IP,也可以同时修改CS和IP</p>
+<h2 id="jmp"><a class="markdownIt-Anchor" href="#jmp"></a> jmp</h2>
+<ul>
+<li>
+<p>无条件转义指令,可以只修改IP,也可以同时修改CS和IP</p>
 </li>
-<li><p>需要:</p>
+<li>
+<p>需要:</p>
 <ol>
 <li>转移的目的地址</li>
 <li>转移的距离(段间转移,段内短转移,段内近转移)</li>
 </ol>
 </li>
-<li><p>面向地址</p>
+<li>
+<p>面向地址</p>
 <ul>
-<li><p>段内转移(只修改IP的值)</p>
+<li>
+<p>段内转移(只修改IP的值)</p>
 <ul>
-<li><p><code>jmp short 标号</code>的功能为:(IP) &#x3D; (IP) + 8位位移,机器码为<code>EB XX</code>(XX指位移)</p>
+<li>
+<p><code>jmp short 标号</code>的功能为:(IP) = (IP) + 8位位移,机器码为<code>EB XX</code>(XX指位移)</p>
 <ul>
-<li><strong>8位位移 &#x3D; 标号处的地址 - jmp指令后的第一个字节的地址</strong></li>
+<li><strong>8位位移 = 标号处的地址 - jmp指令后的第一个字节的地址</strong></li>
 <li>short指明此处的位移为8位位移,进行<strong>段内短转移</strong></li>
 <li>8位位移的范围为-128~127,用补码表示</li>
 <li>8位位移有编译程序在编译时算出</li>
 </ul>
 </li>
-<li><p><code>jmp near ptr 标号</code></p>
+<li>
+<p><code>jmp near ptr 标号</code></p>
 <ul>
 <li>与jmp short 标号相同,不过是16位位移,进行<strong>段内近转移</strong></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>段间转移(修改CS:IP的值)</p>
+<li>
+<p>段间转移(修改CS:IP的值)</p>
 <ul>
-<li>(CS) &#x3D; 标号所在段的段地址,(IP) &#x3D; 标号在段中的偏移地址</li>
+<li>(CS) = 标号所在段的段地址,(IP) = 标号在段中的偏移地址</li>
 <li><code>jmp far ptr 标号</code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p>面向寄存器</p>
+<li>
+<p>面向寄存器</p>
 <ul>
 <li><code>jmp 16位reg</code></li>
-<li>功能:( IP ) &#x3D; ( 16位reg )</li>
+<li>功能:( IP ) = ( 16位reg )</li>
 </ul>
 </li>
-<li><p>面向内存</p>
+<li>
+<p>面向内存</p>
 <ul>
-<li><p><code>jmp word ptr 内存单元地址(段内转移)</code></p>
+<li>
+<p><code>jmp word ptr 内存单元地址(段内转移)</code></p>
 <ul>
 <li>功能:从内存单元地址处开始存放着一个字,是转移的目的偏移地址</li>
 </ul>
 </li>
-<li><p><code>jmp dword ptr 内存单元地址(段间转移)</code></p>
+<li>
+<p><code>jmp dword ptr 内存单元地址(段间转移)</code></p>
 <ul>
 <li>功能:从内存单元地址处开始存放着两个字,高地址处的字是转移的目的段地址,低地址处是转移的目的偏移地址</li>
 </ul>
@@ -645,38 +732,48 @@
 </ul>
 </li>
 </ul>
-<h2 id="jcxz"><a href="#jcxz" class="headerlink" title="jcxz"></a>jcxz</h2><ul>
+<h2 id="jcxz"><a class="markdownIt-Anchor" href="#jcxz"></a> jcxz</h2>
+<ul>
 <li>有条件转移指令,所有的有条件转移转移指令都是短转移,在对应的机器码中包含转移的位移,而不是目的地址.</li>
-<li><code>jcxz 标号</code>(如果 (cx) &#x3D; 0, 转移到标号处执行),<strong>使用格式参考jmp</strong><ul>
-<li>当 (cx) &#x3D; 0 时,(IP) &#x3D; (IP) + 8 位位移(8位参考jmp中的8位)</li>
+<li><code>jcxz 标号</code>(如果 (cx) = 0, 转移到标号处执行),<strong>使用格式参考jmp</strong>
+<ul>
+<li>当 (cx) = 0 时,(IP) = (IP) + 8 位位移(8位参考jmp中的8位)</li>
 <li>当 (cx) ≠ 0 时,程序向下执行,不跳转</li>
 </ul>
 </li>
 </ul>
-<h2 id="CALL与RET"><a href="#CALL与RET" class="headerlink" title="CALL与RET"></a>CALL与RET</h2><h3 id="ret和retf"><a href="#ret和retf" class="headerlink" title="ret和retf"></a>ret和retf</h3><ul>
-<li><p><code>ret</code>指令用栈中的数据,修改IP的内容,从而实现近转移</p>
+<h2 id="call与ret"><a class="markdownIt-Anchor" href="#call与ret"></a> CALL与RET</h2>
+<h3 id="ret和retf"><a class="markdownIt-Anchor" href="#ret和retf"></a> ret和retf</h3>
 <ul>
-<li>CPU操作<ol>
-<li>(IP) &#x3D; ((ss) * 16 + (sp))</li>
-<li>(sp) &#x3D; (sp) + 2</li>
+<li>
+<p><code>ret</code>指令用栈中的数据,修改IP的内容,从而实现近转移</p>
+<ul>
+<li>CPU操作
+<ol>
+<li>(IP) = ((ss) * 16 + (sp))</li>
+<li>(sp) = (sp) + 2</li>
 </ol>
 </li>
-<li>汇编语法解释<ul>
+<li>汇编语法解释
+<ul>
 <li>pop IP</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><p><code>retf</code>指令用栈中的数据,修改CS和IP的内容,从而实现远转移</p>
+<li>
+<p><code>retf</code>指令用栈中的数据,修改CS和IP的内容,从而实现远转移</p>
 <ul>
-<li>CPU操作<ol>
-<li>(IP) &#x3D; ((ss) * 16 + (sp))</li>
-<li>(sp) &#x3D; (sp) + 2</li>
-<li>(CS) &#x3D; ((ss) * 16 + (sp))</li>
-<li>(sp) &#x3D; (sp) + 2</li>
+<li>CPU操作
+<ol>
+<li>(IP) = ((ss) * 16 + (sp))</li>
+<li>(sp) = (sp) + 2</li>
+<li>(CS) = ((ss) * 16 + (sp))</li>
+<li>(sp) = (sp) + 2</li>
 </ol>
 </li>
-<li>汇编语法解释<ul>
+<li>汇编语法解释
+<ul>
 <li>pop IP</li>
 <li>pop CS</li>
 </ul>
@@ -684,40 +781,48 @@
 </ul>
 </li>
 </ul>
-<h3 id="CALL"><a href="#CALL" class="headerlink" title="CALL"></a>CALL</h3><ul>
-<li>CPU操作<ol>
+<h3 id="call"><a class="markdownIt-Anchor" href="#call"></a> CALL</h3>
+<ul>
+<li>CPU操作
+<ol>
 <li>将当前的IP或CS和IP压入栈中__(执行CALL时,IP已经指向下一条语句,即将下一条语句的IP地址压入栈中)__</li>
 <li>转移</li>
 </ol>
 </li>
-<li>依据位移转移<ul>
-<li><code>call 标号</code>(将当前的IP压栈后,转到标号处执行指令)<ol>
-<li>(sp) &#x3D; (sp) - 2</li>
-<li>((ss) * 16 + (sp)) &#x3D; (IP)<strong>(此处的IP为CALL指令的下一条IP地址)</strong></li>
-<li>(IP) &#x3D; (IP) + 16位位移</li>
+<li>依据位移转移
+<ul>
+<li><code>call 标号</code>(将当前的IP压栈后,转到标号处执行指令)
+<ol>
+<li>(sp) = (sp) - 2</li>
+<li>((ss) * 16 + (sp)) = (IP)<strong>(此处的IP为CALL指令的下一条IP地址)</strong></li>
+<li>(IP) = (IP) + 16位位移</li>
 </ol>
 </li>
-<li>16位位移 &#x3D; 标号处的地址 - call指令后的第一个字节的地址</li>
+<li>16位位移 = 标号处的地址 - call指令后的第一个字节的地址</li>
 <li>16位位移的范围为 - 32768~32767,用补码表示</li>
 <li>16位位移由编译程序在编译时算出</li>
-<li>汇编语法表示<ul>
+<li>汇编语法表示
+<ul>
 <li>push IP</li>
 <li>jmp near ptr 标号</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>转移的目的地址在指令中<ul>
-<li><code>call far ptr 标号</code>实现段间转移<ol>
-<li>(sp) &#x3D; (sp) - 2</li>
-<li>((ss) * 16 + (sp)) &#x3D; (CS)</li>
-<li>(sp) &#x3D; (sp) - 2</li>
-<li>((ss) * 16 + (sp)) &#x3D; (IP)<strong>(此处的IP为CALL指令的下一条IP地址)</strong></li>
-<li>(CS) &#x3D; 标号所在段的段地址</li>
-<li>(IP) &#x3D; 标号所在段中的偏移地址</li>
+<li>转移的目的地址在指令中
+<ul>
+<li><code>call far ptr 标号</code>实现段间转移
+<ol>
+<li>(sp) = (sp) - 2</li>
+<li>((ss) * 16 + (sp)) = (CS)</li>
+<li>(sp) = (sp) - 2</li>
+<li>((ss) * 16 + (sp)) = (IP)<strong>(此处的IP为CALL指令的下一条IP地址)</strong></li>
+<li>(CS) = 标号所在段的段地址</li>
+<li>(IP) = 标号所在段中的偏移地址</li>
 </ol>
 </li>
-<li>汇编语法<ul>
+<li>汇编语法
+<ul>
 <li>push CS</li>
 <li>push IP</li>
 <li>jmp far ptr 标号</li>
@@ -725,127 +830,160 @@
 </li>
 </ul>
 </li>
-<li>转移地址在寄存器中<ul>
-<li><code>call 16位reg</code><ol>
-<li>(sp) &#x3D; (sp) - 2</li>
-<li>((ss) * 16 + (sp)) &#x3D; (IP)<strong>(此处的IP为CALL指令的下一条IP地址)</strong></li>
-<li>(IP) &#x3D; (16位reg)</li>
+<li>转移地址在寄存器中
+<ul>
+<li><code>call 16位reg</code>
+<ol>
+<li>(sp) = (sp) - 2</li>
+<li>((ss) * 16 + (sp)) = (IP)<strong>(此处的IP为CALL指令的下一条IP地址)</strong></li>
+<li>(IP) = (16位reg)</li>
 </ol>
 </li>
-<li>汇编语法<ul>
+<li>汇编语法
+<ul>
 <li>push IP</li>
 <li>jmp 16位reg</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>转移地址在内存中<ul>
-<li><code>call word/dword ptr 内存单元地址</code><ul>
+<li>转移地址在内存中
+<ul>
+<li><code>call word/dword ptr 内存单元地址</code>
+<ul>
 <li>dword 注意转移的内存高地址为段地址,低地址为偏移地址</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h3 id="CALL和RET配合使用"><a href="#CALL和RET配合使用" class="headerlink" title="CALL和RET配合使用"></a>CALL和RET配合使用</h3><p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212151734080.png" srcset="/img/loading.gif" lazyload alt="image-20221215173449989"></p>
+<h3 id="call和ret配合使用"><a class="markdownIt-Anchor" href="#call和ret配合使用"></a> CALL和RET配合使用</h3>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212151734080.png" srcset="/img/loading.gif" lazyload alt="image-20221215173449989" /></p>
 <center><strong>图 8  具有子程序的源程序的框架</strong></center>
-
 <ul>
-<li>具体程序实现时需要避免寄存器冲突—-寄存器入栈和出栈操作</li>
+<li>具体程序实现时需要避免寄存器冲突----寄存器入栈和出栈操作</li>
 </ul>
-<h2 id="adc"><a href="#adc" class="headerlink" title="adc"></a>adc</h2><ul>
+<h2 id="adc"><a class="markdownIt-Anchor" href="#adc"></a> adc</h2>
+<ul>
 <li>带进位加法指令,利用了CF位上记录的进位值</li>
 <li>格式: <code>adc 操作对象1 操作对象2</code></li>
-<li>功能: 操作对象1 &#x3D; 操作对象1 + 操作对象2 + CF</li>
+<li>功能: 操作对象1 = 操作对象1 + 操作对象2 + CF</li>
 </ul>
-<h2 id="sbb"><a href="#sbb" class="headerlink" title="sbb"></a>sbb</h2><ul>
+<h2 id="sbb"><a class="markdownIt-Anchor" href="#sbb"></a> sbb</h2>
+<ul>
 <li>带借位减法指令,利用了CF位上记录的进位值</li>
 <li>格式: <code>adc 操作对象1 操作对象2</code></li>
-<li>功能: 操作对象1 &#x3D; 操作对象1 - 操作对象2 - CF</li>
+<li>功能: 操作对象1 = 操作对象1 - 操作对象2 - CF</li>
 </ul>
-<h2 id="cmp"><a href="#cmp" class="headerlink" title="cmp"></a>cmp</h2><ul>
+<h2 id="cmp"><a class="markdownIt-Anchor" href="#cmp"></a> cmp</h2>
+<ul>
 <li>比较指令,功能相当于减法指令,知识不保存结果.cmp执行后,将对标志寄存器产生影响</li>
 <li>格式: <code>cmp 操作对象1 操作对象2</code></li>
 <li>功能: 计算操作对象1 - 操作对象2</li>
 </ul>
-<h2 id="串传送指令"><a href="#串传送指令" class="headerlink" title="串传送指令"></a>串传送指令</h2><ul>
-<li><p><code>movsb</code></p>
+<h2 id="串传送指令"><a class="markdownIt-Anchor" href="#串传送指令"></a> 串传送指令</h2>
+<ul>
+<li>
+<p><code>movsb</code></p>
 <ul>
 <li>功能:以字节为单位传送</li>
-<li>操作<ol>
-<li>((ex) * 16 + (di)) &#x3D; ((ds) * 16 + (si))</li>
-<li>如果df &#x3D; 0,(si) &#x3D; (si) + 1,(di) &#x3D; (di) + 1</li>
-<li>如果df &#x3D; 1,(si) &#x3D; (si) - 1,(di) &#x3D; (di) - 1</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p><code>movsw</code></p>
-<ul>
-<li><p>功能:以字为单位传送</p>
-</li>
-<li><p>操作</p>
+<li>操作
 <ol>
-<li>((ex) * 16 + (di)) &#x3D; ((ds) * 16 + (si))</li>
-<li>如果df &#x3D; 0,(si) &#x3D; (si) + 2,(di) &#x3D; (di) + 2</li>
-<li>如果df &#x3D; 1,(si) &#x3D; (si) - 2,(di) &#x3D; (di) - 2</li>
+<li>((ex) * 16 + (di)) = ((ds) * 16 + (si))</li>
+<li>如果df = 0,(si) = (si) + 1,(di) = (di) + 1</li>
+<li>如果df = 1,(si) = (si) - 1,(di) = (di) - 1</li>
 </ol>
 </li>
 </ul>
 </li>
-<li><p><code>cld</code></p>
+<li>
+<p><code>movsw</code></p>
+<ul>
+<li>
+<p>功能:以字为单位传送</p>
+</li>
+<li>
+<p>操作</p>
+<ol>
+<li>((ex) * 16 + (di)) = ((ds) * 16 + (si))</li>
+<li>如果df = 0,(si) = (si) + 2,(di) = (di) + 2</li>
+<li>如果df = 1,(si) = (si) - 2,(di) = (di) - 2</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p><code>cld</code></p>
 <ul>
 <li>将标志寄存器的DF位设为0(clear)</li>
 </ul>
 </li>
-<li><p><code>std</code></p>
+<li>
+<p><code>std</code></p>
 <ul>
 <li>将标志寄存器的DF位设为1(setup)</li>
 </ul>
 </li>
 </ul>
-<h2 id="rep"><a href="#rep" class="headerlink" title="rep"></a>rep</h2><ul>
-<li><p>常和串传送指令搭配使用</p>
-</li>
-<li><p>功能:根据cx的值,重复执行后面的指令</p>
-</li>
-<li><p>用法:</p>
+<h2 id="rep"><a class="markdownIt-Anchor" href="#rep"></a> rep</h2>
 <ul>
-<li><p><code>rep movsb</code> </p>
+<li>
+<p>常和串传送指令搭配使用</p>
+</li>
+<li>
+<p>功能:根据cx的值,重复执行后面的指令</p>
+</li>
+<li>
+<p>用法:</p>
+<ul>
+<li>
+<p><code>rep movsb</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">s:movsb<br>  loop s<br></code></pre></td></tr></table></figure>
 </li>
-<li><p><code>rep movsw</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">s:movsw<br>  loop s<br></code></pre></td></tr></table></figure></li>
+<li>
+<p><code>rep movsw</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">s:movsw<br>  loop s<br></code></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
 </ul>
-<h2 id="pushf和popf"><a href="#pushf和popf" class="headerlink" title="pushf和popf"></a>pushf和popf</h2><ul>
+<h2 id="pushf和popf"><a class="markdownIt-Anchor" href="#pushf和popf"></a> pushf和popf</h2>
+<ul>
 <li>功能是将标志寄存器的值压栈,而popf是从栈中弹出数据,送入标志寄存器中</li>
 <li>为直接访问标志寄存器提供一种方法</li>
 </ul>
-<h2 id="定义数据类型"><a href="#定义数据类型" class="headerlink" title="定义数据类型"></a>定义数据类型</h2><h3 id="db-dw-dd"><a href="#db-dw-dd" class="headerlink" title="db,dw,dd"></a>db,dw,dd</h3><ul>
+<h2 id="定义数据类型"><a class="markdownIt-Anchor" href="#定义数据类型"></a> 定义数据类型</h2>
+<h3 id="dbdwdd"><a class="markdownIt-Anchor" href="#dbdwdd"></a> db,dw,dd</h3>
+<ul>
 <li>db定义**字节型(word)<strong>数据,dw定义</strong>字型(byte)<strong>数据,dd定义</strong>双字节型(dword)**数据</li>
 </ul>
-<h3 id="dup"><a href="#dup" class="headerlink" title="dup"></a>dup</h3><ul>
+<h3 id="dup"><a class="markdownIt-Anchor" href="#dup"></a> dup</h3>
+<ul>
 <li>操作符,在汇编语言中同db,dw,dd等一样,也是由编译器识别处理的符号.它是和db,dw,dd等数据定义伪指令配合使用的,用来进行数据的重复</li>
-<li>例如:<ul>
+<li>例如:
+<ul>
 <li><code>db 3 dup (0)</code>,定义了3个字节,它们的值都是0,相当于db 0,0,0</li>
 <li><code>db 3 dup (0,1,2)</code>定义了9个字节,相当于db 0,1,2,0,1,2,0,1,2</li>
 </ul>
 </li>
 </ul>
-<h2 id="操作符offset"><a href="#操作符offset" class="headerlink" title="操作符offset"></a>操作符offset</h2><ul>
+<h2 id="操作符offset"><a class="markdownIt-Anchor" href="#操作符offset"></a> 操作符offset</h2>
+<ul>
 <li>再汇编语言中是由编译器处理的符号,功能是取得标号的偏移地址</li>
 <li>例如:<code>mov ax,offset s</code> 取得标号s的偏移地址(相对于此时地址CS:IP的偏移量)</li>
 </ul>
-<h2 id="ptr"><a href="#ptr" class="headerlink" title="ptr"></a>ptr</h2><ul>
-<li>功能:临时指定类型的<ul>
-<li>指明数据的尺寸<ul>
+<h2 id="ptr"><a class="markdownIt-Anchor" href="#ptr"></a> ptr</h2>
+<ul>
+<li>功能:临时指定类型的
+<ul>
+<li>指明数据的尺寸
+<ul>
 <li>通过寄存器名指明要处理的数据的尺寸.(即有寄存器，可以不用ptr来限制了，系统会自动分析的)</li>
 <li>在没有寄存器名存在的情况下，即都是在内存，得用操作符 X ptr 指明内存单元的长度，X在汇编指令中可以为byte，word或者DWORD。</li>
 </ul>
 </li>
-<li>临时的类型转换<ul>
+<li>临时的类型转换
+<ul>
 <li>例如:jmp far ptr 标号(far ptr说明转移的类型)</li>
 </ul>
 </li>

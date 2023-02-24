@@ -16,12 +16,12 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="进制定义： N进制指逢N进1的一系列符号  进制之间的关系0d -&gt; 0x        二进制     0     1     10     11     100     101     110     111           十六进制     0     1     2     3     4     5     6     7           二进制     1000">
+    <meta name="description" content="进制  定义：  N进制指逢N进1的一系列符号   进制之间的关系  0d -&gt; 0x         二进制     0     1     10     11     100     101     110     111           十六进制     0     1     2     3     4     5     6     7           二进制     1">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【滴水逆向】汇编基础">
 <meta property="og:url" content="http://example.com/posts/84aee333.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="进制定义： N进制指逢N进1的一系列符号  进制之间的关系0d -&gt; 0x        二进制     0     1     10     11     100     101     110     111           十六进制     0     1     2     3     4     5     6     7           二进制     1000">
+<meta property="og:description" content="进制  定义：  N进制指逢N进1的一系列符号   进制之间的关系  0d -&gt; 0x         二进制     0     1     10     11     100     101     110     111           十六进制     0     1     2     3     4     5     6     7           二进制     1">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211122244761.PNG">
 <meta property="article:published_time" content="2022-10-03T10:18:21.000Z">
@@ -87,7 +87,11 @@
 
 
   
-<meta name="generator" content="Hexo 6.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -225,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11k 字
+          10k 字
         
       </span>
     
@@ -236,7 +240,7 @@
         
         
         
-          89 分钟
+          87 分钟
         
       </span>
     
@@ -279,10 +283,14 @@
             
               <div class="markdown-body">
                 
-                <h1 id="进制"><a href="#进制" class="headerlink" title="进制"></a>进制</h1><h2 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h2><ul>
+                <h1 id="进制"><a class="markdownIt-Anchor" href="#进制"></a> 进制</h1>
+<h2 id="定义"><a class="markdownIt-Anchor" href="#定义"></a> 定义：</h2>
+<ul>
 <li>N进制指逢N进1的一系列符号</li>
 </ul>
-<h2 id="进制之间的关系"><a href="#进制之间的关系" class="headerlink" title="进制之间的关系"></a>进制之间的关系</h2><h3 id="0d-gt-0x"><a href="#0d-gt-0x" class="headerlink" title="0d -&gt; 0x"></a>0d -&gt; 0x</h3><table border="1">
+<h2 id="进制之间的关系"><a class="markdownIt-Anchor" href="#进制之间的关系"></a> 进制之间的关系</h2>
+<h3 id="0d-0x"><a class="markdownIt-Anchor" href="#0d-0x"></a> 0d -&gt; 0x</h3>
+<table border="1">
   <tr>
     <td>二进制</td>
     <td>0</td>
@@ -328,8 +336,8 @@
     <td>F</td>
   </tr>
 </table>
-
-<h3 id="八进制"><a href="#八进制" class="headerlink" title="八进制"></a>八进制</h3><ul>
+<h3 id="八进制"><a class="markdownIt-Anchor" href="#八进制"></a> 八进制</h3>
+<ul>
 <li>八进制加法表</li>
 </ul>
 <table border="1">
@@ -397,7 +405,6 @@
     <td>7 + 7 = 16</td>
   </tr>
 </table>
-
 <ul>
 <li>八进制乘法表</li>
 </ul>
@@ -466,59 +473,81 @@
     <td>7 * 7 = 61</td>
   </tr>
 </table>
-
-<hr>
-<h1 id="数据宽度与逻辑运算"><a href="#数据宽度与逻辑运算" class="headerlink" title="数据宽度与逻辑运算"></a>数据宽度与逻辑运算</h1><h2 id="数据宽度"><a href="#数据宽度" class="headerlink" title="数据宽度"></a>数据宽度</h2><ul>
-<li><p>字节&#x2F;字（8bit）——可存储两个十六进制—8位二进制，例如FF</p>
+<hr />
+<h1 id="数据宽度与逻辑运算"><a class="markdownIt-Anchor" href="#数据宽度与逻辑运算"></a> 数据宽度与逻辑运算</h1>
+<h2 id="数据宽度"><a class="markdownIt-Anchor" href="#数据宽度"></a> 数据宽度</h2>
+<ul>
+<li>
+<p>字节/字（8bit）——可存储两个十六进制—8位二进制，例如FF</p>
 <ul>
 <li>十六进制占4位</li>
 </ul>
 </li>
-<li><p>补：</p>
+<li>
+<p>补：</p>
 <ul>
 <li>补码每一位取反加1为原码</li>
 <li>原码每一位取反加1为补码</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210031849487.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h2><ul>
-<li>在最底层中计算<span class="label label-primary">2 + 3 = 5</span><ul>
-<li><p>先转换为二进制，0010赋值为X，0011赋值为Y</p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210031849487.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<h2 id="逻辑运算"><a class="markdownIt-Anchor" href="#逻辑运算"></a> 逻辑运算</h2>
+<ul>
+<li>在最底层中计算<span class="label label-primary">2 + 3 = 5</span>
+<ul>
+<li>
+<p>先转换为二进制，0010赋值为X，0011赋值为Y</p>
 </li>
-<li><p>之后将X与Y进行xor与and，若and之后的结果左移一位后有一位不为0，则把xor的结果赋值为X，and的结果赋值为Y，再进行计算</p>
+<li>
+<p>之后将X与Y进行xor与and，若and之后的结果左移一位后有一位不为0，则把xor的结果赋值为X，and的结果赋值为Y，再进行计算</p>
 </li>
-<li><p>若最后and的结果左移一位之后每一位都为0，那么xor就是最后的结果</p>
+<li>
+<p>若最后and的结果左移一位之后每一位都为0，那么xor就是最后的结果</p>
 <div class="note note-info">
-            <p>一个数进行了两次异或还是它本身  </p>
-          </div></li>
-</ul>
+            <p>一个数进行了两次异或还是它本身</p>
+          </div>
 </li>
 </ul>
-<h1 id="寄存器与内存"><a href="#寄存器与内存" class="headerlink" title="寄存器与内存"></a>寄存器与内存</h1><h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ul>
-<li><p>1、寄存器位于CPU内部,执行速度快，但比较贵</p>
 </li>
-<li><p>2、内存速度相对较慢,但成本较低，所以可以做的很大</p>
-</li>
-<li><p>3、寄存器和内存没有本质区别,都是用于存储数据的容器,都是定宽的</p>
-</li>
-<li><p>4、寄存器常用的共8个：EAX,EBX,ECX,EDX,ESP,EBP,ESI,EDI</p>
-</li>
-<li><p>5、计算机中的几个常用的计量单位：BYTE,WORD,DWORD</p>
+</ul>
+<h1 id="寄存器与内存"><a class="markdownIt-Anchor" href="#寄存器与内存"></a> 寄存器与内存</h1>
+<h2 id="区别"><a class="markdownIt-Anchor" href="#区别"></a> 区别</h2>
 <ul>
-<li><p>BYTE——字节——8（BIT）</p>
+<li>
+<p>1、寄存器位于CPU内部,执行速度快，但比较贵</p>
 </li>
-<li><p>WORD——字——16（BIT）</p>
+<li>
+<p>2、内存速度相对较慢,但成本较低，所以可以做的很大</p>
 </li>
-<li><p>DWORD——双字——32（BIT）</p>
+<li>
+<p>3、寄存器和内存没有本质区别,都是用于存储数据的容器,都是定宽的</p>
+</li>
+<li>
+<p>4、寄存器常用的共8个：EAX,EBX,ECX,EDX,ESP,EBP,ESI,EDI</p>
+</li>
+<li>
+<p>5、计算机中的几个常用的计量单位：BYTE,WORD,DWORD</p>
+<ul>
+<li>
+<p>BYTE——字节——8（BIT）</p>
+</li>
+<li>
+<p>WORD——字——16（BIT）</p>
+</li>
+<li>
+<p>DWORD——双字——32（BIT）</p>
+</li>
+</ul>
    <div class="note note-info">
-            <p>1 KB  &#x3D;  1024 BYTE,<br>1 MB  &#x3D;  1024 KB,<br>1 GB  &#x3D;  1024 MB    </p>
-          </div></li>
-</ul>
+            <p>1 KB  =  1024 BYTE,<br />1 MB  =  1024 KB,<br />1 GB  =  1024 MB</p>
+          </div>
 </li>
-<li><p>6、内存的数量特别庞大，无法对每个内存单位都起一个名字，所以用编号代替，我们称计算机CPU32位或者64位</p>
+<li>
+<p>6、内存的数量特别庞大，无法对每个内存单位都起一个名字，所以用编号代替，我们称计算机CPU32位或者64位</p>
 <ul>
-<li>计算机内存的每一个字节会有一个编号（即内存编号的单位是字节）<ul>
+<li>计算机内存的每一个字节会有一个编号（即内存编号的单位是字节）
+<ul>
 <li>如：<span class="label label-primary">0x00000000，0x00000001…… 0xFFFFFFFF</span></li>
 </ul>
 </li>
@@ -526,38 +555,48 @@
 </ul>
 </li>
 </ul>
-<h2 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h2><ul>
-<li>内存格式<ul>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032015464.png" srcset="/img/loading.gif" lazyload><ul>
+<h2 id="内存"><a class="markdownIt-Anchor" href="#内存"></a> 内存</h2>
+<ul>
+<li>内存格式
+<ul>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032015464.png" srcset="/img/loading.gif" lazyload alt="" />
+<ul>
 <li>编号加<code>[]</code>表示这是内存编号，否则就是立即数</li>
 <li>往往将多个字节连在一起命名为一个编号，这就导致一个编号（包含了4个字节的内存空间）可以存储32位</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>从指定内存中写入&#x2F;读取数据<ul>
-<li><code>mov dword ptr ds:[0x0012FF34], 0x12345678</code>(mov是移动数据)<ul>
+<li>从指定内存中写入/读取数据
+<ul>
+<li><code>mov dword ptr ds:[0x0012FF34], 0x12345678</code>(mov是移动数据)
+<ul>
 <li>遵循高位在后原则，即<code>[0x0012FF34]</code>对应的是78，而下一位<code>[0x0012FF35]</code>则是对应56（一个字节是8位，即两个十六进制数为一组），同时这个就是将4个字节组成了一个内存空间并命名</li>
 </ul>
 </li>
-<li><code>mov eax, dword ptr ds:[0x0012FF34]</code><ul>
-<li><code>dword</code>：要读\写多少  此时是4字节，byte &#x3D; 1字节，word &#x3D; 2字节</li>
+<li><code>mov eax, dword ptr ds:[0x0012FF34]</code>
+<ul>
+<li><code>dword</code>：要读\写多少  此时是4字节，byte = 1字节，word = 2字节</li>
 <li><code>ptr</code>: Point代表后面是一个指针（存的不是值，而是地址）</li>
 <li><code>ds</code>：段寄存器</li>
-<li><code>[0x0012FF34]</code>：内存编号，必须是32位，前面的0可以省略，会自动补0<ul>
+<li><code>[0x0012FF34]</code>：内存编号，必须是32位，前面的0可以省略，会自动补0
+<ul>
 <li>这是一个地址编号，相当于指针</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>注意：<ul>
+<li>注意：
+<ul>
 <li>地址编号不要随便写，因为内存是由保护的，并不是所有的内存都可以直接读写（需要特别处理），建议地址编号写成esp的值</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h2 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h2><h3 id="类别"><a href="#类别" class="headerlink" title="类别"></a>类别</h3><table>
+<h2 id="通用寄存器"><a class="markdownIt-Anchor" href="#通用寄存器"></a> 通用寄存器</h2>
+<h3 id="类别"><a class="markdownIt-Anchor" href="#类别"></a> 类别</h3>
+<table>
 <thead>
 <tr>
 <th>32位寄存器</th>
@@ -565,7 +604,8 @@
 <th>8位寄存器</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>EAX</td>
 <td>AX</td>
 <td>AH    AL</td>
@@ -605,13 +645,15 @@
 <td>DI</td>
 <td></td>
 </tr>
-</tbody></table>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210031849381.png" srcset="/img/loading.gif" lazyload></p>
+</tbody>
+</table>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210031849381.png" srcset="/img/loading.gif" lazyload alt="" /></p>
 <blockquote>
 <p>AX为EAX的低位</p>
 <p>AH为AX的高位，AL为AX的低位</p>
 </blockquote>
-<h3 id="32位寄存器"><a href="#32位寄存器" class="headerlink" title="32位寄存器"></a>32位寄存器</h3><table>
+<h3 id="32位寄存器"><a class="markdownIt-Anchor" href="#32位寄存器"></a> 32位寄存器</h3>
+<table>
 <thead>
 <tr>
 <th>寄存器</th>
@@ -619,7 +661,8 @@
 <th>存储数据的范围</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>EAX</td>
 <td>累加器</td>
 <td>0 – 0xFFFFFFFF</td>
@@ -631,7 +674,7 @@
 </tr>
 <tr>
 <td>EDX</td>
-<td>I&#x2F;O指针</td>
+<td>I/O指针</td>
 <td>0 – 0xFFFFFFFF</td>
 </tr>
 <tr>
@@ -659,17 +702,23 @@
 <td>字符串操作的目标指针；ES段的数据指针</td>
 <td>0 – 0xFFFFFFFF</td>
 </tr>
-</tbody></table>
-<h2 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h2><p>EFLAGS寄存器</p>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032027304.png" srcset="/img/loading.gif" lazyload></p>
-<h3 id="进位标志CF-Carry-Flag"><a href="#进位标志CF-Carry-Flag" class="headerlink" title="进位标志CF(Carry Flag)"></a>进位标志CF(Carry Flag)</h3><ul>
-<li>如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0（无符号运算，AL中看超没超过FF  ）<ul>
-<li>最高位进位——CF&#x3D;1<ul>
+</tbody>
+</table>
+<h2 id="标志寄存器"><a class="markdownIt-Anchor" href="#标志寄存器"></a> 标志寄存器</h2>
+<p>EFLAGS寄存器</p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032027304.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<h3 id="进位标志cfcarry-flag"><a class="markdownIt-Anchor" href="#进位标志cfcarry-flag"></a> 进位标志CF(Carry Flag)</h3>
+<ul>
+<li>如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0（无符号运算，AL中看超没超过FF  ）
+<ul>
+<li>最高位进位——CF=1
+<ul>
 <li><code>MOV AL, 0xFE</code></li>
 <li><code>ADD AL,2</code></li>
 </ul>
 </li>
-<li>最高位不进位——CF&#x3D;0<ul>
+<li>最高位不进位——CF=0
+<ul>
 <li><code>MOV AL,0xEF</code></li>
 <li><code>ADD AL,2</code></li>
 </ul>
@@ -677,83 +726,102 @@
 </ul>
 </li>
 </ul>
-<h3 id="奇偶标志PF-Parity-Flag"><a href="#奇偶标志PF-Parity-Flag" class="headerlink" title="奇偶标志PF(Parity Flag)"></a>奇偶标志PF(Parity Flag)</h3><ul>
+<h3 id="奇偶标志pfparity-flag"><a class="markdownIt-Anchor" href="#奇偶标志pfparity-flag"></a> 奇偶标志PF(Parity Flag)</h3>
+<ul>
 <li>奇偶标志PF用于反映运算结果中“1”的个数的奇偶性，如果“1”的个数为偶数，则PF的值为1，否则其值为0——二进制中的1的个数</li>
-<li>最低有效字节——**只看二进制中后8位 **<ul>
+<li>最低有效字节——**只看二进制中后8位 **
+<ul>
 <li><code>MOV AL, 3</code>——PE不变</li>
-<li><code>ADD AL, 3</code>——PE&#x3D;1（6&#x3D;110）</li>
-<li><code>ADD AL, 2</code>——PE&#x3D;0（8&#x3D;1000）</li>
+<li><code>ADD AL, 3</code>——PE=1（6=110）</li>
+<li><code>ADD AL, 2</code>——PE=0（8=1000）</li>
 </ul>
 </li>
 </ul>
-<h3 id="辅助进位标志AF-Auxiliary-Carry-Flag"><a href="#辅助进位标志AF-Auxiliary-Carry-Flag" class="headerlink" title="辅助进位标志AF(Auxiliary Carry Flag)"></a>辅助进位标志AF(Auxiliary Carry Flag)</h3><ul>
-<li>在发生下列情况时，辅助进位标志AF的值被置为1，否则其值为0：<ul>
+<h3 id="辅助进位标志afauxiliary-carry-flag"><a class="markdownIt-Anchor" href="#辅助进位标志afauxiliary-carry-flag"></a> 辅助进位标志AF(Auxiliary Carry Flag)</h3>
+<ul>
+<li>在发生下列情况时，辅助进位标志AF的值被置为1，否则其值为0：
+<ul>
 <li>(1)、在字操作时，发生低字节向高字节进位或借位时</li>
 <li>(2)、在字节操作时，发生低4位向高4位进位或借位时</li>
 </ul>
 </li>
-<li>例一：32位<ul>
+<li>例一：32位
+<ul>
 <li><code>MOV EAX, 0x55EEFFFF</code></li>
 <li><code>ADD EAX, 2</code></li>
 </ul>
 </li>
-<li>例二：16位<ul>
+<li>例二：16位
+<ul>
 <li><code>MOV AX, 5EFE</code></li>
 <li><code>ADD AX, 2</code></li>
 </ul>
 </li>
-<li>例三：8位<ul>
+<li>例三：8位
+<ul>
 <li><code>MOV AL, 4E</code></li>
 <li><code>ADD AL, 2</code></li>
 </ul>
 </li>
 </ul>
-<h3 id="零标志ZF-Zero-Flag"><a href="#零标志ZF-Zero-Flag" class="headerlink" title="零标志ZF(Zero Flag)"></a>零标志ZF(Zero Flag)</h3><ul>
-<li>零标志ZF用来反映运算结果是否为0，如果运算结果（mov是赋值，不是运算结果）为0，则其值为1，否则其值为0。在判断运算结果是否为0时，可使用此标志位<ul>
+<h3 id="零标志zfzero-flag"><a class="markdownIt-Anchor" href="#零标志zfzero-flag"></a> 零标志ZF(Zero Flag)</h3>
+<ul>
+<li>零标志ZF用来反映运算结果是否为0，如果运算结果（mov是赋值，不是运算结果）为0，则其值为1，否则其值为0。在判断运算结果是否为0时，可使用此标志位
+<ul>
 <li><code>XOR EAX, EAX</code>——ZF变成0</li>
 <li><code>MOV EAX, 2</code>——ZF不变，与mov没有关系</li>
 <li><code>SUB EAX, 2</code></li>
 </ul>
 </li>
 </ul>
-<h3 id="符号标志SF-Sign-Flag"><a href="#符号标志SF-Sign-Flag" class="headerlink" title="符号标志SF(Sign Flag)"></a>符号标志SF(Sign Flag)</h3><ul>
-<li>符号标志SF用来反映运算结果的符号位，它与运算结果的最高位（转换为2进制的最高位）相同<ul>
+<h3 id="符号标志sfsign-flag"><a class="markdownIt-Anchor" href="#符号标志sfsign-flag"></a> 符号标志SF(Sign Flag)</h3>
+<ul>
+<li>符号标志SF用来反映运算结果的符号位，它与运算结果的最高位（转换为2进制的最高位）相同
+<ul>
 <li><code>MOV AL, 7F</code>——0111 1111</li>
 <li><code>ADD AL, 2</code>—进位了</li>
 </ul>
 </li>
 </ul>
-<h3 id="溢出标志OF-Overflow-Flag"><a href="#溢出标志OF-Overflow-Flag" class="headerlink" title="溢出标志OF(Overflow Flag)"></a>溢出标志OF(Overflow Flag)</h3><ul>
+<h3 id="溢出标志ofoverflow-flag"><a class="markdownIt-Anchor" href="#溢出标志ofoverflow-flag"></a> 溢出标志OF(Overflow Flag)</h3>
+<ul>
 <li>溢出标志OF用于反映有符号数加减运算所得结果是否溢出</li>
 <li>如果运算结果超过当前运算位数所能表示的范围，则称为溢出，OF的值被置为1，否则，OF的值被清为0</li>
 </ul>
-<h4 id="溢出"><a href="#溢出" class="headerlink" title="溢出"></a>溢出</h4><ul>
+<h4 id="溢出"><a class="markdownIt-Anchor" href="#溢出"></a> 溢出</h4>
+<ul>
 <li>进位标志<code>CF</code>表示无符号数运算结果是否超出范围</li>
 <li>溢出标志<code>OF</code>表示有符号数运算结果是否超出范围</li>
-<li>溢出主要是给有符号运算使用的，在有符号的运算中，有如下的规律：<ul>
-<li>正 + 正 &#x3D; 正 如果结果是负数，则说明有溢出</li>
-<li>负 + 负 &#x3D; 负 如果结果是正数，则说明有溢出</li>
+<li>溢出主要是给有符号运算使用的，在有符号的运算中，有如下的规律：
+<ul>
+<li>正 + 正 = 正 如果结果是负数，则说明有溢出</li>
+<li>负 + 负 = 负 如果结果是正数，则说明有溢出</li>
 <li>正 + 负 永远都不会有溢出</li>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210031849487.png" srcset="/img/loading.gif" lazyload></li>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210031849487.png" srcset="/img/loading.gif" lazyload alt="" /></li>
 </ul>
 </li>
-<li>例子<ul>
-<li>1、无符号、有符号都不溢出<ul>
+<li>例子
+<ul>
+<li>1、无符号、有符号都不溢出
+<ul>
 <li><code>MOV AL,8</code></li>
 <li><code>ADD AL,8</code></li>
 </ul>
 </li>
-<li>2、无符号溢出、有符号不溢出<ul>
+<li>2、无符号溢出、有符号不溢出
+<ul>
 <li><code>MOV AL,0FF</code></li>
 <li><code>ADD AL,2</code></li>
 </ul>
 </li>
-<li>3、无符号不溢出、有符号溢出<ul>
+<li>3、无符号不溢出、有符号溢出
+<ul>
 <li><code>MOV AL,7F</code></li>
 <li><code>ADD AL,2</code></li>
 </ul>
 </li>
-<li>4、无符号、有符号都溢出<ul>
+<li>4、无符号、有符号都溢出
+<ul>
 <li><code>MOV AL,0FE</code></li>
 <li><code>ADD AL,80</code></li>
 </ul>
@@ -761,32 +829,40 @@
 </ul>
 </li>
 </ul>
-<h4 id="进位判断"><a href="#进位判断" class="headerlink" title="进位判断"></a>进位判断</h4><ul>
-<li>比如80-40<ul>
+<h4 id="进位判断"><a class="markdownIt-Anchor" href="#进位判断"></a> 进位判断</h4>
+<ul>
+<li>比如80-40
+<ul>
 <li><code>mov al,80</code></li>
 <li><code>sub al,40</code></li>
 </ul>
 </li>
-<li>相当于<ul>
+<li>相当于
+<ul>
 <li><code>mov al, 80</code></li>
 <li><code>add al,0c0</code></li>
 </ul>
 </li>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032041035.png" srcset="/img/loading.gif" lazyload><ul>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032041035.png" srcset="/img/loading.gif" lazyload alt="" />
+<ul>
 <li>符号有效位指最左边的那一位</li>
 <li>最高有效数值位指符号位后一位</li>
 </ul>
 </li>
 </ul>
-<h1 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h1><div class="note note-blue">
-            <p>r—表示通用寄存器<br>m—表示内存<br>imm—表示立即数</p>
+<h1 id="汇编指令"><a class="markdownIt-Anchor" href="#汇编指令"></a> 汇编指令</h1>
+<div class="note note-blue">
+            <p>r—表示通用寄存器<br />m—表示内存<br />imm—表示立即数</p>
           </div>
-
-<h2 id="数据传递指令"><a href="#数据传递指令" class="headerlink" title="数据传递指令"></a>数据传递指令</h2><h3 id="MOV"><a href="#MOV" class="headerlink" title="MOV"></a><code>MOV</code></h3><ul>
+<h2 id="数据传递指令"><a class="markdownIt-Anchor" href="#数据传递指令"></a> 数据传递指令</h2>
+<h3 id="mov"><a class="markdownIt-Anchor" href="#mov"></a> <code>MOV</code></h3>
+<ul>
 <li>移动数据</li>
-<li>MOV使用<ul>
+<li>MOV使用
+<ul>
 <li><code>MOV 目标操作数 源操作数</code></li>
-<li>作用：拷贝源操作数到目标操作数<ul>
+<li>作用：拷贝源操作数到目标操作数
+<ul>
 <li>源操作数可以是立即数，通用寄存器，段寄存器，或者内存单元</li>
 <li>目标操作数可以是通用寄存器，段寄存器或内存单元</li>
 <li>操作数的宽度必须一样</li>
@@ -797,260 +873,290 @@
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs Assembly">MOV r/m8, r8     <br>MOV r/m16, r16<br>MOV r/m32, r32<br><br>MOV r8, r/m8<br>MOV r16, r/m16<br>MOV r32, r/m32<br><br>MOV r8, imm8<br>MOV r16, imm16<br>MOV r32, imm32<br></code></pre></td></tr></table></figure>
-
-<h3 id="XCHG"><a href="#XCHG" class="headerlink" title="XCHG"></a><code>XCHG</code></h3><ul>
+<h3 id="xchg"><a class="markdownIt-Anchor" href="#xchg"></a> <code>XCHG</code></h3>
+<ul>
 <li>交换数据</li>
 <li>格式：<code>XCHG  R/M,R/M</code>  两边不能同时为内存  宽度要一样</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">XCHG AL, CL<br>XCHG DWORD PTR DS:[12FFC4], EAX<br>XCHG BYTE PTR DS:[12FFC4], AL<br></code></pre></td></tr></table></figure>
-
-<h2 id="逻辑运算指令"><a href="#逻辑运算指令" class="headerlink" title="逻辑运算指令"></a>逻辑运算指令</h2><h3 id="AND-OR-XOR"><a href="#AND-OR-XOR" class="headerlink" title="AND,OR,XOR"></a><code>AND,OR,XOR</code></h3><ul>
+<h2 id="逻辑运算指令"><a class="markdownIt-Anchor" href="#逻辑运算指令"></a> 逻辑运算指令</h2>
+<h3 id="andorxor"><a class="markdownIt-Anchor" href="#andorxor"></a> <code>AND,OR,XOR</code></h3>
+<ul>
 <li>和,或,异或运算</li>
 <li>对每一<strong>位</strong>进行比较</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;AND/OR/XOR用法相同<br>AND AL, imm8<br>AND AX, imm16<br>AND EAX, imm32<br><br>AND r/m8, imm8     <br>AND r/m16, imm16<br>AND r/m32, imm32<br>  <br>AND r/m16, imm8<br>AND r/m32, imm8<br><br>AND r/m8, r8     <br>AND r/m16, r16<br>AND r/m32, r32<br><br>AND r8, r/m8<br>AND r16, r/m16<br>AND r32, r/m32<br></code></pre></td></tr></table></figure>
-
-<h3 id="NOT"><a href="#NOT" class="headerlink" title="NOT"></a><code>NOT</code></h3><ul>
+<h3 id="not"><a class="markdownIt-Anchor" href="#not"></a> <code>NOT</code></h3>
+<ul>
 <li>非运算</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">NOT r/m8<br>NOT r/m16<br>NOT r/m32<br></code></pre></td></tr></table></figure>
-
-<h2 id="算术运算指令"><a href="#算术运算指令" class="headerlink" title="算术运算指令"></a>算术运算指令</h2><h3 id="运算指令"><a href="#运算指令" class="headerlink" title="运算指令"></a>运算指令</h3><h4 id="ADD与SUB"><a href="#ADD与SUB" class="headerlink" title="ADD与SUB"></a><code>ADD与SUB</code></h4><ul>
+<h2 id="算术运算指令"><a class="markdownIt-Anchor" href="#算术运算指令"></a> 算术运算指令</h2>
+<h3 id="运算指令"><a class="markdownIt-Anchor" href="#运算指令"></a> 运算指令</h3>
+<h4 id="add与sub"><a class="markdownIt-Anchor" href="#add与sub"></a> <code>ADD与SUB</code></h4>
+<ul>
 <li>加减运算</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs Assembly">ADD/SUB AL, imm8<br>ADD/SUB AX, imm16<br>ADD/SUB EAX, imm32<br><br>ADD/SUB r/m8, imm8     <br>ADD/SUB r/m16, imm16<br>ADD/SUB r/m32, imm32<br>  <br>ADD/SUB r/m16, imm8<br>ADD/SUB r/m32, imm8<br><br>ADD/SUB r/m8, r8     <br>ADD/SUB r/m16, r16<br>ADD/SUB r/m32, r32<br><br>ADD/SUB r8, r/m8<br>ADD/SUB r16, r/m16<br>ADD/SUB r32, r/m32<br></code></pre></td></tr></table></figure>
-
-<h4 id="ADC"><a href="#ADC" class="headerlink" title="ADC"></a><code>ADC</code></h4><ul>
-<li>带进位加法：加法之后再加1 </li>
+<h4 id="adc"><a class="markdownIt-Anchor" href="#adc"></a> <code>ADC</code></h4>
+<ul>
+<li>带进位加法：加法之后再加1</li>
 <li>格式：<code>ADC  R/M,R/M/IMM</code>两边不能同时为内存  宽度要一样</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">ADC AL,CL<br>ADC BYTE PTR DS:[12FFC4],2<br>ADC BYTE PTR DS:[12FFC4],AL<br></code></pre></td></tr></table></figure>
-
-<h4 id="SBB"><a href="#SBB" class="headerlink" title="SBB"></a><code>SBB</code></h4><ul>
+<h4 id="sbb"><a class="markdownIt-Anchor" href="#sbb"></a> <code>SBB</code></h4>
+<ul>
 <li>带借位减法：减法之后再减1</li>
 <li>格式：<code>SBB  R/M,R/M/IMM</code>两边不能同时为内存  宽度要一样</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">SBB AL, CL<br>SBB BYTE PTR DS:[12FFC4], 2<br>SBB BYTE PTR DS:[12FFC4], AL<br></code></pre></td></tr></table></figure>
-
-<h4 id="INC与DEC"><a href="#INC与DEC" class="headerlink" title="INC与DEC"></a><code>INC与DEC</code></h4><ul>
+<h4 id="inc与dec"><a class="markdownIt-Anchor" href="#inc与dec"></a> <code>INC与DEC</code></h4>
+<ul>
 <li><strong>INC</strong>加一指令，对于目的操作数进行加一操作</li>
 <li><strong>DEC</strong>减一指令，对于目的操作数进行减一操作</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">INC REG/MEM<br>DEC REG/MEM<br></code></pre></td></tr></table></figure>
-
-<h3 id="移位指令"><a href="#移位指令" class="headerlink" title="移位指令"></a>移位指令</h3><h4 id="算术移位指令"><a href="#算术移位指令" class="headerlink" title="算术移位指令"></a>算术移位指令</h4><ul>
-<li><p>指令格式：SAL&#x2F;SAR Reg&#x2F;Mem, CL&#x2F;Imm</p>
+<h3 id="移位指令"><a class="markdownIt-Anchor" href="#移位指令"></a> 移位指令</h3>
+<h4 id="算术移位指令"><a class="markdownIt-Anchor" href="#算术移位指令"></a> 算术移位指令</h4>
+<ul>
+<li>
+<p>指令格式：SAL/SAR Reg/Mem, CL/Imm</p>
 </li>
-<li><p>SAL(Shift Arithmetic Left): 算术左移—-末尾补0</p>
-<p>SAR(Shift Arithmetic Right): 算术右移—-考虑符号，最高位符号为1，则补1；反之补0</p>
+<li>
+<p>SAL(Shift Arithmetic Left): 算术左移----末尾补0</p>
+<p>SAR(Shift Arithmetic Right): 算术右移----考虑符号，最高位符号为1，则补1；反之补0</p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">SAL Reg/Mem, CL/Imm<br>SAR Reg/Mem, CL/Imm<br></code></pre></td></tr></table></figure>
-
-<h4 id="逻辑移位指令"><a href="#逻辑移位指令" class="headerlink" title="逻辑移位指令"></a>逻辑移位指令</h4><ul>
-<li><p>指令格式：SHL&#x2F;SHR Reg&#x2F;Mem, CL&#x2F;Imm</p>
+<h4 id="逻辑移位指令"><a class="markdownIt-Anchor" href="#逻辑移位指令"></a> 逻辑移位指令</h4>
+<ul>
+<li>
+<p>指令格式：SHL/SHR Reg/Mem, CL/Imm</p>
 </li>
-<li><p>SHL(Shift Left): 逻辑左移—-末尾补0</p>
-<p>SHR(Shift Right): 逻辑右移—-最高位补1</p>
+<li>
+<p>SHL(Shift Left): 逻辑左移----末尾补0</p>
+<p>SHR(Shift Right): 逻辑右移----最高位补1</p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">SHL Reg/Mem, CL/Imm<br>SHR Reg/Mem, CL/Imm<br></code></pre></td></tr></table></figure>
-
-<h4 id="循环移位指令"><a href="#循环移位指令" class="headerlink" title="循环移位指令"></a>循环移位指令</h4><ul>
-<li><p>指令格式：ROL r&#x2F;m, i8 ；ROR r&#x2F;m, CL</p>
+<h4 id="循环移位指令"><a class="markdownIt-Anchor" href="#循环移位指令"></a> 循环移位指令</h4>
+<ul>
+<li>
+<p>指令格式：ROL r/m, i8 ；ROR r/m, CL</p>
 </li>
-<li><p>ROL(Rotate Left): 循环左移</p>
+<li>
+<p>ROL(Rotate Left): 循环左移</p>
 <p>ROR(Rotate Right): 循环右移</p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">ROL r/m, i8<br>ROR r/m, CL<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301052011851.png" srcset="/img/loading.gif" lazyload alt="image-20230105201129799"></p>
-<h4 id="带进位的循环移位指令"><a href="#带进位的循环移位指令" class="headerlink" title="带进位的循环移位指令"></a>带进位的循环移位指令</h4><ul>
-<li><p>指令格式：RCL r&#x2F;m, i8 ； RCR r&#x2F;m, CL</p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301052011851.png" srcset="/img/loading.gif" lazyload alt="image-20230105201129799" /></p>
+<h4 id="带进位的循环移位指令"><a class="markdownIt-Anchor" href="#带进位的循环移位指令"></a> 带进位的循环移位指令</h4>
+<ul>
+<li>
+<p>指令格式：RCL r/m, i8 ； RCR r/m, CL</p>
 </li>
-<li><p>RCL(Rotate through Carry Left): 带进位循环左移</p>
+<li>
+<p>RCL(Rotate through Carry Left): 带进位循环左移</p>
 <p>RCR(Rotate through Carry Right): 带进位循环右移</p>
 </li>
-<li><p><code>将CF看成数据的一部分进行循环移位操作</code></p>
+<li>
+<p><code>将CF看成数据的一部分进行循环移位操作</code></p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">RCL r/m, i8 <br>RCR r/m, CL<br></code></pre></td></tr></table></figure>
-
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301052016625.png" srcset="/img/loading.gif" lazyload alt="image-20230105201639593"></p>
-<h2 id="堆栈操作指令"><a href="#堆栈操作指令" class="headerlink" title="堆栈操作指令"></a>堆栈操作指令</h2><ul>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301052016625.png" srcset="/img/loading.gif" lazyload alt="image-20230105201639593" /></p>
+<h2 id="堆栈操作指令"><a class="markdownIt-Anchor" href="#堆栈操作指令"></a> 堆栈操作指令</h2>
+<ul>
 <li><strong>堆栈的内存分配是由高地址向低地址延申的</strong></li>
 </ul>
-<h3 id="堆栈数据操作指令"><a href="#堆栈数据操作指令" class="headerlink" title="堆栈数据操作指令"></a>堆栈数据操作指令</h3><h4 id="PUSH与POP"><a href="#PUSH与POP" class="headerlink" title="PUSH与POP"></a><code>PUSH与POP</code></h4><ul>
+<h3 id="堆栈数据操作指令"><a class="markdownIt-Anchor" href="#堆栈数据操作指令"></a> 堆栈数据操作指令</h3>
+<h4 id="push与pop"><a class="markdownIt-Anchor" href="#push与pop"></a> <code>PUSH与POP</code></h4>
+<ul>
 <li><strong>PUSH</strong>将数据入栈，ESP寄存器指向的地址减4，将数据存入栈中</li>
 <li><strong>POP</strong>将数据出栈，ESP寄存器指向的地址会先将数据取出，ESP寄存器指向的地址加4</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">PUSH REG/MEM/IMM<br>POP  REG/MEM<br></code></pre></td></tr></table></figure>
-
-<h3 id="保存-x2F-恢复通用寄存器"><a href="#保存-x2F-恢复通用寄存器" class="headerlink" title="保存&#x2F;恢复通用寄存器"></a>保存&#x2F;恢复通用寄存器</h3><h4 id="PUSHAD与POPAD"><a href="#PUSHAD与POPAD" class="headerlink" title="PUSHAD与POPAD"></a><code>PUSHAD与POPAD</code></h4><ul>
+<h3 id="保存恢复通用寄存器"><a class="markdownIt-Anchor" href="#保存恢复通用寄存器"></a> 保存/恢复通用寄存器</h3>
+<h4 id="pushad与popad"><a class="markdownIt-Anchor" href="#pushad与popad"></a> <code>PUSHAD与POPAD</code></h4>
+<ul>
 <li><strong>PUSHAD</strong>指令再堆栈上按顺序压入所有的32位通用寄存器，顺序依次是EAX，ECX，EDX，EBX，ESP，EBP，ESI，EDI</li>
 <li><strong>POPAD</strong>指令以相反的顺序从堆栈中弹出这些通用寄存器</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">PUSHAD<br>POPAD<br></code></pre></td></tr></table></figure>
-
-<h3 id="保存-x2F-恢复标志寄存器"><a href="#保存-x2F-恢复标志寄存器" class="headerlink" title="保存&#x2F;恢复标志寄存器"></a>保存&#x2F;恢复标志寄存器</h3><h4 id="PUSHFD与POPFD"><a href="#PUSHFD与POPFD" class="headerlink" title="PUSHFD与POPFD"></a><code>PUSHFD与POPFD</code></h4><ul>
+<h3 id="保存恢复标志寄存器"><a class="markdownIt-Anchor" href="#保存恢复标志寄存器"></a> 保存/恢复标志寄存器</h3>
+<h4 id="pushfd与popfd"><a class="markdownIt-Anchor" href="#pushfd与popfd"></a> <code>PUSHFD与POPFD</code></h4>
+<ul>
 <li><strong>PUSHFD</strong>压入32位的EFLAGS标志寄存器的值</li>
 <li><strong>POPFD</strong>将堆栈顶部的值弹出并送至EFLAGS标志寄存器</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">PUSHFD<br>POPFD<br></code></pre></td></tr></table></figure>
-
-<h2 id="转移指令"><a href="#转移指令" class="headerlink" title="转移指令"></a>转移指令</h2><h3 id="无条件转移指令"><a href="#无条件转移指令" class="headerlink" title="无条件转移指令"></a>无条件转移指令</h3><h4 id="JMP"><a href="#JMP" class="headerlink" title="JMP"></a><code>JMP</code></h4><ul>
-<li>修改EIP的值，不影响寄存器和堆栈<ul>
+<h2 id="转移指令"><a class="markdownIt-Anchor" href="#转移指令"></a> 转移指令</h2>
+<h3 id="无条件转移指令"><a class="markdownIt-Anchor" href="#无条件转移指令"></a> 无条件转移指令</h3>
+<h4 id="jmp"><a class="markdownIt-Anchor" href="#jmp"></a> <code>JMP</code></h4>
+<ul>
+<li>修改EIP的值，不影响寄存器和堆栈
+<ul>
 <li><code>JMP 寄存器/立即数/内存</code>——相当于<code>MOV EIP， 寄存器/立即数/内存</code></li>
 </ul>
 </li>
 <li>EIP决定CPU的指向，执行完一条语句后，其根据内存地址，再加上内存地址存储的数值大小，推测出下一条语句的内存地址编号，进而确定了要执行的语句</li>
 </ul>
-<h3 id="条件转移指令"><a href="#条件转移指令" class="headerlink" title="条件转移指令"></a>条件转移指令</h3><ul>
+<h3 id="条件转移指令"><a class="markdownIt-Anchor" href="#条件转移指令"></a> 条件转移指令</h3>
+<ul>
 <li>条件转移指令又称为JCC指令集，根据EFLAGS标志寄存器中不同的标志位决定如何进行跳转</li>
 </ul>
-<h4 id="GCC"><a href="#GCC" class="headerlink" title="GCC"></a><code>GCC</code></h4><table>
+<h4 id="gcc"><a class="markdownIt-Anchor" href="#gcc"></a> <code>GCC</code></h4>
+<table>
 <thead>
 <tr>
-<th align="center">序号</th>
-<th align="center">指令</th>
-<th align="center">含义</th>
-<th align="center">测试条件</th>
+<th style="text-align:center">序号</th>
+<th style="text-align:center">指令</th>
+<th style="text-align:center">含义</th>
+<th style="text-align:center">测试条件</th>
 </tr>
 </thead>
-<tbody><tr>
-<td align="center">1</td>
-<td align="center"><code>JE,JZ</code></td>
-<td align="center">结果为零则跳转(相等时跳转)</td>
-<td align="center">ZF&#x3D;1才跳转，否则直接步进到下一条指令</td>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center"><code>JE,JZ</code></td>
+<td style="text-align:center">结果为零则跳转(相等时跳转)</td>
+<td style="text-align:center">ZF=1才跳转，否则直接步进到下一条指令</td>
 </tr>
 <tr>
-<td align="center">2</td>
-<td align="center"><code>JNE,JNZ</code></td>
-<td align="center">结果不为零则跳转(不相等时跳转)</td>
-<td align="center">ZF&#x3D;0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center"><code>JNE,JNZ</code></td>
+<td style="text-align:center">结果不为零则跳转(不相等时跳转)</td>
+<td style="text-align:center">ZF=0</td>
 </tr>
 <tr>
-<td align="center">3</td>
-<td align="center"><code>JS</code></td>
-<td align="center">结果为负则跳转</td>
-<td align="center">SF&#x3D;1</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center"><code>JS</code></td>
+<td style="text-align:center">结果为负则跳转</td>
+<td style="text-align:center">SF=1</td>
 </tr>
 <tr>
-<td align="center">4</td>
-<td align="center"><code>JNS</code></td>
-<td align="center">结果为非负则跳转</td>
-<td align="center">SF&#x3D;0</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center"><code>JNS</code></td>
+<td style="text-align:center">结果为非负则跳转</td>
+<td style="text-align:center">SF=0</td>
 </tr>
 <tr>
-<td align="center">5</td>
-<td align="center"><code>JP,JPE</code></td>
-<td align="center">结果中1的个数为偶数则跳转</td>
-<td align="center">PF&#x3D;1</td>
+<td style="text-align:center">5</td>
+<td style="text-align:center"><code>JP,JPE</code></td>
+<td style="text-align:center">结果中1的个数为偶数则跳转</td>
+<td style="text-align:center">PF=1</td>
 </tr>
 <tr>
-<td align="center">6</td>
-<td align="center"><code>JNP,JPE</code></td>
-<td align="center">结果中1的个数为偶数则跳转</td>
-<td align="center">PF&#x3D;0</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center"><code>JNP,JPE</code></td>
+<td style="text-align:center">结果中1的个数为偶数则跳转</td>
+<td style="text-align:center">PF=0</td>
 </tr>
 <tr>
-<td align="center">7</td>
-<td align="center"><code>JO</code></td>
-<td align="center">结果溢出了则跳转</td>
-<td align="center">OF&#x3D;1</td>
+<td style="text-align:center">7</td>
+<td style="text-align:center"><code>JO</code></td>
+<td style="text-align:center">结果溢出了则跳转</td>
+<td style="text-align:center">OF=1</td>
 </tr>
 <tr>
-<td align="center">8</td>
-<td align="center"><code>JNO</code></td>
-<td align="center">结果没有溢出则跳转</td>
-<td align="center">OF&#x3D;0</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center"><code>JNO</code></td>
+<td style="text-align:center">结果没有溢出则跳转</td>
+<td style="text-align:center">OF=0</td>
 </tr>
 <tr>
-<td align="center">9</td>
-<td align="center"><code>JB,JNAE</code></td>
-<td align="center">小于则跳转 (无符号数)</td>
-<td align="center">CF&#x3D;1</td>
+<td style="text-align:center">9</td>
+<td style="text-align:center"><code>JB,JNAE</code></td>
+<td style="text-align:center">小于则跳转 (无符号数)</td>
+<td style="text-align:center">CF=1</td>
 </tr>
 <tr>
-<td align="center">10</td>
-<td align="center"><code>JNB,JAE</code></td>
-<td align="center">大于等于则跳转 (无符号数)</td>
-<td align="center">CF&#x3D;0</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center"><code>JNB,JAE</code></td>
+<td style="text-align:center">大于等于则跳转 (无符号数)</td>
+<td style="text-align:center">CF=0</td>
 </tr>
 <tr>
-<td align="center">11</td>
-<td align="center"><code>JBE,JNA</code></td>
-<td align="center">小于等于则跳转 (无符号数)</td>
-<td align="center">CF&#x3D;1 or ZF&#x3D;1</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center"><code>JBE,JNA</code></td>
+<td style="text-align:center">小于等于则跳转 (无符号数)</td>
+<td style="text-align:center">CF=1 or ZF=1</td>
 </tr>
 <tr>
-<td align="center">12</td>
-<td align="center"><code>JNBE,JA</code></td>
-<td align="center">大于则跳转(无符号数)</td>
-<td align="center">CF&#x3D;0 and ZF&#x3D;0</td>
+<td style="text-align:center">12</td>
+<td style="text-align:center"><code>JNBE,JA</code></td>
+<td style="text-align:center">大于则跳转(无符号数)</td>
+<td style="text-align:center">CF=0 and ZF=0</td>
 </tr>
 <tr>
-<td align="center">13</td>
-<td align="center"><code>JL,JNGE</code></td>
-<td align="center">小于则跳转 (有符号数)</td>
-<td align="center">SF≠OF</td>
+<td style="text-align:center">13</td>
+<td style="text-align:center"><code>JL,JNGE</code></td>
+<td style="text-align:center">小于则跳转 (有符号数)</td>
+<td style="text-align:center">SF≠OF</td>
 </tr>
 <tr>
-<td align="center">14</td>
-<td align="center"><code>JNL,JGE</code></td>
-<td align="center">大于等于则跳转 (有符号数)</td>
-<td align="center">SF&#x3D;OF</td>
+<td style="text-align:center">14</td>
+<td style="text-align:center"><code>JNL,JGE</code></td>
+<td style="text-align:center">大于等于则跳转 (有符号数)</td>
+<td style="text-align:center">SF=OF</td>
 </tr>
 <tr>
-<td align="center">15</td>
-<td align="center"><code>JLE,JNG</code></td>
-<td align="center">小于等于则跳转 (有符号数)</td>
-<td align="center">ZF&#x3D;1 or SF≠ OF</td>
+<td style="text-align:center">15</td>
+<td style="text-align:center"><code>JLE,JNG</code></td>
+<td style="text-align:center">小于等于则跳转 (有符号数)</td>
+<td style="text-align:center">ZF=1 or SF≠ OF</td>
 </tr>
 <tr>
-<td align="center">16</td>
-<td align="center"><code>JNLE,JG</code></td>
-<td align="center">大于则跳转(有符号数)</td>
-<td align="center">ZF&#x3D;0 and SF&#x3D;OF</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center"><code>JNLE,JG</code></td>
+<td style="text-align:center">大于则跳转(有符号数)</td>
+<td style="text-align:center">ZF=0 and SF=OF</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
 <ul>
 <li>经常和GCC指令搭配</li>
-<li>补充:<ul>
+<li>补充:
+<ul>
 <li><code>Z</code>–ZF，<code>S</code>–SF，<code>P</code>–PF，<code>O</code>–OF</li>
-<li><code>E</code>—-Equit(相等的)</li>
-<li><code>L</code>—-Low(低的)，<code>B</code>—-Below(下面)</li>
-<li><code>N</code>—-Not(非)</li>
+<li><code>E</code>----Equit(相等的)</li>
+<li><code>L</code>----Low(低的)，<code>B</code>----Below(下面)</li>
+<li><code>N</code>----Not(非)</li>
 </ul>
 </li>
 </ul>
-<h4 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a><code>TEST</code></h4><ul>
+<h4 id="test"><a class="markdownIt-Anchor" href="#test"></a> <code>TEST</code></h4>
+<ul>
 <li><strong>TEST</strong>用于对两个操作数进行逻辑与运算，结果不送入目的操作数但影响标志位 OF、SF、ZF、PF 和 CF</li>
-<li>通常用于测试一些条件是否满足。常见用法：用这个指令,可以确定某寄存器是否等于0<ul>
+<li>通常用于测试一些条件是否满足。常见用法：用这个指令,可以确定某寄存器是否等于0
+<ul>
 <li><code>TEST EAX,EAX</code>——观察Z位</li>
 <li>如果EAX的二进制某些位为1的话,那么运算的结果就不为零</li>
 </ul>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">Test reg, imm/reg/mem<br>Test mem, imm/reg<br></code></pre></td></tr></table></figure>
-
-<h4 id="CMP"><a href="#CMP" class="headerlink" title="CMP"></a><code>CMP</code></h4><ul>
+<h4 id="cmp"><a class="markdownIt-Anchor" href="#cmp"></a> <code>CMP</code></h4>
+<ul>
 <li><strong>CMP</strong>对两个操作数进行比较，比较的方式相当于用目的操作数减源操作数的减法操作，但是 cmp 只影响相应的标志寄存器，不会将减法的结果送入目的操作数中。影响的标志位有 OF、SF、ZF、AF、PF 和 CF</li>
 <li>该指令是比较两个操作数,实际上,它相当于SUB指令,但是相减的结构并不保存到第一个操作数中，只是根据相减的结果 来改变零标志位（ZF）的,当两个操作数相等的时候,零标志位为1</li>
-<li>例一：观察Z位<ul>
+<li>例一：观察Z位
+<ul>
 <li><code>MOV EAX, 100</code></li>
 <li><code>MOV ECX, 100</code></li>
 <li><code>CMP EAX,ECX</code>——Z位变成1</li>
 </ul>
 </li>
-<li>例二：观察S位<ul>
+<li>例二：观察S位
+<ul>
 <li><code>MOV EAX, 100</code></li>
 <li><code>MOV ECX, 200</code></li>
 <li><code>CMP EAX,ECX</code>——S位改变，则前一个数比后一个小</li>
 </ul>
 </li>
-<li>例三：<ul>
+<li>例三：
+<ul>
 <li><code>CMP AX,WORD PTR DS:[405000]</code></li>
 <li><code>CMP AL,BYTE PTR DS:[405000]</code></li>
 <li><code>CMP EAX,DWORD PTR DS:[405000]</code>——注意数据宽度</li>
@@ -1058,36 +1164,42 @@
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">Cmp reg, imm/reg/mem<br>Cmp mem, imm/reg<br></code></pre></td></tr></table></figure>
-
-<h2 id="循环指令"><a href="#循环指令" class="headerlink" title="循环指令"></a>循环指令</h2><h3 id="LOOP"><a href="#LOOP" class="headerlink" title="LOOP"></a><code>LOOP</code></h3><ul>
+<h2 id="循环指令"><a class="markdownIt-Anchor" href="#循环指令"></a> 循环指令</h2>
+<h3 id="loop"><a class="markdownIt-Anchor" href="#loop"></a> <code>LOOP</code></h3>
+<ul>
 <li><strong>LOOP</strong>是循环控制指令，需要使用 ecx 寄存器来进行循环计数，当执行到 loop 指令时，先将 ecx 寄存器中的值减 1，如果 ecx 寄存器中的值大于 0，则转移到 loop 指令后的地址处，如果 ecx 寄存器中的值等于 0，则执行 loop 指令的下一条指令</li>
 <li>在使用汇编语言编写代码的时候，loop 后面跟随一个标号，而在反汇编代码中 loop 指令后跟随一个地址值</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">LOOP s<br>LOOP 00403020<br></code></pre></td></tr></table></figure>
-
-<h2 id="调用和返回指令"><a href="#调用和返回指令" class="headerlink" title="调用和返回指令"></a>调用和返回指令</h2><h3 id="CALL"><a href="#CALL" class="headerlink" title="CALL"></a><code>CALL</code></h3><ul>
-<li><p><strong>CALL</strong>与JMP相似，但是在修改 EIP 寄存器的值之前，会将 call 指令的下一条指令的地址保存至堆栈，以便在调用过程(函数)后再继续从 call 指令处执行</p>
-</li>
-<li><p>按F7可以进行跳转，之后若是jmp指令，可以按回车进行跳转</p>
+<h2 id="调用和返回指令"><a class="markdownIt-Anchor" href="#调用和返回指令"></a> 调用和返回指令</h2>
+<h3 id="call"><a class="markdownIt-Anchor" href="#call"></a> <code>CALL</code></h3>
 <ul>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032042660.png#pic_left" srcset="/img/loading.gif" lazyload>	</li>
+<li>
+<p><strong>CALL</strong>与JMP相似，但是在修改 EIP 寄存器的值之前，会将 call 指令的下一条指令的地址保存至堆栈，以便在调用过程(函数)后再继续从 call 指令处执行</p>
+</li>
+<li>
+<p>按F7可以进行跳转，之后若是jmp指令，可以按回车进行跳转</p>
+<ul>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032042660.png#pic_left" srcset="/img/loading.gif" lazyload alt="" /></li>
 <li>由<code>4183DC</code>得到<code>4183E1</code>是由<code>4183DC</code>加上此段的字节数<code>E8 26000000</code>共5个字节</li>
-<li>之后ESP-4，ESP存储的是<code>004183E1</code>，EIP &#x3D; <code>00418407</code></li>
+<li>之后ESP-4，ESP存储的是<code>004183E1</code>，EIP = <code>00418407</code></li>
 </ul>
 </li>
-<li><p><code>CALL 地址A/寄存器</code>——相当于<code>MOV EIP,地址A/寄存器   Push 下一行地址</code></p>
+<li>
+<p><code>CALL 地址A/寄存器</code>——相当于<code>MOV EIP,地址A/寄存器   Push 下一行地址</code></p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">call reg/mem/imm<br></code></pre></td></tr></table></figure>
-
-<h3 id="RET"><a href="#RET" class="headerlink" title="RET"></a><code>RET</code></h3><ul>
+<h3 id="ret"><a class="markdownIt-Anchor" href="#ret"></a> <code>RET</code></h3>
+<ul>
 <li><strong>RET</strong>用于过程(函数)的返回，该指令从堆栈的栈顶中弹出 4 个字节(这里的 4 个字节特指 32 位系统)送入 EIP 寄存器中。一般该指令在过程(函数)需要返回的位置或者是过程(函数)的结尾处</li>
-<li>与CALL相结合，call 指令调用过程(函数)时会将 call 指令的下一条指令压入栈顶，当过程(函数)执<br>行中遇到 ret 指令时，会将 call 指令压入的指令弹出送入 EIP 寄存器中，这样代码的流程就会接着 call 指令的下一条指令继续执行</li>
+<li>与CALL相结合，call 指令调用过程(函数)时会将 call 指令的下一条指令压入栈顶，当过程(函数)执<br />
+行中遇到 ret 指令时，会将 call 指令压入的指令弹出送入 EIP 寄存器中，这样代码的流程就会接着 call 指令的下一条指令继续执行</li>
 <li>返回到call指令所处节点的下一个节点（上图中的<code>004183E1</code>），即产生了回溯，同时退栈</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">Ret<br>Retn imm<br></code></pre></td></tr></table></figure>
-
-<h3 id="RETN"><a href="#RETN" class="headerlink" title="RETN"></a><code>RETN</code></h3><ul>
+<h3 id="retn"><a class="markdownIt-Anchor" href="#retn"></a> <code>RETN</code></h3>
+<ul>
 <li>相当于<code>POP EIP</code></li>
 <li>将<code>ESP</code>指向内存地址的值弹出到<code>EIP</code>指令指针寄存器中</li>
 <li>同时ESP+4</li>
@@ -1095,81 +1207,104 @@
 <div class="note note-info">
             <p>RET指令不需要修正堆栈栈顶的位置直接返回，RETN指令则需要修正堆栈栈顶的位置后再进行返回</p>
           </div> 
-
-<h2 id="串操作指令"><a href="#串操作指令" class="headerlink" title="串操作指令"></a>串操作指令</h2><h3 id="串传送指令"><a href="#串传送指令" class="headerlink" title="串传送指令"></a>串传送指令</h3><h4 id="MOVS"><a href="#MOVS" class="headerlink" title="MOVS"></a><code>MOVS</code></h4><ul>
-<li><p><strong>MOVS</strong>是借助 ESI 寄存器和 EDI 寄存器，把内存中源地址(ESI指向源地址)的数据送入内存的目的地址(EDI指向目的地址)中，MOVS 指令有 MOVSB、MOVSW 和 MOVSD 三种宽度。</p>
+<h2 id="串操作指令"><a class="markdownIt-Anchor" href="#串操作指令"></a> 串操作指令</h2>
+<h3 id="串传送指令"><a class="markdownIt-Anchor" href="#串传送指令"></a> 串传送指令</h3>
+<h4 id="movs"><a class="markdownIt-Anchor" href="#movs"></a> <code>MOVS</code></h4>
+<ul>
+<li>
+<p><strong>MOVS</strong>是借助 ESI 寄存器和 EDI 寄存器，把内存中源地址(ESI指向源地址)的数据送入内存的目的地址(EDI指向目的地址)中，MOVS 指令有 MOVSB、MOVSW 和 MOVSD 三种宽度。</p>
 </li>
-<li><p>在执行了 MOVS 指令后，ESI 寄存器和 EDI 寄存器指向的地址会自动增加或减少 1 个单位(与数据宽度对应)。增加与减少依赖 EFLAGS 标志寄存器的 DF 标志位进行控制。DF &#x3D; 0，增加；反之减少。</p>
+<li>
+<p>在执行了 MOVS 指令后，ESI 寄存器和 EDI 寄存器指向的地址会自动增加或减少 1 个单位(与数据宽度对应)。增加与减少依赖 EFLAGS 标志寄存器的 DF 标志位进行控制。DF = 0，增加；反之减少。</p>
 </li>
-<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/longintchar/article/details/50949923">movsb,movsw,movsd指令</a></p>
+<li>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/longintchar/article/details/50949923">movsb,movsw,movsd指令</a></p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;BYTE/WORD/DWORD<br>  MOVS BYTE PTR ES:[EDI],BYTE PTR DS:[ESI]  ;简写为：MOVSB<br>  MOVS WORD PTR ES:[EDI],BYTE PTR DS:[ESI]  ;简写为：MOVSW<br>  MOVS DWORD PTR ES:[EDI],BYTE PTR DS:[ESI] ;简写为：MOVSD<br>;例子<br> ;例一：<br>  MOV EDI,12FFD8<br>  MOV ESI,12FFD0<br>  MOVS DWORD PTR ES:[EDI],DWORD PTR DS:[ESI]  ;观察EDI的值<br> ;例二：修改标志寄存器中D位的值，然后在执行下面的指令：<br>  MOV EDI,12FFD8<br>  MOV ESI,12FFD0<br>  MOVS DWORD PTR ES:[EDI],DWORD PTR DS:[ESI]  ;观察EDI的值<br></code></pre></td></tr></table></figure>
-
-<h3 id="串存储指令"><a href="#串存储指令" class="headerlink" title="串存储指令"></a>串存储指令</h3><h4 id="STOS"><a href="#STOS" class="headerlink" title="STOS"></a><code>STOS</code></h4><ul>
+<h3 id="串存储指令"><a class="markdownIt-Anchor" href="#串存储指令"></a> 串存储指令</h3>
+<h4 id="stos"><a class="markdownIt-Anchor" href="#stos"></a> <code>STOS</code></h4>
+<ul>
 <li><strong>STOS</strong>是将 <code>AL/AX/EAX</code> 的值存储到 EDI 寄存器指向的内存单元。STOS 指令有 STOSB、STOSW 和 STOSD 三种宽度</li>
 </ul>
 <ol>
 <li>[EDI]指向的内存单元——EDI存储的地址编号指向的地址内存</li>
-<li>使用后EDI<code>+4/-4</code>，看EFLAGS寄存器<ol>
-<li>DF &#x3D; 0, EDI + 4</li>
-<li>DF &#x3D; 1, EDI - 4</li>
+<li>使用后EDI<code>+4/-4</code>，看EFLAGS寄存器
+<ol>
+<li>DF = 0, EDI + 4</li>
+<li>DF = 1, EDI - 4</li>
 </ol>
 </li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs assembly">STOS BYTE PTR ES:[EDI]  ;简写为STOSB，会自动补全<br>STOS WORD PTR ES:[EDI]  ;简写为STOSW<br>STOS DWORD PTR ES:[EDI] ;简写为STOSD<br>;例子：<br>  ;例一：<br>  MOV EAX,12345678<br>  MOV EDI,12FFC4<br>  STOS BYTE/WORD/DWORD PTR ES:[EDI]<br>  ;例二：修改标志寄存器中D位的值，然后再执行下面的指令：<br>  MOV EAX,12345678<br>  MOV EDI,12FFC4<br>  STOS BYTE/WORD/DWORD PTR ES:[EDI]<br></code></pre></td></tr></table></figure>
-
-<h3 id="重复前缀指令"><a href="#重复前缀指令" class="headerlink" title="重复前缀指令"></a>重复前缀指令</h3><h4 id="REP"><a href="#REP" class="headerlink" title="REP"></a><code>REP</code></h4><ul>
-<li><p><strong>REP</strong>通过配合 ECX 寄存器即可实现重复执行的操作，当执行一次 REP 指令时，ECX寄存器的值都会自动减 1，如果 ECX 寄存器的值不为 0 则重复执行，如果 ECX 寄存器的值为 0 则重复执行结束</p>
+<h3 id="重复前缀指令"><a class="markdownIt-Anchor" href="#重复前缀指令"></a> 重复前缀指令</h3>
+<h4 id="rep"><a class="markdownIt-Anchor" href="#rep"></a> <code>REP</code></h4>
+<ul>
+<li>
+<p><strong>REP</strong>通过配合 ECX 寄存器即可实现重复执行的操作，当执行一次 REP 指令时，ECX寄存器的值都会自动减 1，如果 ECX 寄存器的值不为 0 则重复执行，如果 ECX 寄存器的值为 0 则重复执行结束</p>
 </li>
-<li><p>ECX后面的数字为十六进制，需转化为十进制，再重复执行</p>
+<li>
+<p>ECX后面的数字为十六进制，需转化为十进制，再重复执行</p>
 </li>
-<li><p><code>注意</code>：其余寄存器后面的数字也是十六进制</p>
+<li>
+<p><code>注意</code>：其余寄存器后面的数字也是十六进制</p>
 </li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">MOV ECX,10<br>REP MOVSD<br>REP STOSD<br></code></pre></td></tr></table></figure>
-
-<hr>
-<h2 id="内存寻址公式"><a href="#内存寻址公式" class="headerlink" title="内存寻址公式"></a>内存寻址公式</h2><h3 id="立即数"><a href="#立即数" class="headerlink" title="[立即数]"></a>[立即数]</h3><ul>
-<li>读取内存中的值：<ul>
-<li><code>MOV EAX, DWORD PTR DS:[0x13FFC4]</code><ul>
+<hr />
+<h2 id="内存寻址公式"><a class="markdownIt-Anchor" href="#内存寻址公式"></a> 内存寻址公式</h2>
+<h3 id="立即数"><a class="markdownIt-Anchor" href="#立即数"></a> [立即数]</h3>
+<ul>
+<li>读取内存中的值：
+<ul>
+<li><code>MOV EAX, DWORD PTR DS:[0x13FFC4]</code>
+<ul>
 <li>读取了C4,C5,C6,C7四个字节（因为是dword，从C4开始读取存进eax中）</li>
 </ul>
 </li>
 <li><code>MOV EAX, DWORD PTR DS:[0x13FFC8]</code></li>
 </ul>
 </li>
-<li>向内存中写入数据<ul>
+<li>向内存中写入数据
+<ul>
 <li><code>MOV DWORD PTR DS:[0x13FFC4], EAX</code></li>
 <li><code>MOV DWORD PTR DS:[0x13FFC4], EBX</code></li>
 </ul>
 </li>
-<li>获取内存编号<ul>
+<li>获取内存编号
+<ul>
 <li><code>LEA EAX, DWORD PTR DS:[0x13FFC4]</code></li>
-<li><code>LEA EAX, DWORD PTR DS:[ESP+8]</code><ul>
+<li><code>LEA EAX, DWORD PTR DS:[ESP+8]</code>
+<ul>
 <li>lea可以获取此时的内存地址编号，并赋值给eax</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h3 id="reg"><a href="#reg" class="headerlink" title="[reg]"></a>[reg]</h3><ul>
+<h3 id="reg"><a class="markdownIt-Anchor" href="#reg"></a> [reg]</h3>
+<ul>
 <li>reg表示寄存器，可以是8个通用寄存器中的任意一个</li>
-<li>读取内存的值<ul>
+<li>读取内存的值
+<ul>
 <li><code>MOV ECX, 0x13FFD0</code></li>
-<li><code>MOV EAX, DWORD PTR DS:[ECX]</code><ul>
+<li><code>MOV EAX, DWORD PTR DS:[ECX]</code>
+<ul>
 <li>此时<code>[ECX]</code>指将ecx的内容当作指针，指向对应的内存编号，取此内存的值赋值给eax,相当于<code>[ECX]</code>存取的是指针，取指针指向地址的值</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>向内存中写入数据<ul>
+<li>向内存中写入数据
+<ul>
 <li><code>MOV EDX, 0x13FFD8</code></li>
 <li><code>MOV DWORD PTR DS:[ECX], 0X87654321</code></li>
 </ul>
 </li>
-<li>获取内存编号<ul>
-<li><code>LEA EAX, DWORD PTR DS:[EDX]</code><ul>
+<li>获取内存编号
+<ul>
+<li><code>LEA EAX, DWORD PTR DS:[EDX]</code>
+<ul>
 <li>获取的是内存的编号，即<code>[EDX]</code>存储的值</li>
 </ul>
 </li>
@@ -1177,67 +1312,83 @@
 </ul>
 </li>
 </ul>
-<h3 id="reg-立即数"><a href="#reg-立即数" class="headerlink" title="[reg + 立即数]"></a>[reg + 立即数]</h3><ul>
-<li>读取内存的值<ul>
+<h3 id="reg-立即数"><a class="markdownIt-Anchor" href="#reg-立即数"></a> [reg + 立即数]</h3>
+<ul>
+<li>读取内存的值
+<ul>
 <li><code>MOV ECX, 0x13FFD0</code></li>
 <li><code>MOV EAX, DWORD PTR DS:[ECX+4]</code></li>
 </ul>
 </li>
-<li>向内存中写入数据<ul>
+<li>向内存中写入数据
+<ul>
 <li><code>MOV EDX, 0x13FFD8</code></li>
 <li><code>MOV DWORD PTR DS:[ECX+0xC], 0x87654321</code></li>
 </ul>
 </li>
-<li>获取内存编号<ul>
+<li>获取内存编号
+<ul>
 <li><code>LEA EAX, DWORD PYR DS:[EDX+4]</code></li>
 <li><code>MOV EAX, DWORD PTY DS:[EDX+4]</code></li>
 </ul>
 </li>
 </ul>
-<h3 id="reg-reg-1-2-4-8"><a href="#reg-reg-1-2-4-8" class="headerlink" title="[reg+reg*{1,2,4,8}]"></a>[reg+reg*{1,2,4,8}]</h3><ul>
-<li>读取内存的值<ul>
+<h3 id="regreg1248"><a class="markdownIt-Anchor" href="#regreg1248"></a> [reg+reg*{1,2,4,8}]</h3>
+<ul>
+<li>读取内存的值
+<ul>
 <li><code>MOV EAX, 13FFC4</code></li>
 <li><code>MOV ECX,2</code></li>
-<li><code>MOV EDX, DWORD PTR DS:[EAX+ECX*4]</code><ul>
+<li><code>MOV EDX, DWORD PTR DS:[EAX+ECX*4]</code>
+<ul>
 <li>最大的上限就是<code>FFFFFFFF</code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>向内存中写入数据<ul>
+<li>向内存中写入数据
+<ul>
 <li><code>MOV EAX, 13FFC4</code></li>
 <li><code>MOV ECX,2</code></li>
 <li><code>MOV DWORD PTR DS:[EAX+ECX*4], 87654321</code></li>
 </ul>
 </li>
-<li>获取内存编号<ul>
+<li>获取内存编号
+<ul>
 <li><code>LEA EAX, DWORD PTR DS:[EAX+ECX*4]</code></li>
 </ul>
 </li>
 </ul>
-<h3 id="reg-reg-1-2-4-8-立即数"><a href="#reg-reg-1-2-4-8-立即数" class="headerlink" title="[reg+reg*{1,2,4,8}+立即数]"></a>[reg+reg*{1,2,4,8}+立即数]</h3><ul>
-<li>读取内存的值<ul>
+<h3 id="regreg1248立即数"><a class="markdownIt-Anchor" href="#regreg1248立即数"></a> [reg+reg*{1,2,4,8}+立即数]</h3>
+<ul>
+<li>读取内存的值
+<ul>
 <li><code>MOV EAX, 13FFC4</code></li>
 <li><code>MOV ECX,2</code></li>
-<li><code>MOV EDX, DWORD PTR DS:[EAX+ECX*4+4]</code><ul>
+<li><code>MOV EDX, DWORD PTR DS:[EAX+ECX*4+4]</code>
+<ul>
 <li>最大的上限就是<code>FFFFFFFF</code></li>
 </ul>
 </li>
 </ul>
 </li>
-<li>向内存中写入数据<ul>
+<li>向内存中写入数据
+<ul>
 <li><code>MOV EAX, 13FFC4</code></li>
 <li><code>MOV ECX,2</code></li>
 <li><code>MOV DWORD PTR DS:[EAX+ECX*4+4], 87654321</code></li>
 </ul>
 </li>
-<li>获取内存编号<ul>
+<li>获取内存编号
+<ul>
 <li><code>LEA EAX, DWORD PTR DS:[EAX+ECX*4+4]</code></li>
 </ul>
 </li>
 </ul>
-<hr>
-<h1 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h1><h2 id="堆栈引入"><a href="#堆栈引入" class="headerlink" title="堆栈引入"></a>堆栈引入</h2><p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032020851.png" srcset="/img/loading.gif" lazyload></p>
+<hr />
+<h1 id="堆栈"><a class="markdownIt-Anchor" href="#堆栈"></a> 堆栈</h1>
+<h2 id="堆栈引入"><a class="markdownIt-Anchor" href="#堆栈引入"></a> 堆栈引入</h2>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210032020851.png" srcset="/img/loading.gif" lazyload alt="" /></p>
 <ul>
 <li>1、BASE（栈底），TOP（栈顶）是2个32位的通用寄存器，里面存储的是内存单元编号（内存地址）</li>
 <li>2、BASE里面存储了一个地址，记录起始地址</li>
@@ -1247,32 +1398,31 @@
 <li>6、如果要读取中间的某个数据，可以通过TOP与BASE加上偏移的方式去读取</li>
 <li>7、此方法为堆栈，优点就是临时存储大量的数据，便于查找</li>
 </ul>
-<h2 id="堆栈操作"><a href="#堆栈操作" class="headerlink" title="堆栈操作"></a>堆栈操作</h2><ul>
+<h2 id="堆栈操作"><a class="markdownIt-Anchor" href="#堆栈操作"></a> 堆栈操作</h2>
+<ul>
 <li><code>MOV EBX, 13FFDC</code>——BASE</li>
 <li><code>MOV EDX, 13FFDC</code>——TOP</li>
 </ul>
-<h3 id="压入数据"><a href="#压入数据" class="headerlink" title="压入数据"></a>压入数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;方法一<br>MOV DWORD PTR DS:[EDX-4], 0xBBBBBBBB<br>SUB EDX, 4<br>;方法二<br>LEA EDX, DWORD PTR DS:[EDX-4]<br>MOV DWORD PTR DS:[EDX], 0xDDDDDDDD<br></code></pre></td></tr></table></figure>
-
+<h3 id="压入数据"><a class="markdownIt-Anchor" href="#压入数据"></a> 压入数据</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;方法一<br>MOV DWORD PTR DS:[EDX-4], 0xBBBBBBBB<br>SUB EDX, 4<br>;方法二<br>LEA EDX, DWORD PTR DS:[EDX-4]<br>MOV DWORD PTR DS:[EDX], 0xDDDDDDDD<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p><code>sub</code>与<code>lea</code>的两条语句等价，可以互换 </p>
+<p><code>sub</code>与<code>lea</code>的两条语句等价，可以互换</p>
 </blockquote>
-<h3 id="读取第N个数"><a href="#读取第N个数" class="headerlink" title="读取第N个数"></a>读取第N个数</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;读第四个压入的数据<br>MOV ESI, DWORD PTR DS:[EBX-0X10] ;0x10指4*4<br><br>MOV ESI, DWORD PTR DS:[EDX+0X10] ;0x10指4*4<br></code></pre></td></tr></table></figure>
-
-<h3 id="弹出数据"><a href="#弹出数据" class="headerlink" title="弹出数据"></a>弹出数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs assembly">MOV ECX, DWORD PTR DS:[EDX]<br>LAN EDX, DWORD PTR DS:[EDX+4] / ADD EDX, 4<br><br>LEA EDX, DWORD PTR DS:[EDX+4]<br>MOV EDI, DWORD PTR DS:[EDX-4]<br></code></pre></td></tr></table></figure>
-
-<h2 id="默认堆栈"><a href="#默认堆栈" class="headerlink" title="默认堆栈"></a>默认堆栈</h2><ul>
+<h3 id="读取第n个数"><a class="markdownIt-Anchor" href="#读取第n个数"></a> 读取第N个数</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs assembly">;读第四个压入的数据<br>MOV ESI, DWORD PTR DS:[EBX-0X10] ;0x10指4*4<br><br>MOV ESI, DWORD PTR DS:[EDX+0X10] ;0x10指4*4<br></code></pre></td></tr></table></figure>
+<h3 id="弹出数据"><a class="markdownIt-Anchor" href="#弹出数据"></a> 弹出数据</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs assembly">MOV ECX, DWORD PTR DS:[EDX]<br>LAN EDX, DWORD PTR DS:[EDX+4] / ADD EDX, 4<br><br>LEA EDX, DWORD PTR DS:[EDX+4]<br>MOV EDI, DWORD PTR DS:[EDX-4]<br></code></pre></td></tr></table></figure>
+<h2 id="默认堆栈"><a class="markdownIt-Anchor" href="#默认堆栈"></a> 默认堆栈</h2>
+<ul>
 <li><code>ESP</code>用于存储栈顶的值，<code>EBP</code>用于存储栈底的值</li>
 <li><code>push 0x12345678/reg</code>将数据压入栈，同时偏移<code>ESP</code></li>
 <li><code>pop reg</code>将数据弹出栈，赋值给寄存器<code>reg</code>，同时偏移<code>ESP</code></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44288506/article/details/104767511?ops_request_misc=&request_id=&biz_id=102&utm_term=push%E4%B8%8Epop%E6%8C%87%E4%BB%A4&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-7-104767511.142%5Ev47%5Epc_rank_34_1,201%5Ev3%5Econtrol_2&spm=1018.2226.3001.4187">push与pop指令讲解</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_44288506/article/details/104767511?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=push%E4%B8%8Epop%E6%8C%87%E4%BB%A4&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-7-104767511.142%5Ev47%5Epc_rank_34_1,201%5Ev3%5Econtrol_2&amp;spm=1018.2226.3001.4187">push与pop指令讲解</a></li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">PUSH r32/m32<br>PUSH r16/m16<br>PUSH imm8/imm16/imm32<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs assembly">POP r32/m32<br>POP r16/m16<br>POP imm8/imm16/imm32<br>POP EBP #指EBP出栈，即将此时的内存编号赋值给EBP，同时ESP+4<br></code></pre></td></tr></table></figure>
-
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">pushad ;保存当前通用寄存器到堆栈中<br>popad  ;将堆栈中的数据还原到通用寄存器中<br>;在此过程中堆栈的值不能发生变化，否则不能还原<br></code></pre></td></tr></table></figure>
-
-<hr>
+<hr />
 
                 
               </div>

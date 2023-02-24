@@ -16,12 +16,12 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数据相关数据存储数据宽度 图 1  常用存储单位所在字节数与位数  字节序 数据在内存中存储的方式分为大端存储和小端存储  例如：0x12345678，其中12为高位字节数据，78为低位字节数据   大端存储 内存高位地址存放低位字节数据，内存低位地址存放数据高位字节数据   图 2  大端存储  小端存储 内存高位地址存放高位字节数据，内存低位地址存放数据低位字节数据   图 3  小端存储">
+    <meta name="description" content="数据相关  数据存储  数据宽度  图 1  常用存储单位所在字节数与位数  字节序   数据在内存中存储的方式分为大端存储和小端存储   例如：0x12345678，其中12为高位字节数据，78为低位字节数据    大端存储  内存高位地址存放低位字节数据，内存低位地址存放数据高位字节数据   图 2  大端存储  小端存储  内存高位地址存放高位字节数据，内存低位地址存放数据低位字节数据">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆向分析实战">
 <meta property="og:url" content="http://example.com/posts/6e5d5d10.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="数据相关数据存储数据宽度 图 1  常用存储单位所在字节数与位数  字节序 数据在内存中存储的方式分为大端存储和小端存储  例如：0x12345678，其中12为高位字节数据，78为低位字节数据   大端存储 内存高位地址存放低位字节数据，内存低位地址存放数据高位字节数据   图 2  大端存储  小端存储 内存高位地址存放高位字节数据，内存低位地址存放数据低位字节数据   图 3  小端存储">
+<meta property="og:description" content="数据相关  数据存储  数据宽度  图 1  常用存储单位所在字节数与位数  字节序   数据在内存中存储的方式分为大端存储和小端存储   例如：0x12345678，其中12为高位字节数据，78为低位字节数据    大端存储  内存高位地址存放低位字节数据，内存低位地址存放数据高位字节数据   图 2  大端存储  小端存储  内存高位地址存放高位字节数据，内存低位地址存放数据低位字节数据">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211221642460.JPG">
 <meta property="article:published_time" content="2022-12-11T03:11:30.000Z">
@@ -87,7 +87,11 @@
 
 
   
-<meta name="generator" content="Hexo 6.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -279,91 +283,108 @@
             
               <div class="markdown-body">
                 
-                <h1 id="数据相关"><a href="#数据相关" class="headerlink" title="数据相关"></a>数据相关</h1><h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><h3 id="数据宽度"><a href="#数据宽度" class="headerlink" title="数据宽度"></a>数据宽度</h3><p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212102310024.png" srcset="/img/loading.gif" lazyload alt="image-20221210231053930"></p>
+                <h1 id="数据相关"><a class="markdownIt-Anchor" href="#数据相关"></a> 数据相关</h1>
+<h2 id="数据存储"><a class="markdownIt-Anchor" href="#数据存储"></a> 数据存储</h2>
+<h3 id="数据宽度"><a class="markdownIt-Anchor" href="#数据宽度"></a> 数据宽度</h3>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212102310024.png" srcset="/img/loading.gif" lazyload alt="image-20221210231053930" /></p>
 <center><strong>图 1  常用存储单位所在字节数与位数</strong></center>
-
-<h3 id="字节序"><a href="#字节序" class="headerlink" title="字节序"></a>字节序</h3><ul>
-<li><p>数据在内存中存储的方式分为<strong>大端存储</strong>和<strong>小端存储</strong></p>
+<h3 id="字节序"><a class="markdownIt-Anchor" href="#字节序"></a> 字节序</h3>
+<ul>
+<li>
+<p>数据在内存中存储的方式分为<strong>大端存储</strong>和<strong>小端存储</strong></p>
 </li>
-<li><p>例如：0x12345678，其中<strong>12为高位字节数据，78为低位字节数据</strong></p>
+<li>
+<p>例如：0x12345678，其中<strong>12为高位字节数据，78为低位字节数据</strong></p>
 </li>
 </ul>
-<h4 id="大端存储"><a href="#大端存储" class="headerlink" title="大端存储"></a>大端存储</h4><ul>
+<h4 id="大端存储"><a class="markdownIt-Anchor" href="#大端存储"></a> 大端存储</h4>
+<ul>
 <li>内存<strong>高</strong>位地址存放<strong>低</strong>位字节数据，内存<strong>低</strong>位地址存放数据<strong>高</strong>位字节数据</li>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212110040864.png" srcset="/img/loading.gif" lazyload alt="image-20221211004020838"></li>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212110040864.png" srcset="/img/loading.gif" lazyload alt="image-20221211004020838" /></li>
 </ul>
 <center><strong>图 2  大端存储</strong></center>
-
-<h4 id="小端存储"><a href="#小端存储" class="headerlink" title="小端存储"></a>小端存储</h4><ul>
+<h4 id="小端存储"><a class="markdownIt-Anchor" href="#小端存储"></a> 小端存储</h4>
+<ul>
 <li>内存<strong>高</strong>位地址存放<strong>高</strong>位字节数据，内存<strong>低</strong>位地址存放数据<strong>低</strong>位字节数据</li>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212110042944.png" srcset="/img/loading.gif" lazyload alt="image-20221211004205917"></li>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212110042944.png" srcset="/img/loading.gif" lazyload alt="image-20221211004205917" /></li>
 </ul>
 <center><strong>图 3  小端存储</strong></center>
-
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>通常情况下</p>
+<h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h4>
+<p>通常情况下</p>
 <ul>
 <li>Windows操作系统兼容的CPU采用小端存储</li>
 <li>UNIX操作系统兼容的CPU多采用大端存储</li>
 <li>网络中传递数据时采用大端存储</li>
 </ul>
-<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ul>
+<h4 id="注意"><a class="markdownIt-Anchor" href="#注意"></a> 注意</h4>
+<ul>
 <li>对于数据0x01020304,左边为<strong>高位字节</strong></li>
 <li>对于内存存储顺序,一般默认为<strong>低地址到高地址</strong></li>
 </ul>
-<h1 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h1><h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>与逆向相关的寄存器</p>
+<h1 id="汇编"><a class="markdownIt-Anchor" href="#汇编"></a> 汇编</h1>
+<h2 id="寄存器"><a class="markdownIt-Anchor" href="#寄存器"></a> 寄存器</h2>
+<h3 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h3>
+<p>与逆向相关的寄存器</p>
 <ul>
-<li>基本寄存器<ul>
+<li>基本寄存器
+<ul>
 <li>8个通用寄存器,6个段寄存器,1个指令指针寄存器,1个标志寄存器</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111532648.png" srcset="/img/loading.gif" lazyload alt="image-20221211153203542"></p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111532648.png" srcset="/img/loading.gif" lazyload alt="image-20221211153203542" /></p>
 <center><strong>图 4  x86 CPU中的基本寄存器</strong></center>
-
 <ul>
 <li>调试寄存器</li>
 <li>控制寄存器</li>
 </ul>
-<h3 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h3><p>通用寄存器主要用于各种运算和数据的传输,又分为<strong>数据寄存器</strong>和<strong>指针变址寄存器</strong></p>
+<h3 id="通用寄存器"><a class="markdownIt-Anchor" href="#通用寄存器"></a> 通用寄存器</h3>
+<p>通用寄存器主要用于各种运算和数据的传输,又分为<strong>数据寄存器</strong>和<strong>指针变址寄存器</strong></p>
 <table style="border:none;text-align:center;width:auto;margin: 0 auto;">
-    <tbody>
-        <tr>
-            <td style="padding: 6px"><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111535516.png" srcset="/img/loading.gif" lazyload ></td><td><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111536898.png" srcset="/img/loading.gif" lazyload ></td>
-        </tr>
+	<tbody>
+		<tr>
+			<td style="padding: 6px"><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111535516.png" srcset="/img/loading.gif" lazyload ></td><td><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111536898.png" srcset="/img/loading.gif" lazyload ></td>
+		</tr>
         <tr><td><strong>图 5  数据寄存器</strong></td><td><strong>图 6  指针变址寄存器</strong></td></tr>
-    </tbody>
+	</tbody>
 </table>
-
-<h4 id="数据寄存器"><a href="#数据寄存器" class="headerlink" title="数据寄存器"></a>数据寄存器</h4><p>主要用在算数运算与逻辑运算指令中，常用来保存各种需要计算的值</p>
+<h4 id="数据寄存器"><a class="markdownIt-Anchor" href="#数据寄存器"></a> 数据寄存器</h4>
+<p>主要用在算数运算与逻辑运算指令中，常用来保存各种需要计算的值</p>
 <ul>
 <li><strong>EAX</strong>：累加器，在乘法和除法指令中被自动使用；在 Win32 中，一般用在函数的返回值中</li>
 <li><strong>EBX</strong>：基址寄存器，DS 段中的数据指针</li>
 <li><strong>ECX</strong>：计数器，CPU 自动使用 ECX 作为循环计数器，在字符串和循环操作中常用，在循环指令（LOOP）或串操作中，ECX 用来进行循环计数，每执行一次循环，ECX 都会被 CPU 自动减一</li>
 <li><strong>EDX</strong>：数据寄存器</li>
 </ul>
-<h4 id="指针变址寄存器"><a href="#指针变址寄存器" class="headerlink" title="指针变址寄存器"></a>指针变址寄存器</h4><p>主要用作保存内存地址的指针</p>
+<h4 id="指针变址寄存器"><a class="markdownIt-Anchor" href="#指针变址寄存器"></a> 指针变址寄存器</h4>
+<p>主要用作保存内存地址的指针</p>
 <ul>
 <li><strong>EBP</strong>：扩展基址指针寄存器，SS 段中堆栈内数据指针。EBP 由高级语言用来引用参数和局部变量，通常称为堆栈基址指针寄存器。</li>
 <li><strong>ESP</strong>：堆栈指针寄存器，SS 段中堆栈指针。ESP 用来寻址堆栈上的数据，ESP 寄存器一般不参与算数运算，通常称为堆栈指针寄存器。</li>
 <li><strong>ESI</strong>：源变址寄存器，字符串操作源指针。</li>
 <li><strong>EDI</strong>：目的变址寄存器，字符串操作目标指针。</li>
 </ul>
-<h3 id="段寄存器"><a href="#段寄存器" class="headerlink" title="段寄存器"></a>段寄存器</h3><p>段寄存器用于存放段的基地址，段是一块预分配的内存区域。有些段存放有程序的指令，有些则存放有程序的变量，另外还有其他的段，如堆栈段存放着函数变量和函数参数等</p>
+<h3 id="段寄存器"><a class="markdownIt-Anchor" href="#段寄存器"></a> 段寄存器</h3>
+<p>段寄存器用于存放段的基地址，段是一块预分配的内存区域。有些段存放有程序的指令，有些则存放有程序的变量，另外还有其他的段，如堆栈段存放着函数变量和函数参数等</p>
 <ul>
 <li>16位 CPU 中，段寄存器只有4个，分别是 CS（代码段）、DS（数据段）、SS（堆栈段）和ES（附加数据段）</li>
 <li>32 位的 CPU 中，段寄存器从 4 个扩展为 6 个，分别是 CS、DS、SS、ES、FS 和 GS。FS 和 GS 段寄存器也属于附加的段寄存器</li>
 </ul>
-<h3 id="指令指针寄存器"><a href="#指令指针寄存器" class="headerlink" title="指令指针寄存器"></a>指令指针寄存器</h3><ul>
-<li><p>指令指针寄存器 <strong>EIP</strong> 是一个 32 位的寄存器，在 16 位的环境中，它的名称是 IP。EIP 寄存器保存着下一条要执行的指令的地址</p>
+<h3 id="指令指针寄存器"><a class="markdownIt-Anchor" href="#指令指针寄存器"></a> 指令指针寄存器</h3>
+<ul>
+<li>
+<p>指令指针寄存器 <strong>EIP</strong> 是一个 32 位的寄存器，在 16 位的环境中，它的名称是 IP。EIP 寄存器保存着下一条要执行的指令的地址</p>
 </li>
-<li><p>EIP 寄存器的值在程序中是无法直接修改的，只能通过影响 EIP 的指令间接地进行修改，如 JMP、CALL、RET 等指令。此外，通过中断或异常也可以影响 EIP 的值</p>
+<li>
+<p>EIP 寄存器的值在程序中是无法直接修改的，只能通过影响 EIP 的指令间接地进行修改，如 JMP、CALL、RET 等指令。此外，通过中断或异常也可以影响 EIP 的值</p>
 </li>
 </ul>
-<h3 id="标志寄存器"><a href="#标志寄存器" class="headerlink" title="标志寄存器"></a>标志寄存器</h3><p>在 16 位 CPU 中，标志寄存器称为 <strong>FLAGS</strong>（有的书上是 <strong>PSW</strong>，即程序状态字寄存器）。在 32 位 CPU 中，标志寄存器也扩展为 32 位，被称为 <strong>EFLAGS</strong></p>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111545235.png" srcset="/img/loading.gif" lazyload alt="image-20221211154550208"></p>
+<h3 id="标志寄存器"><a class="markdownIt-Anchor" href="#标志寄存器"></a> 标志寄存器</h3>
+<p>在 16 位 CPU 中，标志寄存器称为 <strong>FLAGS</strong>（有的书上是 <strong>PSW</strong>，即程序状态字寄存器）。在 32 位 CPU 中，标志寄存器也扩展为 32 位，被称为 <strong>EFLAGS</strong></p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111545235.png" srcset="/img/loading.gif" lazyload alt="image-20221211154550208" /></p>
 <center><strong>图 7  16位的标志寄存器</strong></center>
-
-<h4 id="条件标志"><a href="#条件标志" class="headerlink" title="条件标志"></a>条件标志</h4><ol>
+<h4 id="条件标志"><a class="markdownIt-Anchor" href="#条件标志"></a> 条件标志</h4>
+<ol>
 <li><strong>OF(OverFlow Flag)</strong>:溢出标志位，用来反映有符号数加减法运算所得结果是否溢出。如果运算超过当前运算位数所能表示的范围，则称为溢出，该标志位被置为 1，否则为 0</li>
 <li><strong>SF(Sign Flag)</strong>:符号标志位，用来反映运算结果的符号位。运算结果为负时为 1，否则为 0</li>
 <li><strong>ZF(Zero Flag)</strong>:零标志位，用来反映运算结果是否为 0。运算结果为 0 时该标志位被置为 1，否则为 0</li>
@@ -371,12 +392,15 @@
 <li><strong>PF(Parity Flag)</strong>:奇偶标志位，用于反映结果中“1”的个数的奇偶性。如果“1”的个数为偶数，该标志位被置为 1，否则为 0</li>
 <li><strong>CF(Carry Flag)</strong>:进位标志位,运算结果的最高位产生了一个进位或借位，则该标志位被置为 1，否则为 0</li>
 </ol>
-<h4 id="控制标志"><a href="#控制标志" class="headerlink" title="控制标志"></a>控制标志</h4><ol>
+<h4 id="控制标志"><a class="markdownIt-Anchor" href="#控制标志"></a> 控制标志</h4>
+<ol>
 <li><strong>DF(Direction Flag)</strong>:方向标志位，用于串操作指令中，控制地址的变化方向。当 DF 为 0 时，存储器地址自动增加；当 DF 为 1 时，存储器地址自动减少。操作 DF 标志寄存器可以使用指令 CLD 和 STD 进行复位和置位</li>
 <li><strong>IF(Interrupt Flag)</strong>:中断标志位，用于控制外部可屏蔽中断是否可以被处理器响应。当 IF 为 1 时，允许中断；当 IF 为 0 时，则不允许中断。操作 IF 标志寄存器可以使用 CLI 和 STI 进行复位和置位</li>
 <li><strong>TF(Trap Flag)</strong>:陷阱标志位，用于控制处理器是否进入单步操作方式。当 TF 为 0 时，处理器在正常模式下运行；当 TF 为 1 时，处理器单步执行指令，调试器可以逐条指令进行执行就是使用了该标志位</li>
 </ol>
-<h1 id="OD使用"><a href="#OD使用" class="headerlink" title="OD使用"></a>OD使用</h1><h2 id="按键"><a href="#按键" class="headerlink" title="按键"></a>按键</h2><ul>
+<h1 id="od使用"><a class="markdownIt-Anchor" href="#od使用"></a> OD使用</h1>
+<h2 id="按键"><a class="markdownIt-Anchor" href="#按键"></a> 按键</h2>
+<ul>
 <li><code>F8</code>进行单步调试</li>
 <li><code>Alt + M</code>观察当前被调试进程所使用的地址</li>
 </ul>

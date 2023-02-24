@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="汇总 分析PE格式工具—-PETool 引用 PE文件结构详解 PE文件结构详解精华    基本概念PE文件 PE (Portable Execute) 文件是Windows下可执行文件的总称，常见的有 DLL，EXE，OCX，SYS 等。它是微软在 UNIX 平台的 COFF (通用对象文件格式) 基础上制作而成。最初设计用来提高程序在不同操作系统上的移植性，但实际上这种文件格式仅用在 Wind">
+    <meta name="description" content="汇总  分析PE格式工具----PETool 引用  PE文件结构详解 PE文件结构详解精华     基本概念  PE文件   PE (Portable Execute) 文件是Windows下可执行文件的总称，常见的有 DLL，EXE，OCX，SYS 等。它是微软在 UNIX 平台的 COFF (通用对象文件格式) 基础上制作而成。最初设计用来提高程序在不同操作系统上的移植性，但实际上这种文件">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【滴水逆向】PE">
 <meta property="og:url" content="http://example.com/posts/d7f95dad.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="汇总 分析PE格式工具—-PETool 引用 PE文件结构详解 PE文件结构详解精华    基本概念PE文件 PE (Portable Execute) 文件是Windows下可执行文件的总称，常见的有 DLL，EXE，OCX，SYS 等。它是微软在 UNIX 平台的 COFF (通用对象文件格式) 基础上制作而成。最初设计用来提高程序在不同操作系统上的移植性，但实际上这种文件格式仅用在 Wind">
+<meta property="og:description" content="汇总  分析PE格式工具----PETool 引用  PE文件结构详解 PE文件结构详解精华     基本概念  PE文件   PE (Portable Execute) 文件是Windows下可执行文件的总称，常见的有 DLL，EXE，OCX，SYS 等。它是微软在 UNIX 平台的 COFF (通用对象文件格式) 基础上制作而成。最初设计用来提高程序在不同操作系统上的移植性，但实际上这种文件">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301052117769.JPG">
 <meta property="article:published_time" content="2023-01-05T13:13:43.000Z">
-<meta property="article:modified_time" content="2023-02-24T14:40:11.781Z">
+<meta property="article:modified_time" content="2023-02-24T14:55:55.871Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301052117769.JPG">
@@ -43,6 +43,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -87,7 +89,11 @@
 
 
   
-<meta name="generator" content="Hexo 6.3.0"></head>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
 
 
 <body>
@@ -225,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.2k 字
+          9.3k 字
         
       </span>
     
@@ -236,7 +242,7 @@
         
         
         
-          77 分钟
+          78 分钟
         
       </span>
     
@@ -279,255 +285,322 @@
             
               <div class="markdown-body">
                 
-                <h1 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h1><ul>
-<li>分析PE格式工具—-<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013908944/article/details/103356615">PETool</a></li>
-<li><strong>引用</strong><ul>
+                <h1 id="汇总"><a class="markdownIt-Anchor" href="#汇总"></a> 汇总</h1>
+<ul>
+<li>分析PE格式工具----<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013908944/article/details/103356615">PETool</a></li>
+<li><strong>引用</strong>
+<ul>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/freeking101/article/details/102752048">PE文件结构详解</a></li>
 <li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43655282/article/details/104291312">PE文件结构详解精华</a></li>
 </ul>
 </li>
 </ul>
-<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="PE文件"><a href="#PE文件" class="headerlink" title="PE文件"></a>PE文件</h2><ul>
-<li><p>PE (Portable Execute) 文件是Windows下可执行文件的总称，常见的有 <strong>DLL，EXE，OCX，SYS</strong> 等。它是微软在 UNIX 平台的 COFF (通用对象文件格式) 基础上制作而成。<strong>最初设计用来提高程序在不同操作系统上的移植性，但实际上这种文件格式仅用在 Windows 系列操作系统下</strong>。<strong>PE文件是指 32 位可执行文件，也称为PE32。64位的可执行文件称为 PE+ 或 PE32+，是PE(PE32)的一种扩展形式（请注意不是PE64)</strong></p>
+<h1 id="基本概念"><a class="markdownIt-Anchor" href="#基本概念"></a> 基本概念</h1>
+<h2 id="pe文件"><a class="markdownIt-Anchor" href="#pe文件"></a> PE文件</h2>
+<ul>
+<li>
+<p>PE (Portable Execute) 文件是Windows下可执行文件的总称，常见的有 <strong>DLL，EXE，OCX，SYS</strong> 等。它是微软在 UNIX 平台的 COFF (通用对象文件格式) 基础上制作而成。<strong>最初设计用来提高程序在不同操作系统上的移植性，但实际上这种文件格式仅用在 Windows 系列操作系统下</strong>。<strong>PE文件是指 32 位可执行文件，也称为PE32。64位的可执行文件称为 PE+ 或 PE32+，是PE(PE32)的一种扩展形式（请注意不是PE64)</strong></p>
 </li>
-<li><p>早期磁盘空间不足，PE磁盘文件与内存映像结构不同，磁盘每200h为一节，内存则是1000h为一节。后来随之发展，二者相一致</p>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301121246317.png" srcset="/img/loading.gif" lazyload alt="image-20230112124638285"></p>
+<li>
+<p>早期磁盘空间不足，PE磁盘文件与内存映像结构不同，磁盘每200h为一节，内存则是1000h为一节。后来随之发展，二者相一致</p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301121246317.png" srcset="/img/loading.gif" lazyload alt="image-20230112124638285" /></p>
 </li>
-<li><p>PE文件的结构一般来说如下图所示：从起始位置开始依次是 <strong>DOS头</strong>，<strong>NT头</strong>，<strong>节表</strong> 以及<strong>具体的节</strong></p>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301121244920.png" srcset="/img/loading.gif" lazyload alt="image-20230112124420891"></p>
+<li>
+<p>PE文件的结构一般来说如下图所示：从起始位置开始依次是 <strong>DOS头</strong>，<strong>NT头</strong>，<strong>节表</strong> 以及<strong>具体的节</strong></p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301121244920.png" srcset="/img/loading.gif" lazyload alt="image-20230112124420891" /></p>
 </li>
 </ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301121155957.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="PE文件执行顺序"><a href="#PE文件执行顺序" class="headerlink" title="PE文件执行顺序"></a>PE文件执行顺序</h2><ol>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301121155957.png" srcset="/img/loading.gif" lazyload alt="" /></p>
+<h2 id="pe文件执行顺序"><a class="markdownIt-Anchor" href="#pe文件执行顺序"></a> PE文件执行顺序</h2>
+<ol>
 <li>当一个 PE 文件被执行时，<strong>PE 装载器</strong>首先检查 DOS header 里的 PE header 的偏移量。如果找到，则直接跳转到 PE header 的位置。</li>
 <li>当<strong>PE 装载器</strong>跳转到 PE header 后，第二步要做的就是检查 PE header 是否有效。如果该 PE header 有效，就跳转到 PE header 的尾部。</li>
-<li>紧跟 PE header 尾部的是节表。PE装载器 执行完第二步后开始读取节表中的节段信息，并采用文件映射的方法将这些节段映射到内存，<strong>同时附上节表里指定节段的读写属性</strong>。<ul>
-<li><strong>文件映射</strong>—-在执行一个PE文件的时候，Windows并不在一开始就将整个文件读入内存，而是采用与内存映射的机制，也就是说，<strong>Windows装载器在装载的时候仅仅建立好虚拟地址和PE文件之间的映射关系，只有真正执行到某个内存页中的指令或者访问某一页中的数据时，这个页面才会被从磁盘提交到物理内存</strong>，这种机制使文件装入的速度和文件大小没有太大的关系</li>
+<li>紧跟 PE header 尾部的是节表。PE装载器 执行完第二步后开始读取节表中的节段信息，并采用文件映射的方法将这些节段映射到内存，<strong>同时附上节表里指定节段的读写属性</strong>。
+<ul>
+<li><strong>文件映射</strong>----在执行一个PE文件的时候，Windows并不在一开始就将整个文件读入内存，而是采用与内存映射的机制，也就是说，<strong>Windows装载器在装载的时候仅仅建立好虚拟地址和PE文件之间的映射关系，只有真正执行到某个内存页中的指令或者访问某一页中的数据时，这个页面才会被从磁盘提交到物理内存</strong>，这种机制使文件装入的速度和文件大小没有太大的关系</li>
 </ul>
 </li>
 <li>PE文件映射入内存后，PE装载器 将继续处理PE文件中类似 import table （输入表）的逻辑部分。</li>
 </ol>
-<h2 id="PE文件结构"><a href="#PE文件结构" class="headerlink" title="PE文件结构"></a>PE文件结构</h2><ol>
+<h2 id="pe文件结构"><a class="markdownIt-Anchor" href="#pe文件结构"></a> PE文件结构</h2>
+<ol>
 <li><strong>DOS头</strong> 是用来兼容 MS-DOS 操作系统的，目的是当这个文件在 MS-DOS 上运行时提示一段文字，大部分情况下是：This program cannot be run in DOS mode. 同时指明 NT 头在文件中的位置。</li>
-<li><strong>NT头</strong> 包含 windows PE 文件的主要信息，其中包括一个 <strong>‘PE’ 字样的签名</strong>，<strong>PE文件头（IMAGE_FILE_HEADER）</strong>和 <strong>PE可选头（IMAGE_OPTIONAL_HEADER32）。</strong></li>
+<li><strong>NT头</strong> 包含 windows PE 文件的主要信息，其中包括一个 <strong>‘PE’ 字样的签名</strong>，**PE文件头（IMAGE_FILE_HEADER）**和 <strong>PE可选头（IMAGE_OPTIONAL_HEADER32）。</strong></li>
 <li><strong>节表</strong>：是 PE 文件后续节的描述，windows 根据节表的描述加载每个节。</li>
-<li><strong>节</strong>：每个节实际上是一个容器，可以包含代码、数据等等，每个节可以有独立的内存权限，比如代码节默认有读&#x2F;执行权限，节的名字和数量可以自己定义，未必是上图中的三个。</li>
+<li><strong>节</strong>：每个节实际上是一个容器，可以包含代码、数据等等，每个节可以有独立的内存权限，比如代码节默认有读/执行权限，节的名字和数量可以自己定义，未必是上图中的三个。</li>
 </ol>
-<h2 id="VA-amp-RVA"><a href="#VA-amp-RVA" class="headerlink" title="VA&amp;RVA"></a>VA&amp;RVA</h2><p>​	VA指的是进程虚拟内存的<strong>绝对地址</strong>，RVA指从某个基准位置开始的<strong>相对地址</strong>。VA与RVA满足：<br>$$<br>RVA + ImageBase &#x3D; VA<br>$$<br>​	PE头内部大多以RVA形式存在。32位Windows OS中，各进程分配有 4GB 的虚拟内存，因此进程中VA值的范围是0000 0000 ~ FFFF FFFF。</p>
-<h1 id="PE头"><a href="#PE头" class="headerlink" title="PE头"></a>PE头</h1><p>win采用小端序存储，查看十六进制时需要从右往左</p>
+<h2 id="varva"><a class="markdownIt-Anchor" href="#varva"></a> VA&amp;RVA</h2>
+<p>​	VA指的是进程虚拟内存的<strong>绝对地址</strong>，RVA指从某个基准位置开始的<strong>相对地址</strong>。VA与RVA满足：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mi>V</mi><mi>A</mi><mo>+</mo><mi>I</mi><mi>m</mi><mi>a</mi><mi>g</mi><mi>e</mi><mi>B</mi><mi>a</mi><mi>s</mi><mi>e</mi><mo>=</mo><mi>V</mi><mi>A</mi></mrow><annotation encoding="application/x-tex">RVA + ImageBase = VA
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mord mathnormal">m</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mord mathnormal">a</span><span class="mord mathnormal">s</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">A</span></span></span></span></span></p>
+<p>​	PE头内部大多以RVA形式存在。32位Windows OS中，各进程分配有 4GB 的虚拟内存，因此进程中VA值的范围是0000 0000 ~ FFFF FFFF。</p>
+<h1 id="pe头"><a class="markdownIt-Anchor" href="#pe头"></a> PE头</h1>
+<p>win采用小端序存储，查看十六进制时需要从右往左</p>
 <ul>
-<li><p>32位PE头大小</p>
+<li>
+<p>32位PE头大小</p>
 <ul>
-<li><p>DOS—40h</p>
+<li>
+<p>DOS—40h</p>
 </li>
-<li><p>NT—4h + 14h(FILE) + E0h(Optional)</p>
+<li>
+<p>NT—4h + 14h(FILE) + E0h(Optional)</p>
 </li>
 </ul>
 </li>
 </ul>
-<h2 id="DOS头"><a href="#DOS头" class="headerlink" title="DOS头"></a>DOS头</h2><h3 id="IMAGE-DOS-HEADER"><a href="#IMAGE-DOS-HEADER" class="headerlink" title="IMAGE_DOS_HEADER"></a>IMAGE_DOS_HEADER</h3><p>​	所有的PE文件都是以一个<strong>64(40h)字节</strong>(一个字节8位)的<strong>DOS头</strong>(MZ文件头)开始。这个DOS头只是为了兼容早期的DOS操作系统。该结构体中需要掌握的字段只有2个，分别是第一个字段 <code>e_magic</code> 和最后一个字段 <code>e_lfanew</code> 字段</p>
+<h2 id="dos头"><a class="markdownIt-Anchor" href="#dos头"></a> DOS头</h2>
+<h3 id="image_dos_header"><a class="markdownIt-Anchor" href="#image_dos_header"></a> IMAGE_DOS_HEADER</h3>
+<p>​	所有的PE文件都是以一个<strong>64(40h)字节</strong>(一个字节8位)的<strong>DOS头</strong>(MZ文件头)开始。这个DOS头只是为了兼容早期的DOS操作系统。该结构体中需要掌握的字段只有2个，分别是第一个字段 <code>e_magic</code> 和最后一个字段 <code>e_lfanew</code> 字段</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> _<span class="hljs-title">IMAGE_DOS_HEADER</span> &#123;</span>　<span class="hljs-comment">// DOS .EXE header</span><br>	WORD　e_magic;　　　　<span class="hljs-comment">// Magic number</span><br>	WORD　e_cblp;　　　　 <span class="hljs-comment">// Bytes on last page of file</span><br>	WORD　e_cp;　　　　　 <span class="hljs-comment">// Pages in file</span><br>	WORD　e_crlc;　　　　 <span class="hljs-comment">// Relocations</span><br>	WORD　e_cparhdr;　　　<span class="hljs-comment">// Size of header in paragraphs</span><br>	WORD　e_minalloc;　　 <span class="hljs-comment">// Minimum extra paragraphs needed</span><br>	WORD　e_maxalloc;　　 <span class="hljs-comment">// Maximum extra paragraphs needed</span><br>	WORD　e_ss;　　　　　　<span class="hljs-comment">// Initial (relative) SS value</span><br>	WORD　e_sp;　　　　　　<span class="hljs-comment">// Initial SP value</span><br>	WORD　e_csum;　　　　　<span class="hljs-comment">// ChecksumWORD e_ip;Initial IP valueWORD　e_cs;Initial (relative) CS value</span><br>	WORD　e_lfarlc;　　　　<span class="hljs-comment">// File address of relocation table</span><br>	WORD　e_ovno;　　　　　<span class="hljs-comment">// Overlay number</span><br>	WORD　e_res[<span class="hljs-number">4</span>];　　　　<span class="hljs-comment">// Reserved words</span><br>	WORD　e_oemid;　　　　 <span class="hljs-comment">// OEM identifier (for e_oeminfo)</span><br>	WORD　e_oeminfo;　　　 <span class="hljs-comment">// OEM information; e_oemid specific</span><br>	WORD　e_res2[<span class="hljs-number">10</span>];　　　<span class="hljs-comment">// Reserved words</span><br>	LONG　e_lfanew;　　　　<span class="hljs-comment">// File address of new exe header</span><br>&#125; IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;<br><br></code></pre></td></tr></table></figure>
-
 <ul>
-<li><p><code>e_magic</code> 字段</p>
+<li>
+<p><code>e_magic</code> 字段</p>
 <p>DOS 可执行文件的标识符(DOS签名)，占用2字节。该位置保存着的字符是“MZ”。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">define</span> IMAGE_DOS_SIGNATURE　　　　<span class="hljs-comment">//0x5A4D　MZ</span></span><br></code></pre></td></tr></table></figure>
 </li>
-<li><p><code>e_lfanew</code> 字段：<br>只是NT头的偏移—-PE头相对于文件的偏移，定位PE文件</p>
+<li>
+<p><code>e_lfanew</code> 字段：<br />
+只是NT头的偏移----PE头相对于文件的偏移，定位PE文件</p>
 </li>
-<li><p>作用：</p>
+<li>
+<p>作用：</p>
 <ul>
 <li><strong>定位PE文件头开始位置</strong>，也可用于<strong>PE文件合法性检测</strong></li>
 </ul>
 </li>
 </ul>
-<h3 id="DOS存根"><a href="#DOS存根" class="headerlink" title="DOS存根"></a>DOS存根</h3><p>​	DOS存根(stub)在DOS头下方，是个可选项，且大小不固定(即使没有DOS存根，文件也能正常运行)。</p>
-<h2 id="NT头"><a href="#NT头" class="headerlink" title="NT头"></a>NT头</h2><h3 id="IMAGE-NT-HEADERS"><a href="#IMAGE-NT-HEADERS" class="headerlink" title="IMAGE_NT_HEADERS"></a>IMAGE_NT_HEADERS</h3><p>​	NT头：结构体的大小为<strong>F8h</strong></p>
+<h3 id="dos存根"><a class="markdownIt-Anchor" href="#dos存根"></a> DOS存根</h3>
+<p>​	DOS存根(stub)在DOS头下方，是个可选项，且大小不固定(即使没有DOS存根，文件也能正常运行)。</p>
+<h2 id="nt头"><a class="markdownIt-Anchor" href="#nt头"></a> NT头</h2>
+<h3 id="image_nt_headers"><a class="markdownIt-Anchor" href="#image_nt_headers"></a> IMAGE_NT_HEADERS</h3>
+<p>​	NT头：结构体的大小为<strong>F8h</strong></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> _<span class="hljs-title">IMAGE_NT_HEADERS</span> &#123;</span> <br>        DWORD Signature;                         <br>      <span class="hljs-comment">//该结构体中的Signature就是PE标识符,标识该文件是否是PE文件。4字节，即 50 45 0000 -&gt; 00 00 45 50 -&gt; PE</span><br>        IMAGE_FILE_HEADER FileHeader;             <br>      <span class="hljs-comment">// IMAGE_FILE_HEADER是PE文件头</span><br>        IMAGE_OPTIONAL_HEADER32 OptionalHeader;   <span class="hljs-comment">// </span><br>&#125; IMAGE_NT_HEADERS32, *PIMAGE_NT_HEADERS32;  <br></code></pre></td></tr></table></figure>
-
 <ul>
-<li><p><code>Signature(签名)</code>字段</p>
+<li>
+<p><code>Signature(签名)</code>字段</p>
 <ul>
 <li>类似于 DOS头中的 e_magic，其高16位是0，低16是0x4550，用字符表示是 “PE”。</li>
 </ul>
 </li>
-<li><p><code>File Header</code></p>
+<li>
+<p><code>File Header</code></p>
 <ul>
 <li>文件头结构体</li>
 </ul>
 </li>
-<li><p><code>Optional Header</code></p>
+<li>
+<p><code>Optional Header</code></p>
 <ul>
 <li>可选头结构体</li>
 </ul>
 </li>
-<li><p>为简单分析，此时PE头(file与optional)只看32位，64位的暂且不看</p>
+<li>
+<p>为简单分析，此时PE头(file与optional)只看32位，64位的暂且不看</p>
 </li>
 </ul>
-<h3 id="IMAGE-FILE-HEADER"><a href="#IMAGE-FILE-HEADER" class="headerlink" title="IMAGE_FILE_HEADER"></a>IMAGE_FILE_HEADER</h3><p>​	<strong>NT头：标准PE头</strong>，共<strong>14h</strong>个字节，其中需要掌握的字段有5个(注意NT头有个4字节的Signature)</p>
+<h3 id="image_file_header"><a class="markdownIt-Anchor" href="#image_file_header"></a> IMAGE_FILE_HEADER</h3>
+<p>​	<strong>NT头：标准PE头</strong>，共<strong>14h</strong>个字节，其中需要掌握的字段有5个(注意NT头有个4字节的Signature)</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> _<span class="hljs-title">IMAGE_FILE_HEADER</span> &#123;</span> <br>        WORD    Machine;              <br>        <span class="hljs-comment">// 每个CPU拥有唯一的Machine码 -&gt; 4C 01 -&gt; PE -&gt; 兼容32位Intel X86芯片</span><br><br>        WORD    NumberOfSections;     <br>        <span class="hljs-comment">// 指文件中存在的节段(又称节区)数量，也就是节表中的项数 -&gt; 00 04 -&gt; 4</span><br>        <span class="hljs-comment">// 该值一定要大于0，且当定义的节段数与实际不符时，将发生运行错误。</span><br><br>        DWORD   TimeDateStamp;         <br>        <span class="hljs-comment">// PE文件的创建时间，一般有连接器填写 -&gt; 38 D1 29 1E</span><br>    <br>        DWORD   PointerToSymbolTable;<br>        <span class="hljs-comment">// COFF文件符号表在文件中的偏移 -&gt; 00 00 00 00</span><br>        DWORD   NumberOfSymbols;       <br>        <span class="hljs-comment">// 符号表的数量 -&gt; 00 00 00 00</span><br><br>        WORD    SizeOfOptionalHeader; <br>        <span class="hljs-comment">// 指出IMAGE_OPTIONAL_HEADER32结构体的长度。-&gt;  00 E0 -&gt; 224字节</span><br>        <span class="hljs-comment">// PE32+ 格式文件中使用的是IMAGE_OPTIONAL_HEADER64结构体，</span><br>        <span class="hljs-comment">// 这两个结构体尺寸是不相同的，所以需要在SizeOfOptionalHeader中指明大小。</span><br><br>        WORD    Characteristics;      <br>        <span class="hljs-comment">// 标识文件的属性，二进制中每一位代表不同属性 -&gt; 0F 01</span><br>    <br>&#125; IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;<br></code></pre></td></tr></table></figure>
-
 <ul>
-<li><p><code>Machine</code>字段</p>
+<li>
+<p><code>Machine</code>字段</p>
 <ul>
 <li>指明程序能够运行的CPU型号(运行平台)：</li>
 <li><strong>0x0000</strong> 任何处理器; <strong>0x0014C</strong> x86及后续处理器</li>
 </ul>
 </li>
-<li><p><code>NumberOfSections</code>字段</p>
+<li>
+<p><code>NumberOfSections</code>字段</p>
 <ul>
 <li>文件中存在的节区的总数，如果要新增节或者合并节，就要修改这个值</li>
 </ul>
 </li>
-<li><p><strong>TimeDateStamp</strong>字段</p>
+<li>
+<p><strong>TimeDateStamp</strong>字段</p>
 <ul>
 <li>时间戳：文件的创建时间(和操作系统的创建时间无关)，编译器填写的</li>
 </ul>
 </li>
-<li><p><code>SizeOfOptionalHeader</code>字段</p>
+<li>
+<p><code>SizeOfOptionalHeader</code>字段</p>
 <ul>
 <li>指出可选PE头(IMAGE_OPTIONAL_HEADER)的大小，32位PE文件默认<strong>E0h</strong>，64位PE文件默认为<strong>F0h</strong>，大小可以自定义</li>
 </ul>
 </li>
-<li><p><code>Characteristics</code>字段</p>
+<li>
+<p><code>Characteristics</code>字段</p>
 <ul>
 <li>文件属性，每个位(十六进制转化为二进制)有不同的含义，可执行文件值为10F 即0 1 2 3 8位置1</li>
 </ul>
 </li>
 </ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301121638095.png" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h3 id="IMAGE-OPTIONAL-HEADER"><a href="#IMAGE-OPTIONAL-HEADER" class="headerlink" title="IMAGE_OPTIONAL_HEADER"></a>IMAGE_OPTIONAL_HEADER</h3><p>​	<strong>NT头：可选PE头</strong>，32位下大小为<strong>E0h</strong>个字节，64位下大小为<strong>F0h</strong>个字节</p>
+<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202301121638095.png" srcset="/img/loading.gif" lazyload alt="img" /></p>
+<h3 id="image_optional_header"><a class="markdownIt-Anchor" href="#image_optional_header"></a> IMAGE_OPTIONAL_HEADER</h3>
+<p>​	<strong>NT头：可选PE头</strong>，32位下大小为<strong>E0h</strong>个字节，64位下大小为<strong>F0h</strong>个字节</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> _<span class="hljs-title">IMAGE_OPTIONAL_HEADER</span> &#123;</span> <br>        WORD    Magic;                     <br>        <span class="hljs-comment">// 魔数 32位为0x10B，64位为0x20B，ROM镜像为0x107&#x27;</span><br>        BYTE    MajorLinkerVersion;         <br>        <span class="hljs-comment">// 链接器的主版本号 -&gt; 05</span><br>        BYTE    MinorLinkerVersion;         <br>        <span class="hljs-comment">// 链接器的次版本号 -&gt; 0C</span><br>        DWORD   SizeOfCode;                 <br>        <span class="hljs-comment">// 代码节大小，一般放在“.text”节里，必须是FileAlignment的整数倍 -&gt; 40 00 04 00</span><br>        DWORD   SizeOfInitializedData;      <br>        <span class="hljs-comment">// 已初始化数大小，一般放在“.data”节里，必须是FileAlignment的整数倍 -&gt; 40 00 0A 00</span><br>        DWORD   SizeOfUninitializedData;    <br>        <span class="hljs-comment">// 未初始化数大小，一般放在“.bss”节里，必须是FileAlignment的整数倍 -&gt; 00 00 00 00</span><br>        DWORD   AddressOfEntryPoint;       <br>        <span class="hljs-comment">// 指出程序最先执行的代码起始地址(RVA) -&gt; 00 00 10 00&#x27;</span><br>        DWORD   BaseOfCode;                 <br>        <span class="hljs-comment">// 代码基址，当镜像被加载进内存时代码节的开头RVA。必须是SectionAlignment的整数倍 -&gt; 40 00 10 00</span><br> <br>        DWORD   BaseOfData;                 <br>        <span class="hljs-comment">// 数据基址，当镜像被加载进内存时数据节的开头RVA。必须是SectionAlignment的整数倍 -&gt; 40 00 20 00</span><br>        <span class="hljs-comment">// 在64位文件中此处被并入紧随其后的ImageBase中。</span><br> <br>        DWORD   ImageBase;                 <br>        <span class="hljs-comment">// 当加载进内存时，镜像的第1个字节的首选地址。</span><br>        <span class="hljs-comment">// WindowEXE默认ImageBase值为00400000，DLL文件的ImageBase值为10000000，也可以指定其他值。</span><br>        <span class="hljs-comment">// 执行PE文件时，PE装载器先创建进程，再将文件载入内存，</span><br>        <span class="hljs-comment">// 然后把EIP寄存器的值设置为ImageBase+AddressOfEntryPoint&#x27;</span><br>        <span class="hljs-comment">// PE文件的Body部分被划分成若干节段，这些节段储存着不同类别的数据。</span><br>        DWORD   SectionAlignment;          <br>        <span class="hljs-comment">// SectionAlignment指定了节段在内存中的最小单位， -&gt; 00 00 10 00&#x27;</span><br>        DWORD   FileAlignment;             <br>        <span class="hljs-comment">// FileAlignment指定了节段在磁盘文件中的最小单位，-&gt; 00 00 02 00</span><br>        <span class="hljs-comment">// SectionAlignment必须大于或者等于FileAlignment&#x27;</span><br> <br>        WORD    MajorOperatingSystemVersion;	<span class="hljs-comment">// 主系统的主版本号 -&gt; 00 04</span><br>        WORD    MinorOperatingSystemVersion;	<span class="hljs-comment">// 主系统的次版本号 -&gt; 00 00</span><br>        WORD    MajorImageVersion;          	<span class="hljs-comment">// 镜像的主版本号 -&gt; 00 00</span><br>        WORD    MinorImageVersion;          	<span class="hljs-comment">// 镜像的次版本号 -&gt; 00 00</span><br>        WORD    MajorSubsystemVersion;      	<span class="hljs-comment">// 子系统的主版本号 -&gt; 00 04</span><br>        WORD    MinorSubsystemVersion;      	<span class="hljs-comment">// 子系统的次版本号 -&gt; 00 00</span><br>        DWORD   Win32VersionValue;          	<span class="hljs-comment">// 保留，必须为0 -&gt; 00 00 00 00</span><br> <br>        DWORD   SizeOfImage;               <br>        <span class="hljs-comment">// 当镜像被加载进内存时的大小，包括所有的文件头。向上舍入为SectionAlignment的倍数。</span><br>        <span class="hljs-comment">// 一般文件大小与加载到内存中的大小是不同的。 -&gt; 00 00 50 00&#x27;</span><br> <br>        DWORD   SizeOfHeaders;             <br>        <span class="hljs-comment">// 所有头的总大小，向上舍入为FileAlignment的倍数。                                     </span><br>        <span class="hljs-comment">// 可以以此值作为PE文件第一节的文件偏移量。-&gt; 00 00 04 00&#x27;</span><br> <br>        DWORD   CheckSum;                   <span class="hljs-comment">// 镜像文件的校验和 -&gt; 00 00 B4 99</span><br> <br>        WORD    Subsystem;                 <br>        <span class="hljs-comment">// 运行此镜像所需的子系统 -&gt; 00 02 -&gt; 窗口应用程序</span><br>        <span class="hljs-comment">// 用来区分系统驱动文件（*.sys)与普通可执行文件（*.exe，*.dll），</span><br><br> <br>        WORD    DllCharacteristics;         <span class="hljs-comment">// DLL标识 -&gt; 00 00</span><br>        DWORD   SizeOfStackReserve;         <span class="hljs-comment">// 最大栈大小。CPU的堆栈。默认是1MB。-&gt; 00 10 00 00</span><br>        DWORD   SizeOfStackCommit;          <span class="hljs-comment">// 初始提交的堆栈大小。默认是4KB -&gt; 00 00 10 00</span><br>        DWORD   SizeOfHeapReserve;          <span class="hljs-comment">// 最大堆大小。编译器分配的。默认是1MB -&gt;00 10 00 00</span><br>        DWORD   SizeOfHeapCommit;           <span class="hljs-comment">// 初始提交的局部堆空间大小。默认是4K -&gt;00 00 10 00</span><br>        DWORD   LoaderFlags;                <span class="hljs-comment">// 保留，必须为0 -&gt; 00 00 00 00</span><br> <br>        DWORD   NumberOfRvaAndSizes;       <br>        <span class="hljs-comment">// 指定DataDirectory的数组个数，由于以前发行的Windows NT的原因，它只能为16。 -&gt; 00 00 00 10&#x27;</span><br>        IMAGE_DATA_DIRECTORY DataDirectory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES]; <br>        <span class="hljs-comment">// 数据目录数组。详见下文。</span><br>    <br>&#125; IMAGE_OPTIONAL_HEADER32, *PIMAGE_OPTIONAL_HEADER32;<br> <br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> _<span class="hljs-title">IMAGE_DATA_DIRECTORY</span> &#123;</span>  <br>    DWORD   VirtualAddress;  <br>    DWORD   Size;  <br>&#125; IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;<br></code></pre></td></tr></table></figure>
-
 <ul>
-<li><code>Magic</code>字段<ul>
+<li><code>Magic</code>字段
+<ul>
 <li>说明文件类型：</li>
 <li>32位下的PE文件–<strong>10B</strong>， 64位下的PE文件–<strong>20B</strong></li>
 </ul>
 </li>
-<li><strong>SizeOfCode</strong>字段<ul>
+<li><strong>SizeOfCode</strong>字段
+<ul>
 <li>所有代码节的和，必须是FileAlignment的整数倍  编译器填的</li>
 </ul>
 </li>
-<li><strong>SizeOfInitializedData</strong>字段<ul>
+<li><strong>SizeOfInitializedData</strong>字段
+<ul>
 <li>已初始化数据大小的和，必须是FileAlignment的整数倍  编译器填的</li>
 </ul>
 </li>
-<li><strong>SizeOfUninitializedData</strong>字段<ul>
+<li><strong>SizeOfUninitializedData</strong>字段
+<ul>
 <li>未初始化数据大小的和，必须是FileAlignment的整数倍  编译器填的</li>
 </ul>
 </li>
-<li><code>AddressOfEntryPoint</code>字段<ul>
+<li><code>AddressOfEntryPoint</code>字段
+<ul>
 <li>程序入口—AddressOfEntryPoint持有EP的RVA值。该值指出程序最先执行的代码起始地址。</li>
 </ul>
 </li>
-<li><strong>BaseOfCode</strong>字段<ul>
+<li><strong>BaseOfCode</strong>字段
+<ul>
 <li>代码开始的基址，编译器填的</li>
 </ul>
 </li>
-<li><strong>BaseOfData</strong>字段<ul>
+<li><strong>BaseOfData</strong>字段
+<ul>
 <li>数据开始的基址，编译器填的</li>
 </ul>
 </li>
-<li><code>ImageBase</code>字段<ul>
+<li><code>ImageBase</code>字段
+<ul>
 <li>内存镜像基址。进程虚拟内存的范围是0000 0000 ~ FFFF FFFF(32位系统)。PE文件被加载到内存中时，ImageBase 指出文件的优先装入地址。</li>
-<li>EXE、DLL文件被装载到用户内存的0000 0000 ~ 7FFF FFFF中，SYS文件被载入内核内存的8000 0000 ~ FFFF FFFF中。一般而言，使用开发攻击(VB&#x2F;VC++&#x2F;Dephi)创建好EXE文件后，其执行PR文件时，PE装载器先创建进程，再将文件载入内存，然后把EIP寄存器的值设置为 <strong>ImageBase + AddressOfEntryPoint</strong></li>
+<li>EXE、DLL文件被装载到用户内存的0000 0000 ~ 7FFF FFFF中，SYS文件被载入内核内存的8000 0000 ~ FFFF FFFF中。一般而言，使用开发攻击(VB/VC++/Dephi)创建好EXE文件后，其执行PR文件时，PE装载器先创建进程，再将文件载入内存，然后把EIP寄存器的值设置为 <strong>ImageBase + AddressOfEntryPoint</strong></li>
 </ul>
 </li>
-<li><code>SectionAlignment</code>字段<ul>
+<li><code>SectionAlignment</code>字段
+<ul>
 <li>内存对齐—节区在内存中的最小单位</li>
 </ul>
 </li>
-<li><code>FileAlignment</code>字段<ul>
+<li><code>FileAlignment</code>字段
+<ul>
 <li>文件对齐—节区再磁盘文件中的最小单位</li>
 </ul>
 </li>
-<li><code>SizeOfImage</code>字段<ul>
+<li><code>SizeOfImage</code>字段
+<ul>
 <li>内存中整个PE文件的映射的尺寸，可以比实际的值大，但必须是SectionAlignment的整数倍</li>
 </ul>
 </li>
-<li><code>SizeOfHeaders</code>字段<ul>
+<li><code>SizeOfHeaders</code>字段
+<ul>
 <li>所有头与节表按照<strong>文件对齐</strong>后的大小，否则加载会出错</li>
 <li>指出整个PE头的大小[ DOS + NT( NT + File + Optional ) ]。该值也是FileAlignment的整数倍。第一节区所在位置与SizeOfHeader距文件开始偏移的量相同</li>
 </ul>
 </li>
-<li><strong>CheckSum</strong>字段<ul>
+<li><strong>CheckSum</strong>字段
+<ul>
 <li>校验和，一些系统文件有要求.用来判断文件是否被修改</li>
 </ul>
 </li>
-<li><strong>SizeOfStackReserve</strong>字段<ul>
+<li><strong>SizeOfStackReserve</strong>字段
+<ul>
 <li>初始化时保留的堆栈大小</li>
 </ul>
 </li>
-<li><strong>SizeOfStackCommit</strong>字段<ul>
+<li><strong>SizeOfStackCommit</strong>字段
+<ul>
 <li>初始化时实际提交的大小</li>
 </ul>
-<p> 	</p>
 </li>
-<li><strong>SizeOfHeapReserve</strong>字段<ul>
+<li><strong>SizeOfHeapReserve</strong>字段
+<ul>
 <li>初始化时保留的堆大小</li>
 </ul>
 </li>
-<li><strong>SizeOfHeapCommit</strong>字段<ul>
+<li><strong>SizeOfHeapCommit</strong>字段
+<ul>
 <li>初始化时实践提交的大小</li>
 </ul>
 </li>
-<li><code>NumberOfRvaAndSizes</code>字段<ul>
+<li><code>NumberOfRvaAndSizes</code>字段
+<ul>
 <li>目录项数目</li>
 <li>指出Data——Directory(IMAGE_OPTIONAL_HEADER32结构体的最后一个成员)数组的个数。</li>
 </ul>
 </li>
-<li><code>Data_Directory</code>字段<ul>
+<li><code>Data_Directory</code>字段
+<ul>
 <li>Data_Directory是由IMAGE_DATA_DIRECTORY结构体组成的数组，数组的每项都有被定义的值</li>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202302242139607.png" srcset="/img/loading.gif" lazyload alt="image-20230224213917557"></li>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202302242139607.png" srcset="/img/loading.gif" lazyload alt="image-20230224213917557" /></li>
 </ul>
 </li>
 </ul>
-<h2 id="节区头"><a href="#节区头" class="headerlink" title="节区头"></a>节区头</h2><p><strong>IMAGE_SECTION_HEADER</strong></p>
+<h2 id="节区头"><a class="markdownIt-Anchor" href="#节区头"></a> 节区头</h2>
+<p><strong>IMAGE_SECTION_HEADER</strong></p>
 <p>在PE文件头与原始数据之间存在一个区块表（Section Table），它是一个IMAGE_SECTION_HEADER结构数组，<code>区块表包含每个块在映像中的信息</code>（如位置、长度、属性），分别指向不同的区块实体</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> _<span class="hljs-title">IMAGE_SECTION_HEADER</span> &#123;</span><br>    Name						<span class="hljs-comment">//8个字节的块名</span><br>    <span class="hljs-class"><span class="hljs-keyword">union</span>						</span><br><span class="hljs-class">    &#123;</span><br>        DWORD PhysicalAddress;<br>        DWORD VirtualSize;<br>    &#125; Misc;                     <span class="hljs-comment">//区块尺寸(真实)</span><br>    DWORD VirtualAddress;		<span class="hljs-comment">//区块的RVA地址</span><br>    DWORD SizeOfRawData;		<span class="hljs-comment">//在文件中对齐后的尺寸</span><br>    DWORD PointerToRawData;		<span class="hljs-comment">//在文件中偏移</span><br>    DWORD PointerToRelocations;	<span class="hljs-comment">//在OBJ文件中使用，重定位的偏移</span><br>    DWORD PointerToLinenumbers;	<span class="hljs-comment">//行号表的偏移（供调试使用地）</span><br>    WORD NumberOfRelocations;	<span class="hljs-comment">//在OBJ文件中使用，重定位项数目</span><br>    WORD NumberOfLinenumbers;	<span class="hljs-comment">//行号表中行号的数目</span><br>    DWORD Characteristics;		<span class="hljs-comment">//区块属性如可读，可写，可执行等</span><br>&#125; IMAGE_SECTION_HEADER, *PIMAGE_SECTION_HEADER;<br></code></pre></td></tr></table></figure>
-
 <ul>
-<li><code>Name</code><ul>
-<li><strong>8个字节</strong> 一般情况下是以”\0”结尾的ASCII吗字符串来标识的名称，内容可以自定义</li>
+<li><code>Name</code>
+<ul>
+<li><strong>8个字节</strong> 一般情况下是以&quot;\0&quot;结尾的ASCII吗字符串来标识的名称，内容可以自定义</li>
 </ul>
 </li>
-<li><code>Misc</code><ul>
+<li><code>Misc</code>
+<ul>
 <li><strong>双字</strong> 是该节在没有对齐前的真实尺寸,该值可以不准确</li>
 </ul>
 </li>
-<li><code>VirtualSize</code><ul>
+<li><code>VirtualSize</code>
+<ul>
 <li>内存中节区所占大小</li>
 </ul>
 </li>
-<li><code>VirtualAddress</code><ul>
+<li><code>VirtualAddress</code>
+<ul>
 <li>节区在<strong>内存中</strong>的偏移地址(RVA)。加上ImageBase才是在内存中的真正地址。由SectionAlignment确定</li>
 </ul>
 </li>
-<li><code>SizeOfRawData</code><ul>
+<li><code>SizeOfRawData</code>
+<ul>
 <li>节区在<strong>文件中</strong>对齐后的尺寸—磁盘文件中节区所占大小</li>
 </ul>
 </li>
-<li><code>PointerToRawData</code><ul>
+<li><code>PointerToRawData</code>
+<ul>
 <li>节区在<strong>文件中</strong>的偏移—磁盘文件中节区的起始位置。由FileAlignment确定</li>
 </ul>
 </li>
-<li><code>Characteristics</code> <ul>
+<li><code>Characteristics</code>
+<ul>
 <li>节区属性(bit OR)</li>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202302242144521.png" srcset="/img/loading.gif" lazyload alt="image-20230224214448460"></li>
+<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202302242144521.png" srcset="/img/loading.gif" lazyload alt="image-20230224214448460" /></li>
 </ul>
 </li>
 </ul>
-<h1 id="RVA-to-RAW"><a href="#RVA-to-RAW" class="headerlink" title="RVA to RAW"></a>RVA to RAW</h1><p>​	PE文件从磁盘到内存映射—PE文件加载到内存时，每个节区都要能准确完成内存地址与文件偏移间的映射(RVA to RAW).方法如下：</p>
+<h1 id="rva-to-raw"><a class="markdownIt-Anchor" href="#rva-to-raw"></a> RVA to RAW</h1>
+<p>​	PE文件从磁盘到内存映射—PE文件加载到内存时，每个节区都要能准确完成内存地址与文件偏移间的映射(RVA to RAW).方法如下：</p>
 <ol>
-<li><p>查早RVA所在节区</p>
+<li>
+<p>查早RVA所在节区</p>
 </li>
-<li><p>使用简单的公式计算文件偏移(RAW)<br>$$<br>RAW - PointerToRawData &#x3D; RVA - VirtualAddress<br>$$<br>PointerToRawData：<strong>磁盘文件中</strong>节区的起始位置。由FileAlignment确定</p>
+<li>
+<p>使用简单的公式计算文件偏移(RAW)</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>R</mi><mi>A</mi><mi>W</mi><mo>−</mo><mi>P</mi><mi>o</mi><mi>i</mi><mi>n</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>T</mi><mi>o</mi><mi>R</mi><mi>a</mi><mi>w</mi><mi>D</mi><mi>a</mi><mi>t</mi><mi>a</mi><mo>=</mo><mi>R</mi><mi>V</mi><mi>A</mi><mo>−</mo><mi>V</mi><mi>i</mi><mi>r</mi><mi>t</mi><mi>u</mi><mi>a</mi><mi>l</mi><mi>A</mi><mi>d</mi><mi>d</mi><mi>r</mi><mi>e</mi><mi>s</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">RAW - PointerToRawData = RVA - VirtualAddress
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal">o</span><span class="mord mathnormal">i</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal" style="margin-right:0.13889em;">T</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal">a</span><span class="mord mathnormal">t</span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">A</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">t</span><span class="mord mathnormal">u</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">A</span><span class="mord mathnormal">d</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="mord mathnormal">e</span><span class="mord mathnormal">s</span><span class="mord mathnormal">s</span></span></span></span></span></p>
+<p>PointerToRawData：<strong>磁盘文件中</strong>节区的起始位置。由FileAlignment确定</p>
 <p>virtualAddress：<strong>内存中</strong>节区起始地址(RVA)</p>
 </li>
 </ol>
-<h1 id="IAT"><a href="#IAT" class="headerlink" title="IAT"></a>IAT</h1><p>​	IAT(Import Address Table导入地址表)。其保存的内存与Windows操作系统的核心进程、内存、DLL结构等有关。—-IAT是一种表格，用来记录程序正在使用<strong>哪些库中的哪些函数</strong>。</p>
-<h2 id="DLL"><a href="#DLL" class="headerlink" title="DLL"></a>DLL</h2><p>​	DLL(Dynamic Linked Library)—-动态链接库</p>
+<h1 id="iat"><a class="markdownIt-Anchor" href="#iat"></a> IAT</h1>
+<p>​	IAT(Import Address Table导入地址表)。其保存的内存与Windows操作系统的核心进程、内存、DLL结构等有关。----IAT是一种表格，用来记录程序正在使用<strong>哪些库中的哪些函数</strong>。</p>
+<h2 id="dll"><a class="markdownIt-Anchor" href="#dll"></a> DLL</h2>
+<p>​	DLL(Dynamic Linked Library)----动态链接库</p>
 <p>DLL概念：</p>
 <ul>
 <li>不把库包含到程序中，单独组成DLL文件，需要时调用即可</li>
@@ -540,7 +613,8 @@
 <li>隐式链接：程序开始时即一同加载DLL，程序终止时再释放占用的内存</li>
 </ol>
 <p><strong>IAT提供的机制即与隐式链接有关</strong></p>
-<h2 id="IMAGE-IMPORT-DESCRIPTOR"><a href="#IMAGE-IMPORT-DESCRIPTOR" class="headerlink" title="IMAGE_IMPORT_DESCRIPTOR"></a>IMAGE_IMPORT_DESCRIPTOR</h2><p>IMAGE_IMPORT_DESCRIPTOR结构体中记录着PE文件要导入哪些库文件</p>
+<h2 id="image_import_descriptor"><a class="markdownIt-Anchor" href="#image_import_descriptor"></a> IMAGE_IMPORT_DESCRIPTOR</h2>
+<p>IMAGE_IMPORT_DESCRIPTOR结构体中记录着PE文件要导入哪些库文件</p>
 
                 
               </div>
@@ -692,6 +766,11 @@
 
 
   
+
+
+  
+  
+
 
 
 
