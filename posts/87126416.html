@@ -16,23 +16,23 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="数据相关  数据存储  数据宽度  图 1  常用存储单位所在字节数与位数  字节序   数据在内存中存储的方式分为大端存储和小端存储   例如：0x12345678，其中12为高位字节数据，78为低位字节数据    大端存储  内存高位地址存放低位字节数据，内存低位地址存放数据高位字节数据   图 2  大端存储  小端存储  内存高位地址存放高位字节数据，内存低位地址存放数据低位字节数据">
+    <meta name="description" content="First__Page  Youngter-drive  知识点：多线程处理  参考：BUUCTF Youngter-drive笔记与思考 (线程) – TokameinE  分析  识别  查壳，UPX壳，直接脱 拖到IDA中，发现调用Windows的API   这里CreateThread是创建一个线程，属于新知识点。具体讲解在最后     具体流程  结合给出的IDA分析与注释，这里分别追">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逆向分析实战">
-<meta property="og:url" content="http://example.com/posts/6e5d5d10.html">
+<meta property="og:title" content="BUU刷题记录">
+<meta property="og:url" content="http://example.com/posts/87126416.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="数据相关  数据存储  数据宽度  图 1  常用存储单位所在字节数与位数  字节序   数据在内存中存储的方式分为大端存储和小端存储   例如：0x12345678，其中12为高位字节数据，78为低位字节数据    大端存储  内存高位地址存放低位字节数据，内存低位地址存放数据高位字节数据   图 2  大端存储  小端存储  内存高位地址存放高位字节数据，内存低位地址存放数据低位字节数据">
+<meta property="og:description" content="First__Page  Youngter-drive  知识点：多线程处理  参考：BUUCTF Youngter-drive笔记与思考 (线程) – TokameinE  分析  识别  查壳，UPX壳，直接脱 拖到IDA中，发现调用Windows的API   这里CreateThread是创建一个线程，属于新知识点。具体讲解在最后     具体流程  结合给出的IDA分析与注释，这里分别追">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211122244520.JPG">
-<meta property="article:published_time" content="2022-12-11T03:11:30.000Z">
-<meta property="article:modified_time" content="2023-02-27T09:42:28.977Z">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
+<meta property="article:published_time" content="2023-03-03T14:40:23.000Z">
+<meta property="article:modified_time" content="2023-03-05T15:05:06.571Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202211122244520.JPG">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
   
   
   
-  <title>逆向分析实战 - Nuthecz`Blog</title>
+  <title>BUU刷题记录 - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -200,13 +200,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202210031822357.png') no-repeat center center; background-size: cover;">
+     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052132320.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="逆向分析实战"></span>
+            <span id="subtitle" data-typed-text="BUU刷题记录"></span>
           
         </div>
 
@@ -217,8 +217,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-11 11:11" pubdate>
-          2022年12月11日 上午
+        <time datetime="2023-03-03 22:40" pubdate>
+          2023年3月3日 晚上
         </time>
       </span>
     
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          1.3k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          17 分钟
+          12 分钟
         
       </span>
     
@@ -278,132 +278,112 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">逆向分析实战</h1>
+            <h1 style="display: none">BUU刷题记录</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="数据相关"><a class="markdownIt-Anchor" href="#数据相关"></a> 数据相关</h1>
-<h2 id="数据存储"><a class="markdownIt-Anchor" href="#数据存储"></a> 数据存储</h2>
-<h3 id="数据宽度"><a class="markdownIt-Anchor" href="#数据宽度"></a> 数据宽度</h3>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212102310024.png" srcset="/img/loading.gif" lazyload alt="image-20221210231053930" /></p>
-<center><strong>图 1  常用存储单位所在字节数与位数</strong></center>
-<h3 id="字节序"><a class="markdownIt-Anchor" href="#字节序"></a> 字节序</h3>
+                <h1 id="first__page"><a class="markdownIt-Anchor" href="#first__page"></a> First__Page</h1>
+<h2 id="youngter-drive"><a class="markdownIt-Anchor" href="#youngter-drive"></a> Youngter-drive</h2>
+<blockquote>
+<p>知识点：多线程处理</p>
+</blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://tokameine.top/2021/04/30/buuctf-youngter-drive/">BUUCTF Youngter-drive笔记与思考 (线程) – TokameinE</a></p>
+<h3 id="分析"><a class="markdownIt-Anchor" href="#分析"></a> 分析</h3>
+<h4 id="识别"><a class="markdownIt-Anchor" href="#识别"></a> 识别</h4>
 <ul>
-<li>
-<p>数据在内存中存储的方式分为<strong>大端存储</strong>和<strong>小端存储</strong></p>
+<li>查壳，UPX壳，直接脱</li>
+<li>拖到IDA中，发现调用Windows的API
+<ul>
+<li><img src="https://gitee.com/Nuthecz/img/raw/master/202303040947552.png" srcset="/img/loading.gif" lazyload alt="image-20230304094722528" /></li>
+<li>这里<code>CreateThread</code>是创建一个线程，属于新知识点。具体讲解在最后</li>
+</ul>
+</li>
+</ul>
+<h4 id="具体流程"><a class="markdownIt-Anchor" href="#具体流程"></a> 具体流程</h4>
+<ul>
+<li>结合给出的IDA分析与注释，这里分别追踪 <code>StartAddress</code> 和 <code>sub_41119F</code> 两个线程。</li>
+<li><code>StartAddress</code>
+<ul>
+<li><img src="https://gitee.com/Nuthecz/img/raw/master/202303040949069.png" srcset="/img/loading.gif" lazyload alt="image-20230304094927047" /></li>
+<li>这里执行<strong>sub_41112C</strong>操作，其中<strong>dword_418008</strong>的值为29—综合下文sub_411940可以判断出此值为flag的长度。继续追踪，找到sub_411940函数。</li>
+<li><img src="https://gitee.com/Nuthecz/img/raw/master/202303040956524.png" srcset="/img/loading.gif" lazyload alt="image-20230304095634491" /></li>
+<li>由分析，此时对于flag数组进行了替换操作，其操作从后往前(a2一开始为29，之后递减)。此操作含义就是在 <strong>off_418000中查询下标为flag[i]-38对应的值，赋值给flag[i]</strong>。</li>
+</ul>
 </li>
 <li>
-<p>例如：0x12345678，其中<strong>12为高位字节数据，78为低位字节数据</strong></p>
+<h2 id="sub_41119f"><a class="markdownIt-Anchor" href="#sub_41119f"></a> <code>sub_41119F</code></h2>
 </li>
 </ul>
-<h4 id="大端存储"><a class="markdownIt-Anchor" href="#大端存储"></a> 大端存储</h4>
-<ul>
-<li>内存<strong>高</strong>位地址存放<strong>低</strong>位字节数据，内存<strong>低</strong>位地址存放数据<strong>高</strong>位字节数据</li>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212110040864.png" srcset="/img/loading.gif" lazyload alt="image-20221211004020838" /></li>
-</ul>
-<center><strong>图 2  大端存储</strong></center>
-<h4 id="小端存储"><a class="markdownIt-Anchor" href="#小端存储"></a> 小端存储</h4>
-<ul>
-<li>内存<strong>高</strong>位地址存放<strong>高</strong>位字节数据，内存<strong>低</strong>位地址存放数据<strong>低</strong>位字节数据</li>
-<li><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212110042944.png" srcset="/img/loading.gif" lazyload alt="image-20221211004205917" /></li>
-</ul>
-<center><strong>图 3  小端存储</strong></center>
-<h4 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h4>
-<p>通常情况下</p>
-<ul>
-<li>Windows操作系统兼容的CPU采用小端存储</li>
-<li>UNIX操作系统兼容的CPU多采用大端存储</li>
-<li>网络中传递数据时采用大端存储</li>
-</ul>
-<h4 id="注意"><a class="markdownIt-Anchor" href="#注意"></a> 注意</h4>
-<ul>
-<li>对于数据0x01020304,左边为<strong>高位字节</strong></li>
-<li>对于内存存储顺序,一般默认为<strong>低地址到高地址</strong></li>
-</ul>
-<h1 id="汇编"><a class="markdownIt-Anchor" href="#汇编"></a> 汇编</h1>
-<h2 id="寄存器"><a class="markdownIt-Anchor" href="#寄存器"></a> 寄存器</h2>
-<h3 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h3>
-<p>与逆向相关的寄存器</p>
-<ul>
-<li>基本寄存器
-<ul>
-<li>8个通用寄存器,6个段寄存器,1个指令指针寄存器,1个标志寄存器</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111532648.png" srcset="/img/loading.gif" lazyload alt="image-20221211153203542" /></p>
-<center><strong>图 4  x86 CPU中的基本寄存器</strong></center>
-<ul>
-<li>调试寄存器</li>
-<li>控制寄存器</li>
-</ul>
-<h3 id="通用寄存器"><a class="markdownIt-Anchor" href="#通用寄存器"></a> 通用寄存器</h3>
-<p>通用寄存器主要用于各种运算和数据的传输,又分为<strong>数据寄存器</strong>和<strong>指针变址寄存器</strong></p>
-<table style="border:none;text-align:center;width:auto;margin: 0 auto;">
-	<tbody>
-		<tr>
-			<td style="padding: 6px"><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111535516.png" srcset="/img/loading.gif" lazyload ></td><td><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111536898.png" srcset="/img/loading.gif" lazyload ></td>
-		</tr>
-        <tr><td><strong>图 5  数据寄存器</strong></td><td><strong>图 6  指针变址寄存器</strong></td></tr>
-	</tbody>
-</table>
-<h4 id="数据寄存器"><a class="markdownIt-Anchor" href="#数据寄存器"></a> 数据寄存器</h4>
-<p>主要用在算数运算与逻辑运算指令中，常用来保存各种需要计算的值</p>
-<ul>
-<li><strong>EAX</strong>：累加器，在乘法和除法指令中被自动使用；在 Win32 中，一般用在函数的返回值中</li>
-<li><strong>EBX</strong>：基址寄存器，DS 段中的数据指针</li>
-<li><strong>ECX</strong>：计数器，CPU 自动使用 ECX 作为循环计数器，在字符串和循环操作中常用，在循环指令（LOOP）或串操作中，ECX 用来进行循环计数，每执行一次循环，ECX 都会被 CPU 自动减一</li>
-<li><strong>EDX</strong>：数据寄存器</li>
-</ul>
-<h4 id="指针变址寄存器"><a class="markdownIt-Anchor" href="#指针变址寄存器"></a> 指针变址寄存器</h4>
-<p>主要用作保存内存地址的指针</p>
-<ul>
-<li><strong>EBP</strong>：扩展基址指针寄存器，SS 段中堆栈内数据指针。EBP 由高级语言用来引用参数和局部变量，通常称为堆栈基址指针寄存器。</li>
-<li><strong>ESP</strong>：堆栈指针寄存器，SS 段中堆栈指针。ESP 用来寻址堆栈上的数据，ESP 寄存器一般不参与算数运算，通常称为堆栈指针寄存器。</li>
-<li><strong>ESI</strong>：源变址寄存器，字符串操作源指针。</li>
-<li><strong>EDI</strong>：目的变址寄存器，字符串操作目标指针。</li>
-</ul>
-<h3 id="段寄存器"><a class="markdownIt-Anchor" href="#段寄存器"></a> 段寄存器</h3>
-<p>段寄存器用于存放段的基地址，段是一块预分配的内存区域。有些段存放有程序的指令，有些则存放有程序的变量，另外还有其他的段，如堆栈段存放着函数变量和函数参数等</p>
-<ul>
-<li>16位 CPU 中，段寄存器只有4个，分别是 CS（代码段）、DS（数据段）、SS（堆栈段）和ES（附加数据段）</li>
-<li>32 位的 CPU 中，段寄存器从 4 个扩展为 6 个，分别是 CS、DS、SS、ES、FS 和 GS。FS 和 GS 段寄存器也属于附加的段寄存器</li>
-</ul>
-<h3 id="指令指针寄存器"><a class="markdownIt-Anchor" href="#指令指针寄存器"></a> 指令指针寄存器</h3>
+<h3 id="知识点多线程"><a class="markdownIt-Anchor" href="#知识点多线程"></a> 知识点：多线程</h3>
 <ul>
 <li>
-<p>指令指针寄存器 <strong>EIP</strong> 是一个 32 位的寄存器，在 16 位的环境中，它的名称是 IP。EIP 寄存器保存着下一条要执行的指令的地址</p>
+<p>多线程：指一个程序中有多个顺序流在执行。其中 <code>CreateThread</code> 是创造一个线程，创造的线程要用句柄 <code>HANDLE</code> 来储存， <code>CloseHandle</code> 是关闭该线程。</p>
 </li>
 <li>
-<p>EIP 寄存器的值在程序中是无法直接修改的，只能通过影响 EIP 的指令间接地进行修改，如 JMP、CALL、RET 等指令。此外，通过中断或异常也可以影响 EIP 的值</p>
+<p>API函数：</p>
+<ul>
+<li>
+<pre class="highlight"><code class="cmake">CreateThread(
+		lpThreadAttributes		
+		dwStackSize			    
+		lpStartAddress
+		lpParameter
+		dwCreationFlags
+		lpThreadId
+		)
+&lt;!--code￼<span class="hljs-number">0</span>--&gt;
+
+</code></pre>
+</li>
+<li>
+<p>由得出的结果，知道这里没有flag，继续往下看</p>
+</li>
+<li>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303052254462.png" srcset="/img/loading.gif" lazyload alt="image-20230305225421428" /></p>
+</li>
+<li>
+<p>这里进行了十次base64加密，对应了上文中的base解密出来为网站的事情</p>
+</li>
+<li>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303052255104.png" srcset="/img/loading.gif" lazyload alt="image-20230305225555059" /></p>
 </li>
 </ul>
-<h3 id="标志寄存器"><a class="markdownIt-Anchor" href="#标志寄存器"></a> 标志寄存器</h3>
-<p>在 16 位 CPU 中，标志寄存器称为 <strong>FLAGS</strong>（有的书上是 <strong>PSW</strong>，即程序状态字寄存器）。在 32 位 CPU 中，标志寄存器也扩展为 32 位，被称为 <strong>EFLAGS</strong></p>
-<p><img src="https://xingqiu-tuchuang-1256524210.cos.ap-shanghai.myqcloud.com/4991/202212111545235.png" srcset="/img/loading.gif" lazyload alt="image-20221211154550208" /></p>
-<center><strong>图 7  16位的标志寄存器</strong></center>
-<h4 id="条件标志"><a class="markdownIt-Anchor" href="#条件标志"></a> 条件标志</h4>
-<ol>
-<li><strong>OF(OverFlow Flag)</strong>:溢出标志位，用来反映有符号数加减法运算所得结果是否溢出。如果运算超过当前运算位数所能表示的范围，则称为溢出，该标志位被置为 1，否则为 0</li>
-<li><strong>SF(Sign Flag)</strong>:符号标志位，用来反映运算结果的符号位。运算结果为负时为 1，否则为 0</li>
-<li><strong>ZF(Zero Flag)</strong>:零标志位，用来反映运算结果是否为 0。运算结果为 0 时该标志位被置为 1，否则为 0</li>
-<li><strong>AF(Auxiliary carry Flag)</strong>:辅助进位标志位。在字操作时，发生低字节向高字节进位或借位时该标志位被置为 1，否则为 0（注意：在字节操作时，发生低 4 位向高 4 位进位或借位时该标志位被置为 1，否则为 0）</li>
-<li><strong>PF(Parity Flag)</strong>:奇偶标志位，用于反映结果中“1”的个数的奇偶性。如果“1”的个数为偶数，该标志位被置为 1，否则为 0</li>
-<li><strong>CF(Carry Flag)</strong>:进位标志位,运算结果的最高位产生了一个进位或借位，则该标志位被置为 1，否则为 0</li>
-</ol>
-<h4 id="控制标志"><a class="markdownIt-Anchor" href="#控制标志"></a> 控制标志</h4>
-<ol>
-<li><strong>DF(Direction Flag)</strong>:方向标志位，用于串操作指令中，控制地址的变化方向。当 DF 为 0 时，存储器地址自动增加；当 DF 为 1 时，存储器地址自动减少。操作 DF 标志寄存器可以使用指令 CLD 和 STD 进行复位和置位</li>
-<li><strong>IF(Interrupt Flag)</strong>:中断标志位，用于控制外部可屏蔽中断是否可以被处理器响应。当 IF 为 1 时，允许中断；当 IF 为 0 时，则不允许中断。操作 IF 标志寄存器可以使用 CLI 和 STI 进行复位和置位</li>
-<li><strong>TF(Trap Flag)</strong>:陷阱标志位，用于控制处理器是否进入单步操作方式。当 TF 为 0 时，处理器在正常模式下运行；当 TF 为 1 时，处理器单步执行指令，调试器可以逐条指令进行执行就是使用了该标志位</li>
-</ol>
-<h1 id="od使用"><a class="markdownIt-Anchor" href="#od使用"></a> OD使用</h1>
-<h2 id="按键"><a class="markdownIt-Anchor" href="#按键"></a> 按键</h2>
+</li>
+<li>
+<p>查看0ff_6CC090时(也就是base64加密数据的存放地址)，看到了新的数据off_6CC0A0，直接查看其引用，找到<code>sub_400D35</code>函数</p>
 <ul>
-<li><code>F8</code>进行单步调试</li>
-<li><code>Alt + M</code>观察当前被调试进程所使用的地址</li>
+<li>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303052259863.png" srcset="/img/loading.gif" lazyload alt="image-20230305225937825" /></p>
+</li>
+<li>
+<p>观察函数，猜测v1为数组，其的值应该是<code>flag</code>。这里由于 <strong>HIBYTE</strong> 函数的作用是获取高字节也就是数组的最后一位，在由上面的Info信息得到结果，而与 <strong>HIBYTE</strong> 相对应的还有 <strong>BYTE()</strong>、<strong>BYTE1()</strong>、**BYTE2()**第一个是获取数组的第一位，第二个就是获取第二位，依次类推。由此编写脚本得到flag。</p>
+</li>
+<li>
+<pre class="highlight"><code class="python">key = [<span class="hljs-number">0x40</span>, <span class="hljs-number">0x35</span>, <span class="hljs-number">0x20</span>, <span class="hljs-number">0x56</span>, <span class="hljs-number">0x5D</span>, <span class="hljs-number">0x18</span>, <span class="hljs-number">0x22</span>, <span class="hljs-number">0x45</span>, <span class="hljs-number">0x17</span>, <span class="hljs-number">0x2F</span>,
+  <span class="hljs-number">0x24</span>, <span class="hljs-number">0x6E</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x3C</span>, <span class="hljs-number">0x27</span>, <span class="hljs-number">0x54</span>, <span class="hljs-number">0x48</span>, <span class="hljs-number">0x6C</span>, <span class="hljs-number">0x24</span>, <span class="hljs-number">0x6E</span>,
+  <span class="hljs-number">0x72</span>, <span class="hljs-number">0x3C</span>, <span class="hljs-number">0x32</span>, <span class="hljs-number">0x45</span>, <span class="hljs-number">0x5B</span>]
+key2 = <span class="hljs-string">&#x27;flag&#x27;</span>
+key3 = []
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(key2)):
+    key3.append(<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(key2[i]) ^ key[i]))
+<span class="hljs-built_in">print</span>(key3)
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(key)):
+    key3.append(<span class="hljs-built_in">chr</span>(key[i]^<span class="hljs-built_in">ord</span>(key3[i%<span class="hljs-number">4</span>])))
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(key3))
+</code></pre>
+</li>
 </ul>
+</li>
+</ul>
+<h3 id="注意"><a class="markdownIt-Anchor" href="#注意"></a> 注意</h3>
+<ul>
+<li>判断IDA给出定义的真实含义，如上述的v1指代一个数组，确切而言指示这v1[0]</li>
+<li>根据上下文判断伪代码对于语句的操作，如上述的字符串相加</li>
+</ul>
+<h2 id="crackrtf"><a class="markdownIt-Anchor" href="#crackrtf"></a> CrackRTF</h2>
+<h2 id="actf新生赛2020usualcrypt"><a class="markdownIt-Anchor" href="#actf新生赛2020usualcrypt"></a> [ACTF新生赛2020]usualCrypt</h2>
+<h2 id="mrctf2020transform"><a class="markdownIt-Anchor" href="#mrctf2020transform"></a> [MRCTF2020]Transform</h2>
 
                 
               </div>
@@ -422,7 +402,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  <a href="/categories/CTF/" class="category-chain-item">CTF</a>
   
   
 
@@ -442,8 +422,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>逆向分析实战</div>
-      <div>http://example.com/posts/6e5d5d10.html</div>
+      <div>BUU刷题记录</div>
+      <div>http://example.com/posts/87126416.html</div>
     </div>
     <div class="license-meta">
       
@@ -455,7 +435,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月11日</div>
+          <div>2023年3月3日</div>
         </div>
       
       
@@ -487,18 +467,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/d7f95dad.html" title="【滴水逆向】PE">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【滴水逆向】PE</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/4356fc58.html" title="【滴水逆向】C&amp;C++">
-                        <span class="hidden-mobile">【滴水逆向】C&amp;C++</span>
+                      <a href="/posts/1b8dd184.html" title="数据库原理与应用">
+                        <span class="hidden-mobile">数据库原理与应用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
