@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-03-03T14:40:23.000Z">
-<meta property="article:modified_time" content="2023-03-05T15:18:07.275Z">
+<meta property="article:modified_time" content="2023-03-11T03:53:31.287Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          5.2k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          18 分钟
+          44 分钟
         
       </span>
     
@@ -347,24 +347,66 @@
 <li>查壳，UPX壳，直接脱</li>
 <li>拖到IDA中，发现调用Windows的API
 <ul>
-<li><img src="https://gitee.com/Nuthecz/img/raw/master/202303040947552.png" srcset="/img/loading.gif" lazyload alt="image-20230304094722528" /></li>
-<li>这里<code>CreateThread</code>是创建一个线程，属于新知识点。具体讲解在最后</li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303101734236.png" srcset="/img/loading.gif" lazyload alt="image-20230304094722528" /></li>
+<li>这里<code>CreateThread</code>是创建一个线程，属于新知识点。这里创建了两个互斥的线程对象，一个线程处于休眠状态时，另一个线程开始运作，以实现并发操作。</li>
 </ul>
 </li>
 </ul>
 <h4 id="具体流程-2"><a class="markdownIt-Anchor" href="#具体流程-2"></a> 具体流程</h4>
 <ul>
-<li>结合给出的IDA分析与注释，这里分别追踪 <code>StartAddress</code> 和 <code>sub_41119F</code> 两个线程。</li>
-<li><code>StartAddress</code>
+<li>
+<p>结合给出的IDA分析与注释，这里分别追踪 <code>StartAddress</code> 和 <code>sub_41119F</code> 两个线程。</p>
+</li>
+<li>
+<p><code>StartAddress</code></p>
 <ul>
-<li><img src="https://gitee.com/Nuthecz/img/raw/master/202303040949069.png" srcset="/img/loading.gif" lazyload alt="image-20230304094927047" /></li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303101740626.png" srcset="/img/loading.gif" lazyload alt="image-20230304094927047" /></li>
 <li>这里执行<strong>sub_41112C</strong>操作，其中<strong>dword_418008</strong>的值为29—综合下文sub_411940可以判断出此值为flag的长度。继续追踪，找到sub_411940函数。</li>
-<li><img src="https://gitee.com/Nuthecz/img/raw/master/202303040956524.png" srcset="/img/loading.gif" lazyload alt="image-20230304095634491" /></li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303101740951.png" srcset="/img/loading.gif" lazyload alt="image-20230304095634491" /></li>
 <li>由分析，此时对于flag数组进行了替换操作，其操作从后往前(a2一开始为29，之后递减)。此操作含义就是在 <strong>off_418000中查询下标为flag[i]-38对应的值，赋值给flag[i]</strong>。</li>
 </ul>
 </li>
-<li><code>sub_41119F</code></li>
+<li>
+<p><code>sub_41119F</code></p>
+<ul>
+<li>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303102141867.png" srcset="/img/loading.gif" lazyload alt="image-20230310214101827" /></p>
+</li>
+<li>
+<p><code>WaitForSingleObject</code></p>
+<ul>
+<li>一种Windows API函数，当等待仍在挂起状态时，句柄被关闭，那么函数行为是未定义的。该句柄必须具有 SYNCHRONIZE 访问权限。</li>
+<li>其用来检测 hHandle 事件的信号状态，在某一线程中调用该函数时，线程暂时挂起，如果在挂起的dwMilliseconds 毫秒内，线程所等待的对象变为有信号状态，则该函数立即返回；如果超时时间已经到达dwMilliseconds 毫秒，但hHandle所指向的对象还没有变成有信号状态，函数照样返回。</li>
 </ul>
+</li>
+<li>
+<p><code>ReleaseMutex</code></p>
+<ul>
+<li>一种线性指令，具有释放线程拥有的互斥体的控制权。</li>
+</ul>
+</li>
+<li>
+<p><code>Sleep</code></p>
+<ul>
+<li>此函数可使线程暂停自己的运行，直到dwMilliseconds过去为止。即该线程不想在某个时间段内被调度。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>sub_411190</code></p>
+<ul>
+<li>判断最后更改后的Source数组是否与给定的数组相等</li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303102152825.png" srcset="/img/loading.gif" lazyload alt="image-20230310215237808" /></li>
+</ul>
+</li>
+</ul>
+<h4 id="综合分析"><a class="markdownIt-Anchor" href="#综合分析"></a> 综合分析</h4>
+<ul>
+<li>当第一个线程(<code>StartAddress</code>)执行到 <code>Sleep</code> 语句时，此线程暂停，转为另一个线程，然后经过<strong>dword_418008</strong>减1的操作后，第二个进程(<code>sub_41119F</code>)暂停，转为第一个线程，循环交替。而由于第二个进程只是进行了自减操作，所以可以判断出在 <strong>dword_418008</strong> 为奇数时执行第一个线程操作，并对flag进行了更改。</li>
+</ul>
+<h3 id="exp"><a class="markdownIt-Anchor" href="#exp"></a> exp</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">str</span>=<span class="hljs-string">&quot;0abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span><br>text1=<span class="hljs-string">&#x27;TOiZiZtOrYaToUwPnToBsOaOapsyS&#x27;</span><br>text2=<span class="hljs-string">&#x27;QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm&#x27;</span><br>flag=<span class="hljs-string">&#x27;&#x27;</span><br>s=<span class="hljs-number">0</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(text1)):<br>    <span class="hljs-keyword">if</span>(i%<span class="hljs-number">2</span>==<span class="hljs-number">0</span>):<br>        flag+=text1[i]<br>    <span class="hljs-keyword">else</span>:<br>        s=text2.index(text1[i])<br>        flag+=<span class="hljs-built_in">str</span>[s]<br><span class="hljs-built_in">print</span>(flag)<br><br><span class="hljs-comment"># 或者</span><br>key = <span class="hljs-string">&quot;QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm&quot;</span><br>flagRe = <span class="hljs-string">&quot;TOiZiZtOrYaToUwPnToBsOaOapsySa&quot;</span><br>flag = []<br><br>i = <span class="hljs-number">0x1d</span><br><span class="hljs-keyword">while</span> i &gt; -<span class="hljs-number">1</span>:<br>    <span class="hljs-keyword">if</span> key.find(flagRe[i]):<br>        position = key.find(flagRe[i])<br>        <span class="hljs-keyword">if</span> position &lt;= <span class="hljs-number">26</span>:<br>            flag.append(<span class="hljs-built_in">chr</span>(position + <span class="hljs-number">96</span>))<br>        <span class="hljs-keyword">else</span>:<br>            flag.append(<span class="hljs-built_in">chr</span>(position + <span class="hljs-number">38</span>))<br>        i -= <span class="hljs-number">1</span><br>        <br>    flag.append(flagRe[i])<br>    i -= <span class="hljs-number">1</span><br><br>flag = <span class="hljs-built_in">reversed</span>(flag)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;&quot;</span>.join(flag))<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(flag))<br></code></pre></td></tr></table></figure>
 <h3 id="知识点多线程"><a class="markdownIt-Anchor" href="#知识点多线程"></a> 知识点：多线程</h3>
 <ul>
 <li>
@@ -372,17 +414,7 @@
 </li>
 <li>
 <p>API函数：</p>
-<ul>
-<li>
-<pre class="highlight"><code class="cmake">CreateThread(
-		lpThreadAttributes		
-		dwStackSize			    
-		lpStartAddress
-		lpParameter
-		dwCreationFlags
-		lpThreadId
-		)
-</code></pre>
+  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs cmake">CreateThread(<br>		lpThreadAttributes		<br>		dwStackSize			    <br>		lpStartAddress<br>		lpParameter<br>		dwCreationFlags<br>		lpThreadId<br>		)<br></code></pre></td></tr></table></figure>
 <ul>
 <li><code>lpThreadAttributes</code>：NULL</li>
 <li><code>dwStackSize</code>：栈空间大小，0表示1MB</li>
@@ -393,15 +425,127 @@
 <li><code>CreateMutexW</code>：实现进程互斥，IDA中实际作用</li>
 </ul>
 </li>
-</ul>
-</li>
 <li>
 <p>一个程序在运行时占用整个进程，一个进程可以建立多个线程。这些线程能够并行 (同时进行代码处理)以加快程序的运行速度。其中线程分为 “对等线程”，“分离线程”，“主线程”。而当一个处理器在处理一个线程时遇到 <strong>慢速系统调用(sleep、read等)</strong> 等需要消耗较多时间的处理需求时，控制器便通过上下文切换传送到下一个对等进程，以加快程序的运行。</p>
 </li>
 </ul>
 <h2 id="crackrtf"><a class="markdownIt-Anchor" href="#crackrtf"></a> CrackRTF</h2>
+<h3 id="分析-2"><a class="markdownIt-Anchor" href="#分析-2"></a> 分析</h3>
+<ul>
+<li>
+<p>识别，32位无壳，直接打开</p>
+</li>
+<li>
+<p>找到 <strong>main</strong> 函数，分析 mian 函数，可以发现函数分为两个部分</p>
+</li>
+<li>
+<p><code>password1</code></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303102341004.png" srcset="/img/loading.gif" lazyload alt="image-20230310231125442" /></p>
+<ul>
+<li>
+<p>这里 <strong>auti</strong> 函数的作用就是将输入的字符串转化为整型，然后这里限定其整型数值大于100000。然后其中 <strong>strcat</strong> 将 @DBApp 附加到输入的input后面，然后经过 <code>sub_40100A</code> 函数进行加密之后与if中的字符串相比较。</p>
+</li>
+<li>
+<p>追踪 <code>sub_40100A</code> 函数</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303102340276.png" srcset="/img/loading.gif" lazyload alt="image-20230310234029242" /></p>
+</li>
+<li>
+<p><code>CryptCreateHash </code><a target="_blank" rel="noopener" href="https://www.cnblogs.com/rnss/p/15328653.html">HASH指计算函数相关</a>–不过此API已被弃用</p>
+<ul>
+<li>
+<p>此函数启动数据流的哈希。它创建并返回到调用应用程序，该句柄指向加密服务提供程序 (CSP) 哈希对象。 此句柄用于后续调用 <code>CryptHashData</code> 和 <code>CryptHashSessionKey</code> 以哈希会话键和其他数据流。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">BOOL <span class="hljs-title">CryptCreateHash</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">  HCRYPTPROV hProv,</span></span><br><span class="hljs-params"><span class="hljs-function">  ALG_ID     Algid,</span></span><br><span class="hljs-params"><span class="hljs-function">  HCRYPTKEY  hKey,</span></span><br><span class="hljs-params"><span class="hljs-function">  DWORD      dwFlags,</span></span><br><span class="hljs-params"><span class="hljs-function">  HCRYPTHASH *phHash</span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>关键为第二个参数 <code>Algid</code>，标识要使用的哈希算法的 <a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/desktop/SecCrypto/alg-id">ALG_ID</a> 值，此参数的有效值因使用的 CSP 而异。而此时无符号数 0x8004 指哈希算法的类型为 SHA1 加密。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303102324419.png" srcset="/img/loading.gif" lazyload alt="image-20230310232406385" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br>string=<span class="hljs-string">&#x27;@DBApp&#x27;</span><br>password1=<span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100000</span>,<span class="hljs-number">999999</span>):<br>    flag=<span class="hljs-built_in">str</span>(i)+string 				<span class="hljs-comment"># str(i)就是把整数i换成字符串类型</span><br>    x = hashlib.sha1(flag.encode())  <span class="hljs-comment"># 这里加密前需要转化为byte类型</span><br>    y = x.hexdigest() 			    <span class="hljs-comment"># hexdigest()使用十六进制表示</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-string">&quot;6e32d0943418c2c33385bc35a1470250dd8923a9&quot;</span> == y:<br>            password1 = flag<br>            <span class="hljs-keyword">break</span><br><span class="hljs-built_in">print</span>(password1)<br><span class="hljs-comment"># password1 = 123321@DBApp</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><code>password2</code></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303102341829.png" srcset="/img/loading.gif" lazyload alt="image-20230310231241758" /></p>
+<ul>
+<li>
+<p>此处的 <code>password2</code> 的形式与 <code>password1</code> 形似，这里 <code>sub_401019</code> 就是指 MD5 加密，但此时没有爆破信息，无法爆破，这里查看 <code>sub_40100F</code></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303111034062.png" srcset="/img/loading.gif" lazyload alt="image-20230311103417993" /></p>
+</li>
+<li>
+<p>其中显示资源文件 <strong>AAA</strong> ，则使用 Resource Hacker 打开文件查看资源文件信息</p>
+<ul>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303111151820.png" srcset="/img/loading.gif" lazyload alt="image-20230311115101765" /></li>
+</ul>
+</li>
+<li>
+<p>函数解析</p>
+<ul>
+<li>
+<p><code>FindResource</code></p>
+<ul>
+<li>
+<p>该函数确定指定模块中指定类型和名称的资源所在位置。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">HRSRC <span class="hljs-title">FindResourceA</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">  HMODULE hModule,</span></span><br><span class="hljs-params"><span class="hljs-function">  LPCSTR  lpName,</span></span><br><span class="hljs-params"><span class="hljs-function">  LPCSTR  lpType</span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>HMODULE</strong>：处理包含资源的可执行文件的模块。NULL值则指定模块句柄指向操作系统通常情况下创建最近过程的相关位图文件。</p>
+</li>
+<li>
+<p><strong>LPCSTR</strong>：指定资源名称</p>
+</li>
+<li>
+<p><strong>LPCSTR</strong>：指定资源类型</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>LoadResource</code></p>
+<ul>
+<li>
+<p>检索可用于获取指向内存中指定资源的第一个字节的指针的句柄。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">HGLOBAL <span class="hljs-title">LoadResource</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">  HMODULE hModule,</span></span><br><span class="hljs-params"><span class="hljs-function">  HRSRC   hResInfo</span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>hModule</strong>：其可执行文件包含资源的模块句柄。 如果 <em>hModule</em> 为 <strong>NULL</strong>，系统会从用于创建当前进程的模块加载资源。</p>
+</li>
+<li>
+<p><strong>HRSRC</strong>：要加载的资源的句柄。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>追踪 <code>sub_401005</code>，这里将 <code>lpString(password2)</code> 与 <code>a2(lpBuffer)</code> 进行了异或操作，对 a2 进行了修改，使之成为 .rtf 文件的格式。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303111045780.png" srcset="/img/loading.gif" lazyload alt="image-20230311104503742" /></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="exp-2"><a class="markdownIt-Anchor" href="#exp-2"></a> exp</h3>
+<ul>
+<li>
+<p>根据最后的信息，password2需要由 .rtf 的文件格式和 AAA文件格式进行异或得到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">rtf = <span class="hljs-string">&#x27;&#123;\\rtf1&#x27;</span><br>source = [<span class="hljs-number">0x05</span>, <span class="hljs-number">0x7D</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x15</span>, <span class="hljs-number">0x26</span>, <span class="hljs-number">0x01</span> ]<br>password2 = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(rtf)):<br>    password2 += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(rtf[i]) ^ source[i])<br><span class="hljs-built_in">print</span>(password2)<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
 <h2 id="actf新生赛2020usualcrypt"><a class="markdownIt-Anchor" href="#actf新生赛2020usualcrypt"></a> [ACTF新生赛2020]usualCrypt</h2>
 <h2 id="mrctf2020transform"><a class="markdownIt-Anchor" href="#mrctf2020transform"></a> [MRCTF2020]Transform</h2>
+<h1 id="sencond_page"><a class="markdownIt-Anchor" href="#sencond_page"></a> Sencond_Page</h1>
+<h2 id="相册"><a class="markdownIt-Anchor" href="#相册"></a> 相册</h2>
+<h2 id="xxor"><a class="markdownIt-Anchor" href="#xxor"></a> xxor</h2>
+<h2 id="overlong"><a class="markdownIt-Anchor" href="#overlong"></a> OverLong</h2>
+<h2 id="oruga"><a class="markdownIt-Anchor" href="#oruga"></a> oruga</h2>
+<p>maze迷宫题</p>
+<h2 id="bjd-hamburger-competition"><a class="markdownIt-Anchor" href="#bjd-hamburger-competition"></a> BJD hamburger competition</h2>
+<p>Unity逆向，使用dnspy</p>
+<h2 id="easy-strcmp"><a class="markdownIt-Anchor" href="#easy-strcmp"></a> easy strcmp</h2>
+<p>挖去导入表</p>
+<p>[buuoj-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Hznuxxw/p/16989358.html">Zer0pts2020]easy strcmp - 今天吃大鸡腿 - 博客园 (cnblogs.com)</a></p>
+<h2 id="level4"><a class="markdownIt-Anchor" href="#level4"></a> level4</h2>
+<p>数据结构，树的前中后序排序</p>
 
                 
               </div>
