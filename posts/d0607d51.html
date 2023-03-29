@@ -1,0 +1,831 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/first.png">
+  <link rel="icon" href="/img/first.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Nuthecz">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="逆向分析技术  TLS回调函数 ​	TLS(Thread Local Storage, 线程局部存储)回调函数(Callback Function). TLS回调函数的学习  TEB ​	TEB：线程环境块，该结构包含进程中运行线程的各种信息，进程中的每个线程都对应一个TEB结构体。  重要成员   ProcessEnvironmentBlock  指向PEB结构体的指针。–PEB是进程环境块，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级逆向分析技术">
+<meta property="og:url" content="http://example.com/posts/d0607d51.html">
+<meta property="og:site_name" content="Nuthecz&#96;Blog">
+<meta property="og:description" content="逆向分析技术  TLS回调函数 ​	TLS(Thread Local Storage, 线程局部存储)回调函数(Callback Function). TLS回调函数的学习  TEB ​	TEB：线程环境块，该结构包含进程中运行线程的各种信息，进程中的每个线程都对应一个TEB结构体。  重要成员   ProcessEnvironmentBlock  指向PEB结构体的指针。–PEB是进程环境块，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291138646.JPG">
+<meta property="article:published_time" content="2023-01-15T13:13:43.000Z">
+<meta property="article:modified_time" content="2023-03-29T06:54:01.899Z">
+<meta property="article:author" content="Nuthecz">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291138646.JPG">
+  
+  
+  
+  <title>高级逆向分析技术 - Nuthecz`Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/fluid-extension.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Nuthecz</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291140635.JPG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="高级逆向分析技术"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-15 21:13" pubdate>
+          2023年1月15日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">高级逆向分析技术</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="逆向分析技术"><a class="markdownIt-Anchor" href="#逆向分析技术"></a> 逆向分析技术</h1>
+<h2 id="tls回调函数"><a class="markdownIt-Anchor" href="#tls回调函数"></a> TLS回调函数</h2>
+<p>​	TLS(Thread Local Storage, 线程局部存储)回调函数(Callback Function).</p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/12057">TLS回调函数的学习</a></p>
+<h2 id="teb"><a class="markdownIt-Anchor" href="#teb"></a> TEB</h2>
+<p>​	<strong>TEB</strong>：线程环境块，该结构包含进程中运行线程的各种信息，进程中的每个线程都对应一个TEB结构体。</p>
+<h3 id="重要成员"><a class="markdownIt-Anchor" href="#重要成员"></a> 重要成员</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202139261.png" srcset="/img/loading.gif" lazyload alt="image-20230320213950169" /></p>
+<ul>
+<li><code>ProcessEnvironmentBlock</code>
+<ul>
+<li>指向PEB结构体的指针。–PEB是进程环境块，每个进程对应一个PEB结构体。</li>
+</ul>
+</li>
+<li><code>NtTib</code>
+<ul>
+<li>TEB结构体的第一个成员为_NT_TIB结构体(TIB指线程信息块)</li>
+</ul>
+</li>
+</ul>
+<h3 id="teb的访问方法"><a class="markdownIt-Anchor" href="#teb的访问方法"></a> TEB的访问方法</h3>
+<ul>
+<li><code>Ntdll.NtCurrentTeb()</code>
+<ul>
+<li>此API用来返回当前线程的TEB结构体的地址(返回 <code>FS:[18]</code>)</li>
+</ul>
+</li>
+</ul>
+<h4 id="fs段寄存器"><a class="markdownIt-Anchor" href="#fs段寄存器"></a> FS段寄存器</h4>
+<ul>
+<li>
+<p>FS段寄存器用来指示当前线程的TEB结构体----<strong>FS寄存器持有SDT的索引，该索引持有实际TEB地址</strong>。而由于段寄存器实际存储的是SDT的索引，所以它也被称为“段选择符”。</p>
+<blockquote>
+<p>SDT 位于内核内存区域，其地址存储在特殊的寄存器 GDTR (全局描述符表寄存器) 中</p>
+</blockquote>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202146251.png" srcset="/img/loading.gif" lazyload alt="image-20230320214632226" /></p>
+</li>
+<li>
+<p><code>FS:[0x18] = TEB 起始地址</code></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202147341.png" srcset="/img/loading.gif" lazyload alt="image-20230320214758319" /></p>
+</li>
+<li>
+<p><code>FS:[0x30] = PEB 起始地址</code></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202148834.png" srcset="/img/loading.gif" lazyload alt="image-20230320214844817" /></p>
+</li>
+<li>
+<p><code>FS:[0] = SEH 起始地址</code></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202149069.png" srcset="/img/loading.gif" lazyload alt="image-20230320214914053" /></p>
+</li>
+</ul>
+<h2 id="peb"><a class="markdownIt-Anchor" href="#peb"></a> PEB</h2>
+<p>​	<strong>PEB</strong>：进程环境块，每个进程对应一个PEB结构体。</p>
+<h3 id="重要成员-2"><a class="markdownIt-Anchor" href="#重要成员-2"></a> 重要成员</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202151881.png" srcset="/img/loading.gif" lazyload alt="image-20230320215125838" /></p>
+<ul>
+<li>
+<p><code>BeingDebugged</code></p>
+<ul>
+<li><code>Kernel32.dll</code> 中的 <code>IsDebuggerPresent()</code> API通过检测 <code>PEB.BeingDebugged</code> 成员来确定是否正在调试进程(是，返回1；否则，返回0)</li>
+</ul>
+</li>
+<li>
+<p><code>ImageBaseAddress</code></p>
+<ul>
+<li>
+<p><code>PEB.ImageBaseAddress</code> 成员用来表示进程的 ImageBase 。其中 <code>GetModuleHandle()</code> API 用来获取 ImageBase。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">HMODULE <span class="hljs-title">GetModuleHandleA</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">  [in, optional] LPCSTR lpModuleName</span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>向 <code>IpModuleName</code> 参数赋值为 NULL，调用 <strong>GetModuleHandle()</strong> 函数将返回进程被加载的 ImageBase。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>Ldr</code>(+0xC)</p>
+<ul>
+<li>指向 <code>_PEB_LDR_DATA</code> 结构体的指针。</li>
+</ul>
+</li>
+<li>
+<p><code>ProcessHeap &amp; NtGlobalFlag</code></p>
+<ul>
+<li>应用于反调试技术，若进程处于调试状态，则两个成员就持有特定值。</li>
+</ul>
+</li>
+</ul>
+<h2 id="seh"><a class="markdownIt-Anchor" href="#seh"></a> SEH</h2>
+<p>​	<code>SEH</code> 是 Windows 操作系统提供的异常处理机制，在程序源代码中使用 <code>__try、__except、__finall</code> 关键字来具体实现。</p>
+<h3 id="os的异常处理方法"><a class="markdownIt-Anchor" href="#os的异常处理方法"></a> OS的异常处理方法</h3>
+<ul>
+<li>
+<p>进程运行过程中若发生异常，OS会委托进程处理。</p>
+<ul>
+<li>
+<p>若是进程代码中存在具体的异常处理(如 SEH 异常处理器) 代码，则能顺利处理相关异常，程序继续运行</p>
+</li>
+<li>
+<p>否则相关异常无法处理，OS就会启动默认的遗产给处理机制，终止程序的运行</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="调试器运行时的异常处理方法"><a class="markdownIt-Anchor" href="#调试器运行时的异常处理方法"></a> 调试器运行时的异常处理方法</h3>
+<ul>
+<li>
+<p>若<strong>被调试进程</strong>内部发生异常，OS会先把异常抛给**调试进程处理 **(即调试器)。这里如果被调试者发生异常时，调试器就会暂停运行，必须采取某种措施来处理异常，完成后继续调试。遇到异常时经常采用的几种处理方法如下：</p>
+<ol>
+<li>
+<p>直接修改异常：代码、寄存器、内存</p>
+<p>被调试者发生异常时，调试器会在发生异常的代码处暂停，此时可以通过调试器直接修改有问题的代码、内存、寄存器等，排除异常后，调试器继续运行程序</p>
+</li>
+<li>
+<p>将异常抛给被调试者处理</p>
+<p>如果被调试者内部存在SEH (异常处理函数) 能够处理异常，那么异常通知会发送给调试者，由被调试者自行处理。</p>
+</li>
+<li>
+<p>OS默认的异常处理机制</p>
+<p>如果调试器于被调试者都无法处理(或故意不处理)当前的异常，则OS的默认异常处理机制会处理它，终止被调试进程，同时结束调试。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="异常"><a class="markdownIt-Anchor" href="#异常"></a> 异常</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202214355.png" srcset="/img/loading.gif" lazyload alt="image-20230320221405286" /></p>
+<ul>
+<li>
+<p><code>EXCEPTION_ACCESS_VIOLATION (C0000005)</code></p>
+<ul>
+<li>
+<p>试图访问不存在或不具有访问权限的内存区域时，就会发生 EXCEPTION_ACCESS_VIOLATION (非法访问异常)</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202215544.png" srcset="/img/loading.gif" lazyload alt="image-20230320221537507" /></p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>EXCEPTION_BREAKPOINT (80000003)</code></p>
+<ul>
+<li>在运行代码中设置断点后，CPU尝试执行该地址处的指令时，将会发生此类异常。调试器就是利用该异常实现断点功能的</li>
+</ul>
+</li>
+<li>
+<p><code>EXCEPTION_ILLEGAL_INSTRUCTION (C000001D)</code></p>
+<ul>
+<li>CPU遇到无法解析的指令时引发该异常</li>
+</ul>
+</li>
+<li>
+<p><code>EXCEPTION_INT_DIVIDE_BY_ZERO (C0000094)</code></p>
+<ul>
+<li>INTEGER 触发运算中，若是分母为0，则引发此异常</li>
+</ul>
+</li>
+<li>
+<p><code>EXCEPTION_SINGLE_STEP (80000004)</code></p>
+<ul>
+<li>Single Step(单步) 的含义时执行1条指令，然后暂停。CPU进入单步模式后，每执行一条指令就会引发此异常，暂停运行。将 EFLAGS 寄存器的 TF(Trap Flag, 陷阱标志) 位设置为1后，CPU就会进入单步工作模式</li>
+</ul>
+</li>
+</ul>
+<h1 id="反调试技术"><a class="markdownIt-Anchor" href="#反调试技术"></a> 反调试技术</h1>
+<h2 id="静态反调试技术"><a class="markdownIt-Anchor" href="#静态反调试技术"></a> 静态反调试技术</h2>
+<h3 id="peb-2"><a class="markdownIt-Anchor" href="#peb-2"></a> PEB</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202235513.png" srcset="/img/loading.gif" lazyload alt="image-20230320223555485" /></p>
+<blockquote>
+<p>获取PEB地址的方法</p>
+</blockquote>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202238312.png" srcset="/img/loading.gif" lazyload alt="image-20230320223800272" /></p>
+<h4 id="beingdebugged0x2"><a class="markdownIt-Anchor" href="#beingdebugged0x2"></a> BeingDebugged(+0x2)</h4>
+<ul>
+<li>
+<p>进程处于调试状态时，<code>PEB.BeingDebugged</code> 成员(+0x2)的值被设置为1(TRUE)；进程非调试状态下运行时，其值被设置为0(FALSE)</p>
+<ul>
+<li><code>Kernel32.dll</code> 中的 <code>IsDebuggerPresent()</code> API通过获取 <code>PEB.BeingDebugged</code> 的值来判断进程是否处于被调试状态</li>
+</ul>
+</li>
+<li>
+<p>破解之法：</p>
+<ul>
+<li>借助 DBG 将 <code>PEB.BeingDebugged</code> 的值修改为0即可</li>
+</ul>
+</li>
+</ul>
+<h4 id="ldr0xc"><a class="markdownIt-Anchor" href="#ldr0xc"></a> Ldr(+0xC)</h4>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>高级逆向分析技术</div>
+      <div>http://example.com/posts/d0607d51.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Nuthecz</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/1b8dd184.html" title="数据库原理与应用">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">数据库原理与应用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/d7f95dad.html" title="PE文件解析">
+                        <span class="hidden-mobile">PE文件解析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>
+      目录
+    </span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+   <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+  var toc = jQuery('#toc');
+  if (toc.length === 0 || !window.tocbot) { return; }
+  var boardCtn = jQuery('#board-ctn');
+  var boardTop = boardCtn.offset().top;
+
+  window.tocbot.init(Object.assign({
+  tocSelector : '#toc-body',
+  contentSelector : '.markdown-body',
+  linkClass : 'tocbot-link',
+  activeLinkClass : 'tocbot-active-link',
+  listClass : 'tocbot-list',
+  isCollapsedClass: 'tocbot-is-collapsed',
+  collapsibleClass: 'tocbot-is-collapsible',
+  scrollSmooth : true,
+  includeTitleTags: true,
+  headingsOffset : -boardTop,
+  }, CONFIG.toc));
+  if (toc.find('.toc-list-item').length > 0) {
+  toc.css('visibility', 'visible');
+  }
+
+  Fluid.events.registerRefreshCallback(function() {
+  if ('tocbot' in window) {
+  tocbot.refresh();
+  var toc = jQuery('#toc');
+  if (toc.length === 0 || !tocbot) {
+  return;
+  }
+  if (toc.find('.toc-list-item').length > 0) {
+  toc.css('visibility', 'visible');
+  }
+  }
+  });
+  });
+  </script>
+  
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>
