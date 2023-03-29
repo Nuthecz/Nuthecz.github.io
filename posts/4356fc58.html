@@ -1,0 +1,1108 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/first.png">
+  <link rel="icon" href="/img/first.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Nuthecz">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="函数  堆栈  函数概念   计算机的函数，是一个固定的一个程序段，或称其为一个子程序，它在可以实现固定运算功能的同时还带有一入口和一个出口，所谓的入口，就是函数所带的各个参数，我们可以通过这个入口，把函数的参数值代入子程序，供计算机处理，所谓出口，就是指函数的计算结果,也称为返回值，在计算机求得之后，由此口带回给调用它的程序。   汇编中的函数    函数的入口   存储变量传递给函数除了存入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C &amp; C++">
+<meta property="og:url" content="http://example.com/posts/4356fc58.html">
+<meta property="og:site_name" content="Nuthecz&#96;Blog">
+<meta property="og:description" content="函数  堆栈  函数概念   计算机的函数，是一个固定的一个程序段，或称其为一个子程序，它在可以实现固定运算功能的同时还带有一入口和一个出口，所谓的入口，就是函数所带的各个参数，我们可以通过这个入口，把函数的参数值代入子程序，供计算机处理，所谓出口，就是指函数的计算结果,也称为返回值，在计算机求得之后，由此口带回给调用它的程序。   汇编中的函数    函数的入口   存储变量传递给函数除了存入">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291138646.JPG">
+<meta property="article:published_time" content="2022-12-10T10:15:42.000Z">
+<meta property="article:modified_time" content="2023-03-29T03:41:37.575Z">
+<meta property="article:author" content="Nuthecz">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291138646.JPG">
+  
+  
+  
+  <title>C &amp; C++ - Nuthecz`Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/fluid-extension.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Nuthecz</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291140635.JPG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="C &amp; C++"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-10 18:15" pubdate>
+          2022年12月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          64 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">C &amp; C++</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="函数"><a class="markdownIt-Anchor" href="#函数"></a> 函数</h1>
+<h2 id="堆栈"><a class="markdownIt-Anchor" href="#堆栈"></a> 堆栈</h2>
+<h3 id="函数概念"><a class="markdownIt-Anchor" href="#函数概念"></a> 函数概念</h3>
+<ul>
+<li>
+<p>计算机的函数，是一个固定的一个程序段，或称其为一个子程序，它在可以实现固定运算功能的同时还带有一入口和一个出口，所谓的入口，就是函数所带的各个参数，我们可以通过这个入口，把函数的参数值代入子程序，供计算机处理，所谓出口，就是指函数的计算结果,也称为返回值，在计算机求得之后，由此口带回给调用它的程序。</p>
+</li>
+<li>
+<p>汇编中的函数</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291123136.png" srcset="/img/loading.gif" lazyload alt="202210032043850" /></p>
+</li>
+<li>
+<p>函数的入口</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291123438.png" srcset="/img/loading.gif" lazyload alt="202210032043993" /></p>
+<ul>
+<li>存储变量传递给函数除了存入堆栈中，也可以存入其余的寄存器中</li>
+</ul>
+</li>
+<li>
+<p>函数的出口</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291123896.png" srcset="/img/loading.gif" lazyload alt="202210032044374" /></p>
+<ul>
+<li>函数的计算结果除了放在寄存器中，还可以放到堆栈中</li>
+</ul>
+</li>
+</ul>
+<h3 id="winodws堆栈"><a class="markdownIt-Anchor" href="#winodws堆栈"></a> Winodws堆栈</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291123987.png" srcset="/img/loading.gif" lazyload alt="202210032045557" /></p>
+<ul>
+<li>特点：
+<ul>
+<li>先进后出</li>
+<li>向低地址扩展（ESP向上移动要-4）</li>
+</ul>
+</li>
+<li>堆栈平衡：
+<ul>
+<li>Windows中的堆栈，是一块普通的内存，主要用来存储一些临时的数据和参数等</li>
+<li>可以把Windows中的堆栈想象成是一个公用的书箱，函数就像是使用箱子的人，函数在执行的时候，会用到这个书箱，把一些数据存到里面。但用完的时候，一定要记得把书拿走，否则会乱的，也就是说，你放进去几本书，走的时候也要拿走几本书，这个就是堆栈平衡.</li>
+</ul>
+</li>
+</ul>
+<h3 id="操作"><a class="markdownIt-Anchor" href="#操作"></a> 操作</h3>
+<ul>
+<li>按Ctrl+G进行查找内存地址，按F2进行CPU定位（加断点），之后按住OD上的暂停按钮使CPU达到此内存处，之后可以正常按F8进行步进</li>
+<li>call需要按F7进行步入，遇到<code>jmp</code>按回车进行跳转
+<ul>
+<li>F7指遇到函数跳入函数内部执行——单步步入</li>
+<li>F8指直接执行函数，执行完之后到下一行——单步步过</li>
+</ul>
+</li>
+<li>函数调用函数时，编译器会自动增加一个函数，用以检测是否堆栈平衡，按<code>enter</code>进入函数，按<code>-</code>退出</li>
+</ul>
+<h2 id="函数特点"><a class="markdownIt-Anchor" href="#函数特点"></a> 函数特点</h2>
+<h3 id="函数分类"><a class="markdownIt-Anchor" href="#函数分类"></a> 函数分类</h3>
+<p><a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/cpp/cpp/naked-cpp?view=msvc-170">naked (C++)</a></p>
+<h4 id="裸函数"><a class="markdownIt-Anchor" href="#裸函数"></a> 裸函数</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> __declspec(naked) Function()<br>&#123;<br>  <span class="hljs-comment">// 编译器不对裸函数进行任何处理，无法堆栈平衡，需要自己平衡堆栈</span><br>  __asm<br>    &#123;<br>        ret<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="无参数无返回值函数"><a class="markdownIt-Anchor" href="#无参数无返回值函数"></a> 无参数无返回值函数</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> __declspec(naked) Function()  					<br>&#123;					<br>	__asm				<br>	&#123;	<br>  <span class="hljs-comment">// 提升堆栈，为函数执行提供空间</span><br>		push ebp			<br>		mov ebp,esp			<br>		sub esp,<span class="hljs-number">0x40</span><br>  <span class="hljs-comment">// 保留现场</span><br>		push ebx			<br>		push esi			<br>		push edi<br>  <span class="hljs-comment">// 向分配空间填充数据</span><br>		lea edi,dword ptr ds:[ebp<span class="hljs-number">-0x40</span>]			<br>		mov eax,<span class="hljs-number">0xCCCCCCCC</span>			<br>		mov ecx,<span class="hljs-number">0x10</span>			<br>		rep stosd			<br>	    <span class="hljs-comment">/*此处实现函数功能*/</span><br>  <span class="hljs-comment">// 恢复现场，将之前保留的寄存器值恢复</span><br>		pop edi			<br>		pop esi<br>		pop ebx<br>  <span class="hljs-comment">// 降低堆栈   </span><br>		mov esp,ebp<br>  <span class="hljs-comment">// 恢复栈底   </span><br>		pop ebp			<br>  <span class="hljs-comment">// 函数执行完毕，返回到调用处			</span><br>		ret			<br>	&#125;				<br>&#125;					<br></code></pre></td></tr></table></figure>
+<h4 id="有参数有返回值函数"><a class="markdownIt-Anchor" href="#有参数有返回值函数"></a> 有参数有返回值函数</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __declspec(naked) Function(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)  					<br>&#123;					<br>	__asm				<br>	&#123;				<br>		push ebp			<br>		mov ebp,esp			<br>		sub esp,<span class="hljs-number">0x40</span>			<br>		push ebx			<br>		push esi			<br>		push edi			<br>		lea edi,dword ptr ds:[ebp<span class="hljs-number">-0x40</span>]			<br>		mov eax,<span class="hljs-number">0xCCCCCCCC</span>			<br>		mov ecx,<span class="hljs-number">0x10</span>			<br>		rep stosd<br>            <br>	<span class="hljs-comment">/*函数功能实现*/</span>			<br>		mov eax,dword ptr ds:[ebp+<span class="hljs-number">8</span>]			<br>		add eax,dword ptr ds:[ebp+<span class="hljs-number">0xC</span>]			<br>					<br>		pop edi			<br>		pop esi			<br>		pop ebx			<br>		mov esp,ebp			<br>		pop ebp			<br>					<br>		ret			<br>	&#125;				<br>&#125;					<br></code></pre></td></tr></table></figure>
+<h4 id="带局部变量的函数"><a class="markdownIt-Anchor" href="#带局部变量的函数"></a> 带局部变量的函数</h4>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __declspec(naked) Function(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)  					<br>&#123;					<br>	__asm				<br>	&#123;				<br>		push ebp			<br>		mov ebp,esp			<br>		sub esp,<span class="hljs-number">0x40</span>			<br>		push ebx			<br>		push esi			<br>		push edi			<br>		lea edi,dword ptr ds:[ebp<span class="hljs-number">-0x40</span>]			<br>		mov eax,<span class="hljs-number">0xCCCCCCCC</span>			<br>		mov ecx,<span class="hljs-number">0x10</span>			<br>		rep stosd<br>          <br>  <span class="hljs-comment">/*局部变量引入*/</span><br>		mov dword ptr ds:[ebp<span class="hljs-number">-4</span>],<span class="hljs-number">2</span>		<br>		mov dword ptr ds:[ebp<span class="hljs-number">-8</span>],<span class="hljs-number">3</span>			<br>					<br>		mov eax,dword ptr ds:[ebp+<span class="hljs-number">8</span>]			<br>		add eax,dword ptr ds:[ebp+<span class="hljs-number">0xC</span>]			<br>					<br>		pop edi			<br>		pop esi			<br>		pop ebx			<br>		mov esp,ebp			<br>		pop ebp			<br>					<br>		ret			<br>	&#125;				<br>&#125;					<br></code></pre></td></tr></table></figure>
+<h3 id="调用约定"><a class="markdownIt-Anchor" href="#调用约定"></a> 调用约定</h3>
+<table>
+<thead>
+<tr>
+<th>调用约定</th>
+<th>参数压栈顺序</th>
+<th>平衡堆栈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>__cdecl</td>
+<td>从右至左入栈</td>
+<td>调用者清理栈(外平栈)</td>
+</tr>
+<tr>
+<td>__stdcall</td>
+<td>从右至左入栈</td>
+<td>自身清理栈(内平栈)</td>
+</tr>
+<tr>
+<td>__fastcall</td>
+<td>ECX/EDX传送前两个，剩下:从右至左入栈</td>
+<td>自身清理栈(内平栈)</td>
+</tr>
+</tbody>
+</table>
+<span class="label label-info">__fastcall的参数只有大于两个才需要內平栈，两个参数直接传递寄存器，不需要平衡堆栈</span>
+<h3 id="函数参数"><a class="markdownIt-Anchor" href="#函数参数"></a> 函数参数</h3>
+<h4 id="一般方式"><a class="markdownIt-Anchor" href="#一般方式"></a> 一般方式</h4>
+<ol>
+<li>
+<p>观察调用处的代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs assembly">push        3				<br>push        2				<br>push        1				<br>call       0040100f<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>找到平衡堆栈的代码(外平栈)或者函数内部(內平栈)继续论证</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs assembly">call        0040100f				<br>add         esp,0Ch<br><br>ret 4/8/0xC/0x10<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>将二者结合，确定参数个数</p>
+</li>
+</ol>
+<h4 id="观察代码"><a class="markdownIt-Anchor" href="#观察代码"></a> 观察代码</h4>
+<ol>
+<li>
+<p>不考虑ebp、esp</p>
+</li>
+<li>
+<p>只找给别人赋值的寄存器eax/ecx/edx/ebx/esi/edi</p>
+</li>
+<li>
+<p>找到以后追查其来源，如果该寄存器中的值不是在<strong>函数内存赋值</strong>的，那一定是传进来的参数</p>
+</li>
+<li>
+<p>获得参数数量</p>
+<ul>
+<li>
+<p>公式一：寄存器 + ret  4 = 参数个数</p>
+</li>
+<li>
+<p>公式二：寄存器 + [ebp+8] + [ebp+0x] = 参数个数</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="语句"><a class="markdownIt-Anchor" href="#语句"></a> 语句</h2>
+<h3 id="ifelse"><a class="markdownIt-Anchor" href="#ifelse"></a> if……else</h3>
+<ul>
+<li>反汇编语句与if语句含义相反，即若if(x&gt;=1)，则反汇编中表达x&lt;1时跳转，否则继续顺序执行</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>	<span class="hljs-keyword">if</span> (x &gt;= <span class="hljs-number">1</span>) &#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;1&quot;</span>);<br>	&#125;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(x&gt;=<span class="hljs-number">3</span>)&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;2&quot;</span>);<br>	&#125;<br>	<span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Error&quot;</span>);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291124190.png" srcset="/img/loading.gif" lazyload alt="202212241152274" /></p>
+<center><strong> if……else语句</strong></center>
+<h3 id="switch"><a class="markdownIt-Anchor" href="#switch"></a> switch</h3>
+<ol>
+<li>
+<p>分支小于4或者数据无规律时，用switch无意义，生成类似if……else的反汇编</p>
+</li>
+<li>
+<p>Switch语句中数值相近时，会自动生成大表(连续数值中多个不存在时，会生成小表)</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Reverse-xiaoyu/p/11711393.html">switch…case…语句分析（大表跟小表何时产生）</a></p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>	<span class="hljs-keyword">switch</span> (x) &#123;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;A&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;B&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;C&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;D&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">9</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Z&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">default</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Error&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291125123.png" srcset="/img/loading.gif" lazyload alt="202212241120544" /></p>
+<center><strong> Switch语句中的大表</strong></center>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x)</span> &#123;<br>	<span class="hljs-keyword">switch</span> (x) &#123;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">101</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;A&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">108</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;X&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">109</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Y&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">case</span> <span class="hljs-number">110</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Z&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	<span class="hljs-keyword">default</span>:<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s&quot;</span>, <span class="hljs-string">&quot;Error&quot;</span>);<br>		<span class="hljs-keyword">break</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291125399.png" srcset="/img/loading.gif" lazyload alt="202212241139348" /></p>
+<center><strong> Switch语句中的小表</strong></center>
+<h3 id="while"><a class="markdownIt-Anchor" href="#while"></a> while</h3>
+<ol>
+<li>根据条件跳转指令所跳转到的地址，可以得到循环语句块的结束地址</li>
+<li>根据 jmp 指令所跳转到的地址，可以得到循环语句块的起始地址</li>
+<li>在还原while 比较时，条件跳转的逻辑与源码相反</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x, <span class="hljs-type">int</span> y)</span>&#123;<br>	<span class="hljs-keyword">while</span> (x &lt; y)&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, x);<br>		x++;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291125717.png" srcset="/img/loading.gif" lazyload alt="202212241157555" /></p>
+<center><strong> while语句</strong></center>
+<h3 id="for"><a class="markdownIt-Anchor" href="#for"></a> for</h3>
+<ol>
+<li>第一个 jmp 指令之前为赋初值部分</li>
+<li>第一个 jmp 指令所跳转的地址为循环条件判定部分起始</li>
+<li>判断条件后面的跳转指令条件成立时跳转的循环体外面</li>
+<li>条件判断跳转指令所指向的地址上面有一个 jmp， jmp地址为表达式3的起始位置</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">Fun</span><span class="hljs-params">(<span class="hljs-type">int</span> x,<span class="hljs-type">int</span> y)</span>&#123;			<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=x;i&lt;y;i++)&#123;		<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>,i);	<br>	&#125;		<br>&#125;			<br></code></pre></td></tr></table></figure>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291125748.png" srcset="/img/loading.gif" lazyload alt="202212241200812" /></p>
+<center><strong> for语句</strong></center>
+<h1 id="数据"><a class="markdownIt-Anchor" href="#数据"></a> 数据</h1>
+<h2 id="数据类型及存储"><a class="markdownIt-Anchor" href="#数据类型及存储"></a> 数据类型及存储</h2>
+<h3 id="c语言数据类型"><a class="markdownIt-Anchor" href="#c语言数据类型"></a> c语言数据类型</h3>
+<ol>
+<li>
+<p><strong>基本类型</strong></p>
+<ul>
+<li>
+<p>整数类型</p>
+</li>
+<li>
+<p>浮点类型</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>构造类型</strong></p>
+<ul>
+<li>
+<p>数组类型</p>
+</li>
+<li>
+<p>结构体类型</p>
+</li>
+<li>
+<p>共用体(联合)类型</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>指针类型</strong></p>
+</li>
+<li>
+<p><strong>空类型(void)</strong></p>
+</li>
+</ol>
+<ul>
+<li>数据类型三个要素
+<ul>
+<li>存储数据的宽度</li>
+<li>存储数据的格式</li>
+<li>作用范围(作用域)</li>
+</ul>
+</li>
+</ul>
+<h3 id="基本类型"><a class="markdownIt-Anchor" href="#基本类型"></a> 基本类型</h3>
+<h4 id="整数类型"><a class="markdownIt-Anchor" href="#整数类型"></a> 整数类型</h4>
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>长度(bit)</th>
+<th>长度(字节)</th>
+<th>汇编中表示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>char</td>
+<td>8BIT</td>
+<td>1字节</td>
+<td>BYTE</td>
+</tr>
+<tr>
+<td>short</td>
+<td>16BIT</td>
+<td>2字节</td>
+<td>WORD</td>
+</tr>
+<tr>
+<td>int</td>
+<td>32BIT</td>
+<td>4字节</td>
+<td>DWORD</td>
+</tr>
+<tr>
+<td>long</td>
+<td>32BIT</td>
+<td>4字节</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>认为划分为<strong>有符号(signed)<strong>与</strong>无符号(unsigned)</strong>，其在计算机中存储方式相同，但是根据需求认定为不同的数值</li>
+</ul>
+<h4 id="浮点类型"><a class="markdownIt-Anchor" href="#浮点类型"></a> 浮点类型</h4>
+<ul>
+<li><strong>float</strong>和<strong>double</strong></li>
+<li>二者在存储方式上遵从<strong>IEEE</strong>规范</li>
+</ul>
+<ol>
+<li>float的存储方式</li>
+</ol>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291125885.png" srcset="/img/loading.gif" lazyload alt="202212222043652" /></p>
+<ol start="2">
+<li>double的存储方式</li>
+</ol>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291125982.png" srcset="/img/loading.gif" lazyload alt="202212222044090" /></p>
+<ol start="3">
+<li>将一个float型转化为内存存储格式：
+<ul>
+<li>先将这个实数的绝对值化为二进制格式</li>
+<li>将这个二进制格式实数的小数点左移或右移n位，直到小数点移动到第一个有效数字(1)的右边</li>
+<li>从小数点右边第一位开始数出二十三位数字放入第22到第0位</li>
+<li>将移动位数+127并转化为二进制放入第30到23位(例如:右移3位，即127+(-3) = 124)</li>
+<li>若原本数字为负数，则在符号位填入“1”；否则，填入“0”</li>
+</ul>
+</li>
+</ol>
+<h4 id="类型转换"><a class="markdownIt-Anchor" href="#类型转换"></a> 类型转换</h4>
+<ul>
+<li>
+<p><code>MOVSX</code>先符号扩展，再传送，适用于有符号类型转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov al,0xFF<br>movsx cx,al<br>;此时cx == 0XFFFF(看0xFF的第一位是什么，FF == 1111 1111，首位是1，扩展8个1)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>MOVZX</code>先零扩展，再传送，适用于无符号类型转换</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov al,0xFF<br>movsx cx,al<br>;此时cx == 0XFF(直接在FF前面补8个0)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>小数据类型向大数据类型转换</p>
+<ul>
+<li>采用保留低位数据，舍弃高位数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="构造类型"><a class="markdownIt-Anchor" href="#构造类型"></a> 构造类型</h3>
+<h4 id="数组类型"><a class="markdownIt-Anchor" href="#数组类型"></a> 数组类型</h4>
+<ul>
+<li>
+<p>一组相同类型的变量，为了方便读写，采用另外一种表示形式。其在声明的时候，必须用常量来指明长度，不能使用变量(<strong>常量是因为在编译的时候，编译器就要知道开辟的缓冲区的大小，所以必须是常量</strong>)</p>
+</li>
+<li>
+<p>数组在使用时，可以通过变量来定位数据</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//例如：</span><br><span class="hljs-type">int</span> arr[m][n][k] = &#123;&#123;&#125;,&#123;&#125;……&#125;;<br><br><span class="hljs-comment">//寻找arr[3][2][1]</span><br><span class="hljs-comment">/* </span><br><span class="hljs-comment">	在编译器中，寻找方式为arr[3*n+2*k+1]。</span><br><span class="hljs-comment">	一维数组与多维数组的本质没有区别，arr[m*n*k]与arr[m][n][k]开辟相同</span><br><span class="hljs-comment">*/</span>  <br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="结构体类型"><a class="markdownIt-Anchor" href="#结构体类型"></a> 结构体类型</h4>
+<ul>
+<li>本质是大量数据的内存复制</li>
+</ul>
+<h3 id="指针类型"><a class="markdownIt-Anchor" href="#指针类型"></a> 指针类型</h3>
+<h4 id="基础知识"><a class="markdownIt-Anchor" href="#基础知识"></a> 基础知识</h4>
+<ol>
+<li>
+<p>格式：<code>数据类型* 变量名</code></p>
+</li>
+<li>
+<p>宽度为4字节， * 可以是任意数量</p>
+</li>
+<li>
+<p>加减操作(+/-/++/–)都是<code>以数据类型的宽度为标准</code>进行增加或减少，例如：char为1，int为4。</p>
+<p><code>总结</code>：加减增加的是去掉一个 * 之后的数据宽度，若是char **，增加的就是4字节</p>
+</li>
+<li>
+<p><code>两种类型相互加减</code>：</p>
+<ul>
+<li>两个类型相同的带 * 类型的变量可以进行减法操作，减完后的数据类型是去掉 * 的数据类型</li>
+<li>相减的结果要除以去掉一个 * 的数据类型的宽度</li>
+</ul>
+</li>
+</ol>
+<h4 id="运用"><a class="markdownIt-Anchor" href="#运用"></a> 运用</h4>
+<ol>
+<li>
+<p><code>&amp;</code> 是地址符，类型是其后面的类型加一个 * ，任何变量都可以使用&amp;来获取地址，但不能用在常量上</p>
+</li>
+<li>
+<p><code>带 * 类型的变量</code>，可以通过在其变量前加 * 来获取<code>其指向内存中存储的值</code>，即在带 * 类型的变量前面加*，类型是其原来的类型减去一个 * 。</p>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> x;<br>&amp;x	<span class="hljs-comment">//(int*)</span><br>    <br><span class="hljs-type">int</span>* y;<br>*y	<span class="hljs-comment">//(int)</span><br></code></pre></td></tr></table></figure>
+<h4 id="结合"><a class="markdownIt-Anchor" href="#结合"></a> 结合</h4>
+<ol>
+<li>指针函数
+<ul>
+<li>返回值为指针的函数----函数</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span>* <span class="hljs-title function_">strcpy</span> <span class="hljs-params">(<span class="hljs-type">char</span>* dest,<span class="hljs-type">char</span>* src)</span>			<br>&#123;			<br>	<span class="hljs-keyword">while</span>((*(dest++)=*(src++))!=<span class="hljs-number">0</span>);		<br>			<br>	<span class="hljs-keyword">return</span> dest;		<br>&#125;							<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>函数指针
+<ul>
+<li>声明----返回类型(*函数名)(参数表)</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//声明</span><br>	<span class="hljs-type">int</span> (*pFun)(<span class="hljs-type">int</span>,<span class="hljs-type">int</span>);<br><span class="hljs-comment">//赋值</span><br>	pFun = (<span class="hljs-type">int</span> (*)(<span class="hljs-type">int</span>,<span class="hljs-type">int</span>))<span class="hljs-number">10</span>;<br>	pFun = 函数名;<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>指针数组
+<ul>
+<li>数组的类型是指针类型----数组</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span>* arr[<span class="hljs-number">5</span>] = &#123;<span class="hljs-number">0</span>&#125;;<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>数组指针
+<ul>
+<li>本质是指针，<code>不必指向数组</code>，只是使用定义的数组的宽度</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//变量名px，数据类型 int[5]</span><br><span class="hljs-type">int</span>(*px)[<span class="hljs-number">5</span>];<br><br><span class="hljs-comment">//例子</span><br><span class="hljs-type">int</span> arr[<span class="hljs-number">15</span>] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>&#125;;<br><span class="hljs-type">int</span>(*p)[<span class="hljs-number">2</span>];<br>p = (<span class="hljs-type">int</span>(*) [<span class="hljs-number">2</span>])arr;<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d %d\n&quot;</span>, *(*(p+<span class="hljs-number">1</span>)+<span class="hljs-number">1</span>), *(p + <span class="hljs-number">1</span>)[<span class="hljs-number">1</span>], p[<span class="hljs-number">1</span>][<span class="hljs-number">1</span>]);<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>结构体指针
+<ul>
+<li>结构体</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c">Struct Arg	<br>&#123;	<br>   <span class="hljs-type">int</span> a;	<br>   <span class="hljs-type">int</span> b;	<br>   <span class="hljs-type">int</span> c;	<br>&#125;	<br><span class="hljs-type">void</span> <span class="hljs-title function_">function</span><span class="hljs-params">()</span>&#123;<br>	<span class="hljs-comment">//创建结构体</span><br>    Student s;<br>    s.a = <span class="hljs-number">10</span>;<br>    <span class="hljs-comment">//声明结构体指针</span><br>    Student* ps;<br>    <span class="hljs-comment">//为结构体指针赋值</span><br>    ps = &amp;s;<br>    <span class="hljs-comment">//通过指针读取数据</span><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>,ps-&gt;a);<br>    <br>    <span class="hljs-comment">//还可以使用其他指针类型对结构体指针进行赋值，此时结构体指针可以利用自己的构造遍历未知空间数据</span><br>    <span class="hljs-type">int</span> x = <span class="hljs-number">100</span>;<br>    Arg* px = (Arg*)&amp;x;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d %d %d\n&quot;</span>,px-&gt;a,px-&gt;b,px-&gt;c);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="内存"><a class="markdownIt-Anchor" href="#内存"></a> 内存</h1>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291126765.png" srcset="/img/loading.gif" lazyload alt="202212222123177" /></p>
+<h2 id="变量"><a class="markdownIt-Anchor" href="#变量"></a> 变量</h2>
+<h3 id="全局变量"><a class="markdownIt-Anchor" href="#全局变量"></a> 全局变量</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> g_n = <span class="hljs-number">10</span>;<br><span class="hljs-type">int</span> <span class="hljs-title function_">Function</span><span class="hljs-params">()</span>			<br>&#123;			<br>	<span class="hljs-type">int</span> x = <span class="hljs-number">2</span>;		<br>	<span class="hljs-type">int</span> y = <span class="hljs-number">3</span>;		<br>			<br>	<span class="hljs-keyword">return</span> g_n+x+y;		<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol>
+<li>全局变量在程序编译完成后地址就已经确定下来了，只要程序启动，全局变量就已经存在了，启动后里面是否有值取决于声明时是否给定了初始值，如果没有，默认为0</li>
+<li>全局变量的值可以被所有函数所修改，里面存储的是最后一次修改的值</li>
+<li>全局变量所占内存会一直存在，知道整个进程结束</li>
+<li>全局变量的反汇编识别，通过寄存器的宽度，或者byte/word/dword 来判断全局变量的宽度
+<ul>
+<li><code>MOV REG,byte/word/dword ptr ds:[0x12345678]</code></li>
+</ul>
+</li>
+<li><strong>全局变量就是所谓的基址</strong></li>
+</ol>
+<h3 id="局部变量"><a class="markdownIt-Anchor" href="#局部变量"></a> 局部变量</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">Function</span><span class="hljs-params">()</span>			<br>&#123;			<br>	<span class="hljs-type">int</span> x = <span class="hljs-number">2</span>;		<br>	<span class="hljs-type">int</span> y = <span class="hljs-number">3</span>;		<br>			<br>	<span class="hljs-keyword">return</span> g_n+x+y;		<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol>
+<li>局部变量在程序编译完成后并没有分配固定的地址</li>
+<li>在所属的方法没有被调用时，局部变量并不会分配内存地址，只有当所属的程序被调用了，才会在堆栈中分配内存</li>
+<li>当局部变量所属的方法执行完毕后，局部变量所占用的内存将变成垃圾数据。局部变量消失</li>
+<li>局部变量只能在方法内部使用，函数A无法使用函数B的局部变量</li>
+<li>局部变量的反汇编识别
+<ul>
+<li><code>[ebp-4]</code>，<code>[ebp-8]</code>，<code>[ebp-0xC]</code>等</li>
+</ul>
+</li>
+</ol>
+<h3 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h3>
+<ul>
+<li>
+<p>全局变量----一个固定的地址，类似<code>byte/word/dword ptr ds:[0x12345678]</code>类型</p>
+</li>
+<li>
+<p>局部变量----<code>[ebp-x]</code>，类似<code>[ebp-4]</code>，<code>[ebp-8]</code>，<code>[ebp-0xC]</code>等</p>
+</li>
+<li>
+<p>传入参数----<code>[ebp+x]</code>，类似<code>[ebp+8]</code>，<code>[ebp+0xC]</code>等(x≠4)</p>
+</li>
+<li>
+<p>特殊----</p>
+<ul>
+<li><code>[ebp]</code>存储的是ebp在被push前的数值</li>
+<li><code>[ebp+4]</code>存储是call返回时的EIP指向的地址</li>
+</ul>
+</li>
+</ul>
+<h2 id="常量"><a class="markdownIt-Anchor" href="#常量"></a> 常量</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">//样例一</span><br><span class="hljs-type">char</span>* x = <span class="hljs-string">&quot;china&quot;</span>;			<br><span class="hljs-type">char</span> y[] = <span class="hljs-string">&quot;china&quot;</span>;			<br><span class="hljs-type">void</span> <span class="hljs-title function_">Function</span><span class="hljs-params">()</span>			<br>&#123;			<br>    <span class="hljs-comment">//报错，其中&quot;china&quot;存储在常量区，不能对其进行修改，但是可以修改x的指向(地址)</span><br>	*(x+<span class="hljs-number">1</span>) = <span class="hljs-string">&#x27;A&#x27;</span>;		<br>	<span class="hljs-comment">//正常，y[]存储的字符串存储在全局变量区域(从常量区复制过来的)，可以进行修改</span><br>	y[<span class="hljs-number">1</span>] = <span class="hljs-string">&#x27;A&#x27;</span>;		<br>&#125;		<br><span class="hljs-comment">//样例二</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">Function</span><span class="hljs-params">()</span>			<br>&#123;			<br>	<span class="hljs-type">char</span>* x = <span class="hljs-string">&quot;china&quot;</span>;			<br>	<span class="hljs-type">char</span> y[] = <span class="hljs-string">&quot;china&quot;</span>;		<br>	<span class="hljs-comment">//报错		</span><br>	*(x+<span class="hljs-number">1</span>) = <span class="hljs-string">&#x27;A&#x27;</span>;		<br>	<span class="hljs-comment">//正常</span><br>	y[<span class="hljs-number">1</span>] = <span class="hljs-string">&#x27;A&#x27;</span>;		<br>&#125;	<br></code></pre></td></tr></table></figure>
+<p>总结：</p>
+<ul>
+<li>&quot;china&quot;字符串存储在常量区内，不可以进行修改</li>
+<li><code>*(x+1)</code>中的x指向的是&quot;china&quot;在常量区的地址，直接对x进行修改就是修改常量区的数据，报错</li>
+<li><code>y[1]</code>中的数组在堆栈中开辟，常量区中的&quot;china&quot;被复制到了eax等寄存器中，成为了变量，修改y就是修改堆栈中的变量部分，所以正常运行。即y[1]不修改常量区内容，而是复制到变量区再进行修改</li>
+</ul>
+<h2 id="内存分配与释放"><a class="markdownIt-Anchor" href="#内存分配与释放"></a> 内存分配与释放</h2>
+<ul>
+<li>自动分配内存(c语言)</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span>* ptr;<span class="hljs-comment">//声明指针		</span><br><br><span class="hljs-comment">//在堆中申请内存,分配128个int				</span><br>ptr = (<span class="hljs-type">int</span> *)<span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*<span class="hljs-number">128</span>);	<br><br><span class="hljs-comment">//无论申请的空间大小 一定要进行校验 判断是否申请成功					</span><br><span class="hljs-keyword">if</span>(ptr == <span class="hljs-literal">NULL</span>)&#123;					<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;				<br>&#125;			<br><br><span class="hljs-comment">//初始化分配的内存空间			</span><br><span class="hljs-built_in">memset</span>(ptr,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>)*<span class="hljs-number">128</span>);			<br>			<br><span class="hljs-comment">//使用。。。			</span><br>*(ptr) = <span class="hljs-number">1</span>;			<br>			<br><span class="hljs-comment">//使用完毕 释放申请的堆空间			</span><br><span class="hljs-built_in">free</span>(ptr);			<br>			<br><span class="hljs-comment">//将指针设置为NULL			</span><br>ptr = <span class="hljs-literal">NULL</span>;			<br></code></pre></td></tr></table></figure>
+<ul>
+<li>注意事项：
+<ol>
+<li>使用 sizeof(类型)*n 来定义申请内存的大小</li>
+<li>malloc 返回类型为 void* 类型  需要强制转换</li>
+<li>无论申请的内存有多小，一定要判断是否申请成功</li>
+<li>申请完空间后要记得初始化</li>
+<li>使用完一定要是否申请的空间</li>
+<li>将指针的值设置为NULL</li>
+</ol>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>C &amp; C++</div>
+      <div>http://example.com/posts/4356fc58.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Nuthecz</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/d7f95dad.html" title="高级逆向分析技术">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">高级逆向分析技术</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/580a635a.html" title="【NewStartCTF】Reverse_Week3">
+                        <span class="hidden-mobile">【NewStartCTF】Reverse_Week3</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>
+      目录
+    </span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+   <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+  var toc = jQuery('#toc');
+  if (toc.length === 0 || !window.tocbot) { return; }
+  var boardCtn = jQuery('#board-ctn');
+  var boardTop = boardCtn.offset().top;
+
+  window.tocbot.init(Object.assign({
+  tocSelector : '#toc-body',
+  contentSelector : '.markdown-body',
+  linkClass : 'tocbot-link',
+  activeLinkClass : 'tocbot-active-link',
+  listClass : 'tocbot-list',
+  isCollapsedClass: 'tocbot-is-collapsed',
+  collapsibleClass: 'tocbot-is-collapsible',
+  scrollSmooth : true,
+  includeTitleTags: true,
+  headingsOffset : -boardTop,
+  }, CONFIG.toc));
+  if (toc.find('.toc-list-item').length > 0) {
+  toc.css('visibility', 'visible');
+  }
+
+  Fluid.events.registerRefreshCallback(function() {
+  if ('tocbot' in window) {
+  tocbot.refresh();
+  var toc = jQuery('#toc');
+  if (toc.length === 0 || !tocbot) {
+  return;
+  }
+  if (toc.find('.toc-list-item').length > 0) {
+  toc.css('visibility', 'visible');
+  }
+  }
+  });
+  });
+  </script>
+  
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>

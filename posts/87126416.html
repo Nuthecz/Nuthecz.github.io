@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-03-03T14:40:23.000Z">
-<meta property="article:modified_time" content="2023-03-12T12:23:46.956Z">
+<meta property="article:modified_time" content="2023-03-13T01:08:10.720Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8k 字
+          9.3k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          68 分钟
+          78 分钟
         
       </span>
     
@@ -551,7 +551,6 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	<span class="hljs-type">int</span> result; <br>  	<span class="hljs-type">char</span> v1; <br>	<span class="hljs-type">char</span> k[<span class="hljs-number">66</span>] = <span class="hljs-string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span>;<br><br>	<span class="hljs-type">char</span>* a0 = k;<br>	<span class="hljs-type">char</span>* aa = a0 + <span class="hljs-number">10</span>;<br>	<span class="hljs-keyword">for</span> ( result = <span class="hljs-number">6</span>; result &lt; <span class="hljs-number">15</span>; ++result )<br>	&#123;<br>		v1 = aa[result];<br>	    aa[result] = a0[result];<br>	    a0[result] = v1;<br>	&#125;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>,k);<br>&#125;<br></code></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br>table_old = <span class="hljs-string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span><br>table_new = <span class="hljs-string">&#x27;ABCDEFQRSTUVWXYPGHIJKLMNOZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span><br><span class="hljs-comment"># 这里获得table_new的时候出现问题，不能很好地理解byte_40E0A0和byte_40E0AA都是指针的作用，不过指向数组的不同位置而已</span><br><span class="hljs-comment"># 我错误地理解为两个数组进行位置的交换，从而导致了错误的答案</span><br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(table_new))<br>key = <span class="hljs-string">&#x27;zMXHz3TIgnxLxJhFAdtZn2fFk3lYCrtPC2l9&#x27;</span>.swapcase()<br><br><span class="hljs-built_in">print</span>(base64.b64decode(key.translate(<span class="hljs-built_in">str</span>.maketrans(table_new,table_old))))<br><br></code></pre></td></tr></table></figure>
 <h1 id="sencond_page"><a class="markdownIt-Anchor" href="#sencond_page"></a> Sencond_Page</h1>
-<h2 id="相册"><a class="markdownIt-Anchor" href="#相册"></a> 相册</h2>
 <h2 id="xxor"><a class="markdownIt-Anchor" href="#xxor"></a> xxor</h2>
 <h3 id="分析-4"><a class="markdownIt-Anchor" href="#分析-4"></a> 分析</h3>
 <ul>
@@ -638,13 +637,61 @@
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303122021310.png" srcset="/img/loading.gif" lazyload alt="image-20230312202147279" /></p>
 </li>
 </ul>
-<h2 id="bjd-hamburger-competition"><a class="markdownIt-Anchor" href="#bjd-hamburger-competition"></a> BJD hamburger competition</h2>
-<p>Unity逆向，使用dnspy</p>
 <h2 id="easy-strcmp"><a class="markdownIt-Anchor" href="#easy-strcmp"></a> easy strcmp</h2>
-<p>挖去导入表</p>
-<p>[buuoj-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Hznuxxw/p/16989358.html">Zer0pts2020]easy strcmp - 今天吃大鸡腿 - 博客园 (cnblogs.com)</a></p>
+<p>[buuoj-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Hznuxxw/p/16989358.html">Zer0pts2020]easy strcmp</a></p>
+<h3 id="分析-7"><a class="markdownIt-Anchor" href="#分析-7"></a> 分析</h3>
+<ul>
+<li>
+<p>无壳，直接分析。但是直接看main函数没有看出来什么</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303130836500.png" srcset="/img/loading.gif" lazyload alt="image-20230313083654457" /></p>
+</li>
+<li>
+<p>查看 <code>init</code> 函数，这里有个 <code>funcs_889</code> 函数，跟入查看，调用了 <code>sub_795</code> 函数</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303130838948.png" srcset="/img/loading.gif" lazyload alt="image-20230313083858918" /></p>
+</li>
+<li>
+<p>这里出现了 <code>strcmp</code> ，怀疑之前的<code>strcmp</code> 有问题，查看其地址，发现是调用了 <code>off_201028</code> 地址函数，在这个函数中刚好看出调用了 <code>sub_6EA</code> 函数，深入查看。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303130843698.png" srcset="/img/loading.gif" lazyload alt="image-20230313084354655" /></p>
+</li>
+<li>
+<p>这里一个(char)为一组，之后减去一个字节对应长度的数值，最后得到 <code>main</code> 函数中比较的那个字符串。注意给的数据以小端序的形式存储，不过shift+e提取就是小端序。</p>
+</li>
+</ul>
+<h3 id="exp-5"><a class="markdownIt-Anchor" href="#exp-5"></a> exp</h3>
+<ul>
+<li>这里字符串相加的大致实现是：将大数做成多个字节，将每个字节与对应的字符串相加(指相同字节位对齐相加，多者溢出)，这里溢出处理是关键。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">enc = [<span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x42</span>, <span class="hljs-number">0x09</span>,<br>  <span class="hljs-number">0x4A</span>, <span class="hljs-number">0x49</span>, <span class="hljs-number">0x35</span>, <span class="hljs-number">0x43</span>, <span class="hljs-number">0x0A</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0xF0</span>, <span class="hljs-number">0x19</span>, <span class="hljs-number">0xE6</span>, <span class="hljs-number">0x0B</span>,<br>  <span class="hljs-number">0xF5</span>, <span class="hljs-number">0xF2</span>, <span class="hljs-number">0x0E</span>, <span class="hljs-number">0x0B</span>, <span class="hljs-number">0x2B</span>, <span class="hljs-number">0x28</span>, <span class="hljs-number">0x35</span>, <span class="hljs-number">0x4A</span>, <span class="hljs-number">0x06</span>, <span class="hljs-number">0x3A</span>,<br>  <span class="hljs-number">0x0A</span>, <span class="hljs-number">0x4F</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x00</span>]<br>key = <span class="hljs-string">&#x27;zer0pts&#123;********CENSORED********&#125;&#x27;</span><br><br>f = <span class="hljs-number">0</span><br>flag = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(key)):<br>  <span class="hljs-keyword">if</span> f != <span class="hljs-number">0</span>:<br>    tmp = enc[i] + <span class="hljs-built_in">ord</span>(key[i]) + f<br>    f = <span class="hljs-number">0</span><br>  <span class="hljs-keyword">else</span>:<br>    tmp = enc[i] + <span class="hljs-built_in">ord</span>(key[i])<br>  <span class="hljs-keyword">if</span> tmp &gt; <span class="hljs-number">0xff</span>:<br>    f = <span class="hljs-number">1</span><br>  tmp &amp;= <span class="hljs-number">0xff</span><br>  flag += <span class="hljs-built_in">chr</span>(tmp)<br><span class="hljs-built_in">print</span>(flag)<br></code></pre></td></tr></table></figure>
 <h2 id="level4"><a class="markdownIt-Anchor" href="#level4"></a> level4</h2>
-<p>数据结构，树的前中后序排序</p>
+<h3 id="分析-8"><a class="markdownIt-Anchor" href="#分析-8"></a> 分析</h3>
+<ul>
+<li>
+<p>直接IDA，查看伪代码</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303130859803.png" srcset="/img/loading.gif" lazyload alt="image-20230313085904775" /></p>
+</li>
+<li>
+<p>这里查看 <code>type1</code> 和 <code>type2</code></p>
+</li>
+</ul>
+<table style="border:none;text-align:center;width:auto;margin: 0 auto;">
+  <tbody>
+  	<tr>
+  		<td style="padding: 6px"><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303130859242.png" srcset="/img/loading.gif" lazyload ></td><td><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303130900138.png" srcset="/img/loading.gif" lazyload ></td>
+  		</tr>
+      <tr><td><strong>type1</strong></td><td><strong>type2</strong></td></tr>
+  </tbody>
+</table>
+<ul>
+<li>
+<p>可以发现这里为二叉树的中序遍历和后续遍历。那么根据这两个遍历，可以知道前序遍历的结果，也就是 <code>type3</code> 为前序遍历。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303130907542.png" srcset="/img/loading.gif" lazyload alt="image-20230313090751513" /></p>
+</li>
+<li>
+<p>运行截图，可以得到中序和后序遍历的结果</p>
+</li>
+</ul>
+<h3 id="exp-6"><a class="markdownIt-Anchor" href="#exp-6"></a> exp</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">ToPreOrder</span>(<span class="hljs-params">Postorder,Inorder</span>):<br>    length = <span class="hljs-built_in">len</span>(Postorder)<br>    <span class="hljs-keyword">if</span> length == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    root = Postorder[length-<span class="hljs-number">1</span>] <span class="hljs-comment">#根节点　</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(length):<span class="hljs-comment">#找到中序遍历中根节点的位序</span><br>        <span class="hljs-keyword">if</span> root == Inorder[i]:<br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-built_in">print</span>(root,end=<span class="hljs-string">&quot;&quot;</span>)<br>    ToPreOrder(Postorder[<span class="hljs-number">0</span>:i],Inorder[<span class="hljs-number">0</span>:i]) <span class="hljs-comment">#递归，传入左子树的后序和中序遍历序列</span><br>    ToPreOrder(Postorder[i:length-<span class="hljs-number">1</span>],Inorder[i+<span class="hljs-number">1</span>:length])<span class="hljs-comment">#递归，传入右子树的后序和中序遍历序列</span><br>    <br>ToPreOrder(<span class="hljs-string">&quot;20f0Th&#123;2tsIS_icArE&#125;e7__w&quot;</span>,<span class="hljs-string">&quot;2f0t02T&#123;hcsiI_SwA__r7Ee&#125;&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n&quot;</span>)<br></code></pre></td></tr></table></figure>
 
                 
               </div>

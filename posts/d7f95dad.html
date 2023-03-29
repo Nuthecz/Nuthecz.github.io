@@ -16,23 +16,23 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="基础操作  转化  int(a,k)  a为k进制数，使用int将k进制数转化为十进制数 int(a)直接将字符a转化为int类型，此时a必须为数字字符，  注意：不是转化为ascii码，而是转化为数字类型，即值不变，类型改变     str(a)  与int(a)是相反的操作，但是范围扩大   ord(a)  将字符a按其ascii码转化为int类型   chr(a)  将int类型的a根据其">
+    <meta name="description" content="逆向分析技术  TLS回调函数 ​	TLS(Thread Local Storage, 线程局部存储)回调函数(Callback Function). [TLS回调函数的学习](https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;12057#:~:text&#x3D;TLS回调函数是指，每当创建%2F终止线程时会自动调用执行的函数（,创建进程的主线程时也会自动调用回调函数，且回调函数的执行顺序是先于EP代码的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Crypto &amp; Python">
-<meta property="og:url" content="http://example.com/posts/108720dc.html">
+<meta property="og:title" content="高级逆向分析技术">
+<meta property="og:url" content="http://example.com/posts/d7f95dad.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="基础操作  转化  int(a,k)  a为k进制数，使用int将k进制数转化为十进制数 int(a)直接将字符a转化为int类型，此时a必须为数字字符，  注意：不是转化为ascii码，而是转化为数字类型，即值不变，类型改变     str(a)  与int(a)是相反的操作，但是范围扩大   ord(a)  将字符a按其ascii码转化为int类型   chr(a)  将int类型的a根据其">
+<meta property="og:description" content="逆向分析技术  TLS回调函数 ​	TLS(Thread Local Storage, 线程局部存储)回调函数(Callback Function). [TLS回调函数的学习](https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;12057#:~:text&#x3D;TLS回调函数是指，每当创建%2F终止线程时会自动调用执行的函数（,创建进程的主线程时也会自动调用回调函数，且回调函数的执行顺序是先于EP代码的">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
-<meta property="article:published_time" content="2022-10-09T04:39:57.000Z">
-<meta property="article:modified_time" content="2023-03-05T13:36:36.678Z">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291138646.JPG">
+<meta property="article:published_time" content="2023-01-05T13:13:43.000Z">
+<meta property="article:modified_time" content="2023-03-29T03:41:42.189Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291138646.JPG">
   
   
   
-  <title>Crypto &amp; Python - Nuthecz`Blog</title>
+  <title>高级逆向分析技术 - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -43,6 +43,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -200,13 +202,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133313.PNG') no-repeat center center; background-size: cover;">
+     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291140635.JPG') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Crypto &amp; Python"></span>
+            <span id="subtitle" data-typed-text="高级逆向分析技术"></span>
           
         </div>
 
@@ -217,8 +219,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-09 12:39" pubdate>
-          2022年10月9日 下午
+        <time datetime="2023-01-05 21:13" pubdate>
+          2023年1月5日 晚上
         </time>
       </span>
     
@@ -229,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.3k 字
         
       </span>
     
@@ -240,7 +242,7 @@
         
         
         
-          18 分钟
+          20 分钟
         
       </span>
     
@@ -278,156 +280,194 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Crypto &amp; Python</h1>
+            <h1 style="display: none">高级逆向分析技术</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="基础操作"><a class="markdownIt-Anchor" href="#基础操作"></a> 基础操作</h1>
-<h2 id="转化"><a class="markdownIt-Anchor" href="#转化"></a> 转化</h2>
+                <h1 id="逆向分析技术"><a class="markdownIt-Anchor" href="#逆向分析技术"></a> 逆向分析技术</h1>
+<h2 id="tls回调函数"><a class="markdownIt-Anchor" href="#tls回调函数"></a> TLS回调函数</h2>
+<p>​	TLS(Thread Local Storage, 线程局部存储)回调函数(Callback Function).</p>
+<p>[TLS回调函数的学习](<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/12057#:~:text=TLS%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E6%98%AF%E6%8C%87%EF%BC%8C%E6%AF%8F%E5%BD%93%E5%88%9B%E5%BB%BA%2F%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B%E6%97%B6%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%B0%83%E7%94%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%88,%E5%88%9B%E5%BB%BA%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%B8%BB%E7%BA%BF%E7%A8%8B%E6%97%B6%E4%B9%9F%E4%BC%9A%E8%87%AA%E5%8A%A8%E8%B0%83%E7%94%A8%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%EF%BC%8C%E4%B8%94%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E6%98%AF%E5%85%88%E4%BA%8EEP%E4%BB%A3%E7%A0%81%E7%9A%84%E6%89%A7%E8%A1%8C%EF%BC%8C%E6%89%80%E4%BB%A5TLS%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%99%E4%B8%AA%E7%89%B9%E6%80%A7%E9%80%9A%E5%B8%B8%E8%A2%AB%E7%94%A8%E4%BA%8E%E5%8F%8D%E8%B0%83%E8%AF%95%E6%8A%80%E6%9C%AF">https://xz.aliyun.com/t/12057#:~:text=TLS回调函数是指，每当创建%2F终止线程时会自动调用执行的函数（,创建进程的主线程时也会自动调用回调函数，且回调函数的执行顺序是先于EP代码的执行，所以TLS回调函数的这个特性通常被用于反调试技术</a> ）由于是创建和终止线程时都会调用，所以在程序从打开到结束这个TLS回调函数会被执行两次。)</p>
+<h2 id="teb"><a class="markdownIt-Anchor" href="#teb"></a> TEB</h2>
+<p>​	<strong>TEB</strong>：线程环境块，该结构包含进程中运行线程的各种信息，进程中的每个线程都对应一个TEB结构体。</p>
+<h3 id="重要成员"><a class="markdownIt-Anchor" href="#重要成员"></a> 重要成员</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202139261.png" srcset="/img/loading.gif" lazyload alt="image-20230320213950169" /></p>
 <ul>
-<li><code>int(a,k)</code>
+<li><code>ProcessEnvironmentBlock</code>
 <ul>
-<li>a为k进制数，使用<code>int</code>将k进制数转化为十进制数</li>
-<li><code>int(a)</code>直接将字符a转化为int类型，此时a必须为数字字符，
+<li>指向PEB结构体的指针。–PEB是进程环境块，每个进程对应一个PEB结构体。</li>
+</ul>
+</li>
+<li><code>NtTib</code>
 <ul>
-<li>注意：不是转化为ascii码，而是转化为数字类型，即值不变，类型改变</li>
+<li>TEB结构体的第一个成员为_NT_TIB结构体(TIB指线程信息块)</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><code>str(a)</code>
+<h3 id="teb的访问方法"><a class="markdownIt-Anchor" href="#teb的访问方法"></a> TEB的访问方法</h3>
 <ul>
-<li>与<code>int(a)</code>是相反的操作，但是范围扩大</li>
-</ul>
-</li>
-<li><code>ord(a)</code>
+<li><code>Ntdll.NtCurrentTeb()</code>
 <ul>
-<li>将字符a按其ascii码转化为int类型</li>
-</ul>
-</li>
-<li><code>chr(a)</code>
-<ul>
-<li>将int类型的a根据其ascii码转化为字符</li>
-</ul>
-</li>
-<li><code>bytes</code>与<code>str</code>
-<ul>
-<li><code>bytes = str.encode(encoding='utf-8')</code>，这里<strong>utf-8是默认选项</strong>，也可以选择不填，即encode()
-<ul>
-<li>str 转换成 bytes 用 encode() 方法</li>
-<li><code>bytes=b'\xe4\xba\xba\xe7\x94'</code>—bytes的形式</li>
-</ul>
-</li>
-<li><code>str = bytes.decode()</code>
-<ul>
-<li>反转换</li>
+<li>此API用来返回当前线程的TEB结构体的地址(返回 <code>FS:[18]</code>)</li>
 </ul>
 </li>
 </ul>
-</li>
-<li><code>hex()</code>
-<ul>
-<li><code>a.hex()</code>将bytes类型（即a）转化为十六进制</li>
-<li><code>bytes.fromhex(a.hex())</code>可以将十六进制数转化为bytes类型</li>
-</ul>
-</li>
-<li><code>join()</code>
-<ul>
-<li><code>print(''.join(list))</code>直接输出将列表拼接成字符串的结果
-<ul>
-<li>list存储的是字符，例如list = [‘a’,‘c’,‘r’]</li>
-<li>本意为隔一个’‘输出list的一个值，由于’'中间没有间隔，则即直接将list进行拼接</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="切割"><a class="markdownIt-Anchor" href="#切割"></a> 切割</h2>
-<ul>
-<li><code>flag = key.split(' ')</code>
-<ul>
-<li>将字符key切割为列表类型，分界线为<code>' '</code></li>
-</ul>
-</li>
-</ul>
-<h2 id="赋值"><a class="markdownIt-Anchor" href="#赋值"></a> 赋值</h2>
-<ul>
-<li><code>key = [i for i in range(10)]</code>
-<ul>
-<li><code>key</code>初始化——遍历<code>i</code>，同时将i赋值给key[i]</li>
-</ul>
-</li>
-</ul>
-<h2 id="函数"><a class="markdownIt-Anchor" href="#函数"></a> 函数</h2>
-<ul>
-<li><code>pow(a,b,c)</code>
-<ul>
-<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>o</mi><mi>w</mi><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo><mo>=</mo><mo>=</mo><msup><mi>a</mi><mi>b</mi></msup><mtext> </mtext><mi mathvariant="normal">%</mi><mtext> </mtext><mi>c</mi></mrow><annotation encoding="application/x-tex">pow(a,b,c) == a^{b}\  \% \ c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.904668em;vertical-align:-0.05556em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span></span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mord">%</span><span class="mspace"> </span><span class="mord mathnormal">c</span></span></span></span></li>
-</ul>
-</li>
-</ul>
-<h1 id="crypto库"><a class="markdownIt-Anchor" href="#crypto库"></a> Crypto库</h1>
-<h2 id="utilnumber"><a class="markdownIt-Anchor" href="#utilnumber"></a> Util.number</h2>
+<h4 id="fs段寄存器"><a class="markdownIt-Anchor" href="#fs段寄存器"></a> FS段寄存器</h4>
 <ul>
 <li>
-<p><code>bytes_to_long</code>与<code>long_to_bytes</code></p>
+<p>FS段寄存器用来指示当前线程的TEB结构体----<strong>FS寄存器持有SDT的索引，该索引持有实际TEB地址</strong>。而由于段寄存器实际存储的是SDT的索引，所以它也被称为“段选择符”。</p>
+<blockquote>
+<p>SDT 位于内核内存区域，其地址存储在特殊的寄存器 GDTR (全局描述符表寄存器) 中</p>
+</blockquote>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202146251.png" srcset="/img/loading.gif" lazyload alt="image-20230320214632226" /></p>
+</li>
+<li>
+<p><code>FS:[0x18] = TEB 起始地址</code></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202147341.png" srcset="/img/loading.gif" lazyload alt="image-20230320214758319" /></p>
+</li>
+<li>
+<p><code>FS:[0x30] = PEB 起始地址</code></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202148834.png" srcset="/img/loading.gif" lazyload alt="image-20230320214844817" /></p>
+</li>
+<li>
+<p><code>FS:[0] = SEH 起始地址</code></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202149069.png" srcset="/img/loading.gif" lazyload alt="image-20230320214914053" /></p>
+</li>
+</ul>
+<h2 id="peb"><a class="markdownIt-Anchor" href="#peb"></a> PEB</h2>
+<p>​	<strong>PEB</strong>：进程环境块，每个进程对应一个PEB结构体。</p>
+<h3 id="重要成员-2"><a class="markdownIt-Anchor" href="#重要成员-2"></a> 重要成员</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202151881.png" srcset="/img/loading.gif" lazyload alt="image-20230320215125838" /></p>
 <ul>
-<li><code>bytes_to_long</code>将字节流转换位long类型数字，即最后一位字符转为ASCii之后乘以2<sup>0</sup>, 往前的字符乘以2<sup>1</sup>, 2<sup>2</sup>……</li>
-<li><code>long_to_bytes</code>将long类型数字转换为bytes类型，是<code>bytes_to_long</code>的逆运算</li>
+<li>
+<p><code>BeingDebugged</code></p>
+<ul>
+<li><code>Kernel32.dll</code> 中的 <code>IsDebuggerPresent()</code> API通过检测 <code>PEB.BeingDebugged</code> 成员来确定是否正在调试进程(是，返回1；否则，返回0)</li>
 </ul>
 </li>
 <li>
-<p><code>getPrime(n_lebgth)</code></p>
+<p><code>ImageBaseAddress</code></p>
 <ul>
-<li>反复使用素性检测算法验证以获素随机数,其长度为2<sup>n</sup></li>
+<li>
+<p><code>PEB.ImageBaseAddress</code> 成员用来表示进程的 ImageBase 。其中 <code>GetModuleHandle()</code> API 用来获取 ImageBase。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">HMODULE <span class="hljs-title">GetModuleHandleA</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">  [in, optional] LPCSTR lpModuleName</span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>向 <code>IpModuleName</code> 参数赋值为 NULL，调用 <strong>GetModuleHandle()</strong> 函数将返回进程被加载的 ImageBase。</p>
+</li>
 </ul>
 </li>
 <li>
-<p><code>getStrongPrime(n_lebgth)</code></p>
+<p><code>Ldr</code>(+0xC)</p>
 <ul>
-<li>获得满足RSA要求的大素数</li>
+<li>指向 <code>_PEB_LDR_DATA</code> 结构体的指针。</li>
 </ul>
 </li>
 <li>
-<p><code>inverse(a,n)</code></p>
+<p><code>ProcessHeap &amp; NtGlobalFlag</code></p>
 <ul>
-<li>求a模n的逆元</li>
-<li>对于正整数 a, n，如果有 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mi>x</mi><mo>≡</mo><mn>1</mn><mtext> </mtext><mo stretchy="false">(</mo><mi>m</mi><mi>o</mi><mi>d</mi><mtext> </mtext><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">ax ≡ 1 \ (mod \ n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.46375em;vertical-align:0em;"></span><span class="mord mathnormal">a</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">≡</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mspace"> </span><span class="mopen">(</span><span class="mord mathnormal">m</span><span class="mord mathnormal">o</span><span class="mord mathnormal">d</span><span class="mspace"> </span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>，则称 x 的最小正整数解为 a 模 n的逆元</li>
+<li>应用于反调试技术，若进程处于调试状态，则两个成员就持有特定值。</li>
+</ul>
+</li>
+</ul>
+<h2 id="seh"><a class="markdownIt-Anchor" href="#seh"></a> SEH</h2>
+<p>​	<code>SEH</code> 是 Windows 操作系统提供的异常处理机制，在程序源代码中使用 <code>__try、__except、__finall</code> 关键字来具体实现。</p>
+<h3 id="os的异常处理方法"><a class="markdownIt-Anchor" href="#os的异常处理方法"></a> OS的异常处理方法</h3>
+<ul>
+<li>
+<p>进程运行过程中若发生异常，OS会委托进程处理。</p>
+<ul>
+<li>
+<p>若是进程代码中存在具体的异常处理(如 SEH 异常处理器) 代码，则能顺利处理相关异常，程序继续运行</p>
+</li>
+<li>
+<p>否则相关异常无法处理，OS就会启动默认的遗产给处理机制，终止程序的运行</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="调试器运行时的异常处理方法"><a class="markdownIt-Anchor" href="#调试器运行时的异常处理方法"></a> 调试器运行时的异常处理方法</h3>
+<ul>
+<li>
+<p>若<strong>被调试进程</strong>内部发生异常，OS会先把异常抛给**调试进程处理 **(即调试器)。这里如果被调试者发生异常时，调试器就会暂停运行，必须采取某种措施来处理异常，完成后继续调试。遇到异常时经常采用的几种处理方法如下：</p>
+<ol>
+<li>
+<p>直接修改异常：代码、寄存器、内存</p>
+<p>被调试者发生异常时，调试器会在发生异常的代码处暂停，此时可以通过调试器直接修改有问题的代码、内存、寄存器等，排除异常后，调试器继续运行程序</p>
+</li>
+<li>
+<p>将异常抛给被调试者处理</p>
+<p>如果被调试者内部存在SEH (异常处理函数) 能够处理异常，那么异常通知会发送给调试者，由被调试者自行处理。</p>
+</li>
+<li>
+<p>OS默认的异常处理机制</p>
+<p>如果调试器于被调试者都无法处理(或故意不处理)当前的异常，则OS的默认异常处理机制会处理它，终止被调试进程，同时结束调试。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="异常"><a class="markdownIt-Anchor" href="#异常"></a> 异常</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202214355.png" srcset="/img/loading.gif" lazyload alt="image-20230320221405286" /></p>
+<ul>
+<li>
+<p><code>EXCEPTION_ACCESS_VIOLATION (C0000005)</code></p>
+<ul>
+<li>
+<p>试图访问不存在或不具有访问权限的内存区域时，就会发生 EXCEPTION_ACCESS_VIOLATION (非法访问异常)</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202215544.png" srcset="/img/loading.gif" lazyload alt="image-20230320221537507" /></p>
+</li>
 </ul>
 </li>
 <li>
-<p><code>getRandomNBitInteger(N)</code></p>
+<p><code>EXCEPTION_BREAKPOINT (80000003)</code></p>
 <ul>
-<li>获得N比特的随机数（也就是保证最高位非0，且长度为2<sup>N</sup>）</li>
+<li>在运行代码中设置断点后，CPU尝试执行该地址处的指令时，将会发生此类异常。调试器就是利用该异常实现断点功能的</li>
 </ul>
 </li>
 <li>
-<p><code>gad(a,b)</code></p>
+<p><code>EXCEPTION_ILLEGAL_INSTRUCTION (C000001D)</code></p>
 <ul>
-<li>获得a与b的最大公约数</li>
+<li>CPU遇到无法解析的指令时引发该异常</li>
+</ul>
+</li>
+<li>
+<p><code>EXCEPTION_INT_DIVIDE_BY_ZERO (C0000094)</code></p>
+<ul>
+<li>INTEGER 触发运算中，若是分母为0，则引发此异常</li>
+</ul>
+</li>
+<li>
+<p><code>EXCEPTION_SINGLE_STEP (80000004)</code></p>
+<ul>
+<li>Single Step(单步) 的含义时执行1条指令，然后暂停。CPU进入单步模式后，每执行一条指令就会引发此异常，暂停运行。将 EFLAGS 寄存器的 TF(Trap Flag, 陷阱标志) 位设置为1后，CPU就会进入单步工作模式</li>
 </ul>
 </li>
 </ul>
-<h1 id="base64库"><a class="markdownIt-Anchor" href="#base64库"></a> base64库</h1>
-<h2 id="base32与base16"><a class="markdownIt-Anchor" href="#base32与base16"></a> base32与base16</h2>
+<h1 id="反调试技术"><a class="markdownIt-Anchor" href="#反调试技术"></a> 反调试技术</h1>
+<h2 id="静态反调试技术"><a class="markdownIt-Anchor" href="#静态反调试技术"></a> 静态反调试技术</h2>
+<h3 id="peb-2"><a class="markdownIt-Anchor" href="#peb-2"></a> PEB</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202235513.png" srcset="/img/loading.gif" lazyload alt="image-20230320223555485" /></p>
+<blockquote>
+<p>获取PEB地址的方法</p>
+</blockquote>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303202238312.png" srcset="/img/loading.gif" lazyload alt="image-20230320223800272" /></p>
+<h4 id="beingdebugged0x2"><a class="markdownIt-Anchor" href="#beingdebugged0x2"></a> BeingDebugged(+0x2)</h4>
 <ul>
-<li><code>b32encode(bytes)</code>与<code>b32decode()</code>
+<li>
+<p>进程处于调试状态时，<code>PEB.BeingDebugged</code> 成员(+0x2)的值被设置为1(TRUE)；进程非调试状态下运行时，其值被设置为0(FALSE)</p>
 <ul>
-<li>bytes必须是由str类型经过str.encode()转换而得来</li>
+<li><code>Kernel32.dll</code> 中的 <code>IsDebuggerPresent()</code> API通过获取 <code>PEB.BeingDebugged</code> 的值来判断进程是否处于被调试状态</li>
 </ul>
 </li>
-<li><code>b32hexencode(bytes)</code>与<code>b32hexdecode()</code>
+<li>
+<p>破解之法：</p>
 <ul>
-<li>与上面的相同</li>
+<li>借助 DBG 将 <code>PEB.BeingDebugged</code> 的值修改为0即可</li>
 </ul>
 </li>
-<li><code>b16</code>与<code>b32</code>相同</li>
 </ul>
-<h2 id="base64"><a class="markdownIt-Anchor" href="#base64"></a> base64</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br>encrypt = base64.b64encode(<span class="hljs-string">&#x27;AlwaysBeta&#x27;</span>.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><span class="hljs-comment"># Python3 中字符都是 unicode 编码，而 b64encode函数的参数为 byte 类型，所以必须先转码</span><br>decrypt = base64.b64decode(a)<br><br><span class="hljs-comment"># 换表解密</span><br>new_table = <span class="hljs-string">&quot;ABCDEFQRSTUVWXYPGHIJKLMNOZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span><br>old_table = <span class="hljs-string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span><br>cipher = <span class="hljs-string">&quot;zMXHz3TIgnxLxJhFAdtZn2fFk3lYCrtPC2l9&quot;</span>.swapcase()<br><span class="hljs-comment">#swapcase是大小写转化，大写转小写等</span><br><span class="hljs-built_in">print</span>(base64.b64decode(cipher.translate(<span class="hljs-built_in">str</span>.maketrans(new_table, old_table))))<br></code></pre></td></tr></table></figure>
-<h1 id="hashlib库"><a class="markdownIt-Anchor" href="#hashlib库"></a> hashlib库</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br>obj = hashlib.md5()	<br><span class="hljs-comment"># 构造一个hashlib的对象(obj)，此处的 md5 可以替换为SHA1, SHA224, SHA256, SHA384, SHA512等加密算法</span><br>obj.update(<span class="hljs-string">&quot;使用md5加密&quot;</span>.encode(<span class="hljs-string">&quot;utf-8&quot;</span>))<br><span class="hljs-comment"># update对指定字符串进行加密，但加密前需要对数据进行转码为 byte 类型</span><br>result = obj.hexdigest()<br><span class="hljs-comment"># 这里hexdigest与digest相同，使用二进制表示(实际转化为十六进制形式表示)</span><br><span class="hljs-built_in">print</span>(result)<br> <br><span class="hljs-comment"># 也可以不创建对象，直接进行加密</span><br>obj = hashlib.sha1(<span class="hljs-string">&quot;1231231231&quot;</span>.encode(<span class="hljs-string">&quot;utf-8&quot;</span>))<br></code></pre></td></tr></table></figure>
+<h4 id="ldr0xc"><a class="markdownIt-Anchor" href="#ldr0xc"></a> Ldr(+0xC)</h4>
 
                 
               </div>
@@ -446,7 +486,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%9D%82%E8%AE%B0/" class="category-chain-item">杂记</a>
+  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
   
   
 
@@ -466,8 +506,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Crypto &amp; Python</div>
-      <div>http://example.com/posts/108720dc.html</div>
+      <div>高级逆向分析技术</div>
+      <div>http://example.com/posts/d7f95dad.html</div>
     </div>
     <div class="license-meta">
       
@@ -479,7 +519,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月9日</div>
+          <div>2023年1月5日</div>
         </div>
       
       
@@ -511,9 +551,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/b6040276.html" title="【NewStartCTF】Reverse_Week1">
+                      <a href="/posts/d7f95dad.html" title="PE文件解析">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【NewStartCTF】Reverse_Week1</span>
+                        <span class="hidden-mobile">PE文件解析</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -521,8 +561,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/84aee333.html" title="汇编基础">
-                        <span class="hidden-mobile">汇编基础</span>
+                      <a href="/posts/4356fc58.html" title="C &amp; C++">
+                        <span class="hidden-mobile">C &amp; C++</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -580,6 +620,11 @@
 
 
   
+
+
+  
+  
+
 
 
 
