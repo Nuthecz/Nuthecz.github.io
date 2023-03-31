@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="基础操作  转化  int(a,k)  a为k进制数，使用int将k进制数转化为十进制数 int(a)直接将字符a转化为int类型，此时a必须为数字字符，  注意：不是转化为ascii码，而是转化为数字类型，即值不变，类型改变     str(a)  与int(a)是相反的操作，但是范围扩大   ord(a)  将字符a按其ascii码转化为int类型   chr(a)  将int类型的a根据其">
+    <meta name="description" content="基础操作  转化  -&gt;Str  chr(a)  将int类型的a根据其ascii码转化为str字符   hex(a)  将int类型的a转化为其十六进制str类型   str(a)  将所有类型的a按照其本身转化为str类型   str &#x3D; a.decode()  将bytes类型的a转化为str类型     -&gt;Int   int(a,k)  a为k进制数，使用int将k进制数的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Crypto &amp; Python">
 <meta property="og:url" content="http://example.com/posts/108720dc.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="基础操作  转化  int(a,k)  a为k进制数，使用int将k进制数转化为十进制数 int(a)直接将字符a转化为int类型，此时a必须为数字字符，  注意：不是转化为ascii码，而是转化为数字类型，即值不变，类型改变     str(a)  与int(a)是相反的操作，但是范围扩大   ord(a)  将字符a按其ascii码转化为int类型   chr(a)  将int类型的a根据其">
+<meta property="og:description" content="基础操作  转化  -&gt;Str  chr(a)  将int类型的a根据其ascii码转化为str字符   hex(a)  将int类型的a转化为其十六进制str类型   str(a)  将所有类型的a按照其本身转化为str类型   str &#x3D; a.decode()  将bytes类型的a转化为str类型     -&gt;Int   int(a,k)  a为k进制数，使用int将k进制数的">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
 <meta property="article:published_time" content="2022-10-09T04:39:57.000Z">
-<meta property="article:modified_time" content="2023-03-05T13:36:36.678Z">
+<meta property="article:modified_time" content="2023-03-31T14:15:48.288Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
@@ -285,54 +285,72 @@
                 
                 <h1 id="基础操作"><a class="markdownIt-Anchor" href="#基础操作"></a> 基础操作</h1>
 <h2 id="转化"><a class="markdownIt-Anchor" href="#转化"></a> 转化</h2>
+<h3 id="-str"><a class="markdownIt-Anchor" href="#-str"></a> -&gt;Str</h3>
 <ul>
-<li><code>int(a,k)</code>
+<li><code>chr(a)</code>
 <ul>
-<li>a为k进制数，使用<code>int</code>将k进制数转化为十进制数</li>
-<li><code>int(a)</code>直接将字符a转化为int类型，此时a必须为数字字符，
+<li>将int类型的a根据其ascii码转化为str字符</li>
+</ul>
+</li>
+<li><code>hex(a)</code>
+<ul>
+<li>将int类型的a转化为其十六进制str类型</li>
+</ul>
+</li>
+<li><code>str(a)</code>
+<ul>
+<li>将所有类型的a按照其本身转化为str类型</li>
+</ul>
+</li>
+<li><code>str = a.decode()</code>
+<ul>
+<li>将bytes类型的a转化为str类型</li>
+</ul>
+</li>
+</ul>
+<h3 id="-int"><a class="markdownIt-Anchor" href="#-int"></a> -&gt;Int</h3>
+<ul>
+<li>
+<p><code>int(a,k)</code></p>
+<ul>
+<li>a为k进制数，使用<code>int</code>将k进制数的a转化为十进制数</li>
+<li><code>int(a)</code>直接将字符a转化为int类型，此时a必须为数字字符
 <ul>
 <li>注意：不是转化为ascii码，而是转化为数字类型，即值不变，类型改变</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><code>str(a)</code>
+<li>
+<p><code>eval(a)</code></p>
 <ul>
-<li>与<code>int(a)</code>是相反的操作，但是范围扩大</li>
+<li>将str类型的十六进制数a转化为int类型(这里十六进制需要加上0x)</li>
 </ul>
 </li>
-<li><code>ord(a)</code>
+<li>
+<p><code>ord(a)</code></p>
 <ul>
-<li>将字符a按其ascii码转化为int类型</li>
+<li>将字符类型的a按其ascii码转化为int类型</li>
 </ul>
 </li>
-<li><code>chr(a)</code>
-<ul>
-<li>将int类型的a根据其ascii码转化为字符</li>
 </ul>
-</li>
-<li><code>bytes</code>与<code>str</code>
+<h3 id="-bytes"><a class="markdownIt-Anchor" href="#-bytes"></a> -&gt;Bytes</h3>
 <ul>
-<li><code>bytes = str.encode(encoding='utf-8')</code>，这里<strong>utf-8是默认选项</strong>，也可以选择不填，即encode()
+<li><code>str.encode(encoding='utf-8')</code>
 <ul>
-<li>str 转换成 bytes 用 encode() 方法</li>
+<li>这里 <strong>utf-8是默认选项</strong>，也可以选择不填，即encode()
+<ul>
+<li>str转换成 bytes 用 encode() 方法</li>
 <li><code>bytes=b'\xe4\xba\xba\xe7\x94'</code>—bytes的形式</li>
 </ul>
 </li>
-<li><code>str = bytes.decode()</code>
+</ul>
+</li>
+</ul>
+<h2 id="技巧"><a class="markdownIt-Anchor" href="#技巧"></a> 技巧</h2>
 <ul>
-<li>反转换</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>hex()</code>
-<ul>
-<li><code>a.hex()</code>将bytes类型（即a）转化为十六进制</li>
-<li><code>bytes.fromhex(a.hex())</code>可以将十六进制数转化为bytes类型</li>
-</ul>
-</li>
-<li><code>join()</code>
+<li>
+<p><code>join()</code></p>
 <ul>
 <li><code>print(''.join(list))</code>直接输出将列表拼接成字符串的结果
 <ul>
@@ -342,18 +360,14 @@
 </li>
 </ul>
 </li>
-</ul>
-<h2 id="切割"><a class="markdownIt-Anchor" href="#切割"></a> 切割</h2>
-<ul>
-<li><code>flag = key.split(' ')</code>
+<li>
+<p><code>flag = key.split(' ')</code></p>
 <ul>
 <li>将字符key切割为列表类型，分界线为<code>' '</code></li>
 </ul>
 </li>
-</ul>
-<h2 id="赋值"><a class="markdownIt-Anchor" href="#赋值"></a> 赋值</h2>
-<ul>
-<li><code>key = [i for i in range(10)]</code>
+<li>
+<p><code>key = [i for i in range(10)]</code></p>
 <ul>
 <li><code>key</code>初始化——遍历<code>i</code>，同时将i赋值给key[i]</li>
 </ul>
