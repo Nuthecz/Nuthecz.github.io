@@ -18,21 +18,21 @@
   
     <meta name="description" content="IDA PRO 快捷方式  设置  Graph is too big   显示错误   解决:更改Options----Graph----Max number of nodes,增大参数    Graph界面显示地址   Graph界面无地址显示   更改Options----Disassembly----Line prefixes(non-graph)(勾选)    窗口设置  设置汇编窗口和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工具使用">
+<meta property="og:title" content="逆向技巧">
 <meta property="og:url" content="http://example.com/posts/5d944f2a.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
 <meta property="og:description" content="IDA PRO 快捷方式  设置  Graph is too big   显示错误   解决:更改Options----Graph----Max number of nodes,增大参数    Graph界面显示地址   Graph界面无地址显示   更改Options----Disassembly----Line prefixes(non-graph)(勾选)    窗口设置  设置汇编窗口和">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
 <meta property="article:published_time" content="2023-03-31T13:13:43.000Z">
-<meta property="article:modified_time" content="2023-03-31T14:46:47.210Z">
+<meta property="article:modified_time" content="2023-04-02T02:24:49.931Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
   
   
   
-  <title>工具使用 - Nuthecz`Blog</title>
+  <title>逆向技巧 - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -206,7 +206,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="工具使用"></span>
+            <span id="subtitle" data-typed-text="逆向技巧"></span>
           
         </div>
 
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.3k 字
+          5.6k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          28 分钟
+          47 分钟
         
       </span>
     
@@ -278,7 +278,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">工具使用</h1>
+            <h1 style="display: none">逆向技巧</h1>
             
             
               <div class="markdown-body">
@@ -318,7 +318,7 @@
 <ol>
 <li><code>ctrl + e</code> 找到main函数</li>
 <li><code>Shift + f12</code> 可以打开 string 窗口，一键找出所有的字符串，右击setup，对窗口的属性进行设置。同时附加时使用可以显示 strings</li>
-<li><code>Shift + f</code> 可以查看 Segments 窗口。查看不同的段</li>
+<li><code>Shift + f7</code> 可以查看 Segments 窗口。查看不同的段</li>
 <li><code>空格</code> 在Text View和Group View中来回切换</li>
 <li><code>f5/Tab</code> 一键反汇编，Tab可以在汇编界面与伪代码界面来回切换</li>
 <li><code>Ctrl + X</code> 交叉引用</li>
@@ -363,6 +363,15 @@
 <li><code>Ctrl+F2</code> 终止一个正在运行的调试进程</li>
 <li><code>Ctrl+F7</code> 运行至返回,直到遇到RETN（或断点）时才停止</li>
 </ol>
+<h3 id="附加"><a class="markdownIt-Anchor" href="#附加"></a> 附加</h3>
+<ul>
+<li>应对一些强壳，可以先启动 <code>.exe</code> 程序，之后使用IDA的附加功能<code>(Debugger-&gt;attach)</code>，附加进程，可以越过壳。</li>
+<li>之后可以使用<code>Shift + f12</code> 和 <code>Shift + f7</code> 定位关键字符位置和段属性，将该程序的 Code 段使用 IDAPYTHON 转化为反汇编形式进行动调。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> ida_ua <span class="hljs-keyword">import</span> *<br>cur_addr = <span class="hljs-number">0x401000</span> <span class="hljs-comment">#起始地址</span><br>end_addr = <span class="hljs-number">0x410000</span>   <span class="hljs-comment">#终止地址</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">make_insn</span>(<span class="hljs-params">start,end</span>):<br>	adr = start<br>	out_ins = insn_t()<br>	<span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>		<span class="hljs-keyword">if</span>(adr &gt;= end): <br>			<span class="hljs-keyword">break</span><br>		create_insn(adr)<br>		size = decode_insn(out_ins,adr)<br>		adr += size<br>	<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;end!&quot;</span>)<br>make_insn(cur_addr,end_addr)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>可能 Code 段很大，编译很慢，可以结合手动按c反汇编结合查看</p>
+</blockquote>
 <h3 id="linux"><a class="markdownIt-Anchor" href="#linux"></a> Linux</h3>
 <h4 id="ida动态调试elf"><a class="markdownIt-Anchor" href="#ida动态调试elf"></a> IDA动态调试ELF</h4>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44959377/article/details/105866347">Kali虚拟机开启远程服务</a></p>
@@ -370,17 +379,111 @@
 <ul>
 <li>Linux开启远程连接服务，在虚拟机中打开IDA在Linux中的调试工具</li>
 <li>IDA连接虚拟机，开始动调</li>
+<li></li>
 </ul>
 <h2 id="idapython-2"><a class="markdownIt-Anchor" href="#idapython-2"></a> IDAPYTHON</h2>
 <p><a target="_blank" rel="noopener" href="https://www.hex-rays.com/products/ida/support/idapython_docs/">IDAPYTHON文档</a></p>
+<h3 id="导入模块"><a class="markdownIt-Anchor" href="#导入模块"></a> 导入模块</h3>
+<ul>
+<li>
+<p><code>import ida_bytes</code>和<code>import idc_bc695</code>的效果一样，都是让idapython的脚本可以执行7.0之前的简单样式，但是要区分二者的不同：</p>
+<ul>
+<li>
+<p>对于patch_byte，ida_bytes中是patch_byte，而idc_bc695中是PatchByte----注意区分</p>
+</li>
+<li>
+<blockquote>
+<p>不知道是否是导入了idc_bc695的py与pyc文件，现在的IDA7.7<strong>新旧函数</strong>都可以使用----<strong>不一定</strong></p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="函数解释"><a class="markdownIt-Anchor" href="#函数解释"></a> 函数解释</h3>
+<ul>
+<li>
+<p><code>Patch</code>：</p>
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PatchByte(addr,value)</td>
+<td>将value赋值到addr上，字节形式修改</td>
+</tr>
+<tr>
+<td>PatchWord(addr,value)</td>
+<td>将value赋值到addr上，双字形式修改</td>
+</tr>
+<tr>
+<td>PatchDword(addr,value)</td>
+<td>将value赋值到addr上，四字形式修改</td>
+</tr>
+<tr>
+<td>PatchQword(addr,value)</td>
+<td>将value赋值到addr上，八字形式修改</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+<li>
+<p><code>Byte</code>：</p>
+<ul>
+<li>
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Byte(addr)</strong></td>
+<td>以字节为单位获取地址处的值</td>
+</tr>
+<tr>
+<td><strong>Word(addr)</strong></td>
+<td>同上. 以2字节(字)的单位获取</td>
+</tr>
+<tr>
+<td><strong>Dword(addr)</strong></td>
+<td>4字节</td>
+</tr>
+<tr>
+<td><strong>Qword(addr)</strong></td>
+<td>8字节</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="花指令"><a class="markdownIt-Anchor" href="#花指令"></a> 花指令</h3>
 <h4 id="模板一"><a class="markdownIt-Anchor" href="#模板一"></a> 模板一</h4>
 <ul>
-<li>
-<p>jnz–jz跳转后加入<code>E8</code>问题</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> idautils<br><span class="hljs-keyword">import</span> idc<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_nop</span>(<span class="hljs-params">addr,endaddr</span>):<br>    <span class="hljs-keyword">while</span> addr &lt; endaddr:<br>        patch_byte(addr,<span class="hljs-number">0x90</span>)<br>        addr += <span class="hljs-number">1</span><br>pattern = <span class="hljs-string">&quot;33 C0 85 C0 74 03 75 00 E8&quot;</span><br>cur_addr = <span class="hljs-number">0x401000</span><br>end_addr = <span class="hljs-number">0x405000</span><br><span class="hljs-keyword">while</span> cur_addr &lt;= end_addr:<br>    cur_addr = idc.find_binary(cur_addr,SEARCH_DOWN,pattern)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;patch address: &quot;</span> + <span class="hljs-built_in">str</span>(cur_addr)) <span class="hljs-comment"># 打印信息</span><br>    <span class="hljs-keyword">if</span> cur_addr == idc.BADADDR:<br>        <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">else</span>:<br>        my_nop(cur_addr,cur_addr + <span class="hljs-number">9</span>)<br>    cur_addr = idc.next_head(cur_addr)<br></code></pre></td></tr></table></figure>
-</li>
+<li><code>jnz--jz</code> 跳转后加入<code>E8</code>问题</li>
 </ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> idautils<br><span class="hljs-keyword">import</span> idc<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_nop</span>(<span class="hljs-params">addr,endaddr</span>):<br>    <span class="hljs-keyword">while</span> addr &lt; endaddr:<br>        patch_byte(addr,<span class="hljs-number">0x90</span>)<br>        addr += <span class="hljs-number">1</span><br>pattern = <span class="hljs-string">&quot;33 C0 85 C0 74 03 75 00 E8&quot;</span><br>cur_addr = <span class="hljs-number">0x401000</span> <span class="hljs-comment">#开始地址</span><br>end_addr = <span class="hljs-number">0x405000</span> <span class="hljs-comment">#结束地址</span><br><span class="hljs-keyword">while</span> cur_addr &lt;= end_addr:<br>    cur_addr = idc.find_binary(cur_addr,SEARCH_DOWN,pattern)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;patch address: &quot;</span> + <span class="hljs-built_in">str</span>(cur_addr)) <span class="hljs-comment"># 打印信息</span><br>    <span class="hljs-keyword">if</span> cur_addr == idc.BADADDR:<br>        <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">else</span>:<br>        my_nop(cur_addr,cur_addr + <span class="hljs-number">9</span>)<br>    cur_addr = idc.next_head(cur_addr)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="模板二"><a class="markdownIt-Anchor" href="#模板二"></a> 模板二</h4>
+<ul>
+<li>去除 <code>jmp</code> 花指令</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#idapy去除花指令，特征值查看按键为D</span><br><span class="hljs-keyword">import</span> idc_bc695 <span class="hljs-keyword">as</span> idc<br>cur_addr = <span class="hljs-number">0x80487C4</span> <span class="hljs-comment">#开始地址</span><br>enc_addr = <span class="hljs-number">0x80488DF</span> <span class="hljs-comment">#结束地址</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(cur_addr,end_addr):<br>    <span class="hljs-keyword">if</span> idc.Dword(i) == <span class="hljs-number">0x05ebb866</span>:<span class="hljs-comment">#请修改此处特征值</span><br>        <span class="hljs-keyword">if</span> idc.Dword(i+<span class="hljs-number">4</span>) == <span class="hljs-number">0xfa74c031</span>:<span class="hljs-comment">#请修改此处花指令特征值</span><br>            <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">9</span>):<br>                idc.PatchByte(i+j,<span class="hljs-number">0x90</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h3 id="操作-2"><a class="markdownIt-Anchor" href="#操作-2"></a> 操作</h3>
+<h4 id="dump内存"><a class="markdownIt-Anchor" href="#dump内存"></a> dump内存</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> idc_bc695 <span class="hljs-keyword">as</span> idc<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    cur_addr = <span class="hljs-number">0x140003040</span>; <span class="hljs-comment"># 起始地址</span><br>    size = <span class="hljs-number">0x34166</span>  <span class="hljs-comment"># 大小</span><br>    <span class="hljs-built_in">list</span> = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(size):<br>        byte_tmp = idc.Byte(begin + i)<br>        <span class="hljs-built_in">list</span>.append(byte_tmp)<br>        <span class="hljs-keyword">if</span> (i + <span class="hljs-number">1</span>) % <span class="hljs-number">0x1000</span> == <span class="hljs-number">0</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;All count:&#123;&#125;, collect current:&#123;&#125;, has finish&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">hex</span>(size), <span class="hljs-built_in">hex</span>(i + <span class="hljs-number">1</span>), <span class="hljs-built_in">float</span>(i + <span class="hljs-number">1</span>) / size))<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;collect over&#x27;</span>)<br>    file = <span class="hljs-string">&quot;LOADER2.exe&quot;</span>  <span class="hljs-comment">#输出文件地址+名</span><br>    buf = <span class="hljs-built_in">bytearray</span>(<span class="hljs-built_in">list</span>)<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(file, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> fw:<br>        fw.write(buf)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;write over&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    main()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h4 id="取数值"><a class="markdownIt-Anchor" href="#取数值"></a> 取数值</h4>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> idc_bc695 <span class="hljs-keyword">import</span> *<br>cur_addr = <span class="hljs-number">0x6020c0</span>  <span class="hljs-comment">#起始地址</span><br>end_addr = <span class="hljs-number">0x60213c</span>  <span class="hljs-comment">#终止地址</span><br><span class="hljs-built_in">len</span> = end_addr - cur_addr<br>arr1 = []<br>arr2 = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>):<br>    arr1.append(Byte(cur_addr + i)) 		<span class="hljs-comment">#单个字节获取</span><br>    arr2.append(Dword(cur_addr + <span class="hljs-number">4</span> * i))	<span class="hljs-comment">#四个字节获取</span><br><span class="hljs-built_in">print</span>(arr1)<br><span class="hljs-built_in">print</span>(arr2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
 <h1 id="gdb"><a class="markdownIt-Anchor" href="#gdb"></a> GDB</h1>
 <p><a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html">gdb调试利器</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/murkuo/p/15965270.html">pwngdb操作</a></p>
@@ -573,6 +676,12 @@
 <blockquote>
 <p>交互模式下直接回车的作用是重复上一指令，对于单步调试非常方便</p>
 </blockquote>
+<h1 id="经验"><a class="markdownIt-Anchor" href="#经验"></a> 经验</h1>
+<ol>
+<li>代码最好两边夹击，从前往后看对输入的操作，从后往前看得到最终结果的操作</li>
+<li>在python中 <code>&amp;0xff</code> 就是一个整数的后八位，在逆向中，常常有 <code>unsigned __int8</code> 作为数据类型，这个时候得出的结果就是取后八位作为结果，如果在python中使用，需要使用 <code>&amp; </code>操作。同样，16位，32位的操作也是这样。</li>
+<li><code>Windows</code> 体系下注意小端序，使用 <code>Shift + e</code> 提取的字符串是转化过后的字符串，不需要再次转化</li>
+</ol>
 
                 
               </div>
@@ -611,7 +720,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>工具使用</div>
+      <div>逆向技巧</div>
       <div>http://example.com/posts/5d944f2a.html</div>
     </div>
     <div class="license-meta">
@@ -655,6 +764,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/6d13a265.html" title="壳相关">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">壳相关</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
