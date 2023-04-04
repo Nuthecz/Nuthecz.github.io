@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
 <meta property="article:published_time" content="2023-03-31T13:13:43.000Z">
-<meta property="article:modified_time" content="2023-04-02T02:24:49.931Z">
+<meta property="article:modified_time" content="2023-04-04T13:09:54.664Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.6k 字
+          6.6k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          47 分钟
+          55 分钟
         
       </span>
     
@@ -375,11 +375,12 @@
 <h3 id="linux"><a class="markdownIt-Anchor" href="#linux"></a> Linux</h3>
 <h4 id="ida动态调试elf"><a class="markdownIt-Anchor" href="#ida动态调试elf"></a> IDA动态调试ELF</h4>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_44959377/article/details/105866347">Kali虚拟机开启远程服务</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/DorinXL/p/12732721.html">IDA调试ELF文件</a></p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/abc_670/article/details/80066817">ida动态调试elf</a></p>
 <ul>
 <li>Linux开启远程连接服务，在虚拟机中打开IDA在Linux中的调试工具</li>
+<li>首先需要将文件提权，否则不能运行，也就不能调试了</li>
 <li>IDA连接虚拟机，开始动调</li>
-<li></li>
 </ul>
 <h2 id="idapython-2"><a class="markdownIt-Anchor" href="#idapython-2"></a> IDAPYTHON</h2>
 <p><a target="_blank" rel="noopener" href="https://www.hex-rays.com/products/ida/support/idapython_docs/">IDAPYTHON文档</a></p>
@@ -677,10 +678,46 @@
 <p>交互模式下直接回车的作用是重复上一指令，对于单步调试非常方便</p>
 </blockquote>
 <h1 id="经验"><a class="markdownIt-Anchor" href="#经验"></a> 经验</h1>
+<h2 id="ida使用相关"><a class="markdownIt-Anchor" href="#ida使用相关"></a> IDA使用相关</h2>
+<ol>
+<li>
+<p><code>Windows</code> 体系下注意小端序，使用 <code>Shift + e</code> 提取的字符串是转化过后的字符串，不需要再次转化。注意汇编模块读取可能会把地址也读进来，注意区分数据和地址。</p>
+</li>
+<li>
+<p><code>Patch</code> 函数的时候，可以直接使用汇编。然后另存为文件即可跳过函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">mov eax,0x1<br>retn x #这里的x需要根据函数末尾的返回来抄写，防止栈不平衡<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>遇到 <code>(_BYTE *)&amp;qword_4058</code> 之类的，若是知道这是表示的数组，那么可以再汇编界面按 <code>D</code> 变成数据，之后 <code>F5</code> 重新生成伪代码，则可以看到数组变成 <code>byte_4058[]</code> 之类的数组形式</p>
+</li>
+<li>
+<p>若是函数格式中有 <code>(_BYTE)</code> 等干扰分析时，可以：</p>
+<ol>
+<li>使用 <code>Y</code> 更改变量的类型，比如把_int64 更正为BYTE*(或者char *)</li>
+<li>使用 <code>V</code> 简化函数的格式，有时候函数没有 return 时可以使用，这样看更方便</li>
+</ol>
+</li>
+<li>
+<p>IDA在识别花指令时，很可能在一个连续的函数中显示红色的 <code>sub_3D9 endp ; sp-analysis failed</code> 类似的信息，这个时候可以使用 <code>Edit -&gt; Function -&gt; Delete function</code> 删除函数定义，然后在正确的位置 <code>retn</code> 使用 <code>Edit -&gt; Function -&gt; Set function end</code> 设置函数结尾。之后 <code>F5</code> 反编译可以看到正常的函数</p>
+</li>
+<li>
+<p>有时候 <code>U</code> + <code>P</code> 不能生成函数，可以先删除函数定义，选中函数块之后按 <code>P</code> 定义函数</p>
+</li>
+</ol>
+<h2 id="识别相关"><a class="markdownIt-Anchor" href="#识别相关"></a> 识别相关</h2>
 <ol>
 <li>代码最好两边夹击，从前往后看对输入的操作，从后往前看得到最终结果的操作</li>
-<li>在python中 <code>&amp;0xff</code> 就是一个整数的后八位，在逆向中，常常有 <code>unsigned __int8</code> 作为数据类型，这个时候得出的结果就是取后八位作为结果，如果在python中使用，需要使用 <code>&amp; </code>操作。同样，16位，32位的操作也是这样。</li>
-<li><code>Windows</code> 体系下注意小端序，使用 <code>Shift + e</code> 提取的字符串是转化过后的字符串，不需要再次转化</li>
+<li>看 main 函数之前先看一下 <code>init</code> 段，这里会在main函数之前执行，可能隐藏了核心代码</li>
+</ol>
+<h2 id="exp书写相关"><a class="markdownIt-Anchor" href="#exp书写相关"></a> exp书写相关</h2>
+<ol>
+<li>
+<p>在python中 <code>&amp;0xff</code> 就是一个整数的后八位，在逆向中，常常有 <code>unsigned __int8</code> 作为数据类型，这个时候得出的结果就是取后八位作为结果，如果在python中使用，需要使用 <code>&amp; </code> 操作。同样，16位，32位的操作也是这样。</p>
+</li>
+<li>
+<p>对于算法进行解密运算时，时刻注意小端序的问题，因为解密的过程中可能就需要将上一步的结果逆序放入下一步中 (TEA类型的解密最为拧巴，往往需要调换多次位置)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">enc = <span class="hljs-number">0x67616c66</span><br>tmp1 = <span class="hljs-built_in">hex</span>(enc)[<span class="hljs-number">2</span>:]<br><span class="hljs-comment"># 将enc以两个字节为单位进行逆序排列</span><br>res1 = <span class="hljs-string">&#x27;0x&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(tmp),<span class="hljs-number">2</span>):<br>    res1 += tmp[<span class="hljs-built_in">len</span>(tmp) - i - <span class="hljs-number">2</span>: <span class="hljs-built_in">len</span>(tmp) - i]<br><span class="hljs-built_in">print</span>(res1)<br><br><span class="hljs-comment"># 将enc以两个字节为单位进行逆序排列并转化为字符</span><br>res2 = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(tmp),<span class="hljs-number">2</span>):<br>    tmp2 = tmp[<span class="hljs-built_in">len</span>(tmp) - i - <span class="hljs-number">2</span>: <span class="hljs-built_in">len</span>(tmp) - i]<br>    res2 += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">eval</span>(<span class="hljs-string">&#x27;0x&#x27;</span> + tmp2))<br><span class="hljs-built_in">print</span>(res2)<br></code></pre></td></tr></table></figure>
+</li>
 </ol>
 
                 
