@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-03-03T14:40:23.000Z">
-<meta property="article:modified_time" content="2023-03-13T01:08:10.720Z">
+<meta property="article:modified_time" content="2023-04-08T12:36:52.861Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.3k 字
+          13k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          78 分钟
+          113 分钟
         
       </span>
     
@@ -692,6 +692,136 @@
 </ul>
 <h3 id="exp-6"><a class="markdownIt-Anchor" href="#exp-6"></a> exp</h3>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">ToPreOrder</span>(<span class="hljs-params">Postorder,Inorder</span>):<br>    length = <span class="hljs-built_in">len</span>(Postorder)<br>    <span class="hljs-keyword">if</span> length == <span class="hljs-number">0</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    root = Postorder[length-<span class="hljs-number">1</span>] <span class="hljs-comment">#根节点　</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(length):<span class="hljs-comment">#找到中序遍历中根节点的位序</span><br>        <span class="hljs-keyword">if</span> root == Inorder[i]:<br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-built_in">print</span>(root,end=<span class="hljs-string">&quot;&quot;</span>)<br>    ToPreOrder(Postorder[<span class="hljs-number">0</span>:i],Inorder[<span class="hljs-number">0</span>:i]) <span class="hljs-comment">#递归，传入左子树的后序和中序遍历序列</span><br>    ToPreOrder(Postorder[i:length-<span class="hljs-number">1</span>],Inorder[i+<span class="hljs-number">1</span>:length])<span class="hljs-comment">#递归，传入右子树的后序和中序遍历序列</span><br>    <br>ToPreOrder(<span class="hljs-string">&quot;20f0Th&#123;2tsIS_icArE&#125;e7__w&quot;</span>,<span class="hljs-string">&quot;2f0t02T&#123;hcsiI_SwA__r7Ee&#125;&quot;</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;\n&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h1 id="third_page"><a class="markdownIt-Anchor" href="#third_page"></a> Third_Page</h1>
+<h2 id="2019红帽杯childre"><a class="markdownIt-Anchor" href="#2019红帽杯childre"></a> [2019红帽杯]childRE</h2>
+<p>​	<strong>Windows 内置函数的理解</strong></p>
+<h3 id="分析-9"><a class="markdownIt-Anchor" href="#分析-9"></a> 分析</h3>
+<ul>
+<li>无壳，64位，直接IDA分析</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304072344923.png" srcset="/img/loading.gif" lazyload alt="image-20230407234421853" /></p>
+<ul>
+<li>首先检测了输入长度，之后 <code>if语块</code> 没多关注，构造输入 <code>ABCDEFGHIJKLMNOPQRSTUVWXYZabcde</code>，进行动调，查看v5发现将输入的顺序打乱为 <code>PQHRSIDTUJVWKEBXYLZaMFbcNdeOGCA</code></li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304072346858.png" srcset="/img/loading.gif" lazyload alt="image-20230407234656810" /></p>
+<ul>
+<li>之后从后往前看，发现 <code>a123456789Qwer</code>，<code>a46200860044218</code>，<code>a55565653255552</code> 有相应数据，直接爆破得到了 <code>outputString</code> 的最终值 <code>private: char * __thiscall R0Pxx::My_Aut0_PWN(unsigned char *)</code></li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304072348861.png" srcset="/img/loading.gif" lazyload alt="image-20230407234800829" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">key = <span class="hljs-string">&quot;1234567890-=!@#$%^&amp;*()_+qwertyuiop[]QWERTYUIOP&#123;&#125;asdfghjkl;&#x27;,27h,&#x27;ASDFGHJKL:\&quot;ZXCVBNM&lt;&gt;?zxcvbnm,.&quot;</span><br>f1 = <span class="hljs-string">&#x27;(_@4620!08!6_0*0442!@186%%0@3=66!!974*3234=&amp;0^3&amp;1@=&amp;0908!6_0*&amp;&#x27;</span><br>f2 = <span class="hljs-string">&#x27;55565653255552225565565555243466334653663544426565555525555222&#x27;</span><br><br>message = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">62</span>):<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">127</span>):<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">ord</span>(key[j % <span class="hljs-number">23</span>]) == <span class="hljs-built_in">ord</span>(f1[i]) <span class="hljs-keyword">and</span> <span class="hljs-built_in">ord</span>(key[j//<span class="hljs-number">23</span>]) == <span class="hljs-built_in">ord</span>(f2[i]):<br>            message +=<span class="hljs-built_in">chr</span>(j)<br><span class="hljs-built_in">print</span>(message)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>由上文在动调中，执行此函数之前，<code>v5</code> 和 <code>name</code> 占用同一块空间，都是 <code>PQHRSIDTUJVWKEBXYLZaMFbcNdeOGCA</code> ，可以发现 if语块负责打乱输入的字符顺序。之后执行此函数后，打乱的结果传递给了 <code>outputString</code>，可以推测出 <code>outputString  = private: char * __thiscall R0Pxx::My_Aut0_PWN(unsigned char *)</code></li>
+<li>综合目前的信息，可以知道函数 <code>UnDecorateSymbolName(v5, outputString, 0x100u, 0);</code> 获得一个打乱的输出 <code>v5</code>，经过函数的性质，转化为了 <code>private: char * __thiscall R0Pxx::My_Aut0_PWN(unsigned char *)</code></li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304081553288.png" srcset="/img/loading.gif" lazyload alt="image-20230408155333208" /></p>
+<h3 id="关键函数"><a class="markdownIt-Anchor" href="#关键函数"></a> 关键函数</h3>
+<ul>
+<li>
+<p>现在问题就是明白 <code>UnDecorateSymbolName(v5, outputString, 0x100u, 0);</code> 函数的具体含义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function">DWORD IMAGEAPI <span class="hljs-title">UnDecorateSymbolName</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">  [in]  PCSTR name,</span></span><br><span class="hljs-params"><span class="hljs-function">  [out] PSTR  outputString,</span></span><br><span class="hljs-params"><span class="hljs-function">  [in]  DWORD maxStringLength,</span></span><br><span class="hljs-params"><span class="hljs-function">  [in]  DWORD flags</span></span><br><span class="hljs-params"><span class="hljs-function">)</span></span>;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><code>[in] name</code> 修饰的 C++ 符号名称。 此名称可由名称的第一个字符标识，该名称始终是问号 (？)</li>
+<li><code>[out] outputString</code> 指向接收未编码名称的字符串缓冲区的指针</li>
+<li><code>[in] maxStringLength</code> <em>UnDecoratedName</em> 缓冲区的大小（以字符为单位）</li>
+<li><code>[in] flags</code> 修饰名称如何取消编码的选项。 此参数为 0x0000 标识医用完全消除记录</li>
+</ul>
+</li>
+</ul>
+<p>*<em>private: char * __thiscall R0Pxx::My_Aut0_PWN(unsigned char <em>)</em></em></p>
+<ul>
+<li>参考资料1</li>
+</ul>
+<blockquote>
+<p>目前根据函数知道了第一个参数为输出地址，第二个参数是未修饰的名字，第三个参数为长度，第四个参数为0表示完全修饰</p>
+</blockquote>
+<ul>
+<li>参考资料2</li>
+</ul>
+<blockquote>
+<p><em>c++函数名的修饰更为复杂，提供的信息也更为丰富。</em><br />
+<em>无论 __cdecl，__fastcall还是__stdcall调用方式，函数修饰都是以一个“?”开始，后面紧跟函数的名字。再后面是参数表的开始标识和依照参数类型代号拼出的参数表。</em></p>
+</blockquote>
+<p><code>v5 = ?My_Aut0_PWN</code> - 函数修饰以“？”开始，后面跟随函数的名字</p>
+<blockquote>
+<p><em>对于C<ins>的类成员函数(其调用方式是thiscall)，函数的名字修饰与非成员的C</ins>函数稍有不同，首先就是在函数名字和参数表之间插入以“@”字符引导的类名。</em></p>
+</blockquote>
+<p><code>v5 = ?My_Aut0_PWN@ROPxx</code> - 类名是 <code>ROPxx</code></p>
+<blockquote>
+<p>其次是参数表的开始标识不同，</p>
+<p><em>公有（public）成员函数的标识是“@@QAE”，</em></p>
+<p><em>保护（protected）成员函数的标识是 “@@IAE”，</em></p>
+<p><em>私有(private)成员函数的标识是“@@AAE”，</em></p>
+<p><em>假设函数声明使用了constkeyword，则对应的标识应分别为“@@QBE”，“@@IBE”和“@@ABE”。</em></p>
+</blockquote>
+<p><code>v5 = ?My_Aut0_PWN@ROPxx@@AAE</code> - 私有成员(private)</p>
+<blockquote>
+<p><em>参数表的拼写代号如下：</em><br />
+<em>X–void</em><br />
+<em>D–char</em><br />
+<em>E–unsigned char</em><br />
+<em>F–short</em><br />
+<em>H–int</em><br />
+<em>I–unsigned int</em><br />
+<em>J–long</em><br />
+<em>K–unsigned long（DWORD）</em><br />
+<em>M–float</em><br />
+<em>N–double</em><br />
+<em>_N–bool</em><br />
+<em>U–struct</em><br />
+<em>…</em><br />
+<em>指针的方式有些特别。用PA表示指针，用PB表示const类型的指针。</em></p>
+</blockquote>
+<p><code>v5 = ?My_Aut0_PWN@R0Pxx@@AAEPAD</code> - 类名之后就是参数表，这个先加入函数返回值参数为 <code>char *</code></p>
+<p><code>v5 = ?My_Aut0_PWN@R0Pxx@@AAEPADPAE</code> - 之后就是添加形参了，这里是 <code>unsigned char *</code></p>
+<blockquote>
+<p><em>参数表后以“@Z”标识整个名字的结束。假设该函数无参数，则以“Z”标识结束。</em></p>
+</blockquote>
+<p><code>v5 = ?My_Aut0_PWN@R0Pxx@@AAEPADPAE@Z</code> - 结尾标识</p>
+<h3 id="exp-7"><a class="markdownIt-Anchor" href="#exp-7"></a> exp</h3>
+<ul>
+<li>得到了 <code>v5</code> 的值，可以根据前文字符的打乱顺序进行还原，之后进行md5加密</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br>m = <span class="hljs-string">&#x27;?My_Aut0_PWN@R0Pxx@@AAEPADPAE@Z&#x27;</span><br>enc1 = <span class="hljs-string">&#x27;PQHRSIDTUJVWKEBXYLZaMFbcNdeOGCA&#x27;</span><br>enc2 = <span class="hljs-string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcde&#x27;</span><br>c = [<span class="hljs-string">&#x27;0&#x27;</span>] * <span class="hljs-number">31</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(enc2)):<br>    c[i] = m[enc1.find(enc2[i])]<br>k = <span class="hljs-string">&#x27;&#x27;</span>.join(c)<br>obj = hashlib.md5(k.encode(<span class="hljs-string">&quot;utf-8&quot;</span>))<br><span class="hljs-built_in">print</span>(obj.hexdigest())<br></code></pre></td></tr></table></figure>
+<h2 id="swpu2019reverseme"><a class="markdownIt-Anchor" href="#swpu2019reverseme"></a> [SWPU2019]ReverseMe</h2>
+<p>​	<strong>内存访问断点的使用</strong></p>
+<h3 id="分析-10"><a class="markdownIt-Anchor" href="#分析-10"></a> 分析</h3>
+<ul>
+<li>正常使用IDA分析</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304081909327.png" srcset="/img/loading.gif" lazyload alt="image-20230408190950254" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304081910191.png" srcset="/img/loading.gif" lazyload alt="image-20230408191010144" /></p>
+<ul>
+<li>从前后进行动调分析，最后得到 <code>sub_402350</code> 对输入的flag 进行操作，和 <code>v36</code> 等内置数据进行比较得到结果。这里 <code>sub_402350</code> 太过于复杂，搜索别人的学会了内存断点的方法。</li>
+</ul>
+<h3 id="内存断点"><a class="markdownIt-Anchor" href="#内存断点"></a> 内存断点</h3>
+<h4 id="禁用aslr"><a class="markdownIt-Anchor" href="#禁用aslr"></a> 禁用ASLR</h4>
+<blockquote>
+<p>首先记得关闭ASLR，否则OD和IDA中基址就不太一样</p>
+</blockquote>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304082000293.png" srcset="/img/loading.gif" lazyload alt="image-20230408200039234" /></p>
+<ul>
+<li>
+<p>微软从windows vista/windows server 2008（kernel version 6.0）开始采用ASLR技术，主要目的是为了防止缓冲区溢出。ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。这里只要PE头 DLL Charateristics 有 0x40 时，每次OD加载时的基址就不一样。去掉IMAGE_OPTIONAL_HEADER.DLLCharacteristics 的IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 可以禁用随机基址。</p>
+</li>
+<li>
+<p>使用 <code>Study PE</code> 直接固定基址，之后另存为文件即可</p>
+</li>
+</ul>
+<h4 id="od调试"><a class="markdownIt-Anchor" href="#od调试"></a> OD调试</h4>
+<ul>
+<li>根据上下文，找到了调用 <code>sub_402350</code> 之前的位置，并在内存窗口看到打乱顺序的input(一开始输入了32个 ‘1’)</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304082006374.png" srcset="/img/loading.gif" lazyload alt="image-20230408200623320" /></p>
+<ul>
+<li>在内存窗口(红框)下 <code>内存访问断点</code>，然后 <code>F9</code> 执行，找到了函数中对于 input 地址的更改。发现这里使用 <code>ecx</code> 对数据进行了异或处理，之后又赋值到 <code>[ebx + eax - 0x4]</code> 的位置。<code>PS:F9 抵达断点位置时，这个时候[ebi + eax] 已经对 ecx进行了赋值操作，所以一开始的数据需要在内存窗口往上翻才能找到</code></li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304082028713.png" srcset="/img/loading.gif" lazyload alt="image-20230408202843658" /></p>
+<ul>
+<li>之后在内存新地址下 <code>内存访问断点</code> 。发现这里将 <code>eax</code> 和 <code>edx</code> 逐个进行比较，这里 <code>eax</code> 来自 ecx，如下内存窗口。而 <code>edx</code> 就是下内存访问断点的地方，就是数据存储的区域。这里也验证了IDA中最后对比的过程。</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304082034829.png" srcset="/img/loading.gif" lazyload alt="image-20230408203403780" /></p>
+<h3 id="exp-8"><a class="markdownIt-Anchor" href="#exp-8"></a> exp</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">ipt = <span class="hljs-string">&#x27;11111111111111111111111111111111&#x27;</span> <span class="hljs-comment"># len is 32</span><br>v10 = <span class="hljs-built_in">list</span>(ipt)<br>v35 = <span class="hljs-string">&#x27;SWPU_2019_CTF&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(ipt)):<br>    v10[i] = <span class="hljs-built_in">hex</span>(<span class="hljs-built_in">ord</span>(v10[i]) ^ <span class="hljs-built_in">ord</span>(v35[i % <span class="hljs-built_in">len</span>(v35)]))<br><span class="hljs-built_in">print</span>(v10)<br><br>enc = [  <span class="hljs-number">0xB3</span>, <span class="hljs-number">0x37</span>, <span class="hljs-number">0x0F</span>, <span class="hljs-number">0xF8</span>, <span class="hljs-number">0xBC</span>, <span class="hljs-number">0xBC</span>, <span class="hljs-number">0xAE</span>, <span class="hljs-number">0x5D</span>, <span class="hljs-number">0xBA</span>, <span class="hljs-number">0x5A</span>,<br>  <span class="hljs-number">0x4D</span>, <span class="hljs-number">0x86</span>, <span class="hljs-number">0x44</span>, <span class="hljs-number">0x97</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0xD3</span>, <span class="hljs-number">0x4F</span>, <span class="hljs-number">0xBA</span>, <span class="hljs-number">0x24</span>, <span class="hljs-number">0x16</span>,<br>  <span class="hljs-number">0x0B</span>, <span class="hljs-number">0x9F</span>, <span class="hljs-number">0x72</span>, <span class="hljs-number">0x1A</span>, <span class="hljs-number">0x65</span>, <span class="hljs-number">0x68</span>, <span class="hljs-number">0x6D</span>, <span class="hljs-number">0x26</span>, <span class="hljs-number">0xBA</span>, <span class="hljs-number">0x6B</span>,<br>  <span class="hljs-number">0xC8</span>, <span class="hljs-number">0x67</span>]<br><br>key = [<span class="hljs-number">0x86</span>, <span class="hljs-number">0x0C</span>, <span class="hljs-number">0x3E</span>, <span class="hljs-number">0xCA</span>, <span class="hljs-number">0x98</span>, <span class="hljs-number">0xD7</span>, <span class="hljs-number">0xAE</span>, <span class="hljs-number">0x19</span>,  <span class="hljs-number">0xE2</span>, <span class="hljs-number">0x77</span>, <span class="hljs-number">0x6B</span>, <span class="hljs-number">0xA6</span>, <span class="hljs-number">0x6A</span>, <span class="hljs-number">0xA1</span>, <span class="hljs-number">0x77</span>, <span class="hljs-number">0xB0</span>,<br><span class="hljs-number">0x69</span>, <span class="hljs-number">0x91</span>, <span class="hljs-number">0x37</span>, <span class="hljs-number">0x05</span>, <span class="hljs-number">0x7A</span>, <span class="hljs-number">0xF9</span>, <span class="hljs-number">0x7B</span>, <span class="hljs-number">0x30</span>, <span class="hljs-number">0x43</span>, <span class="hljs-number">0x5A</span>, <span class="hljs-number">0x4B</span>, <span class="hljs-number">0x10</span>, <span class="hljs-number">0x86</span>, <span class="hljs-number">0x7D</span>, <span class="hljs-number">0xD4</span>, <span class="hljs-number">0x28</span><br>]<br>flag = [<span class="hljs-string">&#x27;0&#x27;</span>] * <span class="hljs-number">32</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(enc)):<br>    flag[i] = <span class="hljs-built_in">chr</span>(enc[i] ^ key[i] ^ <span class="hljs-built_in">ord</span>(v35[i % <span class="hljs-built_in">len</span>(v35)]))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;&#x27;</span>.join(flag))<br></code></pre></td></tr></table></figure>
 
                 
               </div>
