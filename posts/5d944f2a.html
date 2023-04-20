@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
 <meta property="article:published_time" content="2023-03-31T13:13:43.000Z">
-<meta property="article:modified_time" content="2023-04-04T13:09:54.664Z">
+<meta property="article:modified_time" content="2023-04-20T15:28:29.329Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.6k 字
+          6.7k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          55 分钟
+          57 分钟
         
       </span>
     
@@ -485,6 +485,11 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> idc_bc695 <span class="hljs-keyword">as</span> idc<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():<br>    cur_addr = <span class="hljs-number">0x140003040</span>; <span class="hljs-comment"># 起始地址</span><br>    size = <span class="hljs-number">0x34166</span>  <span class="hljs-comment"># 大小</span><br>    <span class="hljs-built_in">list</span> = []<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(size):<br>        byte_tmp = idc.Byte(begin + i)<br>        <span class="hljs-built_in">list</span>.append(byte_tmp)<br>        <span class="hljs-keyword">if</span> (i + <span class="hljs-number">1</span>) % <span class="hljs-number">0x1000</span> == <span class="hljs-number">0</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;All count:&#123;&#125;, collect current:&#123;&#125;, has finish&#123;&#125;&quot;</span>.<span class="hljs-built_in">format</span>(<span class="hljs-built_in">hex</span>(size), <span class="hljs-built_in">hex</span>(i + <span class="hljs-number">1</span>), <span class="hljs-built_in">float</span>(i + <span class="hljs-number">1</span>) / size))<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;collect over&#x27;</span>)<br>    file = <span class="hljs-string">&quot;LOADER2.exe&quot;</span>  <span class="hljs-comment">#输出文件地址+名</span><br>    buf = <span class="hljs-built_in">bytearray</span>(<span class="hljs-built_in">list</span>)<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(file, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> fw:<br>        fw.write(buf)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;write over&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__==<span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    main()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
 <h4 id="取数值"><a class="markdownIt-Anchor" href="#取数值"></a> 取数值</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> idc_bc695 <span class="hljs-keyword">import</span> *<br>cur_addr = <span class="hljs-number">0x6020c0</span>  <span class="hljs-comment">#起始地址</span><br>end_addr = <span class="hljs-number">0x60213c</span>  <span class="hljs-comment">#终止地址</span><br><span class="hljs-built_in">len</span> = end_addr - cur_addr<br>arr1 = []<br>arr2 = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>):<br>    arr1.append(Byte(cur_addr + i)) 		<span class="hljs-comment">#单个字节获取</span><br>    arr2.append(Dword(cur_addr + <span class="hljs-number">4</span> * i))	<span class="hljs-comment">#四个字节获取</span><br><span class="hljs-built_in">print</span>(arr1)<br><span class="hljs-built_in">print</span>(arr2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
+<h2 id="插件"><a class="markdownIt-Anchor" href="#插件"></a> 插件</h2>
+<h3 id="bindiff"><a class="markdownIt-Anchor" href="#bindiff"></a> bindiff</h3>
+<ul>
+<li>可以看出二进制文件中的差异，样例:GUDOCTF–L!S!</li>
+</ul>
 <h1 id="gdb"><a class="markdownIt-Anchor" href="#gdb"></a> GDB</h1>
 <p><a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html">gdb调试利器</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/murkuo/p/15965270.html">pwngdb操作</a></p>
@@ -718,6 +723,10 @@
 <p>对于算法进行解密运算时，时刻注意小端序的问题，因为解密的过程中可能就需要将上一步的结果逆序放入下一步中 (TEA类型的解密最为拧巴，往往需要调换多次位置)</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python">enc = <span class="hljs-number">0x67616c66</span><br>tmp1 = <span class="hljs-built_in">hex</span>(enc)[<span class="hljs-number">2</span>:]<br><span class="hljs-comment"># 将enc以两个字节为单位进行逆序排列</span><br>res1 = <span class="hljs-string">&#x27;0x&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(tmp),<span class="hljs-number">2</span>):<br>    res1 += tmp[<span class="hljs-built_in">len</span>(tmp) - i - <span class="hljs-number">2</span>: <span class="hljs-built_in">len</span>(tmp) - i]<br><span class="hljs-built_in">print</span>(res1)<br><br><span class="hljs-comment"># 将enc以两个字节为单位进行逆序排列并转化为字符</span><br>res2 = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(tmp),<span class="hljs-number">2</span>):<br>    tmp2 = tmp[<span class="hljs-built_in">len</span>(tmp) - i - <span class="hljs-number">2</span>: <span class="hljs-built_in">len</span>(tmp) - i]<br>    res2 += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">eval</span>(<span class="hljs-string">&#x27;0x&#x27;</span> + tmp2))<br><span class="hljs-built_in">print</span>(res2)<br></code></pre></td></tr></table></figure>
 </li>
+</ol>
+<h2 id="数据处理"><a class="markdownIt-Anchor" href="#数据处理"></a> 数据处理</h2>
+<ol>
+<li>从IDA中获取数据时，如果在分析程序中发现数据的排列为 qword 等，建议不要以小端序转化，而是直接从IDA的 <code>IDA View-RIP</code> 界面复制，不用 <code>Ctrl + e</code> 提取数据。除此之外， qword 的转化可能会出现一些多余数据，记得识别。</li>
 </ol>
 
                 
