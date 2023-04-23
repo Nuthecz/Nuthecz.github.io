@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
 <meta property="article:published_time" content="2023-03-31T13:13:43.000Z">
-<meta property="article:modified_time" content="2023-04-20T15:28:29.329Z">
+<meta property="article:modified_time" content="2023-04-23T02:22:24.641Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          6.7k 字
+          7k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          57 分钟
+          59 分钟
         
       </span>
     
@@ -726,7 +726,18 @@
 </ol>
 <h2 id="数据处理"><a class="markdownIt-Anchor" href="#数据处理"></a> 数据处理</h2>
 <ol>
-<li>从IDA中获取数据时，如果在分析程序中发现数据的排列为 qword 等，建议不要以小端序转化，而是直接从IDA的 <code>IDA View-RIP</code> 界面复制，不用 <code>Ctrl + e</code> 提取数据。除此之外， qword 的转化可能会出现一些多余数据，记得识别。</li>
+<li>从IDA中获取数据时，如果在分析程序中发现数据的排列为 qword 等，建议不要以小端序转化，而是直接从IDA的 <code>IDA View-RIP</code> 界面复制，不用 <code>Ctrl + e</code> 提取数据。除此之外， qword 的转化可能会出现一些多余数据，记得识别。
+<ul>
+<li>这里补充一点：若是在 <code>IDA View-RIP</code> 界面中的数据不是正规数据(这里指十六进制)，则采用 <code>Ctrl + e</code> 进行十六进制提取，再分别以4个字节为一组，然后倒转称为小端序的顺序进行解密操作。</li>
+<li>总而言之
+<ul>
+<li>可以首先使用 <code>Ctrl + e</code> 进行提取，然后手动进行倒转转换。</li>
+<li>也可以使用 <code>D</code> 进行打乱，再分别使用 <code>D</code> 聚合成每4个字节为一组的形式</li>
+<li>也可以使用插件 <code>lazyida</code>，在数据上 <code>右键</code> -&gt; <code>convert</code> -&gt; <code>Covern to …… DWORD list</code>(这里注意看前面的标识进行相依字节长度的转化) 就可以在下方output框看见正确的小端序数组。</li>
+</ul>
+</li>
+</ul>
+</li>
 </ol>
 
                 

@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291149059.jpg">
 <meta property="article:published_time" content="2022-11-10T14:04:07.000Z">
-<meta property="article:modified_time" content="2023-03-29T03:53:00.391Z">
+<meta property="article:modified_time" content="2023-04-23T03:17:21.078Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291149059.jpg">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.7k 字
+          3.7k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          23 分钟
+          31 分钟
         
       </span>
     
@@ -331,6 +331,63 @@
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291149728.png" srcset="/img/loading.gif" lazyload alt="202211172017531" /></p>
 <p>而<code>sub_160C</code>是一个比较函数，若是输入的值与最后存储的值相同，那么就是输入对了</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;windows.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">unsigned</span> __int64 __fastcall <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-type">char</span>* input, <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> len)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">int</span> i; <span class="hljs-comment">// [rsp+18h] [rbp-118h]</span><br>	<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> j; <span class="hljs-comment">// [rsp+1Ch] [rbp-114h]</span><br>	__int64 v5[<span class="hljs-number">33</span>]; <span class="hljs-comment">// [rsp+20h] [rbp-110h] BYREF</span><br>	<span class="hljs-type">unsigned</span> __int64 v6; <span class="hljs-comment">// [rsp+128h] [rbp-8h]</span><br><br>	<span class="hljs-built_in">memset</span>(v5, <span class="hljs-number">0</span>, <span class="hljs-number">256</span>);<br>	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">255</span>; ++i)<br>		*((BYTE*)v5 + i) = ~(i ^ len);<br>	<span class="hljs-keyword">for</span> (j = <span class="hljs-number">0</span>; len &gt; j; ++j)<br>		input[j] = *((BYTE*)v5 + (<span class="hljs-type">unsigned</span> __int8)input[j]);<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-type">char</span> enc[] =<br>	&#123;<br>	  <span class="hljs-number">0xD0</span>, <span class="hljs-number">0xD0</span>, <span class="hljs-number">0x85</span>, <span class="hljs-number">0x85</span>, <span class="hljs-number">0x80</span>, <span class="hljs-number">0x80</span>, <span class="hljs-number">0xC5</span>, <span class="hljs-number">0x8A</span>, <span class="hljs-number">0x93</span>, <span class="hljs-number">0x89</span>,<br>	  <span class="hljs-number">0x92</span>, <span class="hljs-number">0x8F</span>, <span class="hljs-number">0x87</span>, <span class="hljs-number">0x88</span>, <span class="hljs-number">0x9F</span>, <span class="hljs-number">0x8F</span>, <span class="hljs-number">0xC5</span>, <span class="hljs-number">0x84</span>, <span class="hljs-number">0xD6</span>, <span class="hljs-number">0xD1</span>,<br>	  <span class="hljs-number">0xD2</span>, <span class="hljs-number">0x82</span>, <span class="hljs-number">0xD3</span>, <span class="hljs-number">0xDE</span>, <span class="hljs-number">0x87</span>,<span class="hljs-number">0</span><br>	&#125;;<br>	<span class="hljs-type">char</span> flag[<span class="hljs-number">56</span>] = &#123; <span class="hljs-number">0</span> &#125;;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">25</span>; i++) &#123;<br>		<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">256</span>; j++) &#123;<br>			flag[i] = j;<br>			<span class="hljs-built_in">func</span>(flag, <span class="hljs-number">25</span>);<br>			<span class="hljs-keyword">if</span> (flag[i] == enc[i]) &#123;<br>				cout &lt;&lt; (<span class="hljs-type">char</span>)j;<br>				<span class="hljs-keyword">break</span>;<br>			&#125;<br>		&#125;<br>	&#125;<br><span class="hljs-comment">// 66ccff#luotianyi#b074d58a</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h1 id="likemyasp"><a class="markdownIt-Anchor" href="#likemyasp"></a> Likemyasp</h1>
+<h2 id="脱壳"><a class="markdownIt-Anchor" href="#脱壳"></a> 脱壳</h2>
+<ul>
+<li>
+<p>有壳</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304230926089.png" srcset="/img/loading.gif" lazyload alt="image-20230423092643020" /></p>
+</li>
+<li>
+<p>upx尝试了脱不了，试试手动脱壳</p>
+</li>
+</ul>
+<p>​	直接在 x64dbg中脱壳，首先加载后按 F9 来到了加壳之后的 OEP处 (这里的 EP 是加壳后的EP，我们需要找到加壳前的 EP)</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304230931775.png" srcset="/img/loading.gif" lazyload alt="image-20230423093143699" /></p>
+<p>​	之后 <code>Ctrl + n</code> 在 <code>VirtualProtect</code> 处右键/F2下断点。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304230944510.png" srcset="/img/loading.gif" lazyload alt="image-20230423094446475" /></p>
+<p>​	然后 <code>F9</code> 执行，发现总共会命中两次，在第二次命中的时候按 <code>ALT + F9</code> 退出此函数体</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304230947235.png" srcset="/img/loading.gif" lazyload alt="image-20230423094701172" /></p>
+<p>​	之后一直 <code>F8</code> 单步调试，直到走不动了，这个就是等待IO操作的时候，可以重新调试发现 <code>main</code> 函数的地方就是在这个函数中</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304230950356.png" srcset="/img/loading.gif" lazyload alt="image-20230423095011293" /></p>
+<p>​	再次观察可以发现前面两个是传参的地方，之后<code>F7</code> 步进函数内，发现有显示的文字，那么大概可以判断这里就是脱壳后的程序了，然后用 <code>Scylla</code> dump 并修复</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304230951176.png" srcset="/img/loading.gif" lazyload alt="image-20230423095148133" /></p>
+<ul>
+<li>之后就可以看出来函数的逻辑了</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304230954433.png" srcset="/img/loading.gif" lazyload alt="image-20230423095435400" /></p>
+<h2 id="动调"><a class="markdownIt-Anchor" href="#动调"></a> 动调</h2>
+<ul>
+<li>不脱壳，直接动调。在最多逻辑的函数(猜测这是加密过程)中对最后下断点进行动调</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304231029385.png" srcset="/img/loading.gif" lazyload alt="image-20230423102904343" /></p>
+<ul>
+<li><code>F8</code> 进行步过，然后一直走到卡住的地方(等待IO输入)，然后进入函数体就可以发现主函数逻辑了</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304231027691.png" srcset="/img/loading.gif" lazyload alt="image-20230423102747612" /></p>
+<h2 id="exp-3"><a class="markdownIt-Anchor" href="#exp-3"></a> exp</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">chipher = [<span class="hljs-number">0xD803C1FC098</span>, <span class="hljs-number">0xE20360BC097</span>, <span class="hljs-number">0xFE02A1C00A0</span>, <span class="hljs-number">0xFA0121040CB</span>, <span class="hljs-number">0xF2032104092</span>, <span class="hljs-number">0xD6015884082</span>]<br><br>flag = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(chipher)):<br>    flag += <span class="hljs-built_in">chr</span>(chipher[i] &gt;&gt; <span class="hljs-number">37</span> &amp; <span class="hljs-number">0xff</span> ^ <span class="hljs-number">0xa</span>)<br>    flag += <span class="hljs-built_in">chr</span>(chipher[i] &gt;&gt; <span class="hljs-number">23</span> &amp; <span class="hljs-number">0xff</span> ^ <span class="hljs-number">0x14</span>)<br>    flag += <span class="hljs-built_in">chr</span>(chipher[i] &gt;&gt; <span class="hljs-number">14</span> &amp; <span class="hljs-number">0xff</span> ^ <span class="hljs-number">0x1e</span>)<br>    flag += <span class="hljs-built_in">chr</span>(~(chipher[i])&amp; <span class="hljs-number">0xff</span>)<br><span class="hljs-built_in">print</span>(flag)<br><br></code></pre></td></tr></table></figure>
+<h1 id="ur_so_native"><a class="markdownIt-Anchor" href="#ur_so_native"></a> ur_so_native</h1>
+<h2 id="分析-4"><a class="markdownIt-Anchor" href="#分析-4"></a> 分析</h2>
+<ul>
+<li>一个apk文件，直接在jadx中分析，去到<code>com.new_star_ctf.u_navie/MainActivity</code>查看程序的逻辑
+<ul>
+<li>之后发现加密函数 <code>encry</code> ,它的前面有个 <code>native</code> 的关键字，代表函数在 <code>native</code> 层实现。而native层实现的函数保存在 <code>.so</code> 文件中， <code>.so</code> 文件位于apk文件解压后<code>\lib</code> 层下</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304231039751.png" srcset="/img/loading.gif" lazyload alt="image-20230423103941691" /></p>
+<ul>
+<li>將 <code>libencry.so</code> 拉入IDA，找到 <code>encry</code> 函数，会发现一堆奇怪的东西。这是一种名为 <code>JNI</code> 的东西导致 IDA分析错误 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/Java%E6%9C%AC%E5%9C%B0%E6%8E%A5%E5%8F%A3">什么是JNI</a></li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304231040054.png" srcset="/img/loading.gif" lazyload alt="image-20230423104049001" /></p>
+<ul>
+<li>之后对应 <code>JNI</code> 函数原型，手动修改 <code>entry</code> 函数的参数类型(按<code>y</code>)</li>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/yb493071294/article/details/80378730">还原 JNI 函数名</a></li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304231111060.png" srcset="/img/loading.gif" lazyload alt="image-20230423111118023" /></p>
+<p>这里查看加密很奇怪，就附上别人的链接(懒得写了)</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Only-xiaoxiao/p/16759891.html">NewStartCTF</a></p>
 
                 
               </div>
