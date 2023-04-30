@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="概论  问题相关  操作系统的定义，发展状况，功能及特点，了解现在热门的操作系统 不同操作系统类型的特点？实时、分时、网络、嵌入式等？ 操作系统接口有哪些？ 操作系统的特征？并发、共享、异步(随机)、虚拟各有什么含义？   进程管理   多道程序环境下程序执行的特点？进程的顺序与并发执行。区别并发与并行   进程的概念、特征，为什么引入进程？与程序的区别和联系   什么是进程上下文，包含什么内容">
+    <meta name="description" content="概论  问题相关  操作系统的定义、功能、特征及其含义 操作系统的分类及其特点，实时、分时、网络、嵌入式等 操作系统的接口有哪些 操作系统的发展、功能及特点，并发、共享、异步(随机)、虚拟各有什么含义 了解现在热门的操作系统、国产操作系统   进程管理  问题相关  顺序执行、并发执行、并行执行 进程的概念与特征，与程序的区别与联系，进程与线程的区别与联系，进程上下文 三态模型、五态模型及七态模">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统">
 <meta property="og:url" content="http://example.com/posts/d04bd5bc.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="概论  问题相关  操作系统的定义，发展状况，功能及特点，了解现在热门的操作系统 不同操作系统类型的特点？实时、分时、网络、嵌入式等？ 操作系统接口有哪些？ 操作系统的特征？并发、共享、异步(随机)、虚拟各有什么含义？   进程管理   多道程序环境下程序执行的特点？进程的顺序与并发执行。区别并发与并行   进程的概念、特征，为什么引入进程？与程序的区别和联系   什么是进程上下文，包含什么内容">
+<meta property="og:description" content="概论  问题相关  操作系统的定义、功能、特征及其含义 操作系统的分类及其特点，实时、分时、网络、嵌入式等 操作系统的接口有哪些 操作系统的发展、功能及特点，并发、共享、异步(随机)、虚拟各有什么含义 了解现在热门的操作系统、国产操作系统   进程管理  问题相关  顺序执行、并发执行、并行执行 进程的概念与特征，与程序的区别与联系，进程与线程的区别与联系，进程上下文 三态模型、五态模型及七态模">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
 <meta property="article:published_time" content="2023-04-21T12:31:04.000Z">
-<meta property="article:modified_time" content="2023-04-24T11:00:51.192Z">
+<meta property="article:modified_time" content="2023-04-30T12:15:00.223Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
@@ -231,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          267 字
+          1.9k 字
         
       </span>
     
@@ -242,7 +242,7 @@
         
         
         
-          3 分钟
+          16 分钟
         
       </span>
     
@@ -287,34 +287,179 @@
                 
                 <h1 id="概论"><a class="markdownIt-Anchor" href="#概论"></a> 概论</h1>
 <h2 id="问题相关"><a class="markdownIt-Anchor" href="#问题相关"></a> 问题相关</h2>
-<ol>
-<li>操作系统的定义，发展状况，功能及特点，了解现在热门的操作系统</li>
-<li>不同操作系统类型的特点？实时、分时、网络、嵌入式等？</li>
-<li>操作系统接口有哪些？</li>
-<li>操作系统的特征？并发、共享、异步(随机)、虚拟各有什么含义？</li>
-</ol>
+<ul>
+<li>操作系统的定义、功能、特征及其含义</li>
+<li>操作系统的分类及其特点，实时、分时、网络、嵌入式等</li>
+<li>操作系统的接口有哪些</li>
+<li>操作系统的发展、功能及特点，并发、共享、异步(随机)、虚拟各有什么含义</li>
+<li>了解现在热门的操作系统、国产操作系统</li>
+</ul>
 <h1 id="进程管理"><a class="markdownIt-Anchor" href="#进程管理"></a> 进程管理</h1>
+<h2 id="问题相关-2"><a class="markdownIt-Anchor" href="#问题相关-2"></a> 问题相关</h2>
+<ul>
+<li>顺序执行、并发执行、并行执行</li>
+<li>进程的概念与特征，与程序的区别与联系，进程与线程的区别与联系，进程上下文</li>
+<li>三态模型、五态模型及七态模型的状态转化</li>
+<li>什么是进程控制块？包含哪些信息？有什么功能？</li>
+<li>同步与互斥概念，饥饿与死锁概念，临界区与临界资源概念，临界区调度原则与管理方法</li>
+<li>进程通信的机制及对应的工作原理(重点管道通信)</li>
+<li>进程调度模型及其对应的主要功能</li>
+<li>死锁产生的四个必要条件，预防、避免、检测及接触死锁对应的方法</li>
+</ul>
+<h2 id="考试要点"><a class="markdownIt-Anchor" href="#考试要点"></a> 考试要点</h2>
 <ol>
-<li>
-<p>多道程序环境下程序执行的特点？进程的顺序与并发执行。区别并发与并行</p>
-</li>
-<li>
-<p>进程的概念、特征，为什么引入进程？与程序的区别和联系</p>
-</li>
-<li>
-<p>什么是进程上下文，包含什么内容？</p>
-</li>
-<li>
-<p>线程和进程的联系和区别？</p>
-</li>
-<li>
-<p>进程的三、五态及其可能的相互转化，简述每种状态下进程的特点，说明调度、唤醒、阻塞三种操作</p>
-</li>
-<li>
-<p>进程存在的唯一标志 PCB 的全称是什么？它包含哪些信息？功能？</p>
-</li>
-<li></li>
+<li>信号量机制解决进程同步互斥问题：信号量(记录性数据结构)及其取值范围，P、V操作及含义，P、V操作解决同步互斥问题的方法流程</li>
+<li>调度算法：<code>非抢占式</code>(FCFS、SJF、HRRF)，<code>抢占式</code>(SRTF、HPF、RR、MFQ)，作业或者进程的执行顺序，计算周转时间及带权周转时间</li>
+<li>死锁的避免：银行家算法及安全性测试算法</li>
 </ol>
+<h3 id="信号量机制"><a class="markdownIt-Anchor" href="#信号量机制"></a> 信号量机制</h3>
+<h4 id="含义"><a class="markdownIt-Anchor" href="#含义"></a> 含义</h4>
+<ul>
+<li>信号量s
+<ul>
+<li>记录型数据结构，一个分量为信号量的值，一个分量是在信号量关联资源上阻塞的进程队列的队头指针。</li>
+<li>三种操作进行修改：赋初值，P操作，V操作。</li>
+</ul>
+</li>
+<li>P、V操作— <strong>书P45</strong>
+<ul>
+<li>P(s)：将信号量s减1……</li>
+<li>V(s)：将信号量s加1……</li>
+<li>补充定义— <strong>书P46</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="方法流程"><a class="markdownIt-Anchor" href="#方法流程"></a> 方法流程</h4>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304301031289.png" srcset="/img/loading.gif" lazyload alt="image-20230430103109210" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304301037878.png" srcset="/img/loading.gif" lazyload alt="image-20230430103735854" /></p>
+<ul>
+<li>经典问题
+<ul>
+<li>生产者-消费者问题</li>
+<li>多生产者-多消费者问题</li>
+<li>读者-写者问题</li>
+<li>哲学家就餐问题</li>
+<li>睡眠理发师问题</li>
+</ul>
+</li>
+</ul>
+<h3 id="调度算法"><a class="markdownIt-Anchor" href="#调度算法"></a> 调度算法</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304301124647.png" srcset="/img/loading.gif" lazyload alt="image-20230430112422583" /></p>
+<ul>
+<li>周转时间和带权周转时间越小越好</li>
+</ul>
+<h4 id="非抢占式"><a class="markdownIt-Anchor" href="#非抢占式"></a> 非抢占式</h4>
+<h5 id="fcfs"><a class="markdownIt-Anchor" href="#fcfs"></a> FCFS</h5>
+<ul>
+<li>先来先服务(First-Come First-Served)</li>
+</ul>
+<h5 id="sjf"><a class="markdownIt-Anchor" href="#sjf"></a> SJF</h5>
+<ul>
+<li>短作业优先(Shortest-Job-First)</li>
+</ul>
+<h5 id="hrrf"><a class="markdownIt-Anchor" href="#hrrf"></a> HRRF</h5>
+<ul>
+<li>高响应比优先(Highest Response Ratio First)</li>
+<li>响应比 = 1 + (已等待时间 / 估计运行时间)</li>
+</ul>
+<h4 id="抢占式"><a class="markdownIt-Anchor" href="#抢占式"></a> 抢占式</h4>
+<h5 id="srtf"><a class="markdownIt-Anchor" href="#srtf"></a> SRTF</h5>
+<ul>
+<li>最短剩余时间优先(Shortest Remaining Time First)</li>
+</ul>
+<h5 id="hpf"><a class="markdownIt-Anchor" href="#hpf"></a> HPF</h5>
+<ul>
+<li>优先权(Highest-Priority-First)</li>
+<li>静态优先权和动态优先权</li>
+</ul>
+<h5 id="rr"><a class="markdownIt-Anchor" href="#rr"></a> RR</h5>
+<ul>
+<li>时间片轮转(Round-Ribon)</li>
+</ul>
+<h5 id="mfo"><a class="markdownIt-Anchor" href="#mfo"></a> MFO</h5>
+<ul>
+<li>多级反馈队列(Multilevel-Feed-Queue)</li>
+</ul>
+<h3 id="死锁"><a class="markdownIt-Anchor" href="#死锁"></a> 死锁</h3>
+<h4 id="原因"><a class="markdownIt-Anchor" href="#原因"></a> 原因</h4>
+<ul>
+<li>并发进程对临界资源的竞争 和 并发进程推进顺序不当</li>
+</ul>
+<h4 id="发生的必要条件"><a class="markdownIt-Anchor" href="#发生的必要条件"></a> 发生的必要条件</h4>
+<ul>
+<li>互斥条件：资源的使用互斥的</li>
+<li>请求与保持条件：一个进程得到资源并再请求资源时，若请求的资源不能得到，已得到的资源也不会释放</li>
+<li>不剥夺条件：当进程得到资源后，只能由其自身主动释放，系统或其他进程正在占用的资源，形成永远等待</li>
+<li>环路等待条件：系统中若干进程形成环路，每个进程都在等待相邻进程正在占用的资源，形成永远等待</li>
+</ul>
+<h4 id="银行家算法"><a class="markdownIt-Anchor" href="#银行家算法"></a> 银行家算法</h4>
+<ul>
+<li>Claim Possession Shortage Available</li>
+</ul>
+<h1 id="内存管理"><a class="markdownIt-Anchor" href="#内存管理"></a> 内存管理</h1>
+<h2 id="问题相关-3"><a class="markdownIt-Anchor" href="#问题相关-3"></a> 问题相关</h2>
+<ul>
+<li>
+<p>内存管理四大功能</p>
+</li>
+<li>
+<p>地址的表示(逻辑地址空间、物理地址空间)</p>
+</li>
+<li>
+<p>重定位，静态重定位，动态重定位</p>
+</li>
+<li>
+<p>单一连续内存管理、固定分区管理、可变分区管理：</p>
+<p>内存的分配与回收，地址转换，优缺点分析，可变分区的内存分配算法</p>
+</li>
+<li>
+<p>程序的局部性原理，虚拟存储的基本思想，虚拟存储器</p>
+</li>
+<li>
+<p>页式存储管理与请求页式管理的区别与联系？两种管理方式下页表机制和地址转换过程有何不同？</p>
+</li>
+<li>
+<p>请求页式虚拟存储管理的页面分配策略、页面调入策略、页面置换策略</p>
+</li>
+<li>
+<p>段式管理的基本思想，其与页式管理有何区别，段式与段页式、请求段式管理、请求段页式管理的区别与联系</p>
+</li>
+<li>
+<p>各种内存管理方式中的”碎片“问题如何解决</p>
+</li>
+</ul>
+<h2 id="考试要点-2"><a class="markdownIt-Anchor" href="#考试要点-2"></a> 考试要点</h2>
+<ol>
+<li>地址转换：页式管理和请求页式虚拟存储管理中的逻辑地址转化为物理地址(页号、页内偏移量以及所占位数)，块表的地址转换过程，多级页表的地址转换过程</li>
+<li>页面置换：置换算法(FIFO、OPT、LRU、Clock)，算法流程、缺页次数及缺页率计算—添加(前几次也是缺页，但是不统计)</li>
+</ol>
+<h1 id="文件系统"><a class="markdownIt-Anchor" href="#文件系统"></a> 文件系统</h1>
+<h2 id="问题相关-4"><a class="markdownIt-Anchor" href="#问题相关-4"></a> 问题相关</h2>
+<ul>
+<li>文件系统基本功能</li>
+<li>文件的逻辑结构和物理结构定义及分类</li>
+<li>记录式文件的组织方式有哪些，各有什么特点</li>
+<li>文件的存储方法、文件存储空间的分配及管理</li>
+<li>文件目录和目录文件的区别与联系</li>
+<li>目录的结构与检索</li>
+<li>文件系统调用的实现</li>
+<li>文件的共享</li>
+</ul>
+<h2 id="考试要点-3"><a class="markdownIt-Anchor" href="#考试要点-3"></a> 考试要点</h2>
+<ol>
+<li>文件的物理结构：根据文件的物理组织情况，计算所支持文件的大小；对于一个给定大小的文件，计算其占用物理盘块情况</li>
+</ol>
+<h1 id="设备管理"><a class="markdownIt-Anchor" href="#设备管理"></a> 设备管理</h1>
+<h2 id="问题相关-5"><a class="markdownIt-Anchor" href="#问题相关-5"></a> 问题相关</h2>
+<ul>
+<li>设备的不同分类方法</li>
+<li>设备管理四大功能</li>
+<li>设备控制方法(四种)，工作原理以及优缺点分析</li>
+<li>缓冲技术的作用、不同缓冲技术的工作机制</li>
+<li>输入输出软件的层次及相应的功能</li>
+<li>设备分配与回收时使用的数据结构、设备分配策略</li>
+<li>SPOOLing技术的功能和基本思想，如何实现共享打印机</li>
+</ul>
 
                 
               </div>
