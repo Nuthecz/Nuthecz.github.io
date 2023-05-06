@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
 <meta property="article:published_time" content="2023-04-21T12:31:04.000Z">
-<meta property="article:modified_time" content="2023-05-05T16:38:38.814Z">
+<meta property="article:modified_time" content="2023-05-06T06:24:50.443Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
@@ -242,7 +242,7 @@
         
         
         
-          43 分钟
+          44 分钟
         
       </span>
     
@@ -299,7 +299,7 @@
 <li>定义：操作系统是一组计算机程序的集合，主要用以控制和管理计算机的硬件和软件资源，合理地组织计算机的工作流程， 向应用程序和用户提供方便、快捷、友好的使用接口</li>
 <li>特征：
 <ul>
-<li>并发性–两个或多个时间在同一时间间隔内发生</li>
+<li>并发性–两个或多个事件在同一时间间隔内发生</li>
 <li>共享性–共享计算机的硬件和软件资源，分为互斥共享方式和交替共享方式</li>
 <li>随机性(异步性)–每道程序在何时运行，各个程序运行的顺序，以及每道程序所需的时间都是不确定的，也是不可预知的</li>
 <li>虚拟性–将一个物理实体映射为一个或多个逻辑对象</li>
@@ -377,7 +377,8 @@
 </li>
 <li>定义：
 <ul>
-<li>线城是操作系统进程中进行除处理器外的资源分配和保护的单位，它有一个独立的虚拟地址空间，用来容纳进程映像。</li>
+<li>线程是操作系统进程中除处理器外的资源分配和保护的单位，它有一个独立的虚拟地址空间，用来容纳进程映像。</li>
+<li>这是CPU调度的基本单位</li>
 </ul>
 </li>
 </ul>
@@ -427,11 +428,15 @@
 </li>
 <li>共享内存通信
 <ul>
-<li>基于共享数据结构的通信方式</li>
-<li>基于共享存储区的通信方式</li>
+<li>基于共享数据结构的通信方式—低效</li>
+<li>基于共享存储区的通信方式—建立，管理，映射与断开</li>
 </ul>
 </li>
-<li>管道通信</li>
+<li>管道通信
+<ul>
+<li>实质为一个共享文件，物理上是由文件系统的高速缓冲区完成</li>
+</ul>
+</li>
 </ul>
 <h2 id="考试要点"><a class="markdownIt-Anchor" href="#考试要点"></a> 考试要点</h2>
 <ol>
@@ -586,6 +591,7 @@
 <li>地址转换：页式管理和请求页式虚拟存储管理中的逻辑地址转化为物理地址(页号、页内偏移量以及所占位数)，快表的地址转换过程，多级页表的地址转换过程</li>
 <li>页面置换：置换算法(FIFO、OPT、LRU、Clock)，算法流程、缺页次数及缺页率计算—添加(前几次也是缺页，但是不统计)</li>
 </ol>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202305061034871.png" srcset="/img/loading.gif" lazyload alt="image-20230506103405823" /></p>
 <h1 id="设备管理"><a class="markdownIt-Anchor" href="#设备管理"></a> 设备管理</h1>
 <h2 id="问题相关-4"><a class="markdownIt-Anchor" href="#问题相关-4"></a> 问题相关</h2>
 <ul>
