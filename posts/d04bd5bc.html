@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="概论  问题相关  操作系统的定义、功能、特征及其含义  P1-2-3-5 操作系统的分类及其特点，实时、分时、网络、嵌入式等  P11 操作系统的接口有哪些  P15 操作系统的发展、功能及特点，并发、共享、异步(随机)、虚拟各有什么含义  P9 了解现在热门的操作系统、国产操作系统   进程管理  问题相关  顺序执行、并发执行、并行执行  P31 进程的概念与特征，与程序的区别与联系，进程">
+    <meta name="description" content="概论  问题相关  操作系统的定义、功能、特征及其含义  P1-2-3-5 操作系统的分类及其特点，实时、分时、网络、嵌入式等  P11 操作系统的接口有哪些  P15 操作系统的发展、功能及特点，并发、共享、异步(随机)、虚拟各有什么含义  P9 了解现在热门的操作系统、国产操作系统   操作系统  定义：操作系统是一组计算机程序的集合，主要用以控制和管理计算机的硬件和软件资源，合理地组织计算">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统">
 <meta property="og:url" content="http://example.com/posts/d04bd5bc.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="概论  问题相关  操作系统的定义、功能、特征及其含义  P1-2-3-5 操作系统的分类及其特点，实时、分时、网络、嵌入式等  P11 操作系统的接口有哪些  P15 操作系统的发展、功能及特点，并发、共享、异步(随机)、虚拟各有什么含义  P9 了解现在热门的操作系统、国产操作系统   进程管理  问题相关  顺序执行、并发执行、并行执行  P31 进程的概念与特征，与程序的区别与联系，进程">
+<meta property="og:description" content="概论  问题相关  操作系统的定义、功能、特征及其含义  P1-2-3-5 操作系统的分类及其特点，实时、分时、网络、嵌入式等  P11 操作系统的接口有哪些  P15 操作系统的发展、功能及特点，并发、共享、异步(随机)、虚拟各有什么含义  P9 了解现在热门的操作系统、国产操作系统   操作系统  定义：操作系统是一组计算机程序的集合，主要用以控制和管理计算机的硬件和软件资源，合理地组织计算">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
 <meta property="article:published_time" content="2023-04-21T12:31:04.000Z">
-<meta property="article:modified_time" content="2023-05-04T07:35:33.904Z">
+<meta property="article:modified_time" content="2023-05-05T16:38:38.814Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
@@ -231,7 +231,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          5.2k 字
         
       </span>
     
@@ -242,7 +242,7 @@
         
         
         
-          35 分钟
+          43 分钟
         
       </span>
     
@@ -294,6 +294,24 @@
 <li>操作系统的发展、功能及特点，并发、共享、异步(随机)、虚拟各有什么含义  P9</li>
 <li>了解现在热门的操作系统、国产操作系统</li>
 </ul>
+<h3 id="操作系统"><a class="markdownIt-Anchor" href="#操作系统"></a> 操作系统</h3>
+<ul>
+<li>定义：操作系统是一组计算机程序的集合，主要用以控制和管理计算机的硬件和软件资源，合理地组织计算机的工作流程， 向应用程序和用户提供方便、快捷、友好的使用接口</li>
+<li>特征：
+<ul>
+<li>并发性–两个或多个时间在同一时间间隔内发生</li>
+<li>共享性–共享计算机的硬件和软件资源，分为互斥共享方式和交替共享方式</li>
+<li>随机性(异步性)–每道程序在何时运行，各个程序运行的顺序，以及每道程序所需的时间都是不确定的，也是不可预知的</li>
+<li>虚拟性–将一个物理实体映射为一个或多个逻辑对象</li>
+</ul>
+</li>
+<li>接口：
+<ul>
+<li>程序接口：系统调用，API</li>
+<li>操作接口：命令界面，图形界面，作业控制命令</li>
+</ul>
+</li>
+</ul>
 <h1 id="进程管理"><a class="markdownIt-Anchor" href="#进程管理"></a> 进程管理</h1>
 <h2 id="问题相关-2"><a class="markdownIt-Anchor" href="#问题相关-2"></a> 问题相关</h2>
 <ul>
@@ -306,6 +324,115 @@
 <li>进程调度模型及其对应的主要功能  P56</li>
 <li>死锁产生的四个必要条件，预防、避免、检测及接触死锁对应的方法  P65</li>
 </ul>
+<h3 id="执行"><a class="markdownIt-Anchor" href="#执行"></a> 执行</h3>
+<ul>
+<li>顺序执行：
+<ul>
+<li>一个具有独立功能的程序独占处理器直至最终结束的过程称为程序的顺序执行</li>
+<li>顺序性，封闭性、可再现性</li>
+</ul>
+</li>
+<li>并发执行：
+<ul>
+<li>多个事件在同一时期内发生</li>
+<li>本质是一个CPU在多个程序运行过程中的时分复用</li>
+<li>间断性、开放性、不可再现性</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程"><a class="markdownIt-Anchor" href="#进程"></a> 进程</h3>
+<ul>
+<li>
+<p>引入目的：</p>
+<ul>
+<li>使多个程序并发运行，以改善资源利用率及提高系统的吞吐量</li>
+</ul>
+</li>
+<li>
+<p>定义：</p>
+<ul>
+<li>可并发运行的程序在某个数据集合上的一次运行过程，是操作系统资源分配、保护和调度的基本单位</li>
+</ul>
+</li>
+<li>
+<p>特征：</p>
+<ul>
+<li>结构性、动态性、独立性、并发性</li>
+</ul>
+</li>
+<li>
+<p>进程上下文</p>
+<ul>
+<li>进程的生命周期中，进程实体和支持执行进程的环境合称为进程上下文</li>
+<li>用户级上下文、系统级上下文、寄存器上下文</li>
+</ul>
+</li>
+</ul>
+<h3 id="线程"><a class="markdownIt-Anchor" href="#线程"></a> 线程</h3>
+<ul>
+<li>引入目的：
+<ul>
+<li>减少程序并发运行时所付出的时空开销</li>
+</ul>
+</li>
+<li>定义：
+<ul>
+<li>线城是操作系统进程中进行除处理器外的资源分配和保护的单位，它有一个独立的虚拟地址空间，用来容纳进程映像。</li>
+</ul>
+</li>
+</ul>
+<h3 id="pcb"><a class="markdownIt-Anchor" href="#pcb"></a> PCB</h3>
+<ul>
+<li>进程控制块—为了描述和控制进程运行的数据结构
+<ul>
+<li>记录了描述进程的当前状态以及控制进程运行的信息，主要包括进程表示信息、现场信息和控制信息。</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程调度"><a class="markdownIt-Anchor" href="#进程调度"></a> 进程调度</h3>
+<ul>
+<li>高级调度(作业调度)</li>
+<li>中级调度(平衡调度，内存调度)</li>
+<li>低级调度(进程调度)</li>
+</ul>
+<h3 id="互斥与同步"><a class="markdownIt-Anchor" href="#互斥与同步"></a> 互斥与同步</h3>
+<h4 id="竞争和协作"><a class="markdownIt-Anchor" href="#竞争和协作"></a> 竞争和协作</h4>
+<ul>
+<li>死锁：一组进程都陷入永远等待的状态</li>
+<li>饥饿：被调度程序长期忽视</li>
+<li>协作—同步：一个进程的执行依赖于其协作进程的消息或信号</li>
+<li>竞争—互斥：互斥也是一种特殊的同步——以一定次序协调地使用共享资源</li>
+</ul>
+<h4 id="临界"><a class="markdownIt-Anchor" href="#临界"></a> 临界</h4>
+<ul>
+<li>临界资源：
+<ul>
+<li>在某段时间内只能允许一个进程使用的资源</li>
+<li>几个进程若共享同一临界资源，它们必须以互斥的方式使用这个临界资源</li>
+</ul>
+</li>
+<li>临界区：
+<ul>
+<li>进程中访问临界资源的代码段</li>
+</ul>
+</li>
+</ul>
+<h3 id="进程通信"><a class="markdownIt-Anchor" href="#进程通信"></a> 进程通信</h3>
+<ul>
+<li>消息传递通信
+<ul>
+<li>直接通信</li>
+<li>间接通信</li>
+</ul>
+</li>
+<li>共享内存通信
+<ul>
+<li>基于共享数据结构的通信方式</li>
+<li>基于共享存储区的通信方式</li>
+</ul>
+</li>
+<li>管道通信</li>
+</ul>
 <h2 id="考试要点"><a class="markdownIt-Anchor" href="#考试要点"></a> 考试要点</h2>
 <ol>
 <li>信号量机制解决进程同步互斥问题：信号量(记录性数据结构)及其取值范围，P、V操作及含义，P、V操作解决同步互斥问题的方法流程  P45</li>
@@ -315,17 +442,28 @@
 <h3 id="信号量机制"><a class="markdownIt-Anchor" href="#信号量机制"></a> 信号量机制</h3>
 <h4 id="含义"><a class="markdownIt-Anchor" href="#含义"></a> 含义</h4>
 <ul>
-<li>信号量s
+<li>
+<p>信号量s — 信号量表示系统资源的实体</p>
 <ul>
 <li>记录型数据结构，一个分量为信号量的值，一个分量是在信号量关联资源上阻塞的进程队列的队头指针。</li>
 <li>三种操作进行修改：赋初值，P操作，V操作。</li>
+<li>主要作用是封锁临界区、 进程同步和维护资源计数</li>
 </ul>
 </li>
-<li>P、V操作— <strong>书P45</strong>
+<li>
+<p>P、V操作— <strong>书P45</strong></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202305052356101.png" srcset="/img/loading.gif" lazyload alt="image-20230505235624964" /></p>
 <ul>
-<li>P(s)：将信号量s减1……</li>
-<li>V(s)：将信号量s加1……</li>
-<li>补充定义— <strong>书P46</strong></li>
+<li>
+<p>P(s)：将信号量s减1……</p>
+</li>
+<li>
+<p>V(s)：将信号量s加1……</p>
+</li>
+<li>
+<p>补充定义— <strong>书P46</strong></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202305052356855.png" srcset="/img/loading.gif" lazyload alt="image-20230505235642802" /></p>
+</li>
 </ul>
 </li>
 </ul>
@@ -392,9 +530,17 @@
 <li>不剥夺条件：当进程得到资源后，只能由其自身主动释放，系统或其他进程正在占用的资源，形成永远等待</li>
 <li>环路等待条件：系统中若干进程形成环路，每个进程都在等待相邻进程正在占用的资源，形成永远等待</li>
 </ul>
-<h4 id="银行家算法"><a class="markdownIt-Anchor" href="#银行家算法"></a> 银行家算法</h4>
+<h4 id="检测与解除"><a class="markdownIt-Anchor" href="#检测与解除"></a> 检测与解除</h4>
+<ul>
+<li>重启，撤销，剥夺，回滚</li>
+</ul>
+<h4 id="死锁的避免"><a class="markdownIt-Anchor" href="#死锁的避免"></a> 死锁的避免</h4>
+<ul>
+<li>银行家算法
 <ul>
 <li>Claim Possession Shortage Available</li>
+</ul>
+</li>
 </ul>
 <h1 id="内存管理"><a class="markdownIt-Anchor" href="#内存管理"></a> 内存管理</h1>
 <h2 id="问题相关-3"><a class="markdownIt-Anchor" href="#问题相关-3"></a> 问题相关</h2>
@@ -427,6 +573,13 @@
 <li>
 <p>各种内存管理方式中的”碎片“问题如何解决</p>
 </li>
+</ul>
+<h3 id="功能"><a class="markdownIt-Anchor" href="#功能"></a> 功能</h3>
+<ul>
+<li>内存的分配和回收</li>
+<li>实现地址转换</li>
+<li>内存的共享和保护</li>
+<li>内存扩充</li>
 </ul>
 <h2 id="考试要点-2"><a class="markdownIt-Anchor" href="#考试要点-2"></a> 考试要点</h2>
 <ol>
