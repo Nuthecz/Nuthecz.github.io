@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
 <meta property="article:published_time" content="2023-04-24T15:20:13.000Z">
-<meta property="article:modified_time" content="2023-05-07T07:14:29.828Z">
+<meta property="article:modified_time" content="2023-06-05T10:58:40.490Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
@@ -346,7 +346,7 @@
 <ul>
 <li>给了一个exe文件，直接反编译成pyc文件</li>
 </ul>
-<h2 id="分析-2"><a class="markdownIt-Anchor" href="#分析-2"></a> 分析</h2>
+<h3 id="分析-2"><a class="markdownIt-Anchor" href="#分析-2"></a> 分析</h3>
 <p>观察 pyinstxtractor 解包时的信息，可知打包的 Python 版本为 Python 3.11所以uncompyle6用不了。对该 pyc 文件进行反编译也需要对应版本的 Python 文件</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> dis<br><span class="hljs-keyword">import</span> marshal<br><br>PATH = <span class="hljs-string">&quot;./easyRE.exe_extracted/easyRE.pyc&quot;</span><br><br><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(PATH, <span class="hljs-string">&quot;rb&quot;</span>) <span class="hljs-keyword">as</span> f:<br>    code = f.seek(<span class="hljs-number">16</span>)<br>    code = marshal.load(f)<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;easyRE.pyc.txt&quot;</span>, <span class="hljs-string">&quot;w&quot;</span>) <span class="hljs-keyword">as</span> f:<br>        dis.dis(code, file=f)<br><br></code></pre></td></tr></table></figure>
 <p>这里也可以使用 pycdc直接生成字节码</p>
@@ -381,14 +381,19 @@
 <p>​	由于 Go 是多线程的，所以调试的时候可能会出现进入其它未知地方情况的发生，这时可以禁止其余线程的运行</p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202305071455904.png" srcset="/img/loading.gif" lazyload alt="image-20230507145550874" /></p>
 <ul>
-<li>不禁止可能走偏</li>
+<li>不禁止可能走偏，例如下面</li>
 </ul>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202305071501614.png" srcset="/img/loading.gif" lazyload alt="image-20230507150105577" /></p>
+<h1 id="d3ctf-2023"><a class="markdownIt-Anchor" href="#d3ctf-2023"></a> D3CTF 2023</h1>
+<h2 id="d3sky"><a class="markdownIt-Anchor" href="#d3sky"></a> D3sky</h2>
+<h1 id="minil"><a class="markdownIt-Anchor" href="#minil"></a> MiniL</h1>
 <h1 id="roundx-basic"><a class="markdownIt-Anchor" href="#roundx-basic"></a> Round#X Basic</h1>
 <h1 id="vnctf2023"><a class="markdownIt-Anchor" href="#vnctf2023"></a> VNCTF2023</h1>
 <h1 id="西湖论剑2023"><a class="markdownIt-Anchor" href="#西湖论剑2023"></a> 西湖论剑2023</h1>
-<h1 id="贵阳网络安全对抗赛"><a class="markdownIt-Anchor" href="#贵阳网络安全对抗赛"></a> 贵阳网络安全对抗赛</h1>
-<h1 id="d3ctf-2023"><a class="markdownIt-Anchor" href="#d3ctf-2023"></a> D3CTF 2023</h1>
+<h1 id="ciscn"><a class="markdownIt-Anchor" href="#ciscn"></a> CISCN</h1>
+<h1 id="陕西省赛"><a class="markdownIt-Anchor" href="#陕西省赛"></a> 陕西省赛</h1>
+<h1 id="das二进制专项赛"><a class="markdownIt-Anchor" href="#das二进制专项赛"></a> DAS二进制专项赛</h1>
+<h1 id="磐石"><a class="markdownIt-Anchor" href="#磐石"></a> 磐石</h1>
 
                 
               </div>
