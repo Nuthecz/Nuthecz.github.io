@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
 <meta property="article:published_time" content="2023-03-31T13:13:43.000Z">
-<meta property="article:modified_time" content="2023-07-07T08:51:37.047Z">
+<meta property="article:modified_time" content="2023-07-30T09:20:35.033Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.1k 字
+          7.2k 字
         
       </span>
     
@@ -339,6 +339,7 @@
 <p><code>Y</code> 更改变量的类型，比如把_int64 更正为BYTE*(或者char *)</p>
 <p><code>U</code> undefine，取消定义函数、代码、数据的定义，转化为原始字节的形式</p>
 <p><code>V</code> 简化函数的格式，有时候函数没有return时可以使用，查看更方便</p>
+<p><code>M</code> 枚举所有相同的数据</p>
 </li>
 <li>
 <p><code>;</code> 在反汇编后的界面中写下注释</p>
@@ -474,7 +475,7 @@
 <ul>
 <li><code>jnz--jz</code> 跳转后加入<code>E8</code>问题</li>
 </ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> idautils<br><span class="hljs-keyword">import</span> idc<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_nop</span>(<span class="hljs-params">addr,endaddr</span>):<br>    <span class="hljs-keyword">while</span> addr &lt; endaddr:<br>        patch_byte(addr,<span class="hljs-number">0x90</span>)<br>        addr += <span class="hljs-number">1</span><br>pattern = <span class="hljs-string">&quot;33 C0 85 C0 74 03 75 00 E8&quot;</span><br>cur_addr = <span class="hljs-number">0x401000</span> <span class="hljs-comment">#开始地址</span><br>end_addr = <span class="hljs-number">0x405000</span> <span class="hljs-comment">#结束地址</span><br><span class="hljs-keyword">while</span> cur_addr &lt;= end_addr:<br>    cur_addr = idc.find_binary(cur_addr,SEARCH_DOWN,pattern)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;patch address: &quot;</span> + <span class="hljs-built_in">str</span>(cur_addr)) <span class="hljs-comment"># 打印信息</span><br>    <span class="hljs-keyword">if</span> cur_addr == idc.BADADDR:<br>        <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">else</span>:<br>        my_nop(cur_addr,cur_addr + <span class="hljs-number">9</span>)<br>    cur_addr = idc.next_head(cur_addr)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> idautils<br><span class="hljs-keyword">import</span> idc<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">my_nop</span>(<span class="hljs-params">addr,endaddr</span>):<br>    <span class="hljs-keyword">while</span> addr &lt; endaddr:<br>        patch_byte(addr,<span class="hljs-number">0x90</span>)<br>        addr += <span class="hljs-number">1</span><br>pattern = <span class="hljs-string">&quot;33 C0 85 C0 74 03 75 00 E8&quot;</span><br>cur_addr = <span class="hljs-number">0x401000</span> <span class="hljs-comment">#开始地址</span><br>end_addr = <span class="hljs-number">0x405000</span> <span class="hljs-comment">#结束地址</span><br><span class="hljs-keyword">while</span> cur_addr &lt;= end_addr:<br>    cur_addr = idc.find_binary(cur_addr,SEARCH_DOWN,pattern)<span class="hljs-comment"># find_binary() 函数搜索 pattern，其中SEARCH_DOWN表示从cur_addr向高地址方向搜索</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;patch address: &quot;</span> + <span class="hljs-built_in">str</span>(<span class="hljs-built_in">hex</span>(cur_addr))) <span class="hljs-comment"># 打印信息</span><br>    <span class="hljs-keyword">if</span> cur_addr == idc.BADADDR:<br>        <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">else</span>:<br>        my_nop(cur_addr,cur_addr + <span class="hljs-number">9</span>)<br>    cur_addr = idc.next_head(cur_addr)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
 <h4 id="模板二"><a class="markdownIt-Anchor" href="#模板二"></a> 模板二</h4>
 <ul>
 <li>去除 <code>jmp</code> 花指令</li>
@@ -717,7 +718,7 @@
 <ol>
 <li>代码最好两边夹击，从前往后看对输入的操作，从后往前看得到最终结果的操作</li>
 <li>看 main 函数之前先看一下 <code>init</code> 段，这里会在main函数之前执行，可能隐藏了核心代码</li>
-<li>若是函数的识别发现没有变量，可以点进去函数，然后在局部变量上按 <code>y</code> 之后返回主函数，就可以看到识别出变量的函数了</li>
+<li>若是函数的识别发现<code>变量异常</code>，可以点进去函数，然后在局部变量上按 <code>y</code> 之后返回主函数，就可以看到识别出变量的函数了</li>
 </ol>
 <h2 id="exp书写相关"><a class="markdownIt-Anchor" href="#exp书写相关"></a> exp书写相关</h2>
 <ol>
@@ -735,11 +736,17 @@
 <ul>
 <li>这里补充一点：若是在 <code>IDA View-RIP</code> 界面中的数据不是正规数据(这里指十六进制)，则采用 <code>Ctrl + e</code> 进行十六进制提取，再分别以4个字节为一组，然后倒转称为小端序的顺序进行解密操作。</li>
 <li>总而言之
-<ul>
-<li>可以首先使用 <code>Ctrl + e</code> 进行提取，然后手动进行倒转转换。</li>
-<li>也可以使用 <code>D</code> 进行打乱，再分别使用 <code>D</code> 聚合成每4个字节为一组的形式</li>
-<li>也可以使用插件 <code>lazyida</code>，在数据上 <code>右键</code> -&gt; <code>convert</code> -&gt; <code>Covern to …… DWORD list</code>(这里注意看前面的标识进行相依字节长度的转化) 就可以在下方output框看见正确的小端序数组。</li>
-</ul>
+<ol>
+<li>
+<p>可以首先使用 <code>Ctrl + e</code> 进行提取，然后手动进行倒转转换。</p>
+</li>
+<li>
+<p>也可以使用 <code>D</code> 进行打乱，再分别使用 <code>D</code> 聚合成每4个字节为一组的形式</p>
+</li>
+<li>
+<p>也可以使用插件 <code>lazyida</code>，在数据上 <code>右键</code> -&gt; <code>convert</code> -&gt; <code>Covern to …… DWORD list</code>(这里注意看前面的标识进行相依字节长度的转化) 就可以在下方output框看见正确的小端序数组。</p>
+</li>
+</ol>
 </li>
 </ul>
 </li>
