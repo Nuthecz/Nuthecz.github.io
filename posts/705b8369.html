@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="调试  visual studio  针对主机的 visual studio 2022, 虚拟机中的 VC6 大部分适合 使用主机的调试的时候记得选择 release, 同时关闭 ASLR ，防止地址随机化     任务 快捷键     开始调试 F5   停止编译 Ctrl + F5   设定断点 F9   逐过程调试 F10   逐语句调试 F11   跳到光标处 Ctrl + F10">
+    <meta name="description" content="调试  visual studio  针对主机的 visual studio 2022, 虚拟机中的 VC6 大部分适合 使用主机的调试的时候记得选择 release, 同时关闭 ASLR ，防止地址随机化     任务 快捷键     开始调试 F5   停止编译 Ctrl + F5   设定断点 F9   逐过程调试(可以跳过函数) F10   逐语句调试 F11   跳到光标处 Ctrl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Win_Kernel简述">
 <meta property="og:url" content="http://example.com/posts/705b8369.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="调试  visual studio  针对主机的 visual studio 2022, 虚拟机中的 VC6 大部分适合 使用主机的调试的时候记得选择 release, 同时关闭 ASLR ，防止地址随机化     任务 快捷键     开始调试 F5   停止编译 Ctrl + F5   设定断点 F9   逐过程调试 F10   逐语句调试 F11   跳到光标处 Ctrl + F10">
+<meta property="og:description" content="调试  visual studio  针对主机的 visual studio 2022, 虚拟机中的 VC6 大部分适合 使用主机的调试的时候记得选择 release, 同时关闭 ASLR ，防止地址随机化     任务 快捷键     开始调试 F5   停止编译 Ctrl + F5   设定断点 F9   逐过程调试(可以跳过函数) F10   逐语句调试 F11   跳到光标处 Ctrl">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
 <meta property="article:published_time" content="2023-09-12T09:44:57.000Z">
-<meta property="article:modified_time" content="2023-09-13T01:44:49.705Z">
+<meta property="article:modified_time" content="2023-09-19T10:49:48.830Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.2k 字
+          5.6k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          27 分钟
+          47 分钟
         
       </span>
     
@@ -310,7 +310,7 @@
 <td>F9</td>
 </tr>
 <tr>
-<td>逐过程调试</td>
+<td>逐过程调试(可以跳过函数)</td>
 <td>F10</td>
 </tr>
 <tr>
@@ -336,6 +336,7 @@
 </tbody>
 </table>
 <h2 id="windbg"><a class="markdownIt-Anchor" href="#windbg"></a> Windbg</h2>
+<h3 id="操作"><a class="markdownIt-Anchor" href="#操作"></a> 操作</h3>
 <table>
 <thead>
 <tr>
@@ -354,11 +355,15 @@
 </tr>
 <tr>
 <td>查看内存</td>
-<td style="text-align:left">dq/dd/dw/db b1b3ddb0</td>
+<td style="text-align:left">dq/dd/dw/db [地址:b1b3ddb0] 如果是物理地址的话，就是 !dd [地址]</td>
+</tr>
+<tr>
+<td>查看反编译</td>
+<td style="text-align:left">u–将某一地址之后的内容反编译显示</td>
 </tr>
 <tr>
 <td>修改内存数据</td>
-<td style="text-align:left">eq……</td>
+<td style="text-align:left">eq ……(与上面同)</td>
 </tr>
 <tr>
 <td>单步执行</td>
@@ -377,11 +382,15 @@
 <td style="text-align:left">bl–列出断点   bc ID–清除断点，这个ID首先需要bl查看</td>
 </tr>
 <tr>
-<td>查看反编译</td>
-<td style="text-align:left">u–将某一地址之后的内容反编译显示</td>
+<td>进程信息</td>
+<td style="text-align:left">!process 0 0 显示进程列表</td>
 </tr>
 </tbody>
 </table>
+<h3 id="注意"><a class="markdownIt-Anchor" href="#注意"></a> 注意</h3>
+<ul>
+<li>windbg中可能会有残留数据存在，所以在使用时注意之前的残留，例如<code>!process 0 0</code>会有之气那的进程残存。这里其 <code>HandleCount</code> 为0则代表无效</li>
+</ul>
 <h1 id="保护模式"><a class="markdownIt-Anchor" href="#保护模式"></a> 保护模式</h1>
 <h2 id="关于段"><a class="markdownIt-Anchor" href="#关于段"></a> 关于段</h2>
 <h3 id="段寄存器"><a class="markdownIt-Anchor" href="#段寄存器"></a> 段寄存器</h3>
@@ -398,8 +407,19 @@
 <h3 id="gdt"><a class="markdownIt-Anchor" href="#gdt"></a> GDT</h3>
 <h4 id="相关知识点"><a class="markdownIt-Anchor" href="#相关知识点"></a> 相关知识点</h4>
 <ul>
-<li><code>GDT</code>为全局描述符表, 段描述符的大小为64位, <code>GDTR</code> 为存储其位置的寄存器(48位)</li>
-<li>段选择子16位，段寄存器96位</li>
+<li>
+<p><code>GDT</code>为全局描述符表, 段描述符的大小为64位, <code>GDTR</code> 为存储其位置的寄存器(48位)</p>
+</li>
+<li>
+<p>段选择子16位，段寄存器96位</p>
+</li>
+<li>
+<p>段寄存器</p>
+</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309180914532.png" srcset="/img/loading.gif" lazyload alt="image-20230918091401476" /></p>
+<ul>
+<li>段描述符</li>
 </ul>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309121806406.png" srcset="/img/loading.gif" lazyload alt="image-20230912180656323" /></p>
 <ul>
@@ -500,11 +520,11 @@
 <li>执行流程：
 <ul>
 <li>根据<code>CS</code>的值查<code>GDT表</code>，找到对应的段描述符且该描述符是一个调用门</li>
-<li>在调用门描述符中存储另一个代码段的段选择子，将其加载到<code>CS</code>中</li>
+<li>在调用门描述符中存储另一个代码段的段选择子，将其加载到<code>CS</code>中(这里CS就发生了变化)</li>
 <li>选择子指向的段的<code>Base</code>(Srgment Selector指向的代码段的base) + <code>偏移地址</code>(Offset in Segment)就是真正要执行的地址
 <ul>
-<li>这里注意 <code>Segment Selector</code> 的值，当这里指向 <code>00cf9b00 0000ffff</code>(在它为0008,这里为代码段描述符，与下方的调用门格式不同) 时会显示报错，而指向 <code>00cf9a00 0000ffff</code>(存放在自己定义的地址) 则可以正常访问内核的内存。</li>
-<li>第六位小于<code>c</code>, 都是一致代码段，可以提权，这里的区别是<code>a</code>代表没有被访问过，而<code>b</code>代表被访问了</li>
+<li>这里注意 <code>Segment Selector</code> 的值，当这里指向 <code>00cf9b00 0000ffff</code>(在它为0008,这里为代码段描述符，与下方的调用门格式不同) 时会显示报错，而指向 <code>00cf9a00 0000ffff</code>(存放在自己定义的地址) 则可以正常访问内核的内存</li>
+<li>这里找出了问题所在，<code>0008</code> 位置的访问一直出现问题，把这个位置的数据放在别的地方就可以正常运行，由此里的访问需要重新指定位置(可能是我电脑的原因，maybe)</li>
 </ul>
 </li>
 </ul>
@@ -523,12 +543,11 @@
 <p>执行步骤：</p>
 <ol>
 <li>在没有权限切换时，会向堆栈顺次压入<code>EFLAG</code>、<code>CS</code>和<code>EIP</code>；如果有权限切换，会向堆栈顺次压入<code>SS</code>、<code>ESP</code>、<code>EFLAG</code>、<code>CS</code>和<code>EIP</code></li>
-<li><code>CPU</code> 会索引到 <code>IDT</code> 表。后面的 <code>N</code> 表示查<code>IDT表</code>项的下标。对比调用门，中断门没有了 <code>RPL</code>，故 <code>CPU</code> 只会校验 <code>CPL</code></li>
+<li><code>CPU</code> 会索引到 <code>IDT</code> 表。后面的 <code>N</code> 表示查 <code>IDT表</code> 项的下标。对比调用门，中断门没有了 <code>RPL</code>，故 <code>CPU</code> 只会校验 <code>CPL</code></li>
 <li>在中断门中,不能通过 <code>RETF</code> 返回，而应该通过 <code>IRET</code>/<code>IRETD</code> 指令返回</li>
 </ol>
 <ul>
-<li>这里也要注意真正执行地址也是 <code>Base</code> + <code>偏移地址</code>, 所以这里也会索引到 <code>GDT</code>的一个一致代码段，所以它会出现像调用门那样的问题吗</li>
-<li>这里直接蓝屏(2023-9-13)，不知道是哪里出现了问题，之后再试试</li>
+<li>这里也要注意真正执行地址也是 <code>Base</code> + <code>偏移地址</code>, 所以这里也会索引到 <code>GDT</code>的一个一致代码段</li>
 </ul>
 </li>
 </ul>
@@ -542,11 +561,11 @@
 </ul>
 <h3 id="陷阱们"><a class="markdownIt-Anchor" href="#陷阱们"></a> 陷阱们</h3>
 <ul>
-<li>陷阱门执行流程一模一样。与中断门的区别，中断门执行时，将 <code>IF位</code> 清零, 但陷阱门不会</li>
+<li>陷阱门执行流程一模一样。与中断门的区别，中断门执行时，将 <code>IF位</code> 清零,使得可以屏蔽中断(关中断) 但陷阱门不会</li>
 <li>关于中断(这里指可屏蔽中断)
 <ul>
-<li><code>CLI</code> 禁止中断发生，关中断，使中断标志(IF) = 1</li>
-<li><code>STI</code> 允许中断发生，开中断，使中断标志(IF) = 0</li>
+<li><code>CLI</code> 禁止中断发生，关中断，使中断标志(IF) = 0</li>
+<li><code>STI</code> 允许中断发生，开中断，使中断标志(IF) = 1</li>
 <li>关闭中断指不允许其他操作引起中断，使处理器被其余程序所调用</li>
 </ul>
 </li>
@@ -614,14 +633,20 @@
 </li>
 <li>通过Cr3来找物理地址
 <ul>
-<li>找第一层和第二层的时候要将<strong>索引 * 4</strong> (每个地址占4个字节)</li>
-<li>每找到一层都要将地址后三位<strong>属性位</strong>清零再继续找下一层</li>
+<li>找第一层和第二层的时候要将<strong>索引 * 4</strong> (每个地址占4个字节)----三次<code>!dd</code>找到位置</li>
+<li>每找到一层都要将地址后三位(3个字节) <strong>属性位</strong> 清零再继续找下一层</li>
 </ul>
 </li>
 </ul>
 <p>​	在所有的寄存器中，只有Cr3存储的是<strong>物理地址</strong>，其它寄存器存的都是<strong>线性地址</strong>, Cr3所存储的物理地址指向了一个<strong>页目录表(PDT)</strong>, 在Windows中，一个页的大小通常为<strong>4KB</strong>，即一个页可以存储<strong>1024个</strong>页目录表项(PDE)</p>
+<h3 id="10-10-12"><a class="markdownIt-Anchor" href="#10-10-12"></a> 10-10-12</h3>
+<ol>
+<li>一个物理页的大小为<strong>4096字节</strong>，即<strong>2的12次方</strong>，若要遍历整个物理页，则需要12个比特位</li>
+<li>一个页表有1024个页表项，1024等于2的十次方，即需要10个比特位</li>
+<li>页目录表项同理，也需要10个比特位</li>
+</ol>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309130921212.png" srcset="/img/loading.gif" lazyload alt="image-20230913092144120" /></p>
-<h3 id="pde与pte"><a class="markdownIt-Anchor" href="#pde与pte"></a> PDE与PTE</h3>
+<h3 id="pdt与ptt"><a class="markdownIt-Anchor" href="#pdt与ptt"></a> PDT与PTT</h3>
 <h4 id="描述"><a class="markdownIt-Anchor" href="#描述"></a> 描述</h4>
 <p>​	<strong>页目录表(PDT)</strong> 的每一项元素称为 <strong>页目录表项(PDE)</strong>, 每个页目录表项指向一个 **页表(PTT), **每个页表的大小为 <strong>4KB</strong>，即一个页表可以存储 <strong>1024个</strong> 页表项(PTE)</p>
 <p>​	**页表(PTT) **的每一个元素称为 **页表项(PTE), **页表项(PTE)所指向的才是真正的物理页</p>
@@ -653,7 +678,7 @@
 <li>
 <p>U/S 位</p>
 <ul>
-<li>如果<code>U/S = 0</code>，则为特权用户（super user），即非3环权限。反之，则为普通用户，即为3环权限</li>
+<li>如果<code>U/S = 0</code>，则为特权用户(super user)，即非3环权限。反之，则为普通用户，即为3环权限</li>
 </ul>
 </li>
 <li>
@@ -662,7 +687,147 @@
 <li>这个位只对<code>PDE</code>有意义。如果<code>PS == 1</code>，则<code>PDE</code>直接指向物理页，不再指向<code>PTE</code>，低22位是页内偏移。它的大小为<code>4MB</code>，俗称“大页”</li>
 </ul>
 </li>
+<li>
+<p><code>PWT</code>全称为<code>Page Write Through</code>，<code>PWT = 1</code>时，写<code>Cache</code>的时候也要将数据写入内存中。</p>
+</li>
+<li>
+<p><code>PCD</code>全称为<code>Page Cache Disable</code>，<code>PCD = 1</code>时，禁止某个页写入缓存，直接写内存。比如，做页表用的页，已经存储在<code>TLB</code>中了，可能不需要再缓存了。</p>
+</li>
 </ul>
+<h4 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h4>
+<ol>
+<li>页表被映射到了从<code>0xC0000000~0xC03FFFFF</code>的<strong>4M</strong>地址空间</li>
+<li>在这1024个表中有一张特殊的表：<strong>页目录表</strong></li>
+<li>页目录被映射到了0xC0300000开始处的<strong>4K</strong>地址空间</li>
+</ol>
+<ul>
+<li>
+<p>访问页目录表的公式：<code>0xC0300000 + PDI * 4</code></p>
+</li>
+<li>
+<p>这里线性地址 <code>0xc0300000</code> 解析出来指向 <code>PDT</code> 表的第一项，所以我们使用 <code>0xc0300000 + k*4</code> 就可以获得第 <code>k+1</code> 项 <code>PDE</code> 的地址</p>
+</li>
+<li>
+<p>访问页表的公式：<code>0xC0000000 + PDI * 4096 + PTI * 4</code></p>
+</li>
+<li>
+<p>而线性地址 <code>0xc0000000</code> 解析出来指向第一个 <code>PDE</code> 指向的 <code>PTT</code> 表的第一项，所以我们使用<code>0xc0000000 + i*0x1000 + j*4</code> 就可以得到第 <code>i+1</code> 项 <code>PDE</code> 指向的 <code>PTT</code> 表中的第 <code>j+1</code>项 <code>PTE</code> 的地址</p>
+</li>
+</ul>
+<h4 id="关注"><a class="markdownIt-Anchor" href="#关注"></a> 关注</h4>
+<ul>
+<li>修改一个高2G线性地址的<code>PDE</code>/<code>PTE</code>属性，实现<code>Ring3</code>可读
+<ul>
+<li>这里还要更改别的地方的选项<a target="_blank" rel="noopener" href="https://lzyddf.blog.csdn.net/article/details/102627239">博客</a>, 需要看情况修改PDE与PTE的 <code>U/S</code> 位为1，赋予3环的读取权限, 否则不能读取成功</li>
+<li>对于羽夏的教程，这里大页更改也是更改 <code>U/S</code> 位，而不是它写的直接更改一个怪异的物理页</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-9-9-12pae分页"><a class="markdownIt-Anchor" href="#2-9-9-12pae分页"></a> 2-9-9-12(PAE分页)</h3>
+<ul>
+<li>
+<p>这里的 <code>windbg</code> 记得使用 <code>!dq</code> 来查看地址</p>
+</li>
+<li>
+<p>每个<code>PDE</code>和<code>PTE</code>被扩展为8个字节，物理地址描述的位数扩展为<code>24位</code>，故可以描述更多的物理页，但个数减半，变成了512个</p>
+</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151017418.png" srcset="/img/loading.gif" lazyload alt="image-20230915101737336" /></p>
+<h3 id="pdpttpdtptt"><a class="markdownIt-Anchor" href="#pdpttpdtptt"></a> PDPTT,PDT,PTT</h3>
+<h4 id="pdpte"><a class="markdownIt-Anchor" href="#pdpte"></a> PDPTE</h4>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151054339.png" srcset="/img/loading.gif" lazyload alt="image-20230915105429306" /></p>
+<ul>
+<li><code>PDPTE</code> 的12-35位存储了页目录表基址的高24位，低12位(在图上显示)补零, 共36位，即页目录基址。</li>
+</ul>
+<h4 id="pde"><a class="markdownIt-Anchor" href="#pde"></a> PDE</h4>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151059991.png" srcset="/img/loading.gif" lazyload alt="image-20230915105902929" /></p>
+<ul>
+<li>
+<p>第7位 <code>PS</code> = 1 时，PDE直接指向大页，21-35(15位)指向大页的物理地址，这样36位的物理地址中低21位为0，即页的大小为2MB，且都是2MB对齐；当 <code>PS</code> = 0 时，21-35是页表基址，低12位补0，共36位。</p>
+</li>
+<li>
+<p>解释一下G位，G=1表示这是全局页，是多个进程共享的，这种页是通过 CreateFileMapping 申请的, G=1，即为全局页，进程（CR3）切换时，TLB中的记录不会被刷新; 与之对应的，G=0就是进程独享的物理页，这种页是通过 VirtualAlloc 分配的。</p>
+</li>
+</ul>
+<h4 id="pte"><a class="markdownIt-Anchor" href="#pte"></a> PTE</h4>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151111317.png" srcset="/img/loading.gif" lazyload alt="image-20230915111153273" /></p>
+<ul>
+<li>PTE中12-35是物理页基址, 24位, 低12位补0。</li>
+<li>物理页基址 + 12位的页内偏移指向具体数据</li>
+</ul>
+<h4 id="xd标志位"><a class="markdownIt-Anchor" href="#xd标志位"></a> XD标志位</h4>
+<ul>
+<li>AMD中称为NX，即 No Excetion</li>
+<li>PDE/PTE结构</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151114408.png" srcset="/img/loading.gif" lazyload alt="image-20230915111442369" /></p>
+<ul>
+<li>段的属性有可读、可写和可执行; 页的属性有可读、可写</li>
+<li>当RET执行返回的时候，如果把堆栈里面的数据指向一段提前准备好的数据(把数据当作代码来执行，漏洞都是依赖这点，比如SQL注入也是)，那么就会产生任意代码执行的后果。 所以，Intel就在这方面做了硬件保护，设置了一个不可执行位 – XD/NX位。</li>
+<li>当XD=1时，软件产生了溢出也没有关系，即使EIP蹦到了危险的“数据区”，也是不可以执行的在PAE分页模式下，PDE与PTE的最高位为XD/NX位.</li>
+</ul>
+<h3 id="plb"><a class="markdownIt-Anchor" href="#plb"></a> PLB</h3>
+<table>
+<thead>
+<tr>
+<th>LA（线性地址）</th>
+<th>PA（物理地址）</th>
+<th>ATTR（属性）</th>
+<th>LRU（统计）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0x81010111</td>
+<td>……</td>
+<td>……</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>对于<code>TLB</code>，给出如下说明：<br />
+  1. ATTR（属性）：如果是<code>2-9-9-12</code>分页，属性是<code>PDPE</code>、<code>PDE</code>、<code>PTE</code>三个属性共同决定的。如果是<code>10-10-12</code>分页就是<code>PDE</code>和<code>PTE</code>共同决定。<br />
+  2. 不同的<code>CPU</code>这个表的大小不一样。<br />
+  3. 只要<code>Cr3</code>变了，<code>TLB</code>立马刷新，一核一套<code>TLB</code></p>
+<h3 id="控制寄存器"><a class="markdownIt-Anchor" href="#控制寄存器"></a> 控制寄存器</h3>
+<p>​	Cr0、Cr1、Cr2、Cr3，<code>Cr1</code>被保留了，<code>Cr3</code>用于页目录表基址</p>
+<h4 id="cr0"><a class="markdownIt-Anchor" href="#cr0"></a> Cr0</h4>
+<p>​	<code>Cr0</code>是一个十分重要的寄存器，可以说它是总开关的集合体</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309171556090.png" srcset="/img/loading.gif" lazyload alt="image-20230917155626976" /></p>
+<h4 id="cr2"><a class="markdownIt-Anchor" href="#cr2"></a> Cr2</h4>
+<p>​	当CPU访问某个无效页面时，会产生缺页异常，此时，CPU会将引起异常的线性地址存放在CR2中</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309171557367.png" srcset="/img/loading.gif" lazyload alt="image-20230917155703341" /></p>
+<h4 id="cr4"><a class="markdownIt-Anchor" href="#cr4"></a> Cr4</h4>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309171557652.png" srcset="/img/loading.gif" lazyload alt="image-20230917155724613" /></p>
+<ul>
+<li><code>PAE</code>用于确认是哪个分页，<code>PAE = 1</code>，是<code>2-9-9-12</code>分页，<code>PAE = 0</code>是<code>10-10-12</code>分页</li>
+<li><code>PSE</code>是大页是否开启的总开关，如果置0，就算<code>PDE</code>中设置了大页你也得是普通的页</li>
+</ul>
+<h1 id="系统调用"><a class="markdownIt-Anchor" href="#系统调用"></a> 系统调用</h1>
+<h1 id="驱动开发"><a class="markdownIt-Anchor" href="#驱动开发"></a> 驱动开发</h1>
+<h2 id="内核编程"><a class="markdownIt-Anchor" href="#内核编程"></a> 内核编程</h2>
+<h3 id="内核函数"><a class="markdownIt-Anchor" href="#内核函数"></a> 内核函数</h3>
+<ul>
+<li>在应用层编程的时候，我们通过MSDN来了解函数的详细信息，在内核编程的时候，要使用WDK自己的帮助文档</li>
+<li>WDK查到的函数就一定在导出表里：
+<ul>
+<li>文档化函数：函数在导出表里，有文档说明，有头文件</li>
+<li>未文档化函数：导出表里有，没有文档说明，没有头文件，定义<strong>函数指针</strong>去使用(<code>*pFN = GetProcessAddress(&quot;xyz&quot;)</code>)</li>
+<li>未导出函数：不在导出表，无文档说明，没有头文件，可以找到该函数的地址，然后使用<strong>函数指针</strong>去使用(<code>*pFN = 0x89765786</code>)
+<ul>
+<li>WDK说明文档中只包含了内核模块导出的函数，对于未导出的函数，则不能直接使用。如果要使用未导出的函数，只要定义一个<strong>函数指针</strong>，并且为函数指针提供正确的函数地址就可以使用了。有两种办法都可以获取为导出的函数地址：
+<ul>
+<li>特征码搜索</li>
+<li>解析内核PDB文件(使用<code>uf 函数名称</code>或<code>u 地址</code>)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>内核函数前缀</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309191115148.png" srcset="/img/loading.gif" lazyload alt="f6z1tYC8iWxBM4v" /></p>
 
                 
               </div>
