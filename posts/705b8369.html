@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
 <meta property="article:published_time" content="2023-09-12T09:44:57.000Z">
-<meta property="article:modified_time" content="2023-09-19T10:49:48.830Z">
+<meta property="article:modified_time" content="2023-10-02T02:26:12.910Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.6k 字
+          8.7k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          47 分钟
+          73 分钟
         
       </span>
     
@@ -804,6 +804,220 @@
 <li><code>PSE</code>是大页是否开启的总开关，如果置0，就算<code>PDE</code>中设置了大页你也得是普通的页</li>
 </ul>
 <h1 id="系统调用"><a class="markdownIt-Anchor" href="#系统调用"></a> 系统调用</h1>
+<h2 id="前瞻"><a class="markdownIt-Anchor" href="#前瞻"></a> 前瞻</h2>
+<p>​	几个重要的dll</p>
+<ul>
+<li><code>Kernel32.dll</code>: 最核心的功能模块，比如管理内存、进程和线程相关的函数等</li>
+<li><code>User32.dll</code>: 是Windows用户界面相关应用程序接口,如创建窗口和发送消息等</li>
+<li><code>GDI32.dll</code>: 全称是Graphical Device Interface(图形设备接口)，包含用于画图和显示文本的函数。比如要显示一个程序窗口，就调用了其中的函数来画这个窗口</li>
+<li><code>Ntdll.dll</code>: 大多数API都会通过这个DLL进入内核(0环)</li>
+</ul>
+<h2 id="流程"><a class="markdownIt-Anchor" href="#流程"></a> 流程</h2>
+<h3 id="3环进0环"><a class="markdownIt-Anchor" href="#3环进0环"></a> 3环进0环</h3>
+<ul>
+<li>API通过<code>中断门</code>进0环
+<ul>
+<li>固定中断号为0x2E</li>
+<li>CS/EIP由门描述符提供，ESP/SS由TSS提供</li>
+<li>进入0环后执行的内核函数：<code>NT!KiSystemService</code></li>
+</ul>
+</li>
+<li>API通过<code>sysenter</code>指令进0环
+<ul>
+<li>CS/ESP/EIP 由MSR寄存器提供(SS是算出来的)</li>
+<li>进入0环后执行的内核函数：<code>NT!KiFastCallEntry</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="保存现场"><a class="markdownIt-Anchor" href="#保存现场"></a> 保存现场</h3>
+<h4 id="tarp-frame"><a class="markdownIt-Anchor" href="#tarp-frame"></a> Tarp Frame</h4>
+<ul>
+<li>无论是通过中断门进入0环，还是通过快速调用进入0环，进入0环前(3环)的所有寄存器都会存到这个结构体中</li>
+<li>这个结构体本身处于0环，由windows操作系统进行维护</li>
+<li>当程序通过中断门从3环进入0环时，ESP指向 <code>TrapFrame+0x64 </code> 的位置
+<ul>
+<li>在<strong>KiSystemService</strong>函数开始执行时，3环的<code>SS</code>、<code>ESP</code>、<code>EFLAGS</code>、<code>CS</code>、<code>EIP</code>就已经被 CPU 存储到 Trap Frame 结构体</li>
+</ul>
+</li>
+<li>当程序通过快速调用从3环进入0环时，ESP指向 <code>TrapFrame+0x78</code> 的位置
+<ul>
+<li>这里需要该函数进行压栈处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="系统服务表"><a class="markdownIt-Anchor" href="#系统服务表"></a> 系统服务表</h3>
+<ul>
+<li>
+<p>系统服务表：<code>System Service Table</code></p>
+</li>
+<li>
+<p>系统服务表共有<strong>两张</strong>，第一张表后紧接第二张表</p>
+</li>
+<li>
+<p>系统服务表里的函数都是来自<strong>内核文件</strong>导出的函数</p>
+</li>
+<li>
+<p>它并不包含内核文件导出的所有函数，而是<strong>3环最常用的</strong>内核函数</p>
+</li>
+<li>
+<p>系统服务表位于 <code>_KTHREAD +00xE0</code></p>
+</li>
+</ul>
+<h3 id="ssdt"><a class="markdownIt-Anchor" href="#ssdt"></a> SSDT</h3>
+<ul>
+<li>
+<p>全称：<strong>System Services Descriptor Table</strong>（系统服务描述符表）</p>
+</li>
+<li>
+<p>SSDT的<strong>每个成员</strong>叫做<strong>系统服务表</strong></p>
+</li>
+<li>
+<p>SSDT的<strong>第一个成员是导出的</strong>，声明一下即可使用</p>
+</li>
+<li>
+<p>SSDT的<strong>第二个成员是未导出的</strong>，需要通过其它方式查找</p>
+</li>
+<li>
+<p>在Windows中，SSDT的<strong>第三个成员和第四个成员未被使用</strong></p>
+</li>
+</ul>
+<h1 id="进程与线程"><a class="markdownIt-Anchor" href="#进程与线程"></a> 进程与线程</h1>
+<h2 id="前瞻-2"><a class="markdownIt-Anchor" href="#前瞻-2"></a> 前瞻</h2>
+<p>​	关注几个结构体</p>
+<ul>
+<li>
+<p>进程</p>
+<ul>
+<li>EPROCESS
+<ul>
+<li><code>Pcb</code> _KPROCESS</li>
+<li><code>Peb</code> Ptr32 _PEB</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>线程</p>
+<ul>
+<li>ETHREAD
+<ul>
+<li><code>Tcb</code> _KTHREAD</li>
+<li><code>Teb</code> Ptr32 Void</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>CPU</p>
+<ul>
+<li>KCPR
+<ul>
+<li><code>NtTib</code>    _NT_TIB</li>
+<li><code>PrcbData</code> _KPRCB</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="重点"><a class="markdownIt-Anchor" href="#重点"></a> 重点</h2>
+<h3 id="线程切换"><a class="markdownIt-Anchor" href="#线程切换"></a> 线程切换</h3>
+<ul>
+<li>主动切换
+<ul>
+<li>Windows中绝大部分API都调用了<strong>SwapContext</strong>这个函数，也就是说，只要调用了该函数，就会导致线程切换</li>
+<li>线程切换时会比较是否属于同一个进程，如果不是，便切换Cr3，Cr3换了，进程也就切换了</li>
+<li><strong>KiSwapThread</strong> -&gt; <strong>KiSwapContext</strong> -&gt; <strong>SwapContext</strong></li>
+</ul>
+</li>
+<li>时钟切换
+<ul>
+<li>当前线程的CPU时间片到期</li>
+<li><strong>KiDispatchInterrupt</strong> -&gt; <strong>KiQuantumEnd</strong> -&gt; <strong>SwapContext</strong></li>
+<li>存在备用线程(<code>KPCR.PrcbData.NextThread</code>)</li>
+<li><strong>KiDispatchInterrupt</strong> -&gt; <strong>SwapContext</strong></li>
+</ul>
+</li>
+<li>异常处理
+<ul>
+<li>如果一个线程<strong>不调用API</strong>，并且在代码中<strong>屏蔽中断</strong>（调用CLI指令），并且<strong>不会出现异常</strong>，那么当前线程将永久占有CPU</li>
+<li>单核CPU占用率100%，2核CPU占用率50%</li>
+<li>Windows<strong>并非</strong>是“抢占式”操作系统，所谓的“抢“”必须是当前线程允许其它线程“抢”，否则是“抢”不到的</li>
+</ul>
+</li>
+</ul>
+<h1 id="apc相关"><a class="markdownIt-Anchor" href="#apc相关"></a> APC相关</h1>
+<h2 id="前瞻-3"><a class="markdownIt-Anchor" href="#前瞻-3"></a> 前瞻</h2>
+<ol>
+<li>线程是不能被“<strong>杀掉</strong>”、“<strong>挂起</strong>”、“<strong>恢复</strong>”的，线程在执行的时候自己占据着CPU，别人不能控制它</li>
+<li>举个极端的例子：如果<strong>不调用API</strong>，<strong>屏蔽中断</strong>，<strong>并保证代码不出现异常</strong>，线程将<strong>永久</strong>占用CPU</li>
+<li>所以说线程如果想“死”，一定是自己执行代码把自己杀死，不存在“他杀”的情况</li>
+</ol>
+<p>​	即这里想改变一个线程的行为，可以给他提供一个函数，让它自己去调用：<strong>APC(Asyncroneus Procedure Call，异步过程调用)</strong></p>
+<h2 id="重点-2"><a class="markdownIt-Anchor" href="#重点-2"></a> 重点</h2>
+<h3 id="结构体相关"><a class="markdownIt-Anchor" href="#结构体相关"></a> 结构体相关</h3>
+<ul>
+<li><code>ApcState</code> _KAPC_STATE: 在 KTHREAD 中存在的一个结构体，其中有元素指向 KAPC 结构体</li>
+</ul>
+<h3 id="挂入过程"><a class="markdownIt-Anchor" href="#挂入过程"></a> 挂入过程</h3>
+<ul>
+<li>用户层调用：QueueUserAPC(kernel32.dll)–&gt;NtQueueApcThread(ntosker.exe)–&gt;内核层</li>
+<li>很多内核函数调用：KeInitializeApc(分配空间 初始化KAPC结构体)–&gt;KeInsertQueueApc–&gt;KiInsertQueueApc(将KAPC插入指定APC队列)</li>
+</ul>
+<h3 id="执行过程"><a class="markdownIt-Anchor" href="#执行过程"></a> 执行过程</h3>
+<p>内核APC执行过程，执行点：线程切换</p>
+<ol>
+<li><code>SwapContext</code> 判断是否有内核APC</li>
+<li><code>KiSwapThread</code></li>
+<li><code>KiDeliverApc</code> 执行内核APC函数</li>
+</ol>
+<p>用户APC执行过程</p>
+<ul>
+<li>执行用户APC时的堆栈操作处理用户APC要比内核APC复杂的多，因为，用户APC函数要在用户空间执行的，这里涉及到大量换栈的操作：</li>
+</ul>
+<ol>
+<li>当线程从用户层进入内核层时，要保留原来的运行环境，比如各种寄存器，栈的位置等等(<code>_Trap_Frame</code>)，然后切换成内核的堆栈，如果正常返回，恢复堆栈环境即可。</li>
+<li>但如果有用户APC要执行的话，就意味着线程要提前返回到用户空间去执行，而且返回的位置不是线程进入内核时的位置，而是返回到其他的位置，每处理一个用户APC都会涉及到：内核–&gt;用户空间–&gt;再回到内核空间</li>
+</ol>
+<h3 id="总结-2"><a class="markdownIt-Anchor" href="#总结-2"></a> 总结</h3>
+<ol>
+<li>内核APC在线程切换时执行，不需要换栈，比较简单，一个循环执行完毕</li>
+<li>用户APC在系统调用、中断或异常返回3环前会进行判断，如果有要执行的用户APC，再执行</li>
+<li>用户APC执行前会先执行内核APC</li>
+</ol>
+<h1 id="异常"><a class="markdownIt-Anchor" href="#异常"></a> 异常</h1>
+<h2 id="x86"><a class="markdownIt-Anchor" href="#x86"></a> x86</h2>
+<p><a target="_blank" rel="noopener" href="http://betacat.github.io/2011/10/19/SEH-x86/">资料</a></p>
+<ul>
+<li>CPU异常与模拟异常----3环</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310011440507.png" srcset="/img/loading.gif" lazyload alt="image-20231001144040446" /></p>
+<ul>
+<li><code>KiDispatchException</code>
+<ul>
+<li>对于0环异常，直接处理</li>
+<li>对于3环异常，修改返回3环的 EIP ，使其指向 KiUsertExceptionDispatcher</li>
+</ul>
+</li>
+<li>3环返回 <code>KiUsertExceptionDispatcher</code> 函数，然后它又调用 RtlDispatchExceptin，这个函数就是查找异常处理程序在哪里</li>
+<li><code>RtlDispatchExceptin</code>
+<ul>
+<li>首先查找 <code>VEH</code></li>
+<li>若是没有，则查找 <code>SEH</code>
+<ul>
+<li>SEH是线程相关的，实际上是一个链表，指向异常处理函数在哪里</li>
+<li>这里展示经过编译器扩展的SEH，这里自己先在栈中构建一个结构体，然后使 <code>prev</code> 指向之前的结构体，然后让 <code>FS:[0]</code> 指向自己；</li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310011451357.png" srcset="/img/loading.gif" lazyload alt="image-20231001145115314" /></li>
+<li>之后这里 <code>scopetable</code> 的作用就是指向构建 <code>excrpt()</code> 所需要的处理函数。这里也适合 <code>finally</code> 区别在于它的过滤函数为空，然后在后面会执行一个局部展开，来调用位于 <code>scopetable_entry </code>异常处理程序地址的 <code>finally</code> 代码来执行</li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310011453245.png" srcset="/img/loading.gif" lazyload alt="image-20231001145312210" /></li>
+<li>这里总体流程就是先把自己构建的结构体加入到 SEH 链中，然后使用只在最开始构造的 <code>handler</code> 来对不同的try异常进行分发处理，它根据 <code>trylevel</code> 来寻找不同的 <code>scopetable</code> 来寻找过滤函数和异常处理函数来处理异常，若是没有找到(这里就是过滤函数的返回值，返回0表示不处理这个异常)，则根据 <code>scopetable_entry</code> 结构体中的 <code>previous TryLevel</code> 寻找它的上层处理函数，直到可以处理，或者找到了 <code>-1</code> 表示最高层也不能处理结束，交给编译器处理</li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310011449528.png" srcset="/img/loading.gif" lazyload alt="image-20231001144903487" /></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="x64"><a class="markdownIt-Anchor" href="#x64"></a> x64</h2>
+<p><a target="_blank" rel="noopener" href="https://www.pediy.com/kssd/pediy12/142371.html">资料</a></p>
 <h1 id="驱动开发"><a class="markdownIt-Anchor" href="#驱动开发"></a> 驱动开发</h1>
 <h2 id="内核编程"><a class="markdownIt-Anchor" href="#内核编程"></a> 内核编程</h2>
 <h3 id="内核函数"><a class="markdownIt-Anchor" href="#内核函数"></a> 内核函数</h3>
@@ -828,6 +1042,13 @@
 <li>内核函数前缀</li>
 </ul>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309191115148.png" srcset="/img/loading.gif" lazyload alt="f6z1tYC8iWxBM4v" /></p>
+<h2 id="内核空间与内核模块"><a class="markdownIt-Anchor" href="#内核空间与内核模块"></a> 内核空间与内核模块</h2>
+<ul>
+<li>内核空间中，每个进程低2G各不相同，高2G相同，在高2G中做任何事情影响的是所有进程</li>
+<li>在高2G中，并不是只有一个内核模块为所有进程提供服务，而是由许多个模块组成，<strong>每个模块在高2G中都有属于自己独立的内存地址和大小</strong></li>
+<li>若想了解每个内核模块的具体信息，可以通过 <code>_DRIVER_OBJECT</code> 这个结构体，它存储了当前内核模块的具体信息</li>
+<li>任意加载一个驱动，便可通过 <code>_LDR_DATA_TABLE_ENTRY</code> 这个结构体中的双向链表得到所有内核模块的信息</li>
+</ul>
 
                 
               </div>
