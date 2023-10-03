@@ -186,6 +186,18 @@ table {
   overflow-y: auto !important;
 }
 
+/* 字体的颜色和样式 */
+.tocbot-link {
+    font-weight: bold;
+    color: #3C4858;
+    /* background-color: #a8abab; */
+    height: auto;
+}
+/* 修改目录框的背景颜色 */
+.toc-body {
+    background-color: #EEEEEE;
+    opacity: 0.5;
+}
 .tocbot-active-link {
   font-weight: bold;
   /*color var(--link-hover-color)*/
@@ -195,6 +207,7 @@ table {
   font-style: italic;
 }
 
+/* 这里调整的是目录前的标识的颜色 */
 .toc-list-item::before {
   background: #d214419c;
 }
