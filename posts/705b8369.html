@@ -18,21 +18,21 @@
   
     <meta name="description" content="调试  visual studio  针对主机的 visual studio 2022, 虚拟机中的 VC6 大部分适合 使用主机的调试的时候记得选择 release, 同时关闭 ASLR ，防止地址随机化     任务 快捷键     开始调试 F5   停止编译 Ctrl + F5   设定断点 F9   逐过程调试(可以跳过函数) F10   逐语句调试 F11   跳到光标处 Ctrl">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Win_Kernel简述">
+<meta property="og:title" content="Win32_Kernel简述">
 <meta property="og:url" content="http://example.com/posts/705b8369.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
 <meta property="og:description" content="调试  visual studio  针对主机的 visual studio 2022, 虚拟机中的 VC6 大部分适合 使用主机的调试的时候记得选择 release, 同时关闭 ASLR ，防止地址随机化     任务 快捷键     开始调试 F5   停止编译 Ctrl + F5   设定断点 F9   逐过程调试(可以跳过函数) F10   逐语句调试 F11   跳到光标处 Ctrl">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
 <meta property="article:published_time" content="2023-09-12T09:44:57.000Z">
-<meta property="article:modified_time" content="2023-10-02T02:26:12.910Z">
+<meta property="article:modified_time" content="2023-10-03T12:30:20.890Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
   
   
   
-  <title>Win_Kernel简述 - Nuthecz`Blog</title>
+  <title>Win32_Kernel简述 - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -206,7 +206,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Win_Kernel简述"></span>
+            <span id="subtitle" data-typed-text="Win32_Kernel简述"></span>
           
         </div>
 
@@ -229,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.7k 字
+          14k 字
         
       </span>
     
@@ -240,7 +240,7 @@
         
         
         
-          73 分钟
+          113 分钟
         
       </span>
     
@@ -278,7 +278,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Win_Kernel简述</h1>
+            <h1 style="display: none">Win32_Kernel简述</h1>
             
             
               <div class="markdown-body">
@@ -397,13 +397,13 @@
 <ul>
 <li>96位，<strong>ES、CS、SS、DS、FS、GS、LDTR、TR</strong></li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309121957714.png" srcset="/img/loading.gif" lazyload alt="image-20230912195711665" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023819.png" srcset="/img/loading.gif" lazyload alt="image-20230912195711665" /></p>
 <h3 id="段选择子"><a class="markdownIt-Anchor" href="#段选择子"></a> 段选择子</h3>
 <ul>
 <li>16位</li>
 <li>Index：处理器将索引值乘以8在加上GDT或者LDT的基地址，就是要加载的段描述符。</li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309121957456.png" srcset="/img/loading.gif" lazyload alt="image-20230912195749416" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023767.png" srcset="/img/loading.gif" lazyload alt="image-20230912195749416" /></p>
 <h3 id="gdt"><a class="markdownIt-Anchor" href="#gdt"></a> GDT</h3>
 <h4 id="相关知识点"><a class="markdownIt-Anchor" href="#相关知识点"></a> 相关知识点</h4>
 <ul>
@@ -417,11 +417,11 @@
 <p>段寄存器</p>
 </li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309180914532.png" srcset="/img/loading.gif" lazyload alt="image-20230918091401476" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023827.png" srcset="/img/loading.gif" lazyload alt="image-20230918091401476" /></p>
 <ul>
 <li>段描述符</li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309121806406.png" srcset="/img/loading.gif" lazyload alt="image-20230912180656323" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023843.png" srcset="/img/loading.gif" lazyload alt="image-20230912180656323" /></p>
 <ul>
 <li>区分：
 <ul>
@@ -443,7 +443,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309121811071.png" srcset="/img/loading.gif" lazyload alt="image-20230912181129051" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023814.png" srcset="/img/loading.gif" lazyload alt="image-20230912181129051" /></p>
 <ul>
 <li>参考：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/wingsummer/p/15312627.html">段描述符与段选择子</a></li>
 </ul>
@@ -530,7 +530,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309122000756.png" srcset="/img/loading.gif" lazyload alt="image-20230912200012728" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023810.png" srcset="/img/loading.gif" lazyload alt="image-20230912200012728" /></p>
 <ul>
 <li><code>CS</code> 的值可以根据地址直接得出</li>
 </ul>
@@ -551,7 +551,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309122005830.png" srcset="/img/loading.gif" lazyload alt="image-20230912200532795" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023237.png" srcset="/img/loading.gif" lazyload alt="image-20230912200532795" /></p>
 <ul>
 <li>补充：
 <ul>
@@ -570,7 +570,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309122024855.png" srcset="/img/loading.gif" lazyload alt="image-20230912202407828" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023254.png" srcset="/img/loading.gif" lazyload alt="image-20230912202407828" /></p>
 <h3 id="任务门"><a class="markdownIt-Anchor" href="#任务门"></a> 任务门</h3>
 <ul>
 <li>任务段(TSS)</li>
@@ -612,7 +612,7 @@
 </ol>
 </li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309130920137.png" srcset="/img/loading.gif" lazyload alt="image-20230913092034031" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023261.png" srcset="/img/loading.gif" lazyload alt="image-20230913092034031" /></p>
 <h2 id="关于页"><a class="markdownIt-Anchor" href="#关于页"></a> 关于页</h2>
 <h3 id="地址"><a class="markdownIt-Anchor" href="#地址"></a> 地址</h3>
 <ul>
@@ -645,7 +645,7 @@
 <li>一个页表有1024个页表项，1024等于2的十次方，即需要10个比特位</li>
 <li>页目录表项同理，也需要10个比特位</li>
 </ol>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309130921212.png" srcset="/img/loading.gif" lazyload alt="image-20230913092144120" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023346.png" srcset="/img/loading.gif" lazyload alt="image-20230913092144120" /></p>
 <h3 id="pdt与ptt"><a class="markdownIt-Anchor" href="#pdt与ptt"></a> PDT与PTT</h3>
 <h4 id="描述"><a class="markdownIt-Anchor" href="#描述"></a> 描述</h4>
 <p>​	<strong>页目录表(PDT)</strong> 的每一项元素称为 <strong>页目录表项(PDE)</strong>, 每个页目录表项指向一个 **页表(PTT), **每个页表的大小为 <strong>4KB</strong>，即一个页表可以存储 <strong>1024个</strong> 页表项(PTE)</p>
@@ -661,7 +661,7 @@
 </ul>
 <h4 id="物理页属性"><a class="markdownIt-Anchor" href="#物理页属性"></a> 物理页属性</h4>
 <p>​	物理页属性 = <code>PDE属性</code> &amp; <code>PTE属性</code></p>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309130942276.png" srcset="/img/loading.gif" lazyload alt="image-20230913094214169" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023317.png" srcset="/img/loading.gif" lazyload alt="image-20230913094214169" /></p>
 <ul>
 <li>
 <p>P 位</p>
@@ -732,15 +732,15 @@
 <p>每个<code>PDE</code>和<code>PTE</code>被扩展为8个字节，物理地址描述的位数扩展为<code>24位</code>，故可以描述更多的物理页，但个数减半，变成了512个</p>
 </li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151017418.png" srcset="/img/loading.gif" lazyload alt="image-20230915101737336" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023341.png" srcset="/img/loading.gif" lazyload alt="image-20230915101737336" /></p>
 <h3 id="pdpttpdtptt"><a class="markdownIt-Anchor" href="#pdpttpdtptt"></a> PDPTT,PDT,PTT</h3>
 <h4 id="pdpte"><a class="markdownIt-Anchor" href="#pdpte"></a> PDPTE</h4>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151054339.png" srcset="/img/loading.gif" lazyload alt="image-20230915105429306" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023713.png" srcset="/img/loading.gif" lazyload alt="image-20230915105429306" /></p>
 <ul>
 <li><code>PDPTE</code> 的12-35位存储了页目录表基址的高24位，低12位(在图上显示)补零, 共36位，即页目录基址。</li>
 </ul>
 <h4 id="pde"><a class="markdownIt-Anchor" href="#pde"></a> PDE</h4>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151059991.png" srcset="/img/loading.gif" lazyload alt="image-20230915105902929" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023783.png" srcset="/img/loading.gif" lazyload alt="image-20230915105902929" /></p>
 <ul>
 <li>
 <p>第7位 <code>PS</code> = 1 时，PDE直接指向大页，21-35(15位)指向大页的物理地址，这样36位的物理地址中低21位为0，即页的大小为2MB，且都是2MB对齐；当 <code>PS</code> = 0 时，21-35是页表基址，低12位补0，共36位。</p>
@@ -750,7 +750,7 @@
 </li>
 </ul>
 <h4 id="pte"><a class="markdownIt-Anchor" href="#pte"></a> PTE</h4>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151111317.png" srcset="/img/loading.gif" lazyload alt="image-20230915111153273" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023762.png" srcset="/img/loading.gif" lazyload alt="image-20230915111153273" /></p>
 <ul>
 <li>PTE中12-35是物理页基址, 24位, 低12位补0。</li>
 <li>物理页基址 + 12位的页内偏移指向具体数据</li>
@@ -760,7 +760,7 @@
 <li>AMD中称为NX，即 No Excetion</li>
 <li>PDE/PTE结构</li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309151114408.png" srcset="/img/loading.gif" lazyload alt="image-20230915111442369" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023858.png" srcset="/img/loading.gif" lazyload alt="image-20230915111442369" /></p>
 <ul>
 <li>段的属性有可读、可写和可执行; 页的属性有可读、可写</li>
 <li>当RET执行返回的时候，如果把堆栈里面的数据指向一段提前准备好的数据(把数据当作代码来执行，漏洞都是依赖这点，比如SQL注入也是)，那么就会产生任意代码执行的后果。 所以，Intel就在这方面做了硬件保护，设置了一个不可执行位 – XD/NX位。</li>
@@ -793,12 +793,12 @@
 <p>​	Cr0、Cr1、Cr2、Cr3，<code>Cr1</code>被保留了，<code>Cr3</code>用于页目录表基址</p>
 <h4 id="cr0"><a class="markdownIt-Anchor" href="#cr0"></a> Cr0</h4>
 <p>​	<code>Cr0</code>是一个十分重要的寄存器，可以说它是总开关的集合体</p>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309171556090.png" srcset="/img/loading.gif" lazyload alt="image-20230917155626976" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023094.png" srcset="/img/loading.gif" lazyload alt="image-20230917155626976" /></p>
 <h4 id="cr2"><a class="markdownIt-Anchor" href="#cr2"></a> Cr2</h4>
 <p>​	当CPU访问某个无效页面时，会产生缺页异常，此时，CPU会将引起异常的线性地址存放在CR2中</p>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309171557367.png" srcset="/img/loading.gif" lazyload alt="image-20230917155703341" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023097.png" srcset="/img/loading.gif" lazyload alt="image-20230917155703341" /></p>
 <h4 id="cr4"><a class="markdownIt-Anchor" href="#cr4"></a> Cr4</h4>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309171557652.png" srcset="/img/loading.gif" lazyload alt="image-20230917155724613" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023236.png" srcset="/img/loading.gif" lazyload alt="image-20230917155724613" /></p>
 <ul>
 <li><code>PAE</code>用于确认是哪个分页，<code>PAE = 1</code>，是<code>2-9-9-12</code>分页，<code>PAE = 0</code>是<code>10-10-12</code>分页</li>
 <li><code>PSE</code>是大页是否开启的总开关，如果置0，就算<code>PDE</code>中设置了大页你也得是普通的页</li>
@@ -990,7 +990,7 @@
 <ul>
 <li>CPU异常与模拟异常----3环</li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310011440507.png" srcset="/img/loading.gif" lazyload alt="image-20231001144040446" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023222.png" srcset="/img/loading.gif" lazyload alt="image-20231001144040446" /></p>
 <ul>
 <li><code>KiDispatchException</code>
 <ul>
@@ -1006,11 +1006,11 @@
 <ul>
 <li>SEH是线程相关的，实际上是一个链表，指向异常处理函数在哪里</li>
 <li>这里展示经过编译器扩展的SEH，这里自己先在栈中构建一个结构体，然后使 <code>prev</code> 指向之前的结构体，然后让 <code>FS:[0]</code> 指向自己；</li>
-<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310011451357.png" srcset="/img/loading.gif" lazyload alt="image-20231001145115314" /></li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023309.png" srcset="/img/loading.gif" lazyload alt="image-20231001145115314" /></li>
 <li>之后这里 <code>scopetable</code> 的作用就是指向构建 <code>excrpt()</code> 所需要的处理函数。这里也适合 <code>finally</code> 区别在于它的过滤函数为空，然后在后面会执行一个局部展开，来调用位于 <code>scopetable_entry </code>异常处理程序地址的 <code>finally</code> 代码来执行</li>
-<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310011453245.png" srcset="/img/loading.gif" lazyload alt="image-20231001145312210" /></li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023504.png" srcset="/img/loading.gif" lazyload alt="image-20231001145312210" /></li>
 <li>这里总体流程就是先把自己构建的结构体加入到 SEH 链中，然后使用只在最开始构造的 <code>handler</code> 来对不同的try异常进行分发处理，它根据 <code>trylevel</code> 来寻找不同的 <code>scopetable</code> 来寻找过滤函数和异常处理函数来处理异常，若是没有找到(这里就是过滤函数的返回值，返回0表示不处理这个异常)，则根据 <code>scopetable_entry</code> 结构体中的 <code>previous TryLevel</code> 寻找它的上层处理函数，直到可以处理，或者找到了 <code>-1</code> 表示最高层也不能处理结束，交给编译器处理</li>
-<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310011449528.png" srcset="/img/loading.gif" lazyload alt="image-20231001144903487" /></li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023571.png" srcset="/img/loading.gif" lazyload alt="image-20231001144903487" /></li>
 </ul>
 </li>
 </ul>
@@ -1041,13 +1041,339 @@
 </li>
 <li>内核函数前缀</li>
 </ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202309191115148.png" srcset="/img/loading.gif" lazyload alt="f6z1tYC8iWxBM4v" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023822.png" srcset="/img/loading.gif" lazyload alt="f6z1tYC8iWxBM4v" /></p>
 <h2 id="内核空间与内核模块"><a class="markdownIt-Anchor" href="#内核空间与内核模块"></a> 内核空间与内核模块</h2>
 <ul>
 <li>内核空间中，每个进程低2G各不相同，高2G相同，在高2G中做任何事情影响的是所有进程</li>
 <li>在高2G中，并不是只有一个内核模块为所有进程提供服务，而是由许多个模块组成，<strong>每个模块在高2G中都有属于自己独立的内存地址和大小</strong></li>
 <li>若想了解每个内核模块的具体信息，可以通过 <code>_DRIVER_OBJECT</code> 这个结构体，它存储了当前内核模块的具体信息</li>
 <li>任意加载一个驱动，便可通过 <code>_LDR_DATA_TABLE_ENTRY</code> 这个结构体中的双向链表得到所有内核模块的信息</li>
+</ul>
+<h1 id="事件等待"><a class="markdownIt-Anchor" href="#事件等待"></a> 事件等待</h1>
+<h2 id="临界区和自旋锁"><a class="markdownIt-Anchor" href="#临界区和自旋锁"></a> 临界区和自旋锁</h2>
+<ul>
+<li>临界区
+<ul>
+<li>通过 <code>sleep()</code> 实现</li>
+</ul>
+</li>
+<li>自旋锁
+<ul>
+<li>通过使当前CPU <code>空转</code> 实现</li>
+</ul>
+</li>
+</ul>
+<h2 id="等待与唤醒"><a class="markdownIt-Anchor" href="#等待与唤醒"></a> 等待与唤醒</h2>
+<ol>
+<li>可等待对象正常情况下都是以 <code>_DISPATCHER_HEADER</code> 结构体开头的，但是有一些特殊的结构体并不是以 <code>_DISPATCHER_HEADER</code> 开头的（如 _FILE_OBJECT），但是windows又希望把它们也变成所谓的可等待对象，因此在它们内部嵌入一个 <code>_DISPATCHER_HEADER</code> 这样的结构体</li>
+<li>只要是包含 <code>_DISPATCHER_HEADER</code> 结构体的对象，都可以看作是可等待对象，都可以使用 <code>WaitForSingleObject</code> 和 <code>WaitForMultipleObjects</code> 这两个函数进入等待状态</li>
+</ol>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023751.png" srcset="/img/loading.gif" lazyload alt="image-20231003151136267" /></p>
+<ul>
+<li>等待中的线程，一定在等待链表中(<code>KiWaitListHead</code>)，同时也一定在这张网上(<code>KTHREAD +5C的位置不为空</code>)</li>
+<li>线程通过调用<code>WaitForSingleObject/WaitForMultipleObjects</code>函数将自己挂到这张网上</li>
+<li>线程什么时候会再次执行取决于其他线程何时调用相关函数，等待对象不同调用的函数也不同</li>
+</ul>
+<h2 id="waitfoesingleobject函数"><a class="markdownIt-Anchor" href="#waitfoesingleobject函数"></a> WaitFoeSingleObject函数</h2>
+<ol>
+<li>
+<p>不同的等待对象，用不同的方法来修改 <code>_DISPATCHER_HEADER-&gt;SignalState</code></p>
+</li>
+<li>
+<p>如果可等待对象是 <code>EVENT</code>，其他线程通常使用 <code>SetEvent</code> 来设置 <code>SignalState = 1</code>，并且，将正在等待该对象的其他线程唤醒，也就是从等待链表<code>(KiWaitListHead</code>)中摘出来，此时线程临时复活</p>
+</li>
+<li>
+<p><code>SetEvent</code> 函数并不会将线程从等待网上摘下来，是否要下来，由当前线程自己来决定。此时线程会在<code>WaitForSingleObject </code>或者 <code>WaitForMultipleObjects </code> 恢复执行（在哪切换就在哪开始执行），如果符合唤醒条件，就将自己从 <strong>等待网</strong> 上摘下来，此时的线程才是真正的唤醒</p>
+</li>
+<li>
+<p>若使用 <code>SetEvent</code> 这种函数直接将线程从等待网上摘下来，将会非常麻烦，因为可能有非常多的线程在等待一个对象，无法判断该将谁摘下(一个也线程可能等待着多个对象)</p>
+<ul>
+<li>比如：线程A和线程B同时在等待着一个对象，这时如果有线程C调用了SetEvent(将等待对象的信号量置1)，线程A和线程B会被临时唤醒(从KiWaitLkistHead摘下)，并行进入关键循环，假设线程A先运行，线程A会设置等待对象的信号量&lt;=0，然后将自己从等待网上摘下来，此时线程A彻底复活。线程B再去判断等待对象是否有信号量时，已经没有信号量了，这时线程B会将自己重新挂入等待链表中</li>
+</ul>
+</li>
+<li>
+<p>不同对象调用API修改信号个数只在细节上有差异，本质上都是一样的</p>
+<ul>
+<li>这里区分<strong>事件的type属性的不同，信号量，互斥体</strong>。对于这几种不同的对象，其具体的修改策略也是不同的，但是本质上大同小异，都是修改 SignalState</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>关于强制唤醒
+<ul>
+<li>在APC专题中，当插入一个用户APC时(<strong>Alertable=1</strong>)，当前线程是可以被唤醒的，但并不是真正的唤醒。因为如果当前的线程在等待网上，执行完用户APC后，线程仍然要进入等待状态</li>
+</ul>
+</li>
+</ul>
+<h1 id="句柄表"><a class="markdownIt-Anchor" href="#句柄表"></a> 句柄表</h1>
+<h2 id="句柄表-2"><a class="markdownIt-Anchor" href="#句柄表-2"></a> 句柄表</h2>
+<h3 id="描述-2"><a class="markdownIt-Anchor" href="#描述-2"></a> 描述</h3>
+<ol>
+<li>当一个进程创建或者打开一个内核对象时，将获得一个句柄，通过这个句柄可以访问对应的内核对象</li>
+<li>句柄表存储在<strong>零环</strong>，一个进程使用了几个句柄，在该进程的句柄表中就会存储几个句柄</li>
+<li>所有的句柄所对应的内核对象，都包含在 <code>_OBJECT_HEADER</code> 中，真正的内核对象保存在 <code>_OBJECT_HEADER +0x018 body</code> 的位置</li>
+</ol>
+<h3 id="注意-2"><a class="markdownIt-Anchor" href="#注意-2"></a> 注意</h3>
+<ol>
+<li><strong>窗口、字体、笔刷</strong>等句柄与本章所学句柄是两码事</li>
+<li>创建句柄不等同于打开句柄，当创建的时候，操作系统会在零环为内核对象分配一个结构体(例如<code>CreateEvent</code>)，如果自己或他人打开了这个内核对象(例如<code>OpenProcess</code>)，那么将不会再次为这个内核对象分配一个结构体，而是返回一个句柄的索引值</li>
+<li>若同一个内核对象被引用了100次，那么在句柄表中就会存储100个内核对象的地址</li>
+<li>句柄的值并非如上图所显示的只占4个字节，而是<strong>占8个字节</strong>，但是句柄表的值仍然按照<strong>4个字节</strong>进行计算</li>
+</ol>
+<p><strong>句柄索引定位对应句柄的计算公式</strong>：<code>handle = index / 4 * 8</code></p>
+<h2 id="全局句柄表"><a class="markdownIt-Anchor" href="#全局句柄表"></a> 全局句柄表</h2>
+<ol>
+<li>
+<p>进程的句柄表是私有的，每个进程都有一个自己的句柄表</p>
+</li>
+<li>
+<p>除此之外，系统还有一个全局句柄表：<code>PsdCidTable</code>，为 <code>_HANDLE_TABLE</code> 结构，所有的进程和线程无论无论是否打开，都在这个表中</p>
+</li>
+<li>
+<p>每个进程和线程都有一个唯一的编号：<code>PID和CID</code> 这两个值其实就是全局句柄表中的索引</p>
+</li>
+<li>
+<p>进程和线程的查询,主要是以下三个函数,按照给定的PID或CID从PspCidTable从查找相应的进线程对象：</p>
+<ul>
+<li>
+<p>PsLookupProcessThreadByCid()</p>
+</li>
+<li>
+<p>PsLookupProcessByProcessId()</p>
+</li>
+<li>
+<p>PsLookupThreadByThreadId()</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="软件调试"><a class="markdownIt-Anchor" href="#软件调试"></a> 软件调试</h1>
+<h2 id="调试相关"><a class="markdownIt-Anchor" href="#调试相关"></a> 调试相关</h2>
+<h3 id="调试对象"><a class="markdownIt-Anchor" href="#调试对象"></a> 调试对象</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023788.png" srcset="/img/loading.gif" lazyload alt="image-20231003200338832" /></p>
+<ol>
+<li>调试器与被调试进程通过 <code>DEBUG_OBJECT</code> 结构体建立联系</li>
+<li><code>DEBUG_OBJECT</code> 中有一个链表成员，用于记录所有<strong>调试事件</strong></li>
+<li>当被调试进程产生调试事件时，调试器从链表中取出调试事件进行处理</li>
+</ol>
+<ul>
+<li>调试事件有不同种类，只有几个最关键的种类才会被记录到链表中，例如被调试进程进行文件读写、申请内存、释放内存等行为时不会产生调试事件，即不是所有的调试事件都会被记录到链表中</li>
+</ul>
+<h3 id="调试事件的采集"><a class="markdownIt-Anchor" href="#调试事件的采集"></a> 调试事件的采集</h3>
+<ol>
+<li>调试事件有多种，真正需要关注的只有<strong>7种</strong></li>
+<li>Windows通过在被调试进程的<strong>必经之路</strong>上调用调试事件采集函数，向 <code>DEBUG_PORT</code> 中挂入调试事件</li>
+<li>不同事件的必经之路所使用的调试事件采集函数不同，但最终都通过 <code>DbgkSendApiMessage</code> 向链表中写入调试事件信息(封装好的调试事件结构体)
+<ul>
+<li><code>DbgkSendApiMessage</code> 有两个参数，第一个参数为调试事件类型，第二个参数为是否挂起其它线程，有时需要，比如0xCC，有时不需要，比如模块加载</li>
+</ul>
+</li>
+</ol>
+<h3 id="调试事件的处理"><a class="markdownIt-Anchor" href="#调试事件的处理"></a> 调试事件的处理</h3>
+<ol>
+<li>调试器在创建进程时，除了能得到进程创建、创建线程、模块加载等调试事件之外，还会收到一个<code>异常事件</code></li>
+<li>异常来源于调试器创建进程时触发的<code>系统断点</code>，目的是给调试器一个中断的机会</li>
+<li>调试器在附加进程时，能够得到一份<code>模拟的</code>进程创建时产生的相关调试事件信息</li>
+<li>这些虚假的调试事件信息可靠性较低，程序在执行过程中可能已经处理过部分信息</li>
+</ol>
+<h3 id="异常的处理"><a class="markdownIt-Anchor" href="#异常的处理"></a> 异常的处理</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023040.png" srcset="/img/loading.gif" lazyload alt="image-20231003201011971" /></p>
+<ul>
+<li>
+<p>这里注意<strong>未处理异常: 最后一道防线</strong></p>
+</li>
+<li>
+<p><code>UnhandledExceptionFilter</code> 执行流程：</p>
+<ol>
+<li>
+<p>通过<code>NtQueryInformationProcess</code>查询当前进程是否正在被调试，如果是，返回<code>EXCEPTION_CONTINUE_SEARCH</code>，此时会进入第二轮分发</p>
+</li>
+<li>
+<p>如果没有被调试：</p>
+<ul>
+<li>查询是否通过<code>SetUnhandledExceptionFilter</code>注册处理函数，如果有就调用</li>
+</ul>
+<p>如果没有通过<code>SetUnhandledExceptionFilter</code>注册处理函数，弹出窗口，让用户选择终止程序还是启动即时调试器。</p>
+<ul>
+<li>如果用户没有启用即时调试器，那么该函数返回<code>EXCEPTION_EXECUTE_HANDLER</code></li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>这里若是原程序通过 <code>SetUnhandledExceptionFilter</code> 来注册处理函数的话，使用调试器不会关注这个处理，所以会导致执行结果与原程序不相符的情况发生</p>
+</li>
+</ul>
+<h2 id="断点"><a class="markdownIt-Anchor" href="#断点"></a> 断点</h2>
+<h3 id="调试的本质"><a class="markdownIt-Anchor" href="#调试的本质"></a> 调试的本质</h3>
+<p><strong>描述</strong>：</p>
+<ol>
+<li>调试的本质是<strong>触发异常</strong>与<strong>调试器接管异常的过程</strong></li>
+<li>不论是软件断点，硬件断点还是 <code>INT 3</code> 断点，本质都是触发异常</li>
+</ol>
+<h3 id="软件断点"><a class="markdownIt-Anchor" href="#软件断点"></a> 软件断点</h3>
+<p><strong>描述</strong>：</p>
+<ul>
+<li>当使用调试器在任意代码位置设置断点时，本质上是将当前代码位置的字节码改为<strong>0xCC</strong>，对应的汇编指令为<strong>INT 3</strong>，调试器为了界面的美观，不会直接在反汇编界面将修改后的数据显示出来</li>
+</ul>
+<p><strong>执行流程</strong>：</p>
+<ul>
+<li>
+<p>被调试进程：</p>
+<ol>
+<li>CPU检测到INT 3指令</li>
+<li>查IDT表找到对应的中断处理函数</li>
+<li>CommonDispatchException</li>
+<li>KiDispatchException</li>
+<li>DbgkForwardException收集并发送调试事件</li>
+<li>最终调用<code>DbgkpSendApiMessage(x, x)</code>
+<ul>
+<li>第一个参数：消息类型</li>
+<li>第二个参数：是否挂起其它线程</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>调试器进程：</p>
+<ol>
+<li>循环判断</li>
+<li>取出调试事件</li>
+<li>列出信息：寄存器、内存</li>
+<li>用户处理</li>
+</ol>
+</li>
+</ul>
+<h3 id="内存断点"><a class="markdownIt-Anchor" href="#内存断点"></a> 内存断点</h3>
+<p><strong>描述</strong>：</p>
+<ul>
+<li>当需要在某块内存被访问时产生中断，可以使用内存断点。</li>
+<li>内存断点能够分为两种类型：
+<ul>
+<li>内存访问：内存被读写时产生中断</li>
+<li>内存写入：内存被写入时产生中断</li>
+</ul>
+</li>
+<li>通过 <code>VirtualProtectEx</code> 来实现
+<ul>
+<li>内存访问：将指定内存的属性修改为 <code>PAGE_NOACCESS</code>(修改后，PTE的P位等于0)</li>
+<li>内存写入：将指定内存的属性修改为 <code>PAGE_EXECUTE_READ</code>(修改后，PTE的P位等于1，R/W位等于0)</li>
+</ul>
+</li>
+</ul>
+<p><strong>内存断点的执行流程</strong>：</p>
+<ul>
+<li>
+<p>被调试进程：</p>
+<ol>
+<li>CPU访问错误的内存地址，触发页异常</li>
+<li>查IDT表找到对应的中断处理函数(nt!_KiTrap0E)</li>
+<li>CommonDispatchException</li>
+<li>KiDispatchException</li>
+<li>DbgkForwardException收集并发送调试事件</li>
+<li>最终调用<code>DbgkpSendApiMessage(x, x)</code>
+<ul>
+<li>第一个参数：消息类型，共有7种类型</li>
+<li>第二个参数：是否挂起其它线程</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>调试器进程：</p>
+<ol>
+<li>循环判断</li>
+<li>取出调试事件</li>
+<li>列出信息：寄存器、内存</li>
+<li>用户处理</li>
+</ol>
+</li>
+</ul>
+<h3 id="硬件断点"><a class="markdownIt-Anchor" href="#硬件断点"></a> 硬件断点</h3>
+<p><strong>描述</strong>：</p>
+<ol>
+<li>与软件断点与内存断点不同，<strong>硬件断点</strong>不依赖被调试程序，而是依赖于CPU中的<strong>调试寄存器</strong></li>
+<li>调试寄存器有<strong>8个</strong>，分别为 <strong>Dr0~Dr7</strong></li>
+<li>用户最多能够设置4个硬件断点，这是由于只有<strong>Dr0~Dr3</strong>用于存储线性地址</li>
+<li>其中，Dr4和Dr5是保留的</li>
+</ol>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023053.png" srcset="/img/loading.gif" lazyload alt="image-20231003202224792" /></p>
+<p><strong>设置硬件断点</strong>：</p>
+<ul>
+<li><strong>Dr0~Dr3</strong> 用于设置硬件断点，由于只有4个断点寄存器，所以最多只能设置4个硬件调试断点。</li>
+<li><strong>Dr7</strong> 是最重要的寄存器：
+<ul>
+<li><strong>L0/G0 ~ L3/G3</strong>：控制Dr0~Dr3是否有效，局部还是全局；每次异常后，Lx都被清零,Gx不清零。</li>
+<li><strong>断点长度(LENx)</strong>：00(1字节)、01(2字节)、11(4字节)</li>
+<li><strong>断点类型(R/Wx)</strong>：00(执行断点)、01(写入断点)、11(访问断点)</li>
+</ul>
+</li>
+</ul>
+<p><strong>触发硬件断点</strong>：</p>
+<ul>
+<li>
+<p>被调试进程：</p>
+<ol>
+<li>CPU执行时检测当前线性地址与调试寄存器(Dr0~Dr3)中的线性地址相等</li>
+<li>查IDT表找到对应的中断处理函数(nt!_KiTrap01)</li>
+<li>CommonDispatchException</li>
+<li>KiDispatchException</li>
+<li>DbgkForwardException收集并发送调试事件</li>
+<li>最终调用<code>DbgkpSendApiMessage(x, x)</code>
+<ul>
+<li>第一个参数：消息类型，共有7种类型</li>
+<li>第二个参数：是否挂起其它线程</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>调试器进程：</p>
+<ol>
+<li>循环判断</li>
+<li>取出调试事件</li>
+<li>列出信息：寄存器、内存</li>
+<li>用户处理</li>
+</ol>
+</li>
+</ul>
+<p><strong>处理硬件断点</strong>：</p>
+<ul>
+<li>硬件调试断点产生的异常是 <code>STATUS_SINGLE_STEP</code>(单步异常)</li>
+<li>检测Dr6寄存器的B0~B3：判断哪个寄存器触发的异常</li>
+</ul>
+<h3 id="单步步入"><a class="markdownIt-Anchor" href="#单步步入"></a> 单步步入</h3>
+<p><strong>描述</strong>：</p>
+<ol>
+<li><strong>单步步入</strong>的实现依赖于<strong>单步异常</strong></li>
+<li>当我们需要观察每一行代码(包括函数内部的代码)执行之后寄存器与内存的变化，通常会采用单步步入</li>
+<li>当使用单步步入时，可采用在下一行代码的首字节设置INT 3断点的方式实现</li>
+<li>CPU为我们提供了一种更为方便的方法，即使用<strong>陷阱标志位（TF位）</strong></li>
+</ol>
+<p><strong>设置单步异常</strong></p>
+<ul>
+<li>将TF位置1</li>
+</ul>
+<p><strong>处理单步异常</strong></p>
+<ul>
+<li>单步产生的异常与硬件断点产生的异常一致，都是 <code>STATUS_SINGLE_STEP</code>(单步异常)</li>
+</ul>
+<h3 id="单步步过"><a class="markdownIt-Anchor" href="#单步步过"></a> 单步步过</h3>
+<p><strong>描述</strong>：</p>
+<ul>
+<li>当遇到CALL指令时，若无需进入函数内部进行调试，可以使用单步步过。</li>
+<li>与单步步入不同的是，单步步过的实现依赖于软件断点或硬件断点。</li>
+</ul>
+<p><strong>实现思路</strong>：</p>
+<ol>
+<li>判断当前指令是否为CALL指令</li>
+<li>若不是CALL指令，设置TF为1触发单步异常</li>
+<li>若是CALL指令，判断OPCODE是E8还是FF15</li>
+<li>若<code>OPCODE</code>是E8，在当前地址之后的第5个字节设置软件断点(E8指令占5个字节)</li>
+<li>若<code>OPCODE</code>是FF15，在当前地址之后的第6个字节设置软件断点(FF15指令占6个字节)</li>
+</ol>
+<ul>
+<li>这里识别出 <code>CALL</code> 指令后，通常需要根据反汇编引擎来识别下一条指令的地址(call指令明面上的下一条)，然后在该地址设置硬件断点或者是软件断点</li>
 </ul>
 
                 
@@ -1087,7 +1413,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Win_Kernel简述</div>
+      <div>Win32_Kernel简述</div>
       <div>http://example.com/posts/705b8369.html</div>
     </div>
     <div class="license-meta">
@@ -1131,6 +1457,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/9fe68f2a.html" title="Win64_Kernel简述">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Win64_Kernel简述</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
