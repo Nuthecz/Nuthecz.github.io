@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=dark>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-03-03T14:40:23.000Z">
-<meta property="article:modified_time" content="2023-09-30T12:54:23.491Z">
+<meta property="article:modified_time" content="2023-10-05T03:36:22.961Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          14k 字
+          16k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          118 分钟
+          130 分钟
         
       </span>
     
@@ -842,6 +842,43 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> struct <span class="hljs-keyword">import</span> *<br><br>table = <span class="hljs-string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234&#123;&#125;789+/=&quot;</span><br>raw = [<span class="hljs-number">0xFD370FEB59C9B9E</span>, <span class="hljs-number">0xDEAB7F029C4FD1B2</span>, <span class="hljs-number">0xFACD9D40E7636559</span>]<br>target = <span class="hljs-string">b&#x27;&#x27;</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>    <span class="hljs-comment"># print(pack(&quot;Q&quot;, raw[i]))</span><br>    target += pack(<span class="hljs-string">&quot;Q&quot;</span>, raw[i])<br>    <br>flag = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(target), <span class="hljs-number">3</span>):<br>    v8 = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>        v8 |= target[i + j] &lt;&lt; <span class="hljs-number">8</span> * (<span class="hljs-number">2</span> - j)<br><br>    v7 = v8<br>    <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>, -<span class="hljs-number">1</span>, -<span class="hljs-number">1</span>):<br>        idx = (v7 &gt;&gt; <span class="hljs-number">6</span> * j) &amp; <span class="hljs-number">0b111111</span><br>        flag += table[idx]<br><span class="hljs-built_in">print</span>(flag)<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
+<h2 id="安洵杯-2019crackme"><a class="markdownIt-Anchor" href="#安洵杯-2019crackme"></a> [安洵杯 2019]crackMe</h2>
+<h3 id="分析-11"><a class="markdownIt-Anchor" href="#分析-11"></a> 分析</h3>
+<ul>
+<li>
+<p>首先查壳无壳，然后直接载入IDA</p>
+</li>
+<li>
+<p>这里通过字符串搜索到 <code>please Input the flag:\n</code>，直接引用查看，发现来到了<code>main</code>函数。这里有一个内存访问异常，再结合MessageBoxW中的信息，感觉这里会有异常处理的存在。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310051057731.png" srcset="/img/loading.gif" lazyload alt="image-20231005105703690" /></p>
+</li>
+<li>
+<p>之后再函数列表中就发现了 <code>Handler</code> 函数，跟进发现这是使用 <code>SetUnhangledExceptionFilter</code> 来注册的未处理异常，这个调试器不会运行到这里处理，由此可知前面的内粗访问异常可以阻止调试器调试，因为得不到正确信息。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310051108003.png" srcset="/img/loading.gif" lazyload alt="image-20231005110821954" /></p>
+</li>
+<li>
+<p>之后查看 <code>sub_411172</code> 函数，发现其中关键的数字0xA3B1BAC6，经过查阅，发现这个是<code>SM4</code>加密，那么 <code>where_are_u_now?</code>就是密钥，同时 <code>unk_41A218</code> 的数据也被main函数的<code>sub_41100F</code>函数所引用</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310051111426.png" srcset="/img/loading.gif" lazyload alt="image-20231005111144377" /></p>
+</li>
+<li>
+<p>同时观察 <code>TopLevelExceptionFilter</code> 的内容，跟进发现首先对于最后的 <code>Str2</code>进行了更改，之后有对数据 <code>byte_41A180</code> 进行了处理传递给 <code>Str1</code> ，最后在 <code>sub_411136</code> 函数进行了正确性比对，由此可以看出<code>Str1</code>来自于自己的输入。又由于查看汇编，发现 <code>byte_41A180</code>与 <code>unk_41A1E4</code>是连续的，所以可以视为对于输入进行了操作。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310051117612.png" srcset="/img/loading.gif" lazyload alt="image-20231005111717569" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310051117437.png" srcset="/img/loading.gif" lazyload alt="image-20231005111730401" /></p>
+</li>
+<li>
+<p>这里跟进 <code>sub_41126C</code> 函数会发现这是一个变种的base64加密，对于输入进行了转换处理</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310051120575.png" srcset="/img/loading.gif" lazyload alt="image-20231005112029524" /></p>
+</li>
+<li>
+<p>但是再尝试运行程序时，跳出的是 <code>hooked</code> 标识的信息，由此怀疑还有别的操作，查找字符串找到<code>hooked</code>，由此可以看出对于base64的表进行了处理。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310051122180.png" srcset="/img/loading.gif" lazyload alt="image-20231005112215145" /></p>
+</li>
+<li>
+<p>综上，可以分析出：该程序首先通过hook改变了main函数中message的消息传递，并且改变了base64表，之后通过内存访问异常来引出handler来进行处理，在该函数中，首先经过一个函数进行SM4加密，之后传递加密后的字符串进行异常处理，之后就是一个变种的base64加密，与更改后的Str2进行对比，成功就是正确的flag</p>
+</li>
+</ul>
+<h3 id="exp-9"><a class="markdownIt-Anchor" href="#exp-9"></a> exp</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">from</span> pysm4 <span class="hljs-keyword">import</span> encrypt, decrypt<br>base = <span class="hljs-string">&#x27;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&#x27;</span><br>diy_base = <span class="hljs-string">&#x27;yzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/abcdefghijklmnopqrstuvwx&#x27;</span><br><br>str2 = <span class="hljs-string">&#x27;U1ATIOpkOyWSvGm/YOYFR4!!&#x27;</span><br>sstr2 = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(str2)-<span class="hljs-number">2</span>):<br>	sstr2 += base[diy_base.find(str2[i])]<br>sstr2 += <span class="hljs-string">&#x27;==&#x27;</span><br>dec_64 = base64.b64decode(sstr2)<br>cipher_num = <span class="hljs-string">&quot;0x&quot;</span> + dec_64.<span class="hljs-built_in">hex</span>()<br>cipher_num = <span class="hljs-built_in">int</span>(cipher_num,<span class="hljs-number">16</span>)<br>mk = <span class="hljs-number">0x77686572655f6172655f755f6e6f773f</span><br>clear_num = decrypt(cipher_num, mk)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;flag&#123;&#x27;</span>+<span class="hljs-built_in">bytes</span>.fromhex(<span class="hljs-built_in">hex</span>(clear_num)[<span class="hljs-number">2</span>:]).decode()+<span class="hljs-string">&#x27;&#125;&#x27;</span>)<br></code></pre></td></tr></table></figure>
 
                 
               </div>

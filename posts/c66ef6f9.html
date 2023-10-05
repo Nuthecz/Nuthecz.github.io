@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=dark>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291149059.jpg">
 <meta property="article:published_time" content="2022-11-24T12:05:59.000Z">
-<meta property="article:modified_time" content="2023-10-03T12:47:20.239Z">
+<meta property="article:modified_time" content="2023-10-05T02:48:32.172Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291149059.jpg">
@@ -298,9 +298,8 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">import</span> string<br><br><br>enc = [<span class="hljs-string">&#x27;a2f17ed1c6a8bc31769cdf654df4b8a937042cb6&#x27;</span>, <span class="hljs-string">&#x27;0ca8a2edb0c1d34a432a5a4464e0d6abd847c831&#x27;</span>, <span class="hljs-string">&#x27;c359d69f3f08bb920f2c3b51133205533462093e&#x27;</span>, <span class="hljs-string">&#x27;cc5c3fe6e7356a26a134cff5633349f597c40a9d&#x27;</span>, <span class="hljs-string">&#x27;4ac4bb3f27f245ba9178651aa5cdedcbb2862e2a&#x27;</span>, <span class="hljs-string">&#x27;a01e33f4dcdb6ba1ae9f34a97cf8f6deeedf1a8d&#x27;</span>, <span class="hljs-string">&#x27;d3af70912a8c1b22cfdece071ba36bc4662b58fa&#x27;</span>,<br>       <span class="hljs-string">&#x27;9395eab195d25b676d7d07075d3838a9ac19df21&#x27;</span>, <span class="hljs-string">&#x27;fdb43c5ef76ecda0c1661d6d199b5bfac1db538a&#x27;</span>, <span class="hljs-string">&#x27;da8e9997a010be78b20108ce79fec1fb9c63d8dc&#x27;</span>, <span class="hljs-string">&#x27;809da627f1ad01d65864c376e3179b62d9d74261&#x27;</span>, <span class="hljs-string">&#x27;8f61ee21ac7579626934e0ffb6a62b3d4a82eec4&#x27;</span>, <span class="hljs-string">&#x27;e2a954758fdb61f869998e9788b7b7e48480b832&#x27;</span>, <span class="hljs-string">&#x27;b8e3349b97532b27aa62b8718b68240179158144&#x27;</span>]<br><br><span class="hljs-comment"># 爆破的字符表</span><br><span class="hljs-built_in">dict</span> = string.ascii_letters + string.punctuation + string.digits<br>flag = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(enc)):<br>    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>):<br>        <span class="hljs-built_in">str</span> = <span class="hljs-string">&#x27;&#x27;</span>.join(random.choices(<span class="hljs-built_in">dict</span>, k=<span class="hljs-number">3</span>))  <span class="hljs-comment"># 随机生成三个字符，可以产生重复字符</span><br>        <span class="hljs-comment"># print(str)</span><br>        <span class="hljs-keyword">if</span> hashlib.sha1(<span class="hljs-built_in">str</span>.encode()).hexdigest() == enc[i]:<br>            flag += <span class="hljs-built_in">str</span><br>            <span class="hljs-built_in">print</span>(flag)<br>            <span class="hljs-keyword">break</span><br></code></pre></td></tr></table></figure>
 <h1 id="exception"><a class="markdownIt-Anchor" href="#exception"></a> Exception</h1>
 <ul>
-<li>涉及一个SEH断点异常处理，可以大致看出逻辑。将 <code>try</code> patch掉之后不会报错，可以看出是一个魔改得TEA</li>
+<li>涉及一个SEH断点异常处理，可以大致看出逻辑。将 <code>try</code> patch掉之后不会报错，可以看出是一个魔改的TEA</li>
 </ul>
-<h1 id="哈德兔的口"><a class="markdownIt-Anchor" href="#哈德兔的口"></a> 哈德兔的口</h1>
 
                 
               </div>
