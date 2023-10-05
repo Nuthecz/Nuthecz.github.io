@@ -193,19 +193,18 @@ table {
     /* background-color: #a8abab; */
     height: auto;
 }
+/* 这里是目录文字被选中的状态 */
+.tocbot-active-link {
+    font-weight: bold;
+    color: #d214419c;
+    font-style: italic;
+}
 /* 修改目录框的背景颜色 */
 .toc-body {
     background-color: #EEEEEE;
     opacity: 0.5;
 }
-.tocbot-active-link {
-  font-weight: bold;
-  /*color var(--link-hover-color)*/
-  color: #e5dede;
-  /*background: #00000033;*/
-  border-radius: 5px;
-  font-style: italic;
-}
+
 
 /* 这里调整的是目录前的标识的颜色 */
 .toc-list-item::before {
