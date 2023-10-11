@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="详细参考  Windows x64内核学习笔记 x64内核研究    IA-32e模式  前瞻 描述：   IA-32e是IA-32模式的扩展，它是一种状态，其内核为64位，用户可以是32位，也可以是64位   当在64位CPU中安装32位操作系统时，内核和用户都是32位的，这种状态叫做Legacy模式   IA-32e模式的几个特性：  强制平坦段：段基址不可随意设置，即不再兼容16位模式了。">
+    <meta name="description" content="详细参考  Windows x64内核学习笔记 x64内核研究    IA-32e模式  前瞻 描述：   在64位下，有两种CPU模式，一种是IA-32e模式，是IA-32模式的扩展，另一个是Legacy模式。IA-32e模式是指内核64位，用户64或32位均可，它强制平坦段，不支持任务切换；而Legacy模式指内核32位，用户32位支持非平坦段、任务切换、虚拟8086、实模式等。   在IA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Win64_Kernel简述">
 <meta property="og:url" content="http://example.com/posts/9fe68f2a.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="详细参考  Windows x64内核学习笔记 x64内核研究    IA-32e模式  前瞻 描述：   IA-32e是IA-32模式的扩展，它是一种状态，其内核为64位，用户可以是32位，也可以是64位   当在64位CPU中安装32位操作系统时，内核和用户都是32位的，这种状态叫做Legacy模式   IA-32e模式的几个特性：  强制平坦段：段基址不可随意设置，即不再兼容16位模式了。">
+<meta property="og:description" content="详细参考  Windows x64内核学习笔记 x64内核研究    IA-32e模式  前瞻 描述：   在64位下，有两种CPU模式，一种是IA-32e模式，是IA-32模式的扩展，另一个是Legacy模式。IA-32e模式是指内核64位，用户64或32位均可，它强制平坦段，不支持任务切换；而Legacy模式指内核32位，用户32位支持非平坦段、任务切换、虚拟8086、实模式等。   在IA">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
 <meta property="article:published_time" content="2023-10-03T12:31:17.000Z">
-<meta property="article:modified_time" content="2023-10-08T06:52:36.401Z">
+<meta property="article:modified_time" content="2023-10-10T02:18:30.998Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.9k 字
+          6.1k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          49 分钟
+          51 分钟
         
       </span>
     
@@ -295,6 +295,12 @@
 <h2 id="前瞻"><a class="markdownIt-Anchor" href="#前瞻"></a> 前瞻</h2>
 <p><strong>描述</strong>：</p>
 <ul>
+<li>
+<p>在64位下，有两种<code>CPU</code>模式，一种是<code>IA-32e</code>模式，是<code>IA-32</code>模式的扩展，另一个是<code>Legacy</code>模式。<code>IA-32e</code>模式是指内核64位，用户64或32位均可，它强制平坦段，不支持任务切换；而<code>Legacy</code>模式指内核32位，用户32位支持非平坦段、任务切换、虚拟8086、实模式等。</p>
+</li>
+<li>
+<p>在<code>IA-32e</code>模式下，代码段和数据段仍使用64位描述符，强制平坦（<code>FS</code>，<code>GS</code>除外）；<code>TSS</code>段描述符扩展到<code>128</code>位，<code>TSS</code>段不用来任务切换，主要保存一堆<code>rsp</code>备用指针；中断门描述符扩展到<code>128</code>位</p>
+</li>
 <li>
 <p><strong>IA-32e</strong>是IA-32模式的扩展，它是一种状态，其内核为64位，用户可以是32位，也可以是64位</p>
 </li>
