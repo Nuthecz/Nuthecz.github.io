@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
 <meta property="article:published_time" content="2022-10-09T04:39:57.000Z">
-<meta property="article:modified_time" content="2023-10-03T12:52:35.584Z">
+<meta property="article:modified_time" content="2023-10-27T14:34:46.959Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
@@ -232,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.1k 字
+          8.3k 字
         
       </span>
     
@@ -243,7 +243,7 @@
         
         
         
-          68 分钟
+          70 分钟
         
       </span>
     
@@ -499,6 +499,10 @@
 <li>
 <p>python实现也需要将每个 <code>int</code> 类型从而往前转化为字符</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">result = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>):<br>    result += <span class="hljs-built_in">chr</span>((res[i]) &amp; <span class="hljs-number">0xff</span>)<br>    result += <span class="hljs-built_in">chr</span>((res[i] &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xff</span>)<br>    result += <span class="hljs-built_in">chr</span>((res[i] &gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xff</span>)<br>    result += <span class="hljs-built_in">chr</span>((res[i] &gt;&gt; <span class="hljs-number">24</span>) &amp; <span class="hljs-number">0xff</span>)<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+</li>
+<li>
+<p>python还可以使用内置函数进行操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">res = decrypt(n, v, k)<span class="hljs-comment"># res为数组</span><br>    <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> res:<br>        <span class="hljs-built_in">print</span>(r.to_bytes(<span class="hljs-number">4</span>, <span class="hljs-string">&#x27;little&#x27;</span>).decode(), end=<span class="hljs-string">&#x27;&#x27;</span>)<br><span class="hljs-comment"># 参考 DASCTF &amp; CBCTF 2023 auuuu3的Exp</span><br><span class="hljs-comment"># 这里libnum.n2s()也可以转换，但是它是逆序输出，需要转换一下        </span><br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
