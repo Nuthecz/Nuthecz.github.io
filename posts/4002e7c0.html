@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Compilers and Static Analyzers 编译器将源代码(Source code)转换为机器代码(Machine Code)。其中的流程框架是：  词法分析器(Scanner)，结合正则表达式">
+    <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举（Recursively Enumerable） 的语言描述的程序，其任何 非平凡（Non-trivial） 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Static Analysis">
 <meta property="og:url" content="http://example.com/posts/4002e7c0.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Compilers and Static Analyzers 编译器将源代码(Source code)转换为机器代码(Machine Code)。其中的流程框架是：  词法分析器(Scanner)，结合正则表达式">
+<meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举（Recursively Enumerable） 的语言描述的程序，其任何 非平凡（Non-trivial） 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-10-20T15:00:12.000Z">
-<meta property="article:modified_time" content="2023-10-31T08:21:19.386Z">
+<meta property="article:modified_time" content="2023-11-07T03:50:29.133Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -232,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.8k 字
+          13k 字
         
       </span>
     
@@ -243,7 +243,7 @@
         
         
         
-          74 分钟
+          106 分钟
         
       </span>
     
@@ -293,14 +293,81 @@
 <p><a target="_blank" rel="noopener" href="https://ranger-nju.gitbook.io/static-program-analysis-book/">上课笔记</a></p>
 </blockquote>
 <h1 id="intermediate-representation"><a class="markdownIt-Anchor" href="#intermediate-representation"></a> Intermediate Representation</h1>
-<h2 id="compilers-and-static-analyzers"><a class="markdownIt-Anchor" href="#compilers-and-static-analyzers"></a> Compilers and Static Analyzers</h2>
-<p>编译器将源代码(<code>Source code</code>)转换为机器代码(<code>Machine Code</code>)。其中的流程框架是：</p>
+<h2 id="rice定理"><a class="markdownIt-Anchor" href="#rice定理"></a> Rice定理</h2>
 <ul>
-<li><strong>词法分析器</strong>(<code>Scanner</code>)，结合正则表达式，通过词法分析（<code>Lexical Analysis</code>）将 source code 翻译为 token。</li>
-<li><strong>语法分析器</strong>(<code>Parser</code>)，结合上下文无关文法(<code>Context-Free Grammar</code>)，通过语法分析(<code>Syntax Analysis</code>)，将 token 解析为抽象语法树(<code>Abstract Syntax Tree</code>, AST)</li>
-<li><strong>语义分析器</strong>(<code>Type Checker</code>)，结合属性文法(<code>Attribute Grammar</code>)，通过语义分析(<code>Semantic Analysis</code>)，将 AST 解析为 decorated AST</li>
-<li>Translator，将 decorated AST 翻译为生成三地址码这样的中间表示形式(<code>Intermediate Representation</code>, IR)，并<strong>基于 IR 做静态分析</strong>(例如代码优化这样的工作)。</li>
-<li>Code Generator，将 IR 转换为机器代码</li>
+<li>对于使用 <strong>递归可枚举（Recursively Enumerable）</strong> 的语言描述的程序，其任何 <strong>非平凡（Non-trivial）</strong> 的性质都是无法完美确定的。
+<ul>
+<li>关于递归可枚举，其含义是存在某个计算函数（可以是图灵机），能够将这种语言中的所有合法字符串枚举出来。这个概念有些抽象，不必深究，暂时只需要知道，目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
+<li>对于编程语言可以这样理解：关于递归可枚举，其含义是存在某个编译器或解释器，能够将这种语言中的所有合法源代码（程序）识别并执行。这个概念有些抽象，不必深究，暂时只需要知道，目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
+</ul>
+</li>
+</ul>
+<h2 id="compilers-and-static-analyzers"><a class="markdownIt-Anchor" href="#compilers-and-static-analyzers"></a> Compilers and Static Analyzers</h2>
+<p>编译器将源代码(<code>Source code</code>)转换为机器代码(<code>Machine Code</code>)。其中的流程框架如下</p>
+<ul>
+<li>此处也可以去延伸了解一下<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Chomsky_hierarchy">乔姆斯基体系</a>，包含了0型文法(对应递归可枚举语言，图灵机)、1型文法(对应上下文敏感语言)、2型文法(对应上下文无关语言)和3型文法(正则文法，有限状态机)</li>
+</ul>
+<h3 id="scanner"><a class="markdownIt-Anchor" href="#scanner"></a> Scanner</h3>
+<ul>
+<li><strong>词法分析器</strong>(<code>Scanner扫描器</code>)，结合正则表达式，通过词法分析（<code>Lexical Analysis</code>）将 source code 翻译为 token。
+<ul>
+<li>这里就是根据语句的不同组成成分进行划分，例如划分出关键词，标识符等(由正则表达式进行匹配)，之后进提取形成一个标记(Token)串</li>
+</ul>
+</li>
+</ul>
+<h3 id="parser"><a class="markdownIt-Anchor" href="#parser"></a> Parser</h3>
+<ul>
+<li><strong>语法分析器</strong>(<code>Parser解析器</code>)，结合上下文无关文法(<code>Context-Free Grammar</code>)，通过语法分析(<code>Syntax Analysis</code>)，将 token 解析为抽象语法树(<code>Abstract Syntax Tree</code>, AST)。
+<ul>
+<li>解析器内部应该是实现了一个有限状态机，用来识别和分析每个语法格式的正确性—这里解析器实现了token和语法规则的匹配(具体可以联系主谓宾的匹配，存在这种组合既可以通过，而不必考虑这句话的含义是否正确)</li>
+<li>解析为抽象语法树----递归下贱解析器等</li>
+</ul>
+</li>
+</ul>
+<h3 id="type-checker"><a class="markdownIt-Anchor" href="#type-checker"></a> Type Checker</h3>
+<ul>
+<li><strong>语义分析器</strong>(<code>Type Checker类型检查器</code>)，结合属性文法(<code>Attribute Grammar</code>)，通过语义分析(<code>Semantic Analysis</code>)，将 AST 解析为 decorated AST。
+<ul>
+<li>这里语义分析主要就是对于变量声明和类型检查(例如INT与String进行相加)，作用域分析，类型推断(rust的推断功能)，错误检查等，然后生成一个抽象语法树</li>
+<li>抽象语法树相比于语法树，包含了更多关于源代码语义的信息。普通的语法树主要表示了源代码的结构，但不包含关于标识符、数据类型、作用域等语义信息。</li>
+</ul>
+</li>
+</ul>
+<h3 id="translator"><a class="markdownIt-Anchor" href="#translator"></a> Translator</h3>
+<ul>
+<li><strong>翻译器</strong>(<code>Translator</code>)，会将抽象语法树翻译成中间表示（Intermediate Representation, IR），IR 的出现解耦了编译器的机器相关（Machine Dependent）部分和机器无关（Machine Independent）部分，上述几个层次在不同架构的机器上面是可以几乎不加改动地复用的。Translator，将 decorated AST 翻译为生成<code>三地址码这样的中间表示形式</code>(<code>Intermediate Representation</code>, IR)，并<strong>基于 IR 做静态分析</strong>(例如代码优化这样的工作----下面提及的机器无关方面)。
+<ul>
+<li><strong>编译器的结构</strong>：编译器通常包括两个主要部分：机器相关部分和机器无关部分。机器相关部分负责将源代码翻译成特定计算机体系结构的机器代码，而机器无关部分负责执行编程语言无关的分析和优化。机器相关部分需要根据不同的目标体系结构进行适应和修改，这可能是复杂且繁琐的工作。</li>
+<li><strong>中间表示（IR）的作用</strong>：引入中间表示的目的是为了将机器相关和机器无关部分解耦。IR 是一种抽象的、与计算机体系结构无关的表示，它在编译器的不同阶段中用作数据结构，将源代码的语义信息转化成一种通用形式。这种中间表示有助于减少编译器的复杂性，使编译器的机器无关部分不需要依赖于特定的硬件体系结构。</li>
+<li><strong>机器相关和机器无关的复用</strong>：由于IR是与硬件体系结构无关的通用表示，机器相关部分只需关注如何将IR翻译成目标机器的机器代码，而无需关心源代码的编程语言细节。这使得机器相关部分在不同的计算机体系结构上能够以几乎不加修改地复用。同时，机器无关部分也不需要知道目标机器的具体细节，因为它操作的是IR而不是直接的机器代码。</li>
+<li>简单理解，在拥有翻译器之前
+<ul>
+<li><code>机器相关</code>就是负责将中间表示(IR)翻译成目标机器的机器代码，处理与底层硬件相关的细节，以便将源代码转化为可在特定机器上执行的代码。</li>
+<li><code>机器无关</code> 就是负责对中间表示(IR)进行分析和优化。这个部分独立于目标机器的体系结构，它执行编程语言无关的操作，如常量传播、死代码消除、循环优化等。机器无关部分的目标是提高源代码的性能、可读性和可维护性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="code-generator"><a class="markdownIt-Anchor" href="#code-generator"></a> Code Generator</h3>
+<ul>
+<li><strong>机器码生成器（Code Generator）</strong> 会将 IR 转化成物理 CPU 能够直接执行的比特序列，这个过程是<strong>机器相关的</strong>。</li>
+</ul>
+<h3 id="summarize"><a class="markdownIt-Anchor" href="#summarize"></a> summarize</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202311060905306.png" srcset="/img/loading.gif" lazyload alt="image-20231106090527264" /></p>
+<ul>
+<li>这里的<code>e.g</code>为被剔除的语句</li>
+</ul>
+<h2 id="ir-three-address-code3ac"><a class="markdownIt-Anchor" href="#ir-three-address-code3ac"></a> IR: Three-Address Code(3AC)</h2>
+<ul>
+<li>3AC的要求:
+<ul>
+<li>在一个指令的<code>右边至多</code>只有一个操作符</li>
+<li>每个3AC指令<code>可以至多</code>包含三种地址：变量名(如a、b、c)，常量(如数字3)，编译器生成的临时变量(如t1)</li>
+</ul>
+</li>
+<li>这里使用的是java–&gt;IR Jimple–&gt;有类型的三地址码(typed 3AC)</li>
+<li>这里需要注意一下的是，无论是三地址码还是汇编，其指令类型不取决于具体的语言，而取决于运行这个语言的机器的指令集体系结构(Instruction Set Architecture，ISA)</li>
 </ul>
 <h2 id="static-single-assignment"><a class="markdownIt-Anchor" href="#static-single-assignment"></a> Static Single Assignment</h2>
 <p>所谓静态单赋值（SSA），就是让每次对变量x赋值都重新使用一个新的变量xi，并在后续使用中选择最新的变量。</p>
@@ -334,15 +401,53 @@
 <li>只能从块的最后一条指令离开</li>
 </ul>
 <h1 id="data-flow-analysis-applications"><a class="markdownIt-Anchor" href="#data-flow-analysis-applications"></a> Data Flow Analysis - Applications</h1>
+<h2 id="data-flow-analysis"><a class="markdownIt-Anchor" href="#data-flow-analysis"></a> Data Flow Analysis</h2>
+<ul>
+<li>
+<p>分析的行为是数据的“流动”，分析的方式是 <strong>安全近似(Safe-Approximation)</strong></p>
+<ul>
+<li>根据安全性需求选择过近似(Over-Approximation)还是欠近似(Under-Approximation)</li>
+</ul>
+</li>
+<li>
+<p><strong>数据流动的场景</strong>有两个：</p>
+<ul>
+<li>在CFG的点(Node)内流动，即程序基块(Basic Block)内部的数据流；</li>
+<li>在CFG的边(Edge)上流动，即由基块间控制流触发的数据流。</li>
+</ul>
+</li>
+<li>
+<p>数据流值</p>
+<ul>
+<li>也称为<strong>抽象数据状态(ADS)</strong>，为程序 P 中所有的数据的抽象值的整体</li>
+<li>称每一个 IR 语句 <em>s</em> 执行之前, <em>pre(s)</em> 执行之后的<strong>数据流值</strong>为 <em>s</em> 的 <strong>输入状态</strong>—&gt;IN[S]</li>
+<li>称每一个 IR 语句 <em>s</em> 执行之后, <em>suc(s)</em> 执行之前的数据流值为 <em>s</em> 的 <strong>输出状态</strong>—&gt;OUT[S]</li>
+</ul>
+</li>
+<li>
+<p>程序点可以用控制流中相邻语句的<strong>顺序二元组</strong>表示。</p>
+<ul>
+<li>每个程序点都对应了一个数据流值(<strong>这个数据流值表征了在这个程序点能够观察到的所有可能的程序状态</strong>)–&gt;这里和后面提及的 bit vector 相联系，这个点可以看到所有可能的程序状态</li>
+<li>每一个不同的(集合具有互异性)数据流值都会有一个或者多个程序点与之对应。</li>
+</ul>
+</li>
+<li>
+<p>数据流分析就是要寻找一种解决方案，对于程序 <em>P</em> 中的所有语句 <em>s</em> ，这种解决方案能够满足 IN[s] 和 O<strong>U</strong>T[s] 所需要满足的 <strong>安全近似导向型约束(Safe-Approximation-Oriented Constraints, SAOC)</strong>，SAOC主要有两种：</p>
+<ul>
+<li>基于语句语意(Sematics of Statements)的约束，即由状态转移方程产生的约束</li>
+<li>基于控制流(Flow of Control)的约束，可能性分析/必然性分析</li>
+</ul>
+</li>
+</ul>
 <h2 id="reaching-definition-analysis"><a class="markdownIt-Anchor" href="#reaching-definition-analysis"></a> Reaching Definition Analysis</h2>
 <h3 id="basic-concept"><a class="markdownIt-Anchor" href="#basic-concept"></a> Basic concept</h3>
-<p>​	如果在程序中点p到点q构成一条路径，在点p处的<strong>定义d</strong>在这条路径中不会被杀死，则称<strong>定义d</strong>可以从点p <strong>reach</strong> 点 q。换句话说，就是：<code>p处定义的变量 v 从点 p 可以 reach 点q，当且仅当，v在整个路径中不会获得新的定义</code>。</p>
+<p>​	如果在程序中点p到点q构成一条路径，在点p处的<strong>定义d</strong>在这条路径中不会被杀死，则称<strong>定义d</strong>可以从点p <strong>reach</strong> 点 q。换句话说，就是：<code>p处定义的变量 v 从点 p 可以 reach 点 q，当且仅当，v在整个路径中不会获得新的定义</code>。</p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310210027371.png" srcset="/img/loading.gif" lazyload alt="image-20231021002745300" /></p>
 <p>​	Reaching Definitions可以用来检测可能存在的、使用了未定义变量的情况。例如，在CFG入口为每个变量引入一个虚拟定义，如果这个虚拟定义能从入口reach一个使用了该变量的点p，那么这个变量就有可能未定义便被使用。(因为“未定义”reach了使用变量的p)</p>
 <h3 id="comprehend"><a class="markdownIt-Anchor" href="#comprehend"></a> Comprehend</h3>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310211945453.png" srcset="/img/loading.gif" lazyload alt="image-20231021194510364" /></p>
 <ul>
-<li>如图所示，关注的目标是<code>程序中定义的变量</code>，可以使用bit编码表示在某程序点的多个Reaching Definitions，从左数第几个字节就是第几个definition
+<li>如图所示，关注的目标是<code>程序中定义的变量</code>，<strong>即数据流值是一个程序中所有的定义</strong>。可以使用bit编码表示在某程序点的多个Reaching Definitions，从左数第几个字节就是第几个definition
 <ul>
 <li>Di如果为0表示Di无法reach该程序点</li>
 <li>Di如果为1表示Di可以reach该程序点。</li>
@@ -354,18 +459,20 @@
 <ol>
 <li>生成了一个定义D</li>
 <li>在保持其他传入程序不受影响的同时，杀死了程序中其他对变量v的定义</li>
+<li>语句 <code>D: v = x op y</code> 生成了关于变量 <code>v</code> 的一个新定义 <code>D</code> ，并且覆盖了程序中其他地方对于变量 <code>v</code> 的定义，不过并不会影响后续其他的定义再来覆盖这里的定义。赋值语句只是定义的一种形式而已，定义也可以有别的形式，比如说引用参数。</li>
 </ol>
 </li>
 </ul>
 </li>
-<li>由此可以得到对于Node(Basic Block)的传递函数和对于Edge(Control-flow Hangling)的控制流函数</li>
+<li>由此可以得到对于<strong>Node(Basic Block)的传递函数</strong>和对于<strong>Edge(Control-flow Hangling)的控制流函数</strong></li>
 </ul>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310211453613.png" srcset="/img/loading.gif" lazyload alt="image-20231021145323589" /></p>
 <ul>
 <li>Transfer Function(到达定值的转移方程)
 <ul>
 <li>从入口状态删除 kill 掉的定值，并加入新生成的定值</li>
-<li>v = x op y，gen v, kill 其它所有的 v</li>
+<li>D：v = x op y，gen v, kill 其它所有的 v</li>
+<li>注意，是所有其他地方，不仅仅是之前的control flow，因为程序control flow可能存在环，我们不能确定运行时真正的执行先后顺序。即使kill掉了无环执行流的下游的定义也没有关系，后面再重新定义即可。</li>
 </ul>
 </li>
 <li>Control Flow(到达定值的数据流处理)
@@ -390,6 +497,31 @@
 </ul>
 <h3 id="example"><a class="markdownIt-Anchor" href="#example"></a> Example</h3>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220959122.png" srcset="/img/loading.gif" lazyload alt="image-20231022095908077" /></p>
+<h3 id="疑问"><a class="markdownIt-Anchor" href="#疑问"></a> 疑问</h3>
+<ul>
+<li>
+<p>这里的 bit vector 为什么是和每一个 statement 相联系，而不是和对于变量的定义所联系，比如为什么不把所有对于 x 的定义作为一个 bit？</p>
+<ul>
+<li>这里针对的是所有的定义，对于每一个定义给予一个 bit 位。我的理解是，这样对于每一个定义(也可以说是statement)是为了存储更多的信息，就比如第一次B2之后的程序点上，杀死了D2，但是保留了D4，存储了D4的信息，即使y的状态更明确了。但是如果是通多变量名来分配 bit，那样在这种时候，y的信息就会舍弃了D2处。</li>
+</ul>
+</li>
+<li>
+<p>这里最后的结束条件表示了什么，这里 bit vector到底反映了个什么状态？</p>
+<ul>
+<li>这里对于某个程序点，为1表示能reach到这个程序点，即存在一开始被定义的变量v，存在一条路径使得到达程序点前没有被再次定义。</li>
+</ul>
+</li>
+<li>
+<p><s>结果这两个问题和再看视频，我这里应该理解为 为每一个 definition 给予一个 bit，这我感觉是 definition是抽象出来的结果，它每一个都是不同的，而例子中不同的 definition 都是为同一个变量的判断，应该是具体的方面，抽象的静态分析不关心具体的数值。</s></p>
+<ul>
+<li>这里就是这样设计的，我需要考虑的问题应该是为什么会有覆盖(kill)的存在？
+<ul>
+<li>从头捋一遍，kill就是设置为0，即其余的定义不能reach到这一点，也就是说任何一条路径都有重复定义，因为这一个transfer function 就是守门员，它下一个程序点必定会受到这个func的影响。(这里相同的变量已经定义了，主要的目的是为了删除之前的相关定义，而删除后面的感觉是为了方便操作，因为后面会重新定义，所以删除不影响)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="live-variables-analysis"><a class="markdownIt-Anchor" href="#live-variables-analysis"></a> Live Variables Analysis</h2>
 <h3 id="basic-concept-2"><a class="markdownIt-Anchor" href="#basic-concept-2"></a> Basic concept</h3>
 <ul>
@@ -401,7 +533,10 @@
 <h3 id="comprehend-2"><a class="markdownIt-Anchor" href="#comprehend-2"></a> Comprehend</h3>
 <ul>
 <li>
-<p>可以假设以下，如果从后往前搜索，只要在某程序点处找到一个变量vi的使用，就证明在此之前任意可达此点的、定义了vi的程序点处，vi都是live的；而如果使用前向传播的算法，每到一个程序点都要正向搜索一遍后方的路径才能确认变量在此处是否live，虽然也能进行分析，但是效率较低</p>
+<p>可以假设以下，如果从后往前搜索，只要在某程序点处找到一个变量vi的使用，就证明在此之前任意可达此点的、定义了vi的程序点处，vi都是live的(<strong>这里疑惑为什么只保证了被使用，而没有保证没有重新定义就确定它满足条件</strong>)；而如果使用前向传播的算法，每到一个程序点都要正向搜索一遍后方的路径查看是否被使用，才能确认变量在此处是否live，虽然也能进行分析，但是效率较低</p>
+</li>
+<li>
+<p>这里关注的是<code>程序中的的所有变量</code>，即<strong>数据流值是一个程序中所有变量</strong>。在程序点 p 处，变量为1，当且仅当变量在 p 点存活。</p>
 </li>
 <li>
 <p>Transfer Function &amp; Control Flow</p>
@@ -433,14 +568,23 @@
 </ul>
 <h3 id="example-2"><a class="markdownIt-Anchor" href="#example-2"></a> Example</h3>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220959784.png" srcset="/img/loading.gif" lazyload alt="image-20231022095945740" /></p>
+<h3 id="疑问-2"><a class="markdownIt-Anchor" href="#疑问-2"></a> 疑问</h3>
+<ul>
+<li>为什么使用 backwards ?
+<ul>
+<li>使用 forwards 来确定变量在某一个程序点是否存活，那每到一个程序点，都需要查看之后的路径有没有在重定义之前使用该变量的情况，需要查看的情况众多</li>
+<li>使用 backwards 来确定，在 BB 中存在对于一个变量的使用而在同一个 BB 中没有重新定义，那么这个 BB 之前最近的一个 程序点 P(我们分析的那个 program point)，它这里一定是满足活跃变量的，即 IN[B] = {v}</li>
+</ul>
+</li>
+</ul>
 <h2 id="available-expressions-analysis"><a class="markdownIt-Anchor" href="#available-expressions-analysis"></a> Available Expressions Analysis</h2>
 <h3 id="basic-concept-3"><a class="markdownIt-Anchor" href="#basic-concept-3"></a> Basic concept</h3>
 <ul>
 <li>
-<p>程序点 p 处的表达式 <code>x op y </code>是 available(可用) 需满足2个条件：</p>
+<p>程序点 p 处的表达式 <code>x op y  </code>是 available(可用) 需满足2个条件：</p>
 <ol>
 <li>
-<p>从 entry 到 p 点的所有路径必须经过(使用)x op y</p>
+<p>从 <strong>entry</strong> 到 p 点的所有路径必须经过(使用)x op y</p>
 </li>
 <li>
 <p>最后一次使用 x op y 之后，没有重定义操作数 x、y</p>
@@ -449,12 +593,13 @@
 </ol>
 </li>
 <li>
-<p>这个定义说明，在p处如果表达式available，就可以将其替换为最后一次运算的结果，或者可以检测全局通用表达式。</p>
+<p>这个定义说明，在p处如果表达式available，就可以将其替换为最后一次运算的结果，或者可以检测全局通用表达式，感觉这里可以直接优化，首先计算表达式的结果，之后直接替换即可，相当于 <code>#define PI x + y, 这里x与y为常量</code>。</p>
 </li>
 </ul>
 <h3 id="comprehend-3"><a class="markdownIt-Anchor" href="#comprehend-3"></a> Comprehend</h3>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310212025007.png" srcset="/img/loading.gif" lazyload alt="image-20231021202525968" /></p>
 <ul>
+<li>这里关注的就是<strong>程序中的表达式</strong>，那么每个程序点处的抽象程序状态，也就是数据流值，则为 <em>E</em> 的一个子集(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo>=</mo><mo stretchy="false">{</mo><msub><mi>e</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>e</mi><mn>2</mn></msub><mo>…</mo><mo>…</mo><mo separator="true">,</mo><msub><mi>e</mi><mi>n</mi></msub><mo stretchy="false">}</mo></mrow><annotation encoding="application/x-tex">E=\{e_{1},e_{2}……,e_{n}\}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">E</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">{</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">}</span></span></span></span>)，即数据流值可以是{0,1,0……，1}之类的(这是子集)。</li>
 <li>Transfer Function &amp; Control Flow</li>
 </ul>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220921179.png" srcset="/img/loading.gif" lazyload alt="image-20231022092148128" /></p>
@@ -468,7 +613,7 @@
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220923234.png" srcset="/img/loading.gif" lazyload alt="image-20231022092329180" /></p>
 <h3 id="example-3"><a class="markdownIt-Anchor" href="#example-3"></a> Example</h3>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221000927.png" srcset="/img/loading.gif" lazyload alt="image-20231022100017882" /></p>
-<h2 id="summarize"><a class="markdownIt-Anchor" href="#summarize"></a> Summarize</h2>
+<h2 id="summarize-2"><a class="markdownIt-Anchor" href="#summarize-2"></a> Summarize</h2>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220933086.png" srcset="/img/loading.gif" lazyload alt="image-20231022093321043" /></p>
 <h1 id="data-flow-analysis-foundations"><a class="markdownIt-Anchor" href="#data-flow-analysis-foundations"></a> Data Flow Analysis - Foundations</h1>
 <h2 id="partial-order"><a class="markdownIt-Anchor" href="#partial-order"></a> Partial Order</h2>
