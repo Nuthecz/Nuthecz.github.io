@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举（Recursively Enumerable） 的语言描述的程序，其任何 非平凡（Non-trivial） 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
+    <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举(Recursively Enumerable) 的语言描述的程序，其任何 非平凡(Non-trivial) 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Static Analysis">
 <meta property="og:url" content="http://example.com/posts/4002e7c0.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举（Recursively Enumerable） 的语言描述的程序，其任何 非平凡（Non-trivial） 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
+<meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举(Recursively Enumerable) 的语言描述的程序，其任何 非平凡(Non-trivial) 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-10-20T15:00:12.000Z">
-<meta property="article:modified_time" content="2023-11-07T03:50:29.133Z">
+<meta property="article:modified_time" content="2024-01-22T06:16:50.512Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -295,10 +295,10 @@
 <h1 id="intermediate-representation"><a class="markdownIt-Anchor" href="#intermediate-representation"></a> Intermediate Representation</h1>
 <h2 id="rice定理"><a class="markdownIt-Anchor" href="#rice定理"></a> Rice定理</h2>
 <ul>
-<li>对于使用 <strong>递归可枚举（Recursively Enumerable）</strong> 的语言描述的程序，其任何 <strong>非平凡（Non-trivial）</strong> 的性质都是无法完美确定的。
+<li>对于使用 <strong>递归可枚举(Recursively Enumerable)</strong> 的语言描述的程序，其任何 <strong>非平凡(Non-trivial)</strong> 的性质都是无法完美确定的。
 <ul>
-<li>关于递归可枚举，其含义是存在某个计算函数（可以是图灵机），能够将这种语言中的所有合法字符串枚举出来。这个概念有些抽象，不必深究，暂时只需要知道，目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
-<li>对于编程语言可以这样理解：关于递归可枚举，其含义是存在某个编译器或解释器，能够将这种语言中的所有合法源代码（程序）识别并执行。这个概念有些抽象，不必深究，暂时只需要知道，目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
+<li>关于递归可枚举，其含义是存在某个计算函数(可以是图灵机)，能够将这种语言中的所有合法字符串枚举出来。这个概念有些抽象，不必深究，暂时只需要知道，目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
+<li>对于编程语言可以这样理解：关于递归可枚举，其含义是存在某个编译器或解释器，能够将这种语言中的所有合法源代码(程序)识别并执行。这个概念有些抽象，不必深究，暂时只需要知道，目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
 </ul>
 </li>
 </ul>
@@ -309,7 +309,7 @@
 </ul>
 <h3 id="scanner"><a class="markdownIt-Anchor" href="#scanner"></a> Scanner</h3>
 <ul>
-<li><strong>词法分析器</strong>(<code>Scanner扫描器</code>)，结合正则表达式，通过词法分析（<code>Lexical Analysis</code>）将 source code 翻译为 token。
+<li><strong>词法分析器</strong>(<code>Scanner扫描器</code>)，结合正则表达式，通过词法分析(<code>Lexical Analysis</code>)将 source code 翻译为 token。
 <ul>
 <li>这里就是根据语句的不同组成成分进行划分，例如划分出关键词，标识符等(由正则表达式进行匹配)，之后进提取形成一个标记(Token)串</li>
 </ul>
@@ -335,10 +335,10 @@
 </ul>
 <h3 id="translator"><a class="markdownIt-Anchor" href="#translator"></a> Translator</h3>
 <ul>
-<li><strong>翻译器</strong>(<code>Translator</code>)，会将抽象语法树翻译成中间表示（Intermediate Representation, IR），IR 的出现解耦了编译器的机器相关（Machine Dependent）部分和机器无关（Machine Independent）部分，上述几个层次在不同架构的机器上面是可以几乎不加改动地复用的。Translator，将 decorated AST 翻译为生成<code>三地址码这样的中间表示形式</code>(<code>Intermediate Representation</code>, IR)，并<strong>基于 IR 做静态分析</strong>(例如代码优化这样的工作----下面提及的机器无关方面)。
+<li><strong>翻译器</strong>(<code>Translator</code>)，会将抽象语法树翻译成中间表示(Intermediate Representation, IR)，IR 的出现解耦了编译器的机器相关(Machine Dependent)部分和机器无关(Machine Independent)部分，上述几个层次在不同架构的机器上面是可以几乎不加改动地复用的。Translator，将 decorated AST 翻译为生成<code>三地址码这样的中间表示形式</code>(<code>Intermediate Representation</code>, IR)，并<strong>基于 IR 做静态分析</strong>(例如代码优化这样的工作----下面提及的机器无关方面)。
 <ul>
 <li><strong>编译器的结构</strong>：编译器通常包括两个主要部分：机器相关部分和机器无关部分。机器相关部分负责将源代码翻译成特定计算机体系结构的机器代码，而机器无关部分负责执行编程语言无关的分析和优化。机器相关部分需要根据不同的目标体系结构进行适应和修改，这可能是复杂且繁琐的工作。</li>
-<li><strong>中间表示（IR）的作用</strong>：引入中间表示的目的是为了将机器相关和机器无关部分解耦。IR 是一种抽象的、与计算机体系结构无关的表示，它在编译器的不同阶段中用作数据结构，将源代码的语义信息转化成一种通用形式。这种中间表示有助于减少编译器的复杂性，使编译器的机器无关部分不需要依赖于特定的硬件体系结构。</li>
+<li><strong>中间表示(IR)的作用</strong>：引入中间表示的目的是为了将机器相关和机器无关部分解耦。IR 是一种抽象的、与计算机体系结构无关的表示，它在编译器的不同阶段中用作数据结构，将源代码的语义信息转化成一种通用形式。这种中间表示有助于减少编译器的复杂性，使编译器的机器无关部分不需要依赖于特定的硬件体系结构。</li>
 <li><strong>机器相关和机器无关的复用</strong>：由于IR是与硬件体系结构无关的通用表示，机器相关部分只需关注如何将IR翻译成目标机器的机器代码，而无需关心源代码的编程语言细节。这使得机器相关部分在不同的计算机体系结构上能够以几乎不加修改地复用。同时，机器无关部分也不需要知道目标机器的具体细节，因为它操作的是IR而不是直接的机器代码。</li>
 <li>简单理解，在拥有翻译器之前
 <ul>
@@ -351,7 +351,7 @@
 </ul>
 <h3 id="code-generator"><a class="markdownIt-Anchor" href="#code-generator"></a> Code Generator</h3>
 <ul>
-<li><strong>机器码生成器（Code Generator）</strong> 会将 IR 转化成物理 CPU 能够直接执行的比特序列，这个过程是<strong>机器相关的</strong>。</li>
+<li><strong>机器码生成器(Code Generator)</strong> 会将 IR 转化成物理 CPU 能够直接执行的比特序列，这个过程是<strong>机器相关的</strong>。</li>
 </ul>
 <h3 id="summarize"><a class="markdownIt-Anchor" href="#summarize"></a> summarize</h3>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202311060905306.png" srcset="/img/loading.gif" lazyload alt="image-20231106090527264" /></p>
@@ -370,7 +370,7 @@
 <li>这里需要注意一下的是，无论是三地址码还是汇编，其指令类型不取决于具体的语言，而取决于运行这个语言的机器的指令集体系结构(Instruction Set Architecture，ISA)</li>
 </ul>
 <h2 id="static-single-assignment"><a class="markdownIt-Anchor" href="#static-single-assignment"></a> Static Single Assignment</h2>
-<p>所谓静态单赋值（SSA），就是让每次对变量x赋值都重新使用一个新的变量xi，并在后续使用中选择最新的变量。</p>
+<p>所谓静态单赋值(SSA)，就是让每次对变量x赋值都重新使用一个新的变量xi，并在后续使用中选择最新的变量。</p>
 <figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs 1c">  <span class="hljs-number">3</span>AC         <span class="hljs-string">|         SSA</span><br>p = a + b     <span class="hljs-string">|     p1 = a + b</span><br>q = p - c     <span class="hljs-string">|     q1 = p1 - c</span><br>p = q * d     <span class="hljs-string">|     p2 = q1 * d</span><br>q = p + q     <span class="hljs-string">|     q2 = p2 + q1</span><br></code></pre></td></tr></table></figure>
 <h3 id="why-use-ssa"><a class="markdownIt-Anchor" href="#why-use-ssa"></a> why use SSA</h3>
 <ul>
@@ -395,7 +395,7 @@
 <li>在转换成机器代码时会引入低效率的问题</li>
 </ul>
 <h2 id="basic-blocks-control-flow-graphs"><a class="markdownIt-Anchor" href="#basic-blocks-control-flow-graphs"></a> Basic Blocks &amp; Control Flow Graphs</h2>
-<p>​	控制流分析(<code>Control Flow Analysis</code>)通常指的是构建控制流图(<code>Control Flow Graph</code>, CFG)，并以 CFG 作为基础结构进行静态分析的过程。CFG 的一个结点可以是一条单独的 3AC，但是更常见的是一个基本块（Basic Block）。所谓基本块，就是满足以下性质的连续 3AC：</p>
+<p>​	控制流分析(<code>Control Flow Analysis</code>)通常指的是构建控制流图(<code>Control Flow Graph</code>, CFG)，并以 CFG 作为基础结构进行静态分析的过程。CFG 的一个结点可以是一条单独的 3AC，但是更常见的是一个基本块(Basic Block)。所谓基本块，就是满足以下性质的连续 3AC：</p>
 <ul>
 <li>只能从块的第一条指令进入。</li>
 <li>只能从块的最后一条指令离开</li>
@@ -491,7 +491,7 @@
 <li>当任意 OUT 发生变化，则分析出的定值可能需要继续往下流动，所需要修改各 BB 的 IN 和 OUT。</li>
 <li>先处理 IN，然后再根据转移完成更新 OUT。</li>
 <li>在 gen U (IN - kill)中，kill 与 gen 相关的 bit 不会因为 IN 的改变而发生改变，而其它 bit 又是通过对前驱 OUT 取并得到的，因此其它 bit 不会发生 0 -&gt; 1 的情况。所以，OUT 是不断增长的，而且有上界，因此算法最后必然会停止。</li>
-<li>因为 OUT 没有变化，不会导致任何的 IN 发生变化，因此 OUT 不变可以作为终止条件。我们称之为程序到达了不动点（Fixed Point）</li>
+<li>因为 OUT 没有变化，不会导致任何的 IN 发生变化，因此 OUT 不变可以作为终止条件。我们称之为程序到达了不动点(Fixed Point)</li>
 </ul>
 </li>
 </ul>
@@ -664,7 +664,7 @@
 <p>并不是每个偏序集都有 lub 和 glb，但是如果有，那么该 lub, glb 将是唯一的。(可假设存在多个，然后用自反性证明它们是同一个)</p>
 <h2 id="lattice"><a class="markdownIt-Anchor" href="#lattice"></a> Lattice</h2>
 <h3 id="lattice-2"><a class="markdownIt-Anchor" href="#lattice-2"></a> Lattice</h3>
-<p>​	给定一个偏序集，如果任意元素 a, b 都有 lub 和 glb，那么这么偏序集就叫做 <strong>格（lattice）</strong>。也就是说一个lattice的任意两个元素组成的元素对都有lub和glb。</p>
+<p>​	给定一个偏序集，如果任意元素 a, b 都有 lub 和 glb，那么这么偏序集就叫做 <strong>格(lattice)</strong>。也就是说一个lattice的任意两个元素组成的元素对都有lub和glb。</p>
 <ul>
 <li>属于 lattice 的：小于等于关系，子集关系</li>
 <li>不属于 lattice 的：子串关系</li>
@@ -821,9 +821,9 @@
 <li><code>Dispatch </code>是从本身开始查找方法实现，如果没有找到，则继续向父类索引; 而对于在 CHA 中的 <code>Call Resolution</code> 算法而言, 对于 <code>virtual call</code> 需要对<strong>它本身和它所有的子类及其子类的子类</strong>都调用 <code>Dispatch</code></li>
 <li>这里需要区分一下 ICFG 与 IDFA 的区别，控制流是基础骨架, 而数据流是在骨架上的血肉</li>
 </ol>
-<p>​	<strong>过程间控制流图（Interprocedural Control Flow Graph，ICFG）</strong></p>
+<p>​	<strong>过程间控制流图(Interprocedural Control Flow Graph，ICFG)</strong></p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310252003222.png" srcset="/img/loading.gif" lazyload alt="image-20231025200307155" /></p>
-<p>​	<strong>过程内数据流分析（Intraprocedural Data-Flow Analysis，IDFA）</strong></p>
+<p>​	<strong>过程内数据流分析(Intraprocedural Data-Flow Analysis，IDFA)</strong></p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310252003060.png" srcset="/img/loading.gif" lazyload alt="image-20231025200324017" /></p>
 <h1 id="pointer-analysis"><a class="markdownIt-Anchor" href="#pointer-analysis"></a> Pointer Analysis</h1>
 <ul>

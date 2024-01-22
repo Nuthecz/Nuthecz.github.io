@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Program Interaction  level 4  环境变量的设置  12export yqxjyb&#x3D;isdvinxiir.&#x2F;challenge&#x2F;embryoio_level4  level 5  一开始没搞懂，后来知道是重定向到文件的stdin，而不是0  12echo yorlicln &gt; &#x2F;tmp&#x2F;tlvzpz.&#x2F;challenge&#x2F;embryoio_level5 &lt;">
+    <meta name="description" content="参考wp   Program Interaction  level 4  环境变量的设置  12export yqxjyb&#x3D;isdvinxiir.&#x2F;challenge&#x2F;embryoio_level4  level 5  一开始没搞懂，后来知道是重定向到文件的stdin，而不是0  12echo yorlicln &gt; &#x2F;tmp&#x2F;tlvzpz.&#x2F;challenge&#x2F;embryoio_level">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pwn.college(1)">
 <meta property="og:url" content="http://example.com/posts/9b840b21.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="Program Interaction  level 4  环境变量的设置  12export yqxjyb&#x3D;isdvinxiir.&#x2F;challenge&#x2F;embryoio_level4  level 5  一开始没搞懂，后来知道是重定向到文件的stdin，而不是0  12echo yorlicln &gt; &#x2F;tmp&#x2F;tlvzpz.&#x2F;challenge&#x2F;embryoio_level5 &lt;">
+<meta property="og:description" content="参考wp   Program Interaction  level 4  环境变量的设置  12export yqxjyb&#x3D;isdvinxiir.&#x2F;challenge&#x2F;embryoio_level4  level 5  一开始没搞懂，后来知道是重定向到文件的stdin，而不是0  12echo yorlicln &gt; &#x2F;tmp&#x2F;tlvzpz.&#x2F;challenge&#x2F;embryoio_level">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
 <meta property="article:published_time" content="2024-01-18T10:18:45.000Z">
-<meta property="article:modified_time" content="2024-01-18T10:39:12.144Z">
+<meta property="article:modified_time" content="2024-01-21T03:10:00.153Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.5k 字
+          4k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          29 分钟
+          34 分钟
         
       </span>
     
@@ -284,7 +284,10 @@
             
               <div class="markdown-body">
                 
-                <h1 id="program-interaction"><a class="markdownIt-Anchor" href="#program-interaction"></a> Program Interaction</h1>
+                <blockquote>
+<p><a target="_blank" rel="noopener" href="https://tinysnow.github.io/%E6%8A%80%E6%9C%AF/%E5%85%B6%E4%BB%96%E8%B5%84%E6%96%99/pwn.college-writeup.html#program-interaction">参考wp</a></p>
+</blockquote>
+<h1 id="program-interaction"><a class="markdownIt-Anchor" href="#program-interaction"></a> Program Interaction</h1>
 <h2 id="level-4"><a class="markdownIt-Anchor" href="#level-4"></a> level 4</h2>
 <blockquote>
 <p>环境变量的设置</p>
@@ -309,7 +312,12 @@
 <blockquote>
 <p>使用ipython来执行特定的语句</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">ipython<br>import subprocess<br>subprocess.Popen(<span class="hljs-string">&quot;/challenge/embryoio_level15&quot;</span>)<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">ipython<br>import subprocess<br>subprocess.Popen(<span class="hljs-string">&quot;/challenge/embryoio_level15&quot;</span>)<span class="hljs-comment"># 这里使用run也是打开程序</span><br></code></pre></td></tr></table></figure>
+<h2 id="level-19-21"><a class="markdownIt-Anchor" href="#level-19-21"></a> level 19-21</h2>
+<blockquote>
+<p>这里就是专注于subprocess库的使用</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-built_in">echo</span> agpgvmpu &gt; /tmp/vngscc<br>ipython<br>import subprocess<br><span class="hljs-comment"># 标准输入</span><br>subprocess.run(<span class="hljs-string">&quot;/challenge/embryoio_level19&quot;</span>, stdin=open(<span class="hljs-string">&quot;/tmp/vngscc&quot;</span>))<br><span class="hljs-comment"># 标准输出</span><br>subprocess.run(<span class="hljs-string">&quot;/tmp/ultuey&quot;</span>, shell=True)  <span class="hljs-comment">#执行shell命令需设置为True</span><br>subprocess.run(<span class="hljs-string">&quot;/challenge/embryoio_level20&quot;</span>, stdout=open(<span class="hljs-string">&quot;/tmp/ultuey&quot;</span>,<span class="hljs-string">&#x27;w&#x27;</span>))  <span class="hljs-comment">#注意open的参数为w是写入，否则什么信息都没有</span><br><span class="hljs-comment"># 环境变量为空</span><br>subprocess.run(<span class="hljs-string">&quot;/challenge/embryoio_level21&quot;</span>,<span class="hljs-built_in">env</span>=&#123;&#125;)  <span class="hljs-comment">#这里&#123;&#125;也可以用dict()</span><br></code></pre></td></tr></table></figure>
 <h1 id="program-misuse"><a class="markdownIt-Anchor" href="#program-misuse"></a> Program Misuse</h1>
 <h2 id="level-11-2"><a class="markdownIt-Anchor" href="#level-11-2"></a> level 11</h2>
 <ul>
@@ -451,6 +459,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/594d9f6c.html" title="周报">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">周报</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
