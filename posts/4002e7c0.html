@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-10-20T15:00:12.000Z">
-<meta property="article:modified_time" content="2024-01-22T06:16:50.512Z">
+<meta property="article:modified_time" content="2024-01-22T07:59:05.596Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -243,7 +243,7 @@
         
         
         
-          106 分钟
+          108 分钟
         
       </span>
     
@@ -297,8 +297,8 @@
 <ul>
 <li>对于使用 <strong>递归可枚举(Recursively Enumerable)</strong> 的语言描述的程序，其任何 <strong>非平凡(Non-trivial)</strong> 的性质都是无法完美确定的。
 <ul>
-<li>关于递归可枚举，其含义是存在某个计算函数(可以是图灵机)，能够将这种语言中的所有合法字符串枚举出来。这个概念有些抽象，不必深究，暂时只需要知道，目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
-<li>对于编程语言可以这样理解：关于递归可枚举，其含义是存在某个编译器或解释器，能够将这种语言中的所有合法源代码(程序)识别并执行。这个概念有些抽象，不必深究，暂时只需要知道，目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
+<li>关于递归可枚举，其含义是存在某个计算函数(可以是图灵机)，能够将这种语言中的所有合法字符串枚举出来。目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
+<li>关于非平凡，如果一种性质是所有的程序都满足的或者都不满足的，那么这种性质就是平凡的，除此之外的性质都是非平凡的。其实和程序运行时的行为相关的，让我们感兴趣的性质，基本都是非平凡的性质(可以理解为不确定的性质)。</li>
 </ul>
 </li>
 </ul>
@@ -320,7 +320,7 @@
 <li><strong>语法分析器</strong>(<code>Parser解析器</code>)，结合上下文无关文法(<code>Context-Free Grammar</code>)，通过语法分析(<code>Syntax Analysis</code>)，将 token 解析为抽象语法树(<code>Abstract Syntax Tree</code>, AST)。
 <ul>
 <li>解析器内部应该是实现了一个有限状态机，用来识别和分析每个语法格式的正确性—这里解析器实现了token和语法规则的匹配(具体可以联系主谓宾的匹配，存在这种组合既可以通过，而不必考虑这句话的含义是否正确)</li>
-<li>解析为抽象语法树----递归下贱解析器等</li>
+<li>解析为抽象语法树----递归下降解析器等</li>
 </ul>
 </li>
 </ul>
@@ -502,13 +502,14 @@
 <li>
 <p>这里的 bit vector 为什么是和每一个 statement 相联系，而不是和对于变量的定义所联系，比如为什么不把所有对于 x 的定义作为一个 bit？</p>
 <ul>
-<li>这里针对的是所有的定义，对于每一个定义给予一个 bit 位。我的理解是，这样对于每一个定义(也可以说是statement)是为了存储更多的信息，就比如第一次B2之后的程序点上，杀死了D2，但是保留了D4，存储了D4的信息，即使y的状态更明确了。但是如果是通多变量名来分配 bit，那样在这种时候，y的信息就会舍弃了D2处。</li>
+<li>这里针对的是所有的定义，对于每一个定义给予一个 bit 位(题目的要求)。我的理解是，这样对于每一个定义(也可以说是statement)是为了存储更多的信息，就比如第一次B2之后的程序点上，杀死了D2，但是保留了D4，存储了D4的信息，即y的状态更明确了。但是如果是通过变量名来分配 bit，那样在这种时候，y的信息不会改变，因为它又被定义了，这时候就搞混D2和D4的信息了。</li>
+<li><code>这里进行补充</code>：我们可以用 D 的子集(即定义域中的元素)来表示每个<strong>程序点</strong>处，能够到达该点的定义的集合，即该程序点处的数据流值。这里的程序点就是两个 <strong>基础块</strong> 之间的连线，它是一个二元组，图上也展示数据表示在线上，也体现了数据流值的位置。</li>
 </ul>
 </li>
 <li>
 <p>这里最后的结束条件表示了什么，这里 bit vector到底反映了个什么状态？</p>
 <ul>
-<li>这里对于某个程序点，为1表示能reach到这个程序点，即存在一开始被定义的变量v，存在一条路径使得到达程序点前没有被再次定义。</li>
+<li>这里对于某个程序点，为1表示能reach到这个程序点，即一开始被定义的变量v，存在一条路径使得到达程序点前没有被再次定义，这里由于是sound分析，所以只要存在一条从Entry到这个程序点的路径即可，所以很好分析。</li>
 </ul>
 </li>
 <li>
