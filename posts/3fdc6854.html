@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="环境配置  配置环境 ​	这里使用Ubuntu22.04(wsl)进行配置 1234567891011121314151617181920212223242526272829303132# 按官方指南手册 安装必须的工具链$ sudo apt-get update &amp;&amp; sudo apt-get upgrade$ sudo apt-get install git build-es">
+    <meta name="description" content="环境配置  配置环境 ​	这里使用Ubuntu22.04(wsl)进行配置 12345678910111213141516171819202122232425262728293031323334353637# 按官方指南手册 安装必须的工具链$ sudo apt-get update &amp;&amp; sudo apt-get upgrade$ sudo apt-get install gi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MIT6.S081 实验">
 <meta property="og:url" content="http://example.com/posts/3fdc6854.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="环境配置  配置环境 ​	这里使用Ubuntu22.04(wsl)进行配置 1234567891011121314151617181920212223242526272829303132# 按官方指南手册 安装必须的工具链$ sudo apt-get update &amp;&amp; sudo apt-get upgrade$ sudo apt-get install git build-es">
+<meta property="og:description" content="环境配置  配置环境 ​	这里使用Ubuntu22.04(wsl)进行配置 12345678910111213141516171819202122232425262728293031323334353637# 按官方指南手册 安装必须的工具链$ sudo apt-get update &amp;&amp; sudo apt-get upgrade$ sudo apt-get install gi">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052132320.png">
 <meta property="article:published_time" content="2023-10-09T11:29:58.000Z">
-<meta property="article:modified_time" content="2024-01-24T09:40:30.181Z">
+<meta property="article:modified_time" content="2024-01-25T15:26:18.587Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052132320.png">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.3k 字
+          9.6k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          78 分钟
+          81 分钟
         
       </span>
     
@@ -287,7 +287,7 @@
                 <h1 id="环境配置"><a class="markdownIt-Anchor" href="#环境配置"></a> 环境配置</h1>
 <h2 id="配置环境"><a class="markdownIt-Anchor" href="#配置环境"></a> 配置环境</h2>
 <p>​	这里使用Ubuntu22.04(wsl)进行配置</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 按官方指南手册 安装必须的工具链</span><br>$ sudo apt-get update &amp;&amp; sudo apt-get upgrade<br>$ sudo apt-get install git build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu <br><span class="hljs-comment"># 单独移除掉qemu的新版本, 因为不知道为什么build时候会卡壳</span><br>$ sudo apt-get remove qemu-system-misc<br><span class="hljs-comment"># 额外安装一个旧版本的qemu</span><br>$ wget https://download.qemu.org/qemu-5.1.0.tar.xz<br>$ tar xf qemu-5.1.0.tar.xz<br>$ <span class="hljs-built_in">cd</span> qemu-5.1.0<br><span class="hljs-comment"># 报错处理</span><br>$ sudo apt-get install libglib2.0-dev<br>$ sudo apt-get install libpixman-1-dev<br>$ ./configure --disable-kvm --disable-werror --prefix=/usr/local --target-list=<span class="hljs-string">&quot;riscv64-softmmu&quot;</span><br>$ make<br>$ sudo make install<br><br><span class="hljs-comment"># 克隆xv6实验仓库</span><br>$ git <span class="hljs-built_in">clone</span> git://g.csail.mit.edu/xv6-labs-2020<br>$ <span class="hljs-built_in">cd</span> xv6-labs-2020<br>$ git checkout util<br><span class="hljs-comment"># 这里将远程仓库换成自己的，然后就可以提交了</span><br><span class="hljs-comment"># https://blog.csdn.net/wangyangzhizunwudi/article/details/127330070</span><br><br><span class="hljs-comment"># 进行编译</span><br>$ make qemu<br><span class="hljs-comment"># 编译成功并进入xv6操作系统的shell</span><br>$ xv6 kernel is booting<br><br>$ hart 2 starting<br>$ hart 1 starting<br>$ init: starting sh<br>$ (shell 等待用户输入...)<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 按官方指南手册 安装必须的工具链</span><br>$ sudo apt-get update &amp;&amp; sudo apt-get upgrade<br>$ sudo apt-get install git build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu <br><span class="hljs-comment"># 单独移除掉qemu的新版本, 因为不知道为什么build时候会卡壳</span><br>$ sudo apt-get remove qemu-system-misc<br><span class="hljs-comment"># 额外安装一个旧版本的qemu</span><br>$ wget https://download.qemu.org/qemu-5.1.0.tar.xz<br>$ tar xf qemu-5.1.0.tar.xz<br>$ <span class="hljs-built_in">cd</span> qemu-5.1.0<br><span class="hljs-comment"># 报错处理</span><br>$ sudo apt-get install libglib2.0-dev<br>$ sudo apt-get install libpixman-1-dev<br>$ ./configure --disable-kvm --disable-werror --prefix=/usr/local --target-list=<span class="hljs-string">&quot;riscv64-softmmu&quot;</span><br>$ make<br>$ sudo make install<br><br><span class="hljs-comment"># 克隆xv6实验仓库</span><br>$ git <span class="hljs-built_in">clone</span> git://g.csail.mit.edu/xv6-labs-2020<br>$ <span class="hljs-built_in">cd</span> xv6-labs-2020<br>$ git checkout util<br><span class="hljs-comment"># 这里将远程仓库换成自己的，然后就可以提交了</span><br><span class="hljs-comment"># https://blog.csdn.net/wangyangzhizunwudi/article/details/127330070</span><br><span class="hljs-comment"># 一下命令也可以(maybe)</span><br>git remote <span class="hljs-built_in">rm</span> origin                 <span class="hljs-comment"># 删除当前远程库</span><br>git remote add origin + 远程仓库地址  <span class="hljs-comment"># 连接到现有的自己的库</span><br>git branch -M main<br>git push -u origin main<br><br><span class="hljs-comment"># 进行编译</span><br>$ make qemu<br><span class="hljs-comment"># 编译成功并进入xv6操作系统的shell</span><br>$ xv6 kernel is booting<br><br>$ hart 2 starting<br>$ hart 1 starting<br>$ init: starting sh<br>$ (shell 等待用户输入...)<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>参考</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/624091268">https://zhuanlan.zhihu.com/p/624091268</a></p>
@@ -318,7 +318,7 @@
             <span class="hljs-attr">&quot;request&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;launch&quot;</span><span class="hljs-punctuation">,</span>
             <span class="hljs-attr">&quot;program&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;workspaceFolder&#125;/kernel/kernel&quot;</span><span class="hljs-punctuation">,</span>
             <span class="hljs-attr">&quot;args&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
-            <span class="hljs-attr">&quot;stopAtEntry&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+            <span class="hljs-attr">&quot;stopAtEntry&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
             <span class="hljs-attr">&quot;cwd&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;$&#123;workspaceFolder&#125;&quot;</span><span class="hljs-punctuation">,</span>
             <span class="hljs-attr">&quot;environment&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
             <span class="hljs-attr">&quot;miDebuggerPath&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;/usr/bin/gdb-multiarch&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">//使用的gdb路径</span>
@@ -372,18 +372,10 @@
     <span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">&#125;</span>
 
-<span class="hljs-comment">// .gdbinit</span>
-set confirm off
-set architecture riscv<span class="hljs-punctuation">:</span>rv64
-#target remote <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><span class="hljs-punctuation">:</span><span class="hljs-number">26000</span>
-symbol-file kernel/kernel
-set disassemble-next-line auto
-set riscv use-compressed-breakpoints yes
-
 <span class="hljs-comment">// .gdbinit.tmpl-riscv</span>
 set confirm off
 set architecture riscv<span class="hljs-punctuation">:</span>rv64
-target remote <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><span class="hljs-punctuation">:</span><span class="hljs-number">1234</span>
+#target remote <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span><span class="hljs-punctuation">:</span><span class="hljs-number">1234</span>
 symbol-file kernel/kernel
 set disassemble-next-line auto
 set riscv use-compressed-breakpoints yes
@@ -483,6 +475,18 @@ trace:
 <ul>
 <li>这个的操作也是和trace一样</li>
 <li>需要注意的就是</li>
+</ul>
+<h1 id="lab3"><a class="markdownIt-Anchor" href="#lab3"></a> Lab3</h1>
+<h2 id="概念理解"><a class="markdownIt-Anchor" href="#概念理解"></a> 概念理解</h2>
+<p>​	每一个进程都拥有只属于自己的页表，当进程切换时，页表也会改变。</p>
+<ul>
+<li>三级页表都是通过64bit寄存器来存储，其中前10bit的下图没有写，是因为它是保留位，以后有作用的话再用上。中间44bit就是PPN，也就是物理内存地址，指向了真实的物理内存。最后的10bit是标志位，标识该页的属性。</li>
+<li>44bit指向了真实的物理内存地址，但是物理地址在硬件上是56bit的，这就需要这44bit再加上12bit的0(因为物理内存以页表形式进行划分，一个页表大小为4096bit，即2^12，所以后面为全0，标识从物理页的起点开始算起)来组成最终完整的物理内存地址，然后进行索引。</li>
+<li>这里虚拟内存地址为39位，前27位存储着3级页表的索引，后面12位则是最后在物理地址的偏移。通过前面27位的索引找到真实物理页地址，在加上偏移就是物理地址了。</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401252249152.png" srcset="/img/loading.gif" lazyload alt="image-20240125224918027" /></p>
+<ul>
+<li>切换进程，TLB也需要切换</li>
 </ul>
 
                 
