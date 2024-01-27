@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="First_Page  [2019红帽杯]easyRE  具体流程   首先Shift + F12查看字符串，找到了base64编码的东西   base64解了十次，得到了看雪CTF从入门到存活（六）主动防御这个网站，然后没有一点信息，应该是被耍了。    接着从主函数出发，找到关键函数sub_4009C6      分析前半段(如注释)，代码解出v18的值 1234567891011v15 &#x3D;">
+    <meta name="description" content="First_Page  [2019红帽杯]easyRE  具体流程   首先Shift + F12查看字符串，找到了base64编码的东西   base64解了十次，得到了看雪CTF从入门到存活(六)主动防御这个网站，然后没有一点信息，应该是被耍了。    接着从主函数出发，找到关键函数sub_4009C6      分析前半段(如注释)，代码解出v18的值 1234567891011v15 &#x3D;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BUU刷题记录">
 <meta property="og:url" content="http://example.com/posts/87126416.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="First_Page  [2019红帽杯]easyRE  具体流程   首先Shift + F12查看字符串，找到了base64编码的东西   base64解了十次，得到了看雪CTF从入门到存活（六）主动防御这个网站，然后没有一点信息，应该是被耍了。    接着从主函数出发，找到关键函数sub_4009C6      分析前半段(如注释)，代码解出v18的值 1234567891011v15 &#x3D;">
+<meta property="og:description" content="First_Page  [2019红帽杯]easyRE  具体流程   首先Shift + F12查看字符串，找到了base64编码的东西   base64解了十次，得到了看雪CTF从入门到存活(六)主动防御这个网站，然后没有一点信息，应该是被耍了。    接着从主函数出发，找到关键函数sub_4009C6      分析前半段(如注释)，代码解出v18的值 1234567891011v15 &#x3D;">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-03-03T14:40:23.000Z">
-<meta property="article:modified_time" content="2023-12-12T14:52:08.097Z">
+<meta property="article:modified_time" content="2024-01-27T12:47:59.756Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -292,7 +292,7 @@
 <p>首先<code>Shift + F12</code>查看字符串，找到了base64编码的东西</p>
 <ul>
 <li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303052153730.png" srcset="/img/loading.gif" lazyload alt="image-20230305215330684" /></li>
-<li>base64解了十次，得到了<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-254172.htm">看雪CTF从入门到存活（六）主动防御</a>这个网站，然后没有一点信息，应该是被耍了。</li>
+<li>base64解了十次，得到了<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-254172.htm">看雪CTF从入门到存活(六)主动防御</a>这个网站，然后没有一点信息，应该是被耍了。</li>
 </ul>
 </li>
 <li>
@@ -723,7 +723,7 @@
 <ul>
 <li><code>[in] name</code> 修饰的 C++ 符号名称。 此名称可由名称的第一个字符标识，该名称始终是问号 (？)</li>
 <li><code>[out] outputString</code> 指向接收未编码名称的字符串缓冲区的指针</li>
-<li><code>[in] maxStringLength</code> <em>UnDecoratedName</em> 缓冲区的大小（以字符为单位）</li>
+<li><code>[in] maxStringLength</code> <em>UnDecoratedName</em> 缓冲区的大小(以字符为单位)</li>
 <li><code>[in] flags</code> 修饰名称如何取消编码的选项。 此参数为 0x0000 标识医用完全消除记录</li>
 </ul>
 </li>
@@ -749,8 +749,8 @@
 <p><code>v5 = ?My_Aut0_PWN@ROPxx</code> - 类名是 <code>ROPxx</code></p>
 <blockquote>
 <p>其次是参数表的开始标识不同，</p>
-<p><em>公有（public）成员函数的标识是“@@QAE”，</em></p>
-<p><em>保护（protected）成员函数的标识是 “@@IAE”，</em></p>
+<p><em>公有(public)成员函数的标识是“@@QAE”，</em></p>
+<p><em>保护(protected)成员函数的标识是 “@@IAE”，</em></p>
 <p><em>私有(private)成员函数的标识是“@@AAE”，</em></p>
 <p><em>假设函数声明使用了constkeyword，则对应的标识应分别为“@@QBE”，“@@IBE”和“@@ABE”。</em></p>
 </blockquote>
@@ -764,7 +764,7 @@
 <em>H–int</em><br />
 <em>I–unsigned int</em><br />
 <em>J–long</em><br />
-<em>K–unsigned long（DWORD）</em><br />
+<em>K–unsigned long(DWORD)</em><br />
 <em>M–float</em><br />
 <em>N–double</em><br />
 <em>_N–bool</em><br />
@@ -802,7 +802,7 @@
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202304082000293.png" srcset="/img/loading.gif" lazyload alt="image-20230408200039234" /></p>
 <ul>
 <li>
-<p>微软从windows vista/windows server 2008（kernel version 6.0）开始采用ASLR技术，主要目的是为了防止缓冲区溢出。ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。这里只要PE头 DLL Charateristics 有 0x40 时，每次OD加载时的基址就不一样。去掉IMAGE_OPTIONAL_HEADER.DLLCharacteristics 的IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 可以禁用随机基址。</p>
+<p>微软从windows vista/windows server 2008(kernel version 6.0)开始采用ASLR技术，主要目的是为了防止缓冲区溢出。ASLR技术会使PE文件每次加载到内存的起始地址随机变化，并且进程的栈和堆的起始地址也会随机改变。这里只要PE头 DLL Charateristics 有 0x40 时，每次OD加载时的基址就不一样。去掉IMAGE_OPTIONAL_HEADER.DLLCharacteristics 的IMAGE_DLLCHARACTERISTICS_DYNAMIC_BASE 可以禁用随机基址。</p>
 </li>
 <li>
 <p>使用 <code>Study PE</code> 直接固定基址，之后另存为文件即可</p>

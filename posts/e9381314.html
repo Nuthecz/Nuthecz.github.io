@@ -1,0 +1,1547 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/first.png">
+  <link rel="icon" href="/img/first.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Nuthecz">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="复习资料  历年考题  2023-A ​	基本全是分析题😫，前6道题10分(也会一道题分成两个5分的)，后面两道综合题25+15。题目顺序和具体内容记不太清了，🤐是故意的还是不小心XD。 一、“简答题”  说明消息认证码和加密技术实现消息认证的异同。 给了个被警告证书问题的URL，要求结合证书的相关知识解释可能出了什么问题。 Kerberos中Client和AS交互AS不会验证对方用户身份就">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信息系统安全">
+<meta property="og:url" content="http://example.com/posts/e9381314.html">
+<meta property="og:site_name" content="Nuthecz&#96;Blog">
+<meta property="og:description" content="复习资料  历年考题  2023-A ​	基本全是分析题😫，前6道题10分(也会一道题分成两个5分的)，后面两道综合题25+15。题目顺序和具体内容记不太清了，🤐是故意的还是不小心XD。 一、“简答题”  说明消息认证码和加密技术实现消息认证的异同。 给了个被警告证书问题的URL，要求结合证书的相关知识解释可能出了什么问题。 Kerberos中Client和AS交互AS不会验证对方用户身份就">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
+<meta property="article:published_time" content="2023-01-08T10:20:04.000Z">
+<meta property="article:modified_time" content="2024-01-27T12:47:59.755Z">
+<meta property="article:author" content="Nuthecz">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
+  
+  
+  
+  <title>信息系统安全 - Nuthecz`Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/fluid-extension.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Nuthecz</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133045.JPG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="信息系统安全"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-08 18:20" pubdate>
+          2023年1月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          125 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">信息系统安全</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="复习资料"><a class="markdownIt-Anchor" href="#复习资料"></a> 复习资料</h1>
+<h2 id="历年考题"><a class="markdownIt-Anchor" href="#历年考题"></a> 历年考题</h2>
+<h3 id="2023-a"><a class="markdownIt-Anchor" href="#2023-a"></a> 2023-A</h3>
+<p>​	基本全是分析题😫，前6道题10分(也会一道题分成两个5分的)，后面两道综合题25+15。题目顺序和具体内容记不太清了，🤐是故意的还是不小心XD。</p>
+<p><strong>一、“简答题”</strong></p>
+<ol>
+<li>说明消息认证码和加密技术实现消息认证的异同。</li>
+<li>给了个被警告证书问题的URL，要求结合证书的相关知识解释可能出了什么问题。</li>
+<li>Kerberos中Client和AS交互AS不会验证对方用户身份就把包发过去是否安全。</li>
+<li>为防止在线/离线的字典攻击给出常用的策略、协议、方法。</li>
+<li>在内核态设计一个针对文件透明加密的系统(就是EFS~)。</li>
+<li>几种数据备份的考察和RAID-5特点。</li>
+</ol>
+<p><strong>二、分析题</strong></p>
+<ol>
+<li>访问控制(给你案例，让你分析采用什么策略(DAC、MAC等))，使用什么模型(BLP、Biba、BN)。</li>
+<li>实现低粒度访问控制，方便员工外出办公、读取文件，TLS VPN/IPSEC VPN选什么。</li>
+<li>给出原表求匿名表。</li>
+</ol>
+<h3 id="2024-a"><a class="markdownIt-Anchor" href="#2024-a"></a> 2024-A</h3>
+<p>​	全是老师说的，考点一字不差。反正没有见过这么匹配的试卷了</p>
+<p><strong>一、“综述题”</strong></p>
+<ol>
+<li>说明保密性、完整性、可用性的含义</li>
+<li>说明活动目录所涉及的服务机制，命名解析，目录服务，认证，逻辑组件</li>
+<li>给出一个警告的证书，要求结合证书的相关知识解释可能出了什么问题</li>
+<li>BN模型，利用DAC和MAC来说明对读写的保护</li>
+<li>写出协议和算法，要求单向认证和密钥交换，用随机数保持新鲜性，要求使用非对称算法</li>
+<li>设备身份认证
+<ol>
+<li>物流体系里面，要求对于多个物品的认证</li>
+<li>微信扫描PC二维码登录，问一开始信任的凭证是什么，之后为二维码的作用</li>
+</ol>
+</li>
+</ol>
+<p><strong>二、“分析题1”</strong></p>
+<ol>
+<li>4个磁盘，一个坏了，问采用什么RAID组成策略，恢复方法</li>
+<li>实现低粒度访问控制，方便员工外出办公、公网读取服务器文件，TLS VPN/IPSEC VPN选什么。</li>
+</ol>
+<p><strong>三、“分析题2”</strong></p>
+<ol>
+<li>问匿名隐私保护的基本原理和手段</li>
+<li>差分隐私的全局敏感性和局部敏感性什么时候用</li>
+<li>同态加密的基本原理</li>
+</ol>
+<h2 id="老师重点"><a class="markdownIt-Anchor" href="#老师重点"></a> 老师重点</h2>
+<p><strong>题型</strong></p>
+<ul>
+<li>综述 60 --&gt; 6个</li>
+<li>分析 40 --&gt; 2~3个</li>
+</ul>
+<p><strong>第1章 概述</strong></p>
+<ol>
+<li>安全属性</li>
+<li>安全漏洞</li>
+</ol>
+<p><strong>第2章 安全管理</strong></p>
+<ol>
+<li>信息安全管理的PDCA管理流程</li>
+<li>活动目录设计及关键机制 --&gt; 认证、命名解析、目录访问、逻辑管理组件、物理组件</li>
+<li>组策略</li>
+<li>组策略的设置对象</li>
+<li>组策略的处理和优先级</li>
+<li>组策略的冲突解决方法</li>
+</ol>
+<p>补充：</p>
+<ol>
+<li>常见的安全标准TESEC、CC</li>
+<li>等保标准与划分</li>
+<li>Windows如何实施安全管理</li>
+<li>DEP &amp; ASLR</li>
+</ol>
+<p><strong>第3章 密钥管理基础架构</strong></p>
+<ol>
+<li>PKI架构</li>
+<li>CA建立信任的方式</li>
+<li>数字证书及其验证(特别是第四步，需要掌握web应用中证书验证的细节) --&gt; 着重证书验证过程</li>
+<li>PKI的安全性</li>
+</ol>
+<p><strong>第4章 身份验证</strong></p>
+<ol>
+<li>基于文本口令认证的安全机制</li>
+<li>基于密钥学的认证协议(能分析协议，根据需要设计协议)</li>
+<li>基于设备的认证及其案例(RFID、扫码认证)</li>
+<li>现实中的认证与密钥交换协议(重点kerberos)</li>
+</ol>
+<p>补充：AAA，对称密钥交换，HMAC，公钥(2个)，DH，Kerberos协议，NTLM</p>
+<p><strong>第5章 访问控制</strong></p>
+<ol>
+<li>常见访问控制策略
+<ol>
+<li>自主访问控制DAC</li>
+<li>强制访问控制MAC(BLP，Biba，中国墙模型)特点及分析</li>
+<li>基于角色访问控制RBAC</li>
+<li>基于属性访问控制</li>
+</ol>
+</li>
+</ol>
+<p>补充：访问控制基本原则</p>
+<p><strong>第6章 数据安全</strong></p>
+<ol>
+<li>数据存储加密
+<ol>
+<li>透明加解密的实现原理、密钥管理</li>
+</ol>
+</li>
+<li>系统可靠性与数据容错
+<ol>
+<li>数据备份的策略、及RAID机制的几种备份机制</li>
+<li>数据恢复机制(基于备份和非备份的)</li>
+</ol>
+</li>
+<li>隐私保护技术
+<ol>
+<li>匿名化基本原理和方法</li>
+<li>差分隐私原理(加什么噪声、不同敏感度函数的使用场景)，以数据型为例进行分析</li>
+<li>同态加密的基本思想<br />
+补充：多方计算，TMP，联邦学习</li>
+</ol>
+</li>
+</ol>
+<p><strong>第7章 VPN</strong></p>
+<ol>
+<li>VPN概述
+<ol>
+<li>IPSEC VPN和TLS VPN的比较</li>
+</ol>
+</li>
+</ol>
+<h1 id="第1章-概述"><a class="markdownIt-Anchor" href="#第1章-概述"></a> 第1章 概述</h1>
+<p>​	信息系统安全是为保护信息系统资产(硬件、软件、数据、通信设施和网络)而采取的技术上和管理上的措施和控制方法，用以抵御网络环境中的相关安全风险，从而保证系统的保密性、完整性、可用性等安全属性</p>
+<blockquote>
+<p>1 安全属性: 机密性，保密性，完整性，可用性等是什么意思，真正的含义</p>
+<p>2 安全威胁: 根据不同的角度去分类，了解就行</p>
+<p>3 安全漏洞: 生命周期，对于它每一部分，安全管理人员需要做哪些工作</p>
+<p>4 安全模型: 了解</p>
+</blockquote>
+<h2 id="安全属性"><a class="markdownIt-Anchor" href="#安全属性"></a> 安全属性</h2>
+<p>CIA+其他 -9</p>
+<ul>
+<li><strong>保密性</strong>：解决非授权的信息泄露问题，防止对信息进行未授权的“读”。
+<ul>
+<li>物理隔离，访问控制，信息加密，混淆，业务流量填充</li>
+</ul>
+</li>
+<li><strong>完整性</strong>：保证数据及系统不会被非授权更改或破坏，防止或者至少检测出未授权的“写”操作。
+<ul>
+<li>
+<p>分为数据完整性和系统完整性</p>
+<ul>
+<li>数据完整性，确保数据存储、使用、传输过程中不会被非授权的用户篡改，同时还要防止授权用户对系统及其信息进行不恰当的破坏</li>
+<li>系统完整性，确保系统在被授权的情况下，以未受损的方式执行预定功能，不能多，不能少</li>
+</ul>
+</li>
+<li>
+<p>预防：加密，访问控制，冗余备份</p>
+</li>
+<li>
+<p>检测：数字签名，哈希计算，日志审计 --&gt; 主要是发现数据完整性是否遭到破坏，并不试图阻止破坏</p>
+</li>
+</ul>
+</li>
+<li><strong>可用性</strong>：确保授权用户或实体对信息及资源的正常使用不会被异常拒绝，对信息资源和系统服务的拒绝服务攻击属于对可用性的破坏
+<ul>
+<li>访问控制机制，检测&amp;应急响应，备份与灾难恢复</li>
+</ul>
+</li>
+<li><strong>可控性</strong>：对系统中的各种资源和操作进行有效的控制和管理，能够根据授权对系统进行监测和控制，记录系统状态、审计操作的合规性、溯源操作主体等
+<ul>
+<li>访问控制，安全审计，路由控制，过滤</li>
+</ul>
+</li>
+<li><strong>不可否认性</strong>：也称不可抵赖性，收发双方不可抵赖
+<ul>
+<li>数字签名(源发证明，交付证明)，第三方认证</li>
+</ul>
+</li>
+<li><strong>可认证性</strong>：又称为真实性，是指能够对信息的发送实体和接收实体的真实身份，以及信息属性的真实性进行鉴别
+<ul>
+<li>身份认证，数字签名，消息认证码</li>
+</ul>
+</li>
+<li><strong>可追溯性</strong>：也称可说明性、可审计性，其安全目标是实体的动作能够被唯一的追踪到。该目标是责任的完整性
+<ul>
+<li>审计，防抵赖，故障隔离，入侵检测和防护</li>
+</ul>
+</li>
+<li><strong>可靠性</strong>：是指系统无故障地持续运行。越可靠的系统所能持续的时间越长</li>
+</ul>
+<h2 id="安全威胁"><a class="markdownIt-Anchor" href="#安全威胁"></a> 安全威胁</h2>
+<h3 id="安全威胁-3"><a class="markdownIt-Anchor" href="#安全威胁-3"></a> 安全威胁-3</h3>
+<ol>
+<li>信息泄露
+<ul>
+<li>敏感数据在有意或无意中被泄露或丢失</li>
+<li>包括 --&gt; 传输中，存储介质中，建立隐蔽信道窃取</li>
+</ul>
+</li>
+<li>信息破坏
+<ul>
+<li>以非法手段获得对数据的使用权，删除，修改，插入或重发某些信息，以取得有益于攻击者的响应信息；</li>
+<li>恶意添加、修改数据，以干扰用户的正常使用</li>
+</ul>
+</li>
+<li>拒绝服务
+<ul>
+<li>执行无关程序使系统响应减慢甚至瘫痪，影响正常用户的使用，甚至使合法用户被排斥而不能得到相应的服务</li>
+</ul>
+</li>
+</ol>
+<h3 id="威胁来源-2"><a class="markdownIt-Anchor" href="#威胁来源-2"></a> 威胁来源-2</h3>
+<ul>
+<li>自然因素
+<ul>
+<li>包括各种自然灾害、系统环境和场地、电磁干扰、设备老化等</li>
+</ul>
+</li>
+<li>人为因素
+<ul>
+<li>有意和无意之分；无意，操作、设计失误等；有意，恶意攻击等</li>
+</ul>
+</li>
+</ul>
+<h2 id="安全漏洞"><a class="markdownIt-Anchor" href="#安全漏洞"></a> 安全漏洞</h2>
+<h3 id="生命周期"><a class="markdownIt-Anchor" href="#生命周期"></a> 生命周期</h3>
+<ol>
+<li>漏洞发现：
+<ul>
+<li>即通过人工或自动的方法分析、挖掘漏洞的过程。</li>
+<li>从漏洞产生到被测试人员发现的阶段被称为“0-day”，在确认是安全漏洞后，要为该漏洞开发概念验证性的渗透攻击代码(POC, proof of concept)以及确认可利用性。</li>
+</ul>
+</li>
+<li>漏洞利用：
+<ul>
+<li>从漏洞被发现到官方发布修补方法的过程被称为“1-day”。</li>
+<li>在发现安全漏洞并给出渗透攻击代码后，负责任的发现者会首先通知厂商进行修补，等厂商给出补丁后再进行公布。</li>
+</ul>
+</li>
+<li>漏洞修复
+<ul>
+<li>通过补丁、升级版本或配置策略等对漏洞进行修补的过程，使得该漏洞不能够被恶意主体所利用。</li>
+<li>同时，漏洞管理部门通过网站、邮件列表等渠道将漏洞信息向社会或受影响的用户发布，随着用户逐渐地安装补丁和新的漏洞的产生，该漏洞的危害也就变得越来越小，并逐渐走向消亡。</li>
+</ul>
+</li>
+</ol>
+<h2 id="安全模型"><a class="markdownIt-Anchor" href="#安全模型"></a> 安全模型</h2>
+<h3 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h3>
+<ul>
+<li>系统安全动态模型：纵向</li>
+<li>系统安全层次模型：核心</li>
+<li>系统安全综合模型：横向</li>
+</ul>
+<h3 id="系统安全动态模型纵向"><a class="markdownIt-Anchor" href="#系统安全动态模型纵向"></a> 系统安全动态模型:纵向</h3>
+<ul>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>P</mi><mn>2</mn></msup><mi>D</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">P^2DR</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span>模型 --&gt; 策略(Policy)，保护(Protection)，检测(Detection)，响应(Response)</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi><mi>D</mi><mi>R</mi><mi>R</mi></mrow><annotation encoding="application/x-tex">PDRR</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span></span></span></span>模型 --&gt; 防护(Protection)，检测(Detection)，响应(Response)，恢复(Recovery)</li>
+<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>W</mi><mi>P</mi><mi>D</mi><mi>R</mi><mi>R</mi><mi>C</mi></mrow><annotation encoding="application/x-tex">WPDRRC</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal" style="margin-right:0.00773em;">R</span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span></span></span></span>模型 --&gt; 在PDRR模型的前后增加了预警(Warning)和反击(Counterattack)</li>
+</ul>
+<h3 id="系统安全层次模型核心"><a class="markdownIt-Anchor" href="#系统安全层次模型核心"></a> 系统安全层次模型:核心</h3>
+<p>分层防御</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401061607969.png" srcset="/img/loading.gif" lazyload alt="image-20240106160741830" /></p>
+<h1 id="第2章-安全管理"><a class="markdownIt-Anchor" href="#第2章-安全管理"></a> 第2章 安全管理</h1>
+<blockquote>
+<p>1 掌握PDCA的过程: 每个阶段做什么工作</p>
+<p>2 信息安全标准: 了解一下，特别是评测标准</p>
+<p>3 活动目录设计及关键机制: 数据结构X.500(访问协议是LDAP身份认证)，命名解析(扁平形和竖型–&gt;DNS)，认证(单点登录-&gt;kerberos协议)，逻辑管理组件(组织单元，域，域树，域森林等)，物理组件(站点-&gt;和目录设计无关，只是物理结构体现)</p>
+<p>4 组策略: 策略上实施的目标，策略上冲突检测怎么做(纵向看优先级，横向即用户策略发生冲突)</p>
+<p>分A/B卷，这一块只有一张卷子上考(maybe)</p>
+</blockquote>
+<h2 id="pdca"><a class="markdownIt-Anchor" href="#pdca"></a> PDCA</h2>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401051104895.png" srcset="/img/loading.gif" lazyload alt="image-20240105110442850" /></p>
+<p>计划(Plan)：建立与组织的总体战略、目标和方针保持一致的信息安全管理方针和策略，通过风险评估来建立控制目标和方式，<strong>制定风险处理计划</strong>。</p>
+<p>执行(Do)：按照控制目标和方式实施信息安全管理，<strong>开展全员安全培训、实施安全控制</strong>。</p>
+<p>检查(Check)：对照信息安全管理体系的目标和方针，对信息安全管理进行监视和验证，<strong>评审ISMS的有效性和适当性</strong>。</p>
+<p>处理(Act)：基于上述对体系的内部审核和管理评价的结果，采取<strong>纠正和预防</strong>措施，以<strong>持续改进组织的信息安全管理体系</strong>。</p>
+<h2 id="信息安全标准"><a class="markdownIt-Anchor" href="#信息安全标准"></a> 信息安全标准</h2>
+<p><strong>信息安全评测国际标准</strong>：TCSEC，CC，ISO/IEC 15408</p>
+<ul>
+<li>[2.1.pdf](file://E:/Data/大学/大三/大三上/信息系统安全/信息系统安全ppt/2.1.pdf)</li>
+</ul>
+<h2 id="活动目录"><a class="markdownIt-Anchor" href="#活动目录"></a> 活动目录</h2>
+<h3 id="基础概念"><a class="markdownIt-Anchor" href="#基础概念"></a> 基础概念</h3>
+<p>活动目录(Active Directory, AD)：域环境中提供目录服务的组件。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>活动目录不仅<strong>存储网络对象的信息</strong>，还<strong>提供目录服务</strong>，使用者能快速准确查找目录中的信息，而不需要考虑搜索对象的地理位置。</li>
+<li>活动目录提供了完全集成在Windows中的一个分层目录服务。为企业提供了网络环境中集中式管理制。</li>
+<li>这种分层的目录结构，简化了一般的管理任务，可以使企业网络具有极强的可扩展性。</li>
+</ul>
+<h3 id="机制"><a class="markdownIt-Anchor" href="#机制"></a> 机制</h3>
+<p>-&gt; 完成单域及多域环境下活动目录管理功能的机制</p>
+<h4 id="单点登录"><a class="markdownIt-Anchor" href="#单点登录"></a> 单点登录</h4>
+<p>单点登录(Single Sign On, SSO)：用户只需要登录一次就可以访问所有相互信任的应用系统。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401061626225.png" srcset="/img/loading.gif" lazyload alt="image-20240106162658095" /></p>
+<ul>
+<li>认证：Kerberos。单点登录就是活动目录的认证，上图的sso基于kerberos协议，这里主要考察kerberos协议的认证</li>
+<li>同时也有基于其他协议实现的SSO，如SPNEGO SSO、CAS SSO</li>
+<li>kerberos协议：一种计算机网络认证协议，它允许某安全实体在非安全网络环境下通信，向另一个实体以一种安全的方式证明身份。</li>
+</ul>
+<h4 id="其余"><a class="markdownIt-Anchor" href="#其余"></a> 其余</h4>
+<p><strong>全局目录</strong></p>
+<p>​	全局编录/全局目录(Global Catalog, GC)：保存在一个或多个域控制器中的数据库(只读副本，存储对象属性集的)。记录了 AD 中所有域对象的部分信息，架构信息和配置信息的完整副本。</p>
+<p>全局目录的任务：</p>
+<ul>
+<li>登录：向域控制器提供通用组成员信息。<strong>用户登录网络时，必须存在一台全局编录服务器，否则只能登录到本地</strong>，例外是“域管理组中的成员”。</li>
+<li>查询：使得客户机能够方便快捷地<strong>执行跨所有域的搜索</strong>，而不必逐个搜索每个域。只有当查询对象信息不在GC中时，服务器才会将查询转至对象所在域。</li>
+</ul>
+<p><strong>多主复制</strong></p>
+<p>​	多主复制(Multi-master replication)：通过安装域控制器，就可以在整个网络环境中创建目录的多份副本。网络中任何地方发生的变化都会在整个网络中自动复制。</p>
+<p><strong>组策略</strong></p>
+<p>在下面单独陈述</p>
+<p><strong>命名解析</strong>：将对象的名称转化为其对应的网络地址或其他标识的过程</p>
+<p>​	扁平型</p>
+<p>​	竖型：DNS</p>
+<p><strong>逻辑管理组件</strong>(组织单元，域，域树，域森林等)</p>
+<ul>
+<li>组织单元：可连接组策略，是委派管理权限的最小分组</li>
+<li>域：一个有安全边界的计算机、用户的集合</li>
+<li>域树：具有连续命名空间的多个域称为树</li>
+<li>域森林：不构成连续命令空间的域树的集合</li>
+</ul>
+<p><strong>物理组件</strong>(站点-&gt;和目录设计无关，只是物理结构体现)</p>
+<h2 id="组策略"><a class="markdownIt-Anchor" href="#组策略"></a> 组策略</h2>
+<h3 id="概念-2"><a class="markdownIt-Anchor" href="#概念-2"></a> 概念</h3>
+<p>​	组策略(Group Policy, GP)：<strong>在初始化时应用于计算机或用户的配置设置</strong>。可在不同层次上定义控制规则。</p>
+<p>​	组策略是<strong>管理员针对于网络中的用户和计算机所作的一系列设置</strong>，可以设置在站点、域、组织单元(如果是工作组计算机则设置在本机上)，使管理员可以集中控制程序，网络资源及系统行为。</p>
+<h3 id="设置对象"><a class="markdownIt-Anchor" href="#设置对象"></a> 设置对象</h3>
+<p>​	在域中，可以对站点、域、组织单元设置组策略。可将一个组策略链接到多个Site/Domain/OU，也可以将多个组策略链接到同一Site/Domain/OU。</p>
+<p>​	在工作组中，使用本地组策略对计算机进行设置。</p>
+<h3 id="纵向处理"><a class="markdownIt-Anchor" href="#纵向处理"></a> 纵向处理</h3>
+<ul>
+<li><strong>处理顺序(默认处理)：</strong>
+<ol>
+<li>本地策略对象</li>
+<li>链接在站点上的GPO对象(组策略对象)</li>
+<li>链接在域上的GPO对象(组策略对象)</li>
+<li>连接在OU(组织单元)上的GPO对象(组策略对象)</li>
+</ol>
+</li>
+</ul>
+<p>在OU组策略对象中仍会细分，处理顺序依次是：</p>
+<p>最高级OU的GPO—&gt;子级OU的GPO—&gt;最低级OU的GPO</p>
+<ul>
+<li><strong>处理注意点：</strong>
+<ul>
+<li>排在处理顺序后面的GPO，<strong>拥有最高的优先级</strong></li>
+<li>工作组成员只处理本地组策略对象</li>
+</ul>
+</li>
+<li><strong>例外处理:</strong>
+<ul>
+<li>禁止替代，No Override：防止随后处理的GPO覆盖该GPO，当多个GPO均设置为“禁止替代”时，优先采用先处理的GPO。(对后面的GPO：必须、只能用我，我是当继承链的结尾)</li>
+<li>阻止策略继承，Block Policy Inheritance：禁止该GPO继承父组策略(对前面的GPO：我不想用你，我想当继承链的新开头)。<strong>权限小于“禁止替代”</strong>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="横向处理"><a class="markdownIt-Anchor" href="#横向处理"></a> 横向处理</h3>
+<p>用户和计算机拥有不同的组策略。</p>
+<p>默认处理顺序：</p>
+<ol>
+<li>计算机策略</li>
+<li>用户策略</li>
+</ol>
+<p>Lookback环回选项(环回处理)：(让计算机策略更牛逼的选项)</p>
+<ul>
+<li>Replace替换模式：只用计算机策略。在系统启动时计算机所在容器的GPO列表完全替代用户所在容器的GPO策略列表</li>
+<li>Merge合并模式：先用户策略、再计算机策略(计算机策略的优先级更高了)。计算机容器的GPO列表添加到用户容器的GPO用户策略列表之后，所以，有冲突的话，计算机容器的策略权限具有更高的优先权</li>
+</ul>
+<h2 id="其余-2"><a class="markdownIt-Anchor" href="#其余-2"></a> 其余</h2>
+<ol>
+<li>
+<p>GPO对象的处理顺序(应用顺序也是处理顺序吗？)是什么，是策略生效顺序吗，如果是策略生效，那么先本地组策略，再站点，域，组织单元的顺序是不是后面替代前面的—&gt;感觉这样也对应了后面的GPO的优先级高的陈述，因为优先级高，所以它先作用</p>
+<ul>
+<li>计算机和用户是仅有的接收组策略的活动目录对象类型</li>
+</ul>
+</li>
+<li>
+<p>对于域用户的区分</p>
+<ul>
+<li>使用cmd输入 whoami，输出 A\B，前面的是计算机名，后面是用户名，可以通过这个来查看目前是什么用户</li>
+</ul>
+</li>
+<li>
+<p>关于计算机策略和用户策略</p>
+<ul>
+<li>
+<p>计算机策略<strong>作用于</strong>该GPO链接的站点/域/组织单元中计算机</p>
+</li>
+<li>
+<p>用户策略<strong>作用于</strong>该GPO链接的站点/域/组织单元中用户</p>
+</li>
+<li>
+<p>简单而言，一个组织单元(maybe)中计算机与用户的区别主要在于创建的时候的<strong>类型</strong>，创建计算机可以理解为把域中的计算机拉到自己的这个组织单元中，而创建用户就是字面意思上从零创建一个新的用户</p>
+</li>
+<li>
+<p>这里需要注意，域中的计算机是 <strong>域外计算机设置加入域后而产生的</strong> ，所以计算机就是真的指的一台物理的计算机</p>
+</li>
+<li>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401051031051.png" srcset="/img/loading.gif" lazyload alt="image-20240105103122897" />这里是活动目录(每个win server就是一个域控–&gt;这里假定每个server都是一个域，而每个域控都存储着副本的活动目录数据库)，里面有Client Users的用户，Computers的计算机</p>
+</li>
+</ul>
+</li>
+<li>
+<p>关于活动目录</p>
+<ul>
+<li>
+<p>每个域都有自己的活动目录，用于存储该域内的对象信息，例如用户、组、计算机等</p>
+</li>
+<li>
+<p>而对于这个域加入林而言，会为新林添加一个<strong>新的活动目录数据库</strong>，每个域都会共享一个全局目录树和一个全局目录命名空间(全局目录)</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="第3章-密钥管理基础架构"><a class="markdownIt-Anchor" href="#第3章-密钥管理基础架构"></a> 第3章 密钥管理基础架构</h1>
+<blockquote>
+<p>1 PKI架构: 包含的组件</p>
+<p>2 CA建立信任: 单独，层次，网状，桥式</p>
+<p>3 数字证书: 证书的4步验证(前两步tls就会去验证，第四步就是验证功能(通用名称，域名是否一致等))-&gt; 要知道验证的细节，知道哪一步可能会出现的问题</p>
+<p>4 涉及对称密钥的管理，相对简单，了解一下</p>
+</blockquote>
+<h2 id="pki架构"><a class="markdownIt-Anchor" href="#pki架构"></a> PKI架构</h2>
+<p>​	PKI(Public Key lnfrastruicture)是一个安全基础设施，是一个包括硬件、软件、人员、策略和规程的集合(一组组件和规程)。用来实现基于公钥密码体制的密钥和证书的产生、管理、存储、分发和撤销等功能。</p>
+<h3 id="组件"><a class="markdownIt-Anchor" href="#组件"></a> 组件</h3>
+<p>CA、RA、LDAP、密钥备份及恢复系统、CRL、API</p>
+<ul>
+<li>认证机构(CA)：是公钥基础设施中的<strong>可信第三方实体</strong>，是信任的起点，<strong>向主体颁发证书，证书吊销列表CRL</strong>，续借和更新证书。有些PKI会把RA的功能融合进CA中。</li>
+<li>注册机构(RA)：多数情况下，RA主要用于在证书登记过程中<strong>核实证书申请者的身份</strong>，有的架构中，CA也委派给RA一些其他责任，像个人认证，吊销报告、密钥生成、存储密钥对。</li>
+<li>证书库：存储，分发证书和CRL，证书存储库可由所有终端实体和 CA 访问，主要使用目录服务LDAP和数据库。</li>
+<li>档案库：主要任务是存储和保护充足的信息来决定一份儿旧的文档中数字签名是可信任的。</li>
+<li>密钥备份及恢复系统：为应对用户丢失解密密钥的情况，PKI提供了备份与恢复密钥的机制。密钥备份与恢复只能针对解密密钥，签名私钥为确保其唯一性而不能够作备份。</li>
+<li>证书吊销系统：证书在有效期内由于某些原因(如私钥泄露)可能需要废除，即将证书列入CRL。</li>
+<li>应用接口：提供良好的应用接口，使各种应用能够与PKI交互。</li>
+</ul>
+<p><strong>有次测试问组成</strong>：CA，RA，资料库，OCSP服务器(提供CRL-&gt;在线证书状态协议)</p>
+<h3 id="功能"><a class="markdownIt-Anchor" href="#功能"></a> 功能</h3>
+<p>认证：</p>
+<ul>
+<li>被认证的数据－－－－－－数据源认证</li>
+<li>用户发送的远程认证请求—身份认证</li>
+<li>远程设备生成请求－－－－身份认证</li>
+</ul>
+<p>完整性：利用数字签名即可实现实体认证、也可验证数据完整性</p>
+<p>保密性：用公钥分发秘密密钥，用秘密密钥加密数据</p>
+<p>不可否认性：数字签名</p>
+<h2 id="ca建立信任方式"><a class="markdownIt-Anchor" href="#ca建立信任方式"></a> CA建立信任方式</h2>
+<p>四种(zaj说的，具体的看博客)-&gt;单独，层次，网状，桥状</p>
+<h2 id="数字证书"><a class="markdownIt-Anchor" href="#数字证书"></a> 数字证书</h2>
+<p>书P255</p>
+<p>数字证书是一个经CA数字签名的包含<strong>公钥拥有者信息</strong>以及<strong>公钥</strong>的文件，还包括签名算法和用途。PKI适用于异构环境，所以证书格式必须统一，公钥证书的形式是由<strong>X.509标准</strong>制定</p>
+<p><strong>证书的用途</strong>: 签名证书，加密证书</p>
+<p><strong>证书的验证</strong></p>
+<ul>
+<li>
+<p>证书真实性的验证基于<strong>证书链验证机制</strong>，其验证对象：</p>
+<ol>
+<li>
+<p>验证真实性。是否为可信任CA认证中心签发</p>
+</li>
+<li>
+<p>验证有效性。是否在证书的有效使用期之内</p>
+</li>
+<li>
+<p>验证可用性。是否已废除</p>
+</li>
+<li>
+<p>验证证书结构中的证书用途。</p>
+</li>
+</ol>
+</li>
+<li>
+<p>感觉老师说的验证过程就是下图https网站时的认证过程</p>
+</li>
+</ul>
+<h2 id="pki的安全性"><a class="markdownIt-Anchor" href="#pki的安全性"></a> PKI的安全性</h2>
+<p>访问https网站时的认证过程</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401061712719.png" srcset="/img/loading.gif" lazyload alt="image-20240106171251613" /></p>
+<ul>
+<li>针对认证过程的攻击手段：
+<ol>
+<li>对证书传输过程的攻击(中间人攻击)</li>
+<li>对CA认证过程的攻击</li>
+<li>对CA签名过程的攻击</li>
+<li>对算法的攻击</li>
+<li>对用户确认的攻击</li>
+</ol>
+</li>
+</ul>
+<p>1 Hacker无法取得CA签发的证书，<a target="_blank" rel="noopener" href="http://xn--example-gi4kh6czxosvfly3ar8hbi8hteuav59a5e8b.com">会创建顶层自签名证书example.com</a>，而该证书不在浏览器信任范围内(不准确)，就会导致不可信弹窗(继续前往！)。</p>
+<p>2 Hacker无法取得CA签发的证书，<a target="_blank" rel="noopener" href="http://xn--hacker-o77iz38as2wd7mns4ckdbk88fx12agln.com">直接发送自己的证书hacker.com</a>，浏览器检查不通过，终止握手协议</p>
+<h2 id="其余-3"><a class="markdownIt-Anchor" href="#其余-3"></a> 其余</h2>
+<h3 id="证书签发与验证"><a class="markdownIt-Anchor" href="#证书签发与验证"></a> 证书签发与验证</h3>
+<p>数字证书是一个经CA数字签名的包含<strong>公钥拥有者</strong>信息以及<strong>公钥</strong>的文件，还包括签名算法和用途。</p>
+<ul>
+<li>证书签发</li>
+</ul>
+<ol>
+<li>**根CA：**是整个证书体系中的最高级别的证书颁发机构。根CA的公钥被内置到系统或浏览器中，用于验证其他证书的真实性。</li>
+<li>**下级CA：**是位于根CA之下的证书颁发机构。下级CA可以用于签署终端用户的证书，也可以进一步创建更下级的CA。这样的层次结构可以形成一个证书链。</li>
+<li><strong>签名过程：</strong> 下级CA需要获得一个证书时，它会生成一对公钥和私钥。然后，它将其公钥与一些其他信息一起发送给上级CA，即根CA。上级CA使用自己的私钥对下级CA的公钥和相关信息进行数字签名，生成一个签名值。</li>
+<li><strong>颁发证书：</strong> 上级CA将生成的签名值附加到下级CA的证书请求中，形成了下级CA的数字证书。这个数字证书包含了下级CA的公钥和其他相关信息，同时被上级CA的数字签名所认证。</li>
+<li><strong>证书链：</strong> 下级CA可以使用其数字证书签署终端用户的证书，这就形成了一个证书链。终端用户的证书通过层层的签名，最终可以追溯到根CA，从而建立了信任链。</li>
+</ol>
+<ul>
+<li>证书验证</li>
+</ul>
+<p>当 A 向 B 发送数字证书时，B 需要验证这个数字证书的真实性。这个数字证书可能是由另一个中间CA签发的，而不是由根CA直接签发。在这种情况下，验证的步骤如下：</p>
+<ol>
+<li><strong>获取证书：</strong> B 首先收到 A 发送的数字证书，该证书包含了 A 的公钥以及其他相关信息。</li>
+<li><strong>提取公钥：</strong> B 从证书中提取 A 的公钥。</li>
+<li><strong>验证签名：</strong> B 使用签发该证书的CA(可能是中间CA)的公钥来验证数字证书的签名。中间CA的公钥可以通过根CA的证书链进行验证。如果数字签名验证成功，说明证书是由中间CA签发的。</li>
+<li><strong>检查有效期：</strong> B 检查证书的有效期，确保证书在当前时间内是有效的。</li>
+<li><strong>检查撤销状态：</strong> B 可以查询中间CA的证书撤销列表(CRL)或使用在线证书状态协议(OCSP)来检查证书的撤销状态。如果证书已被撤销，验证失败。</li>
+<li><strong>验证证书链：</strong> 如果证书是由中间CA签发的，B 可以继续验证证书链，确保中间CA的证书也是由更高一级的CA签发的。这个过程一直追溯到根CA的证书。<code>证书链主要是验证用于验证证书的公钥是否正确，所以不断向上，找到跟CA</code></li>
+<li><strong>应用证书：</strong> 如果验证成功，B 可以使用 A 的公钥来加密或验证数字签名，确保与 A 进行安全的通信。</li>
+</ol>
+<h3 id="ca"><a class="markdownIt-Anchor" href="#ca"></a> CA</h3>
+<ol>
+<li>单个CA</li>
+<li>网状结构–&gt;相互信任
+<ul>
+<li>独立的CA双方交叉认证也就是互相发放证书也就是互相发放证书，结果是在对等的CA中产生了信任关系网。信任仅存在于这两个CA及其下面的子CA之间。</li>
+</ul>
+</li>
+<li>桥式CA–&gt;中间得桥式CA不签名，也通常不被主体信任，只是一个中间人
+<ul>
+<li>桥式PKI通过引进一个新的CA称为桥式CA称为桥式CA来连接企业之间的PKI。桥式CA惟一的目的是为企业PKI建立关系。</li>
+</ul>
+</li>
+</ol>
+<h1 id="第4章-身份验证"><a class="markdownIt-Anchor" href="#第4章-身份验证"></a> 第4章 身份验证</h1>
+<blockquote>
+<p>1 基于文本口令认证: 知道提供的安全机制</p>
+<p>2 基于密码学认证协议: 给出需求设计出认证协议-&gt;对称的，非对称的，基于消息验证码的，根据提示来设计</p>
+<p>3 基于图形和生物特征的认证: 关于身份的鉴别，了解即可</p>
+<p>4 基于设备的认证及其案例: 理解细节 RFID，射频可以实现设备的多点认证，扫码认证是认证信息放在手机端，(微信扫码举例)存放的是已经验证好的token，码里存放的是跟设备相关的信息–&gt;手机里的信息和二维码的信息进行结合，生成一个信息对电脑设备进行认证，考身份认证过程中流转的身份信息来自于哪里，微信扫码是来自微信已经登录过的缓存的身份验证块(token)</p>
+<p>5 掌握kerberos协议，基于对称加密的身份认证协议，可以实现单点登录，需要掌握细节</p>
+</blockquote>
+<p>系统安全最基本服务：AAA</p>
+<ul>
+<li>
+<p>身份认证：对用户身份的证实，它能防止攻击者假冒合法用户获取访问权限</p>
+</li>
+<li>
+<p>授权：当用户身份被证实后，赋予该用户进行资源访问的权限</p>
+</li>
+<li>
+<p>审计：每一个用户都应该为自己所做的操作负责，所以每个操作都要留下记录，以便事后核查</p>
+</li>
+</ul>
+<h2 id="基于文本口令认证的安全机制"><a class="markdownIt-Anchor" href="#基于文本口令认证的安全机制"></a> 基于文本口令认证的安全机制</h2>
+<p>​	基于口令的机制允许人们选择自己的口令，并且不需要辅助设备生成或储存，因此用户名加口令成为应用最广泛的一种身份认证方式。基于口令的认证虽然简单便捷、费用低廉，但安全性上也存在风险。</p>
+<p><strong>口令安全</strong></p>
+<p>(1)口令Hash散列存储 – 防离线字典，穷举攻击</p>
+<p>(2)加盐Hash – 增加离线字典攻击难度</p>
+<p>(3)强口令设置 – 字典，穷举</p>
+<p>(4)密码策略</p>
+<p><strong>利用验证码增加安全</strong></p>
+<p>​	目前抵御在线口令猜测的主要方式是使用验证码，在线口令猜测威胁主要来自专门的破解工具的自动程序猜测攻击。验证码是一种逆图灵测试。</p>
+<p><strong>攻击手段</strong></p>
+<ol>
+<li>字典或穷举攻击(认证端)</li>
+<li>社交工程窥探、垃圾收集、污迹攻击</li>
+<li>网络数据流窃听：如果口令使用明文传输，则可被非法截获。如Telnet、FTP、POP3都使用明文口令，而攻击者只需通过窃听就能分析出口令。</li>
+<li>截取/重放攻击：利用截获的值，攻击者可以在新的登录清求中将其提交到同一服务器，服务器不能区分这个登录谓求是来自合法用户还是攻击者。</li>
+</ol>
+<h2 id="基于密码学的认证协议"><a class="markdownIt-Anchor" href="#基于密码学的认证协议"></a> 基于密码学的认证协议</h2>
+<p>​	基于密码学实现的身份鉴别机制，其基本思想是一个实体向另一个实体证明他知道有关的秘密知识，但不向验证者提供秘密本身。同时，向验证者提供的消息要具有时效性。</p>
+<h3 id="基于对称密码的验证机制"><a class="markdownIt-Anchor" href="#基于对称密码的验证机制"></a> 基于对称密码的验证机制</h3>
+<ul>
+<li>基于对称密码算法的鉴别机制可以没有第三方， 也可以有可信的第三方——通常称为KDC(Key Distrib-ution Center)用来进行密钥管理。
+<ul>
+<li>两个人共享对称密码的密钥</li>
+</ul>
+</li>
+</ul>
+<h3 id="基于mac码的验证机制"><a class="markdownIt-Anchor" href="#基于mac码的验证机制"></a> 基于MAC码的验证机制</h3>
+<p>​	利用共享密钥来生成固定长度的数据块，称为消息认证码MAC(也称报文 鉴别码Message Authentication Code)，是最常用的对称密码技术</p>
+<p><strong>特点:</strong></p>
+<ol>
+<li>固定长度</li>
+<li>由校验算法生成：MAC=F(KAB,M)</li>
+<li>A、B共享密钥，接受者对输入执行同方向计算，检查生成的MAC是否与接受的MAC匹配</li>
+<li>提供<strong>数据完整性</strong>、<strong>数据源认证</strong>两种服务</li>
+</ol>
+<p>算法输入秘密密钥和特定数据，算法设计上是不可逆的</p>
+<ol>
+<li>通信双方共享秘密密钥。接收者对特定输入数据执行相同方向的计算，并检查它是否与收到的MAC匹配。</li>
+<li>确保数据来自声称的发送者且传输过程没有被篡改。</li>
+</ol>
+<p><strong>生成方法</strong>主要是分组密码和利用散列函数的消息认证技术(HMAC-&gt;Hmac本质上就是把key混入摘要的算法)</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401080837495.png" srcset="/img/loading.gif" lazyload alt="image-20240108083700317" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401071653108.png" srcset="/img/loading.gif" lazyload alt="image-20240107165331053" /></p>
+<h3 id="基于非对称密码的认证机制"><a class="markdownIt-Anchor" href="#基于非对称密码的认证机制"></a> 基于非对称密码的认证机制</h3>
+<ul>
+<li>公钥加密</li>
+<li>私钥加密</li>
+<li>私钥-公钥加密</li>
+</ul>
+<p><strong>功能特点</strong></p>
+<p>公钥加密：仅提供保密性，不能进行认证</p>
+<p>私钥签名：可提供消息认证的三种安全服务(完整性，认证性，抗抵赖性)</p>
+<p>先私钥后公钥：保密性、消息认证的所有三种服务。</p>
+<h3 id="现实中的认证与密钥交换协议"><a class="markdownIt-Anchor" href="#现实中的认证与密钥交换协议"></a> 现实中的认证与密钥交换协议</h3>
+<p><strong>这里就是kerberos协议(对称密钥)</strong></p>
+<ul>
+<li>基于对称加密技术，基于可信第三方
+<ul>
+<li>功能：实现认证，完整性，保密性服务。
+<ul>
+<li>重点解决的问题：集中的身份认证和密钥分配—用户只需输入一次身份验证信息，就可以访问多个服务，也就是俗称单点登录。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>采用基于密钥的认证交换协议的设计前提</p>
+<ul>
+<li>所有用户均在KDC上注册，KDC数据库中拥有所有参与用户的UID和口令散列</li>
+<li>Kerberos定义了口令到密钥的转化机制，用户仅需记忆口令，认证过程中使用密钥</li>
+<li>所有服务器均在KDC上注册，KDC必须与每一个服务器之间共享一个保密密钥</li>
+<li>时效性用随机数和时间戳</li>
+</ul>
+<p><strong>NTLM(MAC)</strong></p>
+<p><strong>TLS(非对称)</strong></p>
+<p>剩下的看</p>
+<p>[word复习资料P14](file://E:/Data/大学/大三/大三上/信息系统安全/考试/信息安全复习.docx)</p>
+<h2 id="基于图形和生物特征的认证"><a class="markdownIt-Anchor" href="#基于图形和生物特征的认证"></a> 基于图形和生物特征的认证</h2>
+<h3 id="图形认证"><a class="markdownIt-Anchor" href="#图形认证"></a> 图形认证</h3>
+<p>​	利用人类对图形记忆要优于对文本记忆的特点设计出来的一种新型口令。用户不用记忆冗长的字符串而是通过识别或记住图形来进行身份认证</p>
+<p><strong>优势</strong>：图形口令空间大，可以抵御文本口令面临的攻击(字典爆破)，人们记忆能力强，不容易被获取</p>
+<p><strong>分类</strong>：基于识别型的图形口令，基于回忆型，混合型</p>
+<h3 id="生物特征认证"><a class="markdownIt-Anchor" href="#生物特征认证"></a> 生物特征认证</h3>
+<p>​	所谓生物特征识别，是指通过计算机与各种传感器和生物统计学原理等高科技手段的密切结合，利用人体唯一拥有的生理特性和行为特征，来进行个人身份鉴定的方法。</p>
+<p><strong>常见特征</strong>：指纹特征，人脸特征，虹膜特征</p>
+<h2 id="基于设备的认证及其案例"><a class="markdownIt-Anchor" href="#基于设备的认证及其案例"></a> 基于设备的认证及其案例</h2>
+<p>​	<strong>令牌</strong>：是用户持有的用于进行用户认证的一种物品。可以用做令牌的常见凭证有磁卡、存储卡、智能卡，目前，最常用的是存储卡和智能卡。</p>
+<p><a target="_blank" rel="noopener" href="https://flowus.cn/7bd9387d-744f-418a-9400-e9f14e5387c8">参考</a></p>
+<ul>
+<li>RFID(无线射频识别): 非接触，唯一识别，批量识别，自动识别</li>
+<li>二维码：聊生于无吧，把上面老师的阐述给chatgpt，让他来看看
+<ul>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401062030522.png" srcset="/img/loading.gif" lazyload alt="image-20240106203040447" /></li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401080848170.png" srcset="/img/loading.gif" lazyload alt="image-20240108084846050" /></li>
+<li><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401080848925.png" srcset="/img/loading.gif" lazyload alt="image-20240108084825869" /></li>
+</ul>
+</li>
+</ul>
+<h2 id="其余-4"><a class="markdownIt-Anchor" href="#其余-4"></a> 其余</h2>
+<h3 id="数字证书-2"><a class="markdownIt-Anchor" href="#数字证书-2"></a> 数字证书</h3>
+<ul>
+<li>从证书的用途，分为签名证书和加密证书。用户配置了两对密钥(签名密钥对、加密密钥对)</li>
+<li>签名证书
+<ul>
+<li>负责验证数字签名真实性</li>
+<li>Alice向Bob发送文件和数字签名(可能还发送证书)，然后Bob用签名证书(含有Alice公钥)来验证</li>
+</ul>
+</li>
+<li>加密证书
+<ul>
+<li>主要用于加密在网络上传输的数据</li>
+<li>Bob有个网站，它自己生成了加密证书放在服务器上。然后Alice访问，经过身份验证后，Bob把证书发给Alice，然后Alice的请求用Bob公钥进行加密再发送给Bob</li>
+</ul>
+</li>
+</ul>
+<h1 id="第5章-访问控制"><a class="markdownIt-Anchor" href="#第5章-访问控制"></a> 第5章 访问控制</h1>
+<blockquote>
+<p>1 自主访问控制: 概念很简单，但是要理解为什么没办法去防木马(这里指上课讲的evil的那个案例)</p>
+<p>2 强制访问控制: 三个访问控制模型读和写的控制原则，比如BLP和Biba都是对于信息流的单向控制，中国墙模型需要知道读和写操作，以及清洗的数据如何控制，强制访问控制都是给安全标识，BLP是保密性，Biba是完整性，中国墙是客体为分类，主体为状态转换矩阵来记录访问顺序</p>
+<p>3 基于角色和基于属性: 了解一下</p>
+<p>4 Windows分布式访问控制授权管理: 了解一下授权是通过不同组的映射来实现分工授权</p>
+</blockquote>
+<p>​	访问控制以身份认证为前提，是一种针对越权使用资源的防御措施，它的基本目标是防止对任何资源进行未授权的访问，保障资源只能被合法用户执行合法操作。访问控制对机密性、完整性起直接的作用。</p>
+<p>这里是对[word复习资料P18](file://E:/Data/大学/大三/大三上/信息系统安全/考试/信息安全复习.docx)的补充说明</p>
+<h2 id="自主访问控制"><a class="markdownIt-Anchor" href="#自主访问控制"></a> 自主访问控制</h2>
+<p>​	自主访问控制(DAC)是基于身份的访问控制，其特点是根据主体的身份及允许访问的权限进行决策。自主是指，主体能够自主的将自身具有的访问权限或其子集授予其他主体</p>
+<p>​	对于Evil的那个案例，原因就是资源的拥有者自主管理资源，因为Bob拥有对于暗袋文件的执行权力，在执行时那个暗袋文件或被授权Bob的访问权限，所以可以访问到机密数据并写入暗袋文件</p>
+<h2 id="强制访问控制"><a class="markdownIt-Anchor" href="#强制访问控制"></a> 强制访问控制</h2>
+<p>​	强制访问控制(MAC)是基于规则的访问控制。授权完全由主客体安全属性决定，其由系统控制，用户不能改变主客体的安全属性。</p>
+<p>​	对资源的访问取决于对实体的授权策略而非简单的取决于主体的身份。通过比较主体与客体的安全属性来决定是否允许主体访问客体。</p>
+<h3 id="中国墙模型"><a class="markdownIt-Anchor" href="#中国墙模型"></a> 中国墙模型</h3>
+<p>客体为分类，主体为状态转换矩阵来记录访问顺序</p>
+<ul>
+<li>
+<p>此模型根据主体的<strong>访问历史</strong>来判断数据是否可以被访问。而不是根据数据属性作为约束条件。其本质是将全体数据划分为“利益冲突类”，根据强制约束，主体至多访问每个“利益冲突类”中的一个数据集</p>
+</li>
+<li>
+<p><strong>简单安全性</strong>：一旦一个主体访问过一个客体，那其余可被该主体访问的客体必须满足：与主体访问过的客体在同一公司内，或者在不同利益冲突中</p>
+<p><strong>清洁信息</strong>: 清洁信息不存在公司敏感信息，所以，可以不用限制对清洁信息的读访问请求</p>
+<p>*<strong>特性</strong>: 主体s能写客体o,必须</p>
+<ul>
+<li>有读0的简单安全性权利，</li>
+<li>S没有访问过o所属公司数据集或清洁数据以外的任何公司数据(如B)</li>
+<li>非清洁的信息只局限在本公司数据集内部，不能随意流动，清洁后的信息可以在系统中自由的流动</li>
+</ul>
+</li>
+</ul>
+<h2 id="基于角色的访问控制"><a class="markdownIt-Anchor" href="#基于角色的访问控制"></a> 基于角色的访问控制</h2>
+<p>​	权限通常由用户在一个组织中担当的角色来确定权限/许可被授权给角色，角色被授权给用户，用户不直接与许可关联。对访问权限的授权由管理员统一管理.</p>
+<p><strong>核心RBAC</strong>、<strong>角色层次RBAC</strong>、<strong>静态职责分离关系</strong>、<strong>动态职责分离关系</strong></p>
+<h2 id="wiondows分布式访问控制授权管理"><a class="markdownIt-Anchor" href="#wiondows分布式访问控制授权管理"></a> Wiondows分布式访问控制授权管理</h2>
+<p>全局组，通用组，域本地组</p>
+<ul>
+<li>
+<p>权限指派</p>
+<ul>
+<li>
+<p>粗粒度权限管理：在域中指派用户权限</p>
+</li>
+<li>
+<p>细粒度权限管理：在资源上指派资源访问权限</p>
+</li>
+</ul>
+</li>
+<li>
+<p>组映射</p>
+<ul>
+<li>
+<p>无通用组：将全局组product*加入域本地组files</p>
+</li>
+<li>
+<p>有通用组：将全局组product*加入通用组productall，再将productall加入域本地组files</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="第6章-数据安全"><a class="markdownIt-Anchor" href="#第6章-数据安全"></a> 第6章 数据安全</h1>
+<blockquote>
+<p>1 数据存储的透明加解密服务的流程，哪一部分在内核态(真正实现加密和解密操作的过程)，哪一部分在应用态(密钥套件的生成，加解密密钥)</p>
+<p>2 密钥管理，二级还是三级去保护密钥</p>
+<p>3 可靠性与数据容错: 主要是备份策略怎么用，差分、增量、完全。实现数据冗余的方法，不同RAID的实现有什么区别</p>
+<p>4 隐私保护，掌握原理和基本实现方法(匿名化基本原理，分三类属性，关键属性、准标识符属性、敏感属性，常见的手段，抑制、泛化)</p>
+<p>5 差分隐私原理，加噪声，加扰动(加扰动和查询函数有关，又和敏感度有关，全局敏感性局部敏感性函数都在什么情况下使用)，掌握数字型为主</p>
+<p>6 知道同态加密的原理</p>
+</blockquote>
+<h2 id="透明加解密"><a class="markdownIt-Anchor" href="#透明加解密"></a> 透明加解密</h2>
+<p>​	透明加密：又称静态加密，加解密细节不会被察觉，由存储系统自动完成，文件在内存中为明文形式、在硬盘中为密文形式。当使用环境改变时，会因无法获得自动解密服务而无法打开，从而达到保护文件内容的目的。</p>
+<h2 id="数据备份与恢复"><a class="markdownIt-Anchor" href="#数据备份与恢复"></a> 数据备份与恢复</h2>
+<h3 id="备份"><a class="markdownIt-Anchor" href="#备份"></a> 备份</h3>
+<p><strong>完全备份</strong></p>
+<p>完全备份：对某一个时间点上的所有数据进行的一个完全复制。</p>
+<p>在完全备份过程中，备份选中的文件，<strong>清除存档属性</strong>，即将每个文件都被标记为已备份。</p>
+<p><strong>差异备份(偷摸备份)</strong></p>
+<p>差异备份：备份自上一次备份后<strong>有存档属性的</strong>文件。(规矩上需要备份)</p>
+<p>在差异备份过程中，备份选中的、<strong>有存档属性的</strong>文件，<strong>不清除存档属性</strong>，即备份后不标记为已备份文件。(有种偷偷备份的感觉)</p>
+<p>在进行恢复时，需使用上次的全备份和<strong>最后一次的</strong>差异备份进行恢复。</p>
+<p><strong>增量备份</strong></p>
+<p>增量备份：备份自上一次备份之后<strong>有变化的</strong>数据。(事实上真的需要备份)</p>
+<p>在增量备份过程中，备份选中的、<strong>有存档属性的</strong>文件，<strong>清除存档属性</strong>。</p>
+<p>在进行恢复时，需使用上次的全备份和<strong>每次的</strong>差异备份进行恢复。</p>
+<h3 id="raid"><a class="markdownIt-Anchor" href="#raid"></a> RAID</h3>
+<p>​	独立磁盘冗余阵列：将多块磁盘通过一定的技术手段组成一个单一的虚拟磁盘使用。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401072330145.png" srcset="/img/loading.gif" lazyload alt="image-20240107233019013" /></p>
+<ul>
+<li>RAID-0：数据基带条阵列。将数据分割存储到多块磁盘上，磁盘读写时负载平均分配到多块磁盘。由于多块磁盘可同时读写，所以速度明显提升。
+<ul>
+<li>优点：读写快、利用率高、成本低</li>
+<li>缺点：无冗余、无校验、无备份、不提供容错性</li>
+</ul>
+</li>
+<li>RAID-1：磁盘镜像，至少由2块磁盘实现。将同样的数据写入2块磁盘(互为镜像)，一块磁盘发生故障时，另一块磁盘可继续工作，并可在更换磁盘后重新创建镜像。
+<ul>
+<li>优点：可靠性高、读取速率快</li>
+<li>缺点：写入速率低、利用率低</li>
+</ul>
+</li>
+<li>RAID-0+1：至少由4块磁盘实现。将RAID-0中的2块磁盘视为虚拟磁盘，再使用RAID-1方案阵列
+<ul>
+<li>优点：读写快、安全</li>
+</ul>
+</li>
+<li>RAID-5：循环奇偶校验阵列至少由3块磁盘实现。将数据分布在不同磁盘上，并在所有磁盘上交叉地存取数据及<strong>奇偶校验信息</strong>。
+<ul>
+<li>优点：数据安全、读取速率高、磁盘利用率高</li>
+<li>缺点：写入速率低</li>
+</ul>
+</li>
+</ul>
+<h2 id="隐私保护"><a class="markdownIt-Anchor" href="#隐私保护"></a> 隐私保护</h2>
+<p>​	隐私保护：是对隐私数据采取一系列的安全手段防止其泄露和被滥用的行为，同时用户还能享受各种服务。旨在实现数据安全和共享的某种平衡。</p>
+<p>​	匿名隐私保护技术是在隐去标识属性的基础上，为了更好地保护发布数据中的隐私信息不被泄露，对用户的准标识符进行数据发布限制的技术。</p>
+<p>链接攻击：类似数据库里的自然连接，通过等值的列进行连接，可以获得某个元组更详细的信息。</p>
+<p>所以匿名化的目的就是使公开表之间无法自然连接。</p>
+<p><strong>数据属性分类</strong></p>
+<ul>
+<li><strong>关键属性</strong>：一般是个体的唯一标识，如姓名、地址、电话等，这些需要在公开数据的时候删掉</li>
+<li><strong>准标识</strong>：类似邮编，年龄，性别等，虽然不是唯一标识，但是能帮助研究人员关联相关数据的标识。</li>
+<li><strong>敏感属性</strong>：如购买偏好，薪水，这些数据是研究人员进行分析和挖掘必须的，一般都直接公开。</li>
+</ul>
+<p><strong>实现匿名主要方法</strong></p>
+<ul>
+<li>泛化：对数据进行抽象或概括的描述</li>
+<li>抑制：不发布相应项，去除单元值或一个元组的所有值</li>
+<li>分割：将原始数据按照l-多样性原则划分，然后把<strong>准标识属性</strong>和<strong>敏感属性</strong>分成两个表后直接发布，两者之间通过“组号”来连接</li>
+<li>聚类：对数据中的不同记录进行分类，每个分类中的数据属性相同或相似</li>
+</ul>
+<h3 id="k-匿名性"><a class="markdownIt-Anchor" href="#k-匿名性"></a> k-匿名性</h3>
+<ul>
+<li>
+<p>k-匿名化：将某些列属性的具体值替换为泛化值，使其满足k-匿名性的过程，也称泛化过程。</p>
+</li>
+<li>
+<p>k-匿名性：当表中的每一个元组无法与其他至少k−1个元组互相区分，即每个元组所在的等价类≥k时，称该表满足k-匿名性。</p>
+</li>
+<li>
+<p>k值越大，保护强度越大，丢失信息越多，可用性越低</p>
+</li>
+<li>
+<p>注意：k-匿名性不考虑敏感属性。</p>
+</li>
+<li>
+<p>同质化攻击：等价类中的敏感属性取值相同，会“无法相互区分”，敌手可直接将这个等价类的信息视为等价类中每一个元组的信息(反正从这张表看这些人都一样)。</p>
+</li>
+</ul>
+<h3 id="l-多样性"><a class="markdownIt-Anchor" href="#l-多样性"></a> l-多样性</h3>
+<ul>
+<li>
+<p>由于k-匿名性不考虑敏感属性，存在同质性攻击，于是有了l-多样性。</p>
+</li>
+<li>
+<p>l-多样性：在k-匿名性的基础上，每个等价类中至少有l种敏感属性，即每个等价类的敏感属性≥l</p>
+</li>
+<li>
+<p>偏斜性攻击：等价类中敏感属性的分布与全体数据的分布相差较大，敌手可以结合语义判断某个元组的敏感属性在哪个属性上的区间。</p>
+</li>
+</ul>
+<h3 id="t-临近性"><a class="markdownIt-Anchor" href="#t-临近性"></a> t-临近性</h3>
+<ul>
+<li>
+<p>由于l-多样性不考虑等价类与总体的分布差异，于是有了t-邻近性。</p>
+</li>
+<li>
+<p>t-邻近性：在每个等价类中，敏感属性的分布与全体属性的分布邻近，且不超过t。</p>
+</li>
+</ul>
+<h2 id="差分隐私"><a class="markdownIt-Anchor" href="#差分隐私"></a> 差分隐私</h2>
+<ul>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi></mrow><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">ε</span></span></span></span>(隐私保护预算)越大，引入的噪声越小，隐私泄露的风险越大。</p>
+</li>
+<li>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi></mrow><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">ε</span></span></span></span>越小，引入的噪声越大，隐私泄露的风险越小。</p>
+</li>
+</ul>
+<p>噪声过多会使可用性下降，噪声过少会使数据安全性下降</p>
+<p>敏感度越大，需要添加足够大的噪声，</p>
+<p>因此，全局敏感度只与查询函数有关。这有可能要面对很大的全局敏感性，需要加更大的噪声，因此，提出了局部敏感性的概念。局部敏感度首先会对待保护数据集进行变换(如差值等)，降低待保护数据集的敏感度，由于利用了数据集的数据分布特征，局部敏感度通常比全局敏感度小的多。</p>
+<h2 id="同态加密"><a class="markdownIt-Anchor" href="#同态加密"></a> 同态加密</h2>
+<p>​	同态加密技术，它支持直接对密文进行运算，并且计算结果的解密值与对应明文的计算结果相同</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401062220694.png" srcset="/img/loading.gif" lazyload alt="image-20240106222019639" /></p>
+<h1 id="第7章-vpn"><a class="markdownIt-Anchor" href="#第7章-vpn"></a> 第7章 VPN</h1>
+<blockquote>
+<p>1 IPSEC VPN 与 TLS VPN 搞清楚什么情况下使用，具体情况下怎么封装了解即可，了解隧道协议即可，主要掌握几种VPN的比较点</p>
+</blockquote>
+<h2 id="ipsec-vpn"><a class="markdownIt-Anchor" href="#ipsec-vpn"></a> IPSEC VPN</h2>
+<ul>
+<li>使用场景：
+<ul>
+<li>站点到站点的连接</li>
+<li>远程访问</li>
+</ul>
+</li>
+<li>协议层次：
+<ul>
+<li>IPSEC工作在网络层，为整个网络通信提供安全性</li>
+</ul>
+</li>
+<li>加密和鉴别
+<ul>
+<li>IPsec提供数据加密和身份验证，通常使用AH和ESP协议来实现</li>
+</ul>
+</li>
+</ul>
+<h2 id="tls-vpn"><a class="markdownIt-Anchor" href="#tls-vpn"></a> TLS VPN</h2>
+<ul>
+<li>使用场景
+<ul>
+<li>远程用户访问</li>
+<li>移动设备支持：由于TLS VPN工作在传输层(第四层)，因此适用于多种设备，包括移动设备</li>
+</ul>
+</li>
+<li>协议层次：
+<ul>
+<li>TLS VPN工作在传输层与应用层之间，为端到端的通信提供安全性</li>
+</ul>
+</li>
+<li>加密和鉴别
+<ul>
+<li>TLS VPN使用TLS协议(也称为SSL/TLS)来实现加密和身份验证</li>
+</ul>
+</li>
+<li>连接方式：
+<ul>
+<li>TLS VPN通常作为应用层协议，因此可以使用独立的客户端软件，也可以通过Web浏览器进行访问。相对于IPsec，TLS VPN更容易部署，无需对底层网络设备进行复杂的配置。</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AF%BE%E7%A8%8B%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">课程复习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>信息系统安全</div>
+      <div>http://example.com/posts/e9381314.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Nuthecz</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/d0607d51.html" title="高级逆向分析技术">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">高级逆向分析技术</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/d7f95dad.html" title="PE文件解析">
+                        <span class="hidden-mobile">PE文件解析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>
+      目录
+    </span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+   <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+  var toc = jQuery('#toc');
+  if (toc.length === 0 || !window.tocbot) { return; }
+  var boardCtn = jQuery('#board-ctn');
+  var boardTop = boardCtn.offset().top;
+
+  window.tocbot.init(Object.assign({
+  tocSelector : '#toc-body',
+  contentSelector : '.markdown-body',
+  linkClass : 'tocbot-link',
+  activeLinkClass : 'tocbot-active-link',
+  listClass : 'tocbot-list',
+  isCollapsedClass: 'tocbot-is-collapsed',
+  collapsibleClass: 'tocbot-is-collapsible',
+  scrollSmooth : true,
+  includeTitleTags: true,
+  headingsOffset : -boardTop,
+  }, CONFIG.toc));
+  if (toc.find('.toc-list-item').length > 0) {
+  toc.css('visibility', 'visible');
+  }
+
+  Fluid.events.registerRefreshCallback(function() {
+  if ('tocbot' in window) {
+  tocbot.refresh();
+  var toc = jQuery('#toc');
+  if (toc.length === 0 || !tocbot) {
+  return;
+  }
+  if (toc.find('.toc-list-item').length > 0) {
+  toc.css('visibility', 'visible');
+  }
+  }
+  });
+  });
+  </script>
+  
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>

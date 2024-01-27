@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
 <meta property="article:published_time" content="2023-09-12T09:44:57.000Z">
-<meta property="article:modified_time" content="2023-10-20T15:12:58.395Z">
+<meta property="article:modified_time" content="2024-01-27T12:47:59.756Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
@@ -757,7 +757,7 @@
 <p>第7位 <code>PS</code> = 1 时，PDE直接指向大页，21-35(15位)指向大页的物理地址，这样36位的物理地址中低21位为0，即页的大小为2MB，且都是2MB对齐；当 <code>PS</code> = 0 时，21-35是页表基址，低12位补0，共36位。</p>
 </li>
 <li>
-<p>解释一下G位，G=1表示这是全局页，是多个进程共享的，这种页是通过 CreateFileMapping 申请的, G=1，即为全局页，进程（CR3）切换时，TLB中的记录不会被刷新; 与之对应的，G=0就是进程独享的物理页，这种页是通过 VirtualAlloc 分配的。</p>
+<p>解释一下G位，G=1表示这是全局页，是多个进程共享的，这种页是通过 CreateFileMapping 申请的, G=1，即为全局页，进程(CR3)切换时，TLB中的记录不会被刷新; 与之对应的，G=0就是进程独享的物理页，这种页是通过 VirtualAlloc 分配的。</p>
 </li>
 </ul>
 <h4 id="pte"><a class="markdownIt-Anchor" href="#pte"></a> PTE</h4>
@@ -781,10 +781,10 @@
 <table>
 <thead>
 <tr>
-<th>LA（线性地址）</th>
-<th>PA（物理地址）</th>
-<th>ATTR（属性）</th>
-<th>LRU（统计）</th>
+<th>LA(线性地址)</th>
+<th>PA(物理地址)</th>
+<th>ATTR(属性)</th>
+<th>LRU(统计)</th>
 </tr>
 </thead>
 <tbody>
@@ -797,7 +797,7 @@
 </tbody>
 </table>
 <p>对于<code>TLB</code>，给出如下说明：<br />
-  1. ATTR（属性）：如果是<code>2-9-9-12</code>分页，属性是<code>PDPE</code>、<code>PDE</code>、<code>PTE</code>三个属性共同决定的。如果是<code>10-10-12</code>分页就是<code>PDE</code>和<code>PTE</code>共同决定。<br />
+  1. ATTR(属性)：如果是<code>2-9-9-12</code>分页，属性是<code>PDPE</code>、<code>PDE</code>、<code>PTE</code>三个属性共同决定的。如果是<code>10-10-12</code>分页就是<code>PDE</code>和<code>PTE</code>共同决定。<br />
   2. 不同的<code>CPU</code>这个表的大小不一样。<br />
   3. 只要<code>Cr3</code>变了，<code>TLB</code>立马刷新，一核一套<code>TLB</code></p>
 <h3 id="控制寄存器"><a class="markdownIt-Anchor" href="#控制寄存器"></a> 控制寄存器</h3>
@@ -877,7 +877,7 @@
 <h3 id="ssdt"><a class="markdownIt-Anchor" href="#ssdt"></a> SSDT</h3>
 <ul>
 <li>
-<p>全称：<strong>System Services Descriptor Table</strong>（系统服务描述符表）</p>
+<p>全称：<strong>System Services Descriptor Table</strong>(系统服务描述符表)</p>
 </li>
 <li>
 <p>SSDT的<strong>每个成员</strong>叫做<strong>系统服务表</strong></p>
@@ -950,7 +950,7 @@
 </li>
 <li>异常处理
 <ul>
-<li>如果一个线程<strong>不调用API</strong>，并且在代码中<strong>屏蔽中断</strong>（调用CLI指令），并且<strong>不会出现异常</strong>，那么当前线程将永久占有CPU</li>
+<li>如果一个线程<strong>不调用API</strong>，并且在代码中<strong>屏蔽中断</strong>(调用CLI指令)，并且<strong>不会出现异常</strong>，那么当前线程将永久占有CPU</li>
 <li>单核CPU占用率100%，2核CPU占用率50%</li>
 <li>Windows<strong>并非</strong>是“抢占式”操作系统，所谓的“抢“”必须是当前线程允许其它线程“抢”，否则是“抢”不到的</li>
 </ul>
@@ -1076,7 +1076,7 @@
 </ul>
 <h2 id="等待与唤醒"><a class="markdownIt-Anchor" href="#等待与唤醒"></a> 等待与唤醒</h2>
 <ol>
-<li>可等待对象正常情况下都是以 <code>_DISPATCHER_HEADER</code> 结构体开头的，但是有一些特殊的结构体并不是以 <code>_DISPATCHER_HEADER</code> 开头的（如 _FILE_OBJECT），但是windows又希望把它们也变成所谓的可等待对象，因此在它们内部嵌入一个 <code>_DISPATCHER_HEADER</code> 这样的结构体</li>
+<li>可等待对象正常情况下都是以 <code>_DISPATCHER_HEADER</code> 结构体开头的，但是有一些特殊的结构体并不是以 <code>_DISPATCHER_HEADER</code> 开头的(如 _FILE_OBJECT)，但是windows又希望把它们也变成所谓的可等待对象，因此在它们内部嵌入一个 <code>_DISPATCHER_HEADER</code> 这样的结构体</li>
 <li>只要是包含 <code>_DISPATCHER_HEADER</code> 结构体的对象，都可以看作是可等待对象，都可以使用 <code>WaitForSingleObject</code> 和 <code>WaitForMultipleObjects</code> 这两个函数进入等待状态</li>
 </ol>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310032023751.png" srcset="/img/loading.gif" lazyload alt="image-20231003151136267" /></p>
@@ -1094,7 +1094,7 @@
 <p>如果可等待对象是 <code>EVENT</code>，其他线程通常使用 <code>SetEvent</code> 来设置 <code>SignalState = 1</code>，并且，将正在等待该对象的其他线程唤醒，也就是从等待链表<code>(KiWaitListHead</code>)中摘出来，此时线程临时复活</p>
 </li>
 <li>
-<p><code>SetEvent</code> 函数并不会将线程从等待网上摘下来，是否要下来，由当前线程自己来决定。此时线程会在<code>WaitForSingleObject </code>或者 <code>WaitForMultipleObjects </code> 恢复执行（在哪切换就在哪开始执行），如果符合唤醒条件，就将自己从 <strong>等待网</strong> 上摘下来，此时的线程才是真正的唤醒</p>
+<p><code>SetEvent</code> 函数并不会将线程从等待网上摘下来，是否要下来，由当前线程自己来决定。此时线程会在<code>WaitForSingleObject </code>或者 <code>WaitForMultipleObjects </code> 恢复执行(在哪切换就在哪开始执行)，如果符合唤醒条件，就将自己从 <strong>等待网</strong> 上摘下来，此时的线程才是真正的唤醒</p>
 </li>
 <li>
 <p>若使用 <code>SetEvent</code> 这种函数直接将线程从等待网上摘下来，将会非常麻烦，因为可能有非常多的线程在等待一个对象，无法判断该将谁摘下(一个也线程可能等待着多个对象)</p>
@@ -1359,7 +1359,7 @@
 <li><strong>单步步入</strong>的实现依赖于<strong>单步异常</strong></li>
 <li>当我们需要观察每一行代码(包括函数内部的代码)执行之后寄存器与内存的变化，通常会采用单步步入</li>
 <li>当使用单步步入时，可采用在下一行代码的首字节设置INT 3断点的方式实现</li>
-<li>CPU为我们提供了一种更为方便的方法，即使用<strong>陷阱标志位（TF位）</strong></li>
+<li>CPU为我们提供了一种更为方便的方法，即使用<strong>陷阱标志位(TF位)</strong></li>
 </ol>
 <p><strong>设置单步异常</strong></p>
 <ul>
@@ -1404,7 +1404,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  <a href="/categories/OS%E7%9B%B8%E5%85%B3/" class="category-chain-item">OS相关</a>
   
   
 

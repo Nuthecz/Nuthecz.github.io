@@ -1,0 +1,1081 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/first.png">
+  <link rel="icon" href="/img/first.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Nuthecz">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第1章 网络安全的概念与体系结构  网络安全的概念 ​	网络安全是指网络系统的硬件、软件及其系统中的数据受到保护，不因偶然的或者恶意的原因而遭受到破坏、更改、泄露，系统连续可靠正常地运行，网络服务不中断。  网络安全的属性  基本属性(CIA)-3  机密性：确保信息不会暴露给未授权的实体或者进程，保证保密性的主要措施是密码技术 完整性：信息在存储或传输中不被蓄意或偶然地破坏的特征，保证完整性的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络攻击与防御">
+<meta property="og:url" content="http://example.com/posts/40c678cb.html">
+<meta property="og:site_name" content="Nuthecz&#96;Blog">
+<meta property="og:description" content="第1章 网络安全的概念与体系结构  网络安全的概念 ​	网络安全是指网络系统的硬件、软件及其系统中的数据受到保护，不因偶然的或者恶意的原因而遭受到破坏、更改、泄露，系统连续可靠正常地运行，网络服务不中断。  网络安全的属性  基本属性(CIA)-3  机密性：确保信息不会暴露给未授权的实体或者进程，保证保密性的主要措施是密码技术 完整性：信息在存储或传输中不被蓄意或偶然地破坏的特征，保证完整性的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
+<meta property="article:published_time" content="2023-12-18T10:25:04.000Z">
+<meta property="article:modified_time" content="2024-01-27T12:44:07.134Z">
+<meta property="article:author" content="Nuthecz">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
+  
+  
+  
+  <title>网络攻击与防御 - Nuthecz`Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+  
+<link rel="stylesheet" href="/css/fluid-extension.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/katex@0.11.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body><!-- hexo injector body_begin start --><div id="web_bg"></div><!-- hexo injector body_begin end -->
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Nuthecz</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133045.JPG') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="网络攻击与防御"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-12-18 18:25" pubdate>
+          2023年12月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          45 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">网络攻击与防御</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第1章-网络安全的概念与体系结构"><a class="markdownIt-Anchor" href="#第1章-网络安全的概念与体系结构"></a> 第1章 网络安全的概念与体系结构</h1>
+<h2 id="网络安全的概念"><a class="markdownIt-Anchor" href="#网络安全的概念"></a> 网络安全的概念</h2>
+<p>​	<strong>网络安全</strong>是指网络系统的硬件、软件及其系统中的数据受到保护，不因偶然的或者恶意的原因而遭受到破坏、更改、泄露，系统连续可靠正常地运行，网络服务不中断。</p>
+<h2 id="网络安全的属性"><a class="markdownIt-Anchor" href="#网络安全的属性"></a> 网络安全的属性</h2>
+<h3 id="基本属性cia-3"><a class="markdownIt-Anchor" href="#基本属性cia-3"></a> 基本属性(CIA)-3</h3>
+<ul>
+<li>机密性：确保信息不会暴露给未授权的实体或者进程，保证保密性的主要措施是密码技术</li>
+<li>完整性：信息在存储或传输中不被蓄意或偶然地破坏的特征，保证完整性的主要措施密码技术和身份认证技术</li>
+<li>可用性：得到授权的实体在需要时可以访问资源或者服务，信息系统不能拒绝服务，讲求时效性，保护措施是访问控制技术</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141325227.png" srcset="/img/loading.gif" lazyload alt="image-20231214132529120" /></p>
+<h3 id="信息保障与安全参考模型rmias-8"><a class="markdownIt-Anchor" href="#信息保障与安全参考模型rmias-8"></a> 信息保障与安全参考模型(RMIAS)-8</h3>
+<p>​	机密性、完整性、可用性、不可抵赖性、隐私性、真实性与可信任性、可说明性、可审计性、</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141326474.png" srcset="/img/loading.gif" lazyload alt="image-20231214132625436" /></p>
+<h2 id="安全威胁"><a class="markdownIt-Anchor" href="#安全威胁"></a> 安全威胁</h2>
+<p>​	**威胁(Threat)**是指任何可能通过未授权的访问、销毁、披露、修改信息以及拒绝服务而对组织或国家产生不利影响的情况或事件</p>
+<h3 id="安全威胁-3"><a class="markdownIt-Anchor" href="#安全威胁-3"></a> 安全威胁-3</h3>
+<ol>
+<li>信息泄露
+<ul>
+<li>敏感数据在有意或无意中被泄露或丢失</li>
+<li>包括 --&gt; 传输中，存储介质中，建立隐蔽信道窃取</li>
+</ul>
+</li>
+<li>信息破坏
+<ul>
+<li>以非法手段获得对数据的使用权，删除，修改，插入或重发某些信息，以取得有益于攻击者的响应信息；</li>
+<li>恶意添加、修改数据，以干扰用户的正常使用</li>
+</ul>
+</li>
+<li>拒绝服务
+<ul>
+<li>执行无关程序使系统响应减慢甚至瘫痪，影响正常用户的使用，甚至使合法用户被排斥而不能得到相应的服务</li>
+</ul>
+</li>
+</ol>
+<h3 id="威胁来源-2"><a class="markdownIt-Anchor" href="#威胁来源-2"></a> 威胁来源-2</h3>
+<ul>
+<li>自然因素
+<ul>
+<li>包括各种自然灾害、系统环境和场地、电磁干扰、设备老化等</li>
+</ul>
+</li>
+<li>人为因素
+<ul>
+<li>有意和无意之分；无意，操作、设计失误等；有意，恶意攻击等</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络攻击"><a class="markdownIt-Anchor" href="#网络攻击"></a> 网络攻击</h2>
+<p>​	<strong>攻击</strong>指威胁的具体实施</p>
+<h3 id="网络攻击分类"><a class="markdownIt-Anchor" href="#网络攻击分类"></a> 网络攻击分类</h3>
+<h4 id="按安全属性和信息流动情况-5"><a class="markdownIt-Anchor" href="#按安全属性和信息流动情况-5"></a> 按安全属性和信息流动情况-5</h4>
+<ol>
+<li>阻断攻击：拒绝服务攻击，针对可用性的攻击手段，攻击者阻断从信源到信宿的信息流，使信宿无法获取信息</li>
+<li>截取攻击：窃听攻击，攻击者通过物理搭线、拦截数据包、后门、接收辐射信号等方法获取从信源到信宿的信息流</li>
+<li>篡改攻击：非授权者用各种手段对信息系统中的数据进行增加、删除、插入等非授权操作，破坏数据的完整性，以达到其恶意目的</li>
+<li>伪造攻击：伪装攻击，通过出示伪造的凭证来冒充其他对象，进入系统盗窃信息或进行破坏</li>
+<li>重放攻击：当一个消息或部分消息被重复发送时将发生重放攻击</li>
+</ol>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141342597.png" srcset="/img/loading.gif" lazyload alt="image-20231214134215531" /></p>
+<h4 id="按ccitt的x800标准划分-2"><a class="markdownIt-Anchor" href="#按ccitt的x800标准划分-2"></a> 按CCITT的X.800标准划分-2</h4>
+<ol>
+<li>被动攻击：不影响系统正常工作情况下获取信息</li>
+<li>主动攻击：威胁到信息的完整性，造成信息破坏</li>
+</ol>
+<h2 id="网络安全体系结构"><a class="markdownIt-Anchor" href="#网络安全体系结构"></a> 网络安全体系结构</h2>
+<h3 id="安全服务-5"><a class="markdownIt-Anchor" href="#安全服务-5"></a> 安全服务-5</h3>
+<ol>
+<li>认证服务
+<ul>
+<li>分为对等实体鉴别，数据原发鉴别</li>
+</ul>
+</li>
+<li>访问控制服务
+<ul>
+<li>防止对资源的非授权使用</li>
+</ul>
+</li>
+<li>机密性服务
+<ul>
+<li>防止数据非授权泄露，应采取信息加密技术</li>
+</ul>
+</li>
+<li>完整性服务
+<ul>
+<li>主要应对主动威胁，保证信息精确地从信源到信宿</li>
+</ul>
+</li>
+<li>不可否认性服务
+<ul>
+<li>提供凭证，防止发送者否认或抵赖已发送地信息</li>
+<li>可采取两种形式
+<ul>
+<li>原发证明抗抵赖</li>
+<li>交付证明抗抵赖</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="安全机制-8"><a class="markdownIt-Anchor" href="#安全机制-8"></a> 安全机制-8</h3>
+<ol>
+<li>加密机制</li>
+<li>数字签名机制</li>
+<li>访问控制机制</li>
+<li>信息完整性机制</li>
+<li>鉴别交换机制</li>
+<li>业务量填充机制</li>
+<li>路由控制机制</li>
+<li>公证机制</li>
+</ol>
+<h3 id="安全服务和安全机制的关系"><a class="markdownIt-Anchor" href="#安全服务和安全机制的关系"></a> 安全服务和安全机制的关系</h3>
+<blockquote>
+<p>安全服务由安全机制来实现</p>
+<p>一种安全机制可以实现一种或多种安全服务</p>
+<p>一种安全服务可以由一种或多种安全机制来实现</p>
+</blockquote>
+<h3 id="网络安全等级保护"><a class="markdownIt-Anchor" href="#网络安全等级保护"></a> 网络安全等级保护</h3>
+<ul>
+<li>
+<p>第一级：用户自主保护级</p>
+</li>
+<li>
+<p>第二级：系统审计保护级</p>
+</li>
+<li>
+<p>第三级：安全标识保护级</p>
+</li>
+<li>
+<p>第四级：结构化保护级</p>
+</li>
+<li>
+<p>第五级：访问验证保护级</p>
+</li>
+</ul>
+<h1 id="第2章-黑客攻击流程与渗透测试"><a class="markdownIt-Anchor" href="#第2章-黑客攻击流程与渗透测试"></a> 第2章 黑客攻击流程与渗透测试</h1>
+<h2 id="黑客攻击流程"><a class="markdownIt-Anchor" href="#黑客攻击流程"></a> 黑客攻击流程</h2>
+<h3 id="攻击流程"><a class="markdownIt-Anchor" href="#攻击流程"></a> 攻击流程</h3>
+<p>踩点 -&gt; 扫描 -&gt; 查点 -&gt; 访问 -&gt; 提权 -&gt; 窃取信息 -&gt; 掩踪灭迹 -&gt; 创建后门 -&gt; 拒绝服务</p>
+<ul>
+<li>踩点：收集信息</li>
+<li>扫描：评估系统，寻找可攻击范围</li>
+<li>查点：寻找系统中的用户信息以及可获得的共享资源</li>
+<li>攻击实施：利用收集的信息，针对性访问目标系统</li>
+<li>攻击善后阶段：掩踪灭迹，创建后门</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141416531.png" srcset="/img/loading.gif" lazyload alt="image-20231214141630481" /></p>
+<h3 id="踩点"><a class="markdownIt-Anchor" href="#踩点"></a> 踩点</h3>
+<ul>
+<li>
+<p>**踩点(Footprinting)**是指通过合法或非法的手段，有计划有步骤的信息情报搜集，从而了解目标网络的环境和安全防御设施的状况，得到目标网络的剖析图。</p>
+</li>
+<li>
+<p>踩点的目的可以归纳为：获得目标网络的完整剖析图，寻找到目标网络中可能存在的薄弱环节，为进一步的攻击行动提供指引</p>
+</li>
+<li>
+<p>踩点收集信息的途径</p>
+<ul>
+<li>
+<p>公共渠道获取信息</p>
+</li>
+<li>
+<p>WHOIS查询</p>
+</li>
+<li>
+<p>DNS查询</p>
+</li>
+<li>
+<p>网络侦查</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="扫描"><a class="markdownIt-Anchor" href="#扫描"></a> 扫描</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141511611.png" srcset="/img/loading.gif" lazyload alt="image-20231214151121545" /></p>
+<p>基本方法：ping 扫描</p>
+<h3 id="查点"><a class="markdownIt-Anchor" href="#查点"></a> 查点</h3>
+<p>​	<strong>查点(enumeration)</strong>：对识别出来的服务进行更为充分的探查；</p>
+<p>​	寻找的信息包括： 用户账号名(用于随后的口令猜测攻击)，错误配置的共享资源(如不安全的文件共享)，具有已知安全性漏洞的旧版本软件(如存在远程缓冲区溢出的web服务器)</p>
+<h3 id="攻击实施"><a class="markdownIt-Anchor" href="#攻击实施"></a> 攻击实施</h3>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141514429.png" srcset="/img/loading.gif" lazyload alt="image-20231214151404378" /></p>
+<h3 id="攻击善后阶段"><a class="markdownIt-Anchor" href="#攻击善后阶段"></a> 攻击善后阶段</h3>
+<p>​	掩踪灭迹，创建后门</p>
+<h2 id="渗透测试"><a class="markdownIt-Anchor" href="#渗透测试"></a> 渗透测试</h2>
+<p>​	<strong>渗透测试(Penetration Testing)</strong>：一种通过模拟攻击者的技术与方法，以充分挖掘和暴露系统的弱点，挫败目标系统的安全控制措施，取得系统的访问控制权，并发现安全隐患的<strong>安全测试与评估方式</strong>。</p>
+<h3 id="分类-3"><a class="markdownIt-Anchor" href="#分类-3"></a> 分类-3</h3>
+<ul>
+<li>
+<p>白盒测试：渗透人员拥有客户所有知识情况下的渗透测试</p>
+</li>
+<li>
+<p>黑盒测试：渗透人员不了解大部分知识情况下的渗透测试</p>
+</li>
+<li>
+<p>灰盒测试：介于白盒和黑盒之间，渗透人员了解部分知识情况下的渗透测试</p>
+</li>
+</ul>
+<h3 id="渗透测试七个阶段-7"><a class="markdownIt-Anchor" href="#渗透测试七个阶段-7"></a> 渗透测试七个阶段-7</h3>
+<ul>
+<li>
+<p>前期交互：确定测试范围及限制条件</p>
+</li>
+<li>
+<p>情报搜集：获取网络配置及系统信息</p>
+</li>
+<li>
+<p>威胁建模：利用得到的信息规划攻击</p>
+</li>
+<li>
+<p>漏洞分析：综合情报信息找出可攻击的点</p>
+</li>
+<li>
+<p>渗透攻击：实施攻击获得系统的访问控制权</p>
+</li>
+<li>
+<p>后渗透攻击：对目标组织的具体业务进行攻击</p>
+</li>
+<li>
+<p>报告：汇总渗透过程并给出防御办法</p>
+</li>
+</ul>
+<h3 id="渗透测试和入侵的异同-2"><a class="markdownIt-Anchor" href="#渗透测试和入侵的异同-2"></a> 渗透测试和入侵的异同-2</h3>
+<h4 id="相同-3"><a class="markdownIt-Anchor" href="#相同-3"></a> 相同-3</h4>
+<p>1.入侵和渗透在操作流程上类似</p>
+<p>2.都是为了获取系统权限进行攻击</p>
+<p>3.都是利用漏洞进行攻击和突破</p>
+<h4 id="不同-6"><a class="markdownIt-Anchor" href="#不同-6"></a> 不同-6</h4>
+<p>1.操作上类似，但是本质不同</p>
+<p>2.入侵是以破坏或者盗取信息为目的，渗透是以发现和修复漏洞为目的</p>
+<p>3.入侵会造成损失，渗透是为了避免损失</p>
+<p>4.入侵的是黑帽子，渗透的是白帽子</p>
+<p>5.入侵是非法的，渗透是合法的</p>
+<p>6.入侵是攻击，渗透是防御</p>
+<p>主要是在于：是否有授权；挖到漏洞了以后是否对漏洞进行了利用</p>
+<h1 id="第3章-信息收集与防御"><a class="markdownIt-Anchor" href="#第3章-信息收集与防御"></a> 第3章 信息收集与防御</h1>
+<h2 id="网络扫描技术概述"><a class="markdownIt-Anchor" href="#网络扫描技术概述"></a> 网络扫描技术概述</h2>
+<p>​	<strong>扫描的基本步骤</strong>：确定目标系统是否真实存在；确定目标系统上哪些服务正在运行或监听；探查操作系统</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141619751.png" srcset="/img/loading.gif" lazyload alt="image-20231214161914655" /></p>
+<h3 id="扫描分类"><a class="markdownIt-Anchor" href="#扫描分类"></a> 扫描分类</h3>
+<p><strong>按照扫描的目的</strong>，扫描可以分为：</p>
+<p>主机扫描、端口扫描、漏洞扫描</p>
+<ul>
+<li>主机扫描：
+<ul>
+<li>确定目标系统主机是否可达的过程，主要用于确定目标系统是否存活</li>
+<li>基本方法：ping扫描，nmap -sP</li>
+</ul>
+</li>
+<li>端口扫描：
+<ul>
+<li>主动连接目标系统的TCP和UDP端口以确定哪些服务正在运行或处于监听状态</li>
+<li>主要目的：
+<ul>
+<li>确定运行的TCP/UDP服务</li>
+<li>确定操作系统的具体类型</li>
+<li>确定提供服务的应用程序名称和版本</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="掌握基本的端口扫描及指令"><a class="markdownIt-Anchor" href="#掌握基本的端口扫描及指令"></a> 掌握基本的端口扫描及指令</h3>
+<h4 id="总览"><a class="markdownIt-Anchor" href="#总览"></a> 总览</h4>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141624102.png" srcset="/img/loading.gif" lazyload alt="image-20231214162419986" /></p>
+<h4 id="tcp连接扫描"><a class="markdownIt-Anchor" href="#tcp连接扫描"></a> TCP连接扫描</h4>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141623450.png" srcset="/img/loading.gif" lazyload alt="image-20231214162358400" /></p>
+<h4 id="tcp-syn扫描"><a class="markdownIt-Anchor" href="#tcp-syn扫描"></a> TCP SYN扫描</h4>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141625784.png" srcset="/img/loading.gif" lazyload alt="image-20231214162546746" /></p>
+<h4 id="tcp-fin扫描"><a class="markdownIt-Anchor" href="#tcp-fin扫描"></a> TCP FIN扫描</h4>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141626376.png" srcset="/img/loading.gif" lazyload alt="image-20231214162606330" /></p>
+<ul>
+<li>这里两个变体，Xmas就是把六个标记位(ACK、FIN、RST、SYN、URG、PSH)为全部置1，而Null则是全部置0。这里都是目标端口关闭才返回一个RST包</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141629793.png" srcset="/img/loading.gif" lazyload alt="image-20231214162951744" /></p>
+<ul>
+<li>两个变体之所以进行标志位的设置是为了躲过FIN标记检测器(简单的过滤器和访问控制列表)的检测。</li>
+<li>都主要用于UNIX/Linux/BSD的TCP/IP的协议栈；不适用于Windows系统</li>
+</ul>
+<h4 id="其余扫描"><a class="markdownIt-Anchor" href="#其余扫描"></a> 其余扫描</h4>
+<p>[CH03-信息收集与防御-1.pdf](file://E:/Data/大学/大三/大三上/网络攻击与防御/课件/CH03-信息收集与防御-1.pdf)</p>
+<ul>
+<li>TCP ACK P31
+<ul>
+<li>不能判断端口开放还是关闭，但是可以扫描防火墙配置</li>
+<li>对于没有过滤的端口，若返回RST数据包的TTL值小于等于64，则端口开放。无法用于Win，win的TTL值原始值是128，判断不可靠</li>
+</ul>
+</li>
+<li>TCP窗口扫描 P34
+<ul>
+<li>发送ACK标识数据包，判断返回的RST数据包窗口大小，不为零：端口开放；为零：端口关闭</li>
+</ul>
+</li>
+<li>SYN/ACK扫描 P35
+<ul>
+<li>发送 SYN/ACK数据包，目标主机报错，判断为错误连接。若是端口开放，返回RST信息</li>
+</ul>
+</li>
+<li>TCP Maimon扫描 P36
+<ul>
+<li>发送 FIN/ACK数据包，其余与FIN类似</li>
+</ul>
+</li>
+<li>
+<h2 id="udp扫描"><a class="markdownIt-Anchor" href="#udp扫描"></a> UDP扫描</h2>
+</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141630853.png" srcset="/img/loading.gif" lazyload alt="image-20231214163005813" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141630304.png" srcset="/img/loading.gif" lazyload alt="image-20231214163013270" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141641747.png" srcset="/img/loading.gif" lazyload alt="image-20231214164134672" /></p>
+<h3 id="操作系统探查的主要技术"><a class="markdownIt-Anchor" href="#操作系统探查的主要技术"></a> 操作系统探查的主要技术</h3>
+<p>​	主要为了尽可能详细地查明目标操作系统类型、版本等重要信息</p>
+<ul>
+<li>旗标抓取技术</li>
+<li>协议栈指纹分析技术</li>
+</ul>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141643675.png" srcset="/img/loading.gif" lazyload alt="image-20231214164343631" /></p>
+<h4 id="协议栈指纹分析技术"><a class="markdownIt-Anchor" href="#协议栈指纹分析技术"></a> 协议栈指纹分析技术</h4>
+<p>​	可以将不同操作系统实现地不同之处作为“指纹”来判别操作系统类型，根据是否主动向目标系统发送数据包划分为以下两类</p>
+<ul>
+<li>
+<p>主动式协议栈指纹分析技术</p>
+<ul>
+<li>向目标系统发送数据包去探查网络协议栈的独有特点，推测操作系统</li>
+</ul>
+</li>
+<li>
+<p>被动式协议栈指纹分析技术</p>
+<ul>
+<li>通过被动地监控网络通信推测目标的操作系统</li>
+</ul>
+</li>
+</ul>
+<h4 id="协议栈指纹分析技术的工作原理"><a class="markdownIt-Anchor" href="#协议栈指纹分析技术的工作原理"></a> 协议栈指纹分析技术的工作原理</h4>
+<p>不同厂家的IP协议栈实现存在着许多细微的差别</p>
+<p>探查这些差异，就能对目标系统做出有依据的判断</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202312141651410.png" srcset="/img/loading.gif" lazyload alt="image-20231214165107369" /></p>
+<p>查点：Nessus</p>
+<h3 id="扫描总结"><a class="markdownIt-Anchor" href="#扫描总结"></a> 扫描总结</h3>
+<p><strong>扫描小结：顾军ppt-ch3-2 p48</strong></p>
+<p>[CH03-信息收集与防御-2.pdf](file://E:/Data/大学/大三/大三上/网络攻击与防御/课件/CH03-信息收集与防御-2.pdf)</p>
+<h2 id="查点技术"><a class="markdownIt-Anchor" href="#查点技术"></a> 查点技术</h2>
+<h3 id="服务指纹分析技术"><a class="markdownIt-Anchor" href="#服务指纹分析技术"></a> 服务指纹分析技术</h3>
+<ul>
+<li>
+<p><strong>服务指纹(Service Fingerpringting)分析技术</strong>是一种能够快速有效分析出整个目标网络系统的自动化技术。它可以进一步解释与每一个端口相关联的实际服务，可以获取比扫描更有价值的信息</p>
+</li>
+<li>
+<p>协议栈指纹分析是根据不同的操作系统所独有的协议栈来辨别目标的操作系统；而服务指纹分析技术是用来查点各种特定服务</p>
+</li>
+</ul>
+<h3 id="旗标抓取技术"><a class="markdownIt-Anchor" href="#旗标抓取技术"></a> 旗标抓取技术</h3>
+<ul>
+<li>旗标(banner)是指在第一次连接时，目标软件给出的软件名称、版本号等信息</li>
+<li>旗标抓取是连接到远程应用程序并现察其输出，以收集关键信息的技术手段，一般仅限于采用明文传输协议的网络服务</li>
+<li>telnet和netcat</li>
+</ul>
+<h2 id="扫描与查点的防御"><a class="markdownIt-Anchor" href="#扫描与查点的防御"></a> 扫描与查点的防御</h2>
+<ul>
+<li>端口扫描监测：
+<ul>
+<li>在某个不常用的端口进行监听：如发现对该端口的连接请求，就认为有端口扫描。一般这些工具都会对连接请求的来源进行反探测，同时弹出提示窗口</li>
+<li>混杂模式下抓包(wireshark)并进一步分析判断</li>
+<li>蜜罐系统(Honeypot)</li>
+</ul>
+</li>
+</ul>
+<h2 id="网络嗅探"><a class="markdownIt-Anchor" href="#网络嗅探"></a> 网络嗅探</h2>
+<p>​	网络监听(网络嗅探、Network Sniffing)：在他方未察觉的情况下捕获其通信报文、通信内容的技术</p>
+<h3 id="交换式局域网嗅探技术"><a class="markdownIt-Anchor" href="#交换式局域网嗅探技术"></a> 交换式局域网嗅探技术</h3>
+<p>[CH03-信息收集与防御-3.pdf](file://E:/Data/大学/大三/大三上/网络攻击与防御/课件/CH03-信息收集与防御-3.pdf)</p>
+<h1 id="第4章-操作系统口令文件与破解"><a class="markdownIt-Anchor" href="#第4章-操作系统口令文件与破解"></a> 第4章 操作系统口令文件与破解</h1>
+<p>​	看书</p>
+<h1 id="第5章-欺骗攻击与防御"><a class="markdownIt-Anchor" href="#第5章-欺骗攻击与防御"></a> 第5章 欺骗攻击与防御</h1>
+<h2 id="arp欺骗"><a class="markdownIt-Anchor" href="#arp欺骗"></a> ARP欺骗</h2>
+<h3 id="arp欺骗的工作原理"><a class="markdownIt-Anchor" href="#arp欺骗的工作原理"></a> arp欺骗的工作原理</h3>
+<h1 id="第6章-web攻击和防御"><a class="markdownIt-Anchor" href="#第6章-web攻击和防御"></a> 第6章 Web攻击和防御</h1>
+<h2 id="sql注入漏洞"><a class="markdownIt-Anchor" href="#sql注入漏洞"></a> sql注入漏洞</h2>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs sql">$<span class="hljs-keyword">sql</span> <span class="hljs-operator">=</span> &quot;SELECT * FROM users WHERE id = &#x27;$id&#x27;&quot;;<br><br># 构造<br><span class="hljs-string">&#x27; or 1 = &#x27;</span><span class="hljs-number">1</span> <br><span class="hljs-operator">/</span><span class="hljs-operator">/</span> 这里后面的<span class="hljs-string">&#x27;是为了闭合后面的&#x27;</span>，使得成为 <span class="hljs-number">1</span> <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;1&#x27;</span>，由于php是弱语言类型，这个可以通过<br><span class="hljs-number">-1</span><span class="hljs-string">&#x27; order by 3 #</span><br><span class="hljs-string">// 这里是检测列数</span><br><span class="hljs-string">-1&#x27;</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> database(),<span class="hljs-keyword">user</span>(),version() #<br><span class="hljs-operator">/</span><span class="hljs-operator">/</span> database()是返回数据库名，<span class="hljs-keyword">user</span>()返回当前MySQL连接的用户名和主机名，例如root<span class="hljs-variable">@localhost</span><br><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select database(),version(),group_concat(table_name) from information_schema.tables where table_schema=&#x27;</span>text<span class="hljs-string">&#x27; #</span><br><span class="hljs-string">// 之后的group_concat是查询数据库中所有表的名字</span><br><span class="hljs-string">-1&#x27;</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,<span class="hljs-number">2</span>, group_concat(column_name) <span class="hljs-keyword">from</span> information_schema.columns <span class="hljs-keyword">where</span> table_name<span class="hljs-operator">=</span><span class="hljs-string">&#x27;users&#x27;</span> <span class="hljs-keyword">and</span> table_schema<span class="hljs-operator">=</span><span class="hljs-string">&#x27;text&#x27;</span>#<br><br><span class="hljs-number">-1</span><span class="hljs-string">&#x27; union select 1,group_concat(id,username),group_concat(username,password) from users#</span><br></code></pre></td></tr></table></figure>
+<h2 id="xss漏洞"><a class="markdownIt-Anchor" href="#xss漏洞"></a> XSS漏洞</h2>
+<ul>
+<li>
+<p>反射型XSS</p>
+<ul>
+<li>[CH06-Web攻击与防御-3.pdf](file://E:/Data/大学/大三/大三上/网络攻击与防御/课件/CH06-Web攻击与防御-3.pdf)</li>
+</ul>
+</li>
+<li>
+<p>存储型XSS</p>
+<ul>
+<li>[CH06-Web攻击与防御-3.pdf](file://E:/Data/大学/大三/大三上/网络攻击与防御/课件/CH06-Web攻击与防御-3.pdf)</li>
+</ul>
+</li>
+<li>
+<p>DOM XSS</p>
+<ul>
+<li>[CH06-Web攻击与防御-3.pdf](file://E:/Data/大学/大三/大三上/网络攻击与防御/课件/CH06-Web攻击与防御-3.pdf)</li>
+</ul>
+</li>
+</ul>
+<h1 id="第8章-恶意代码防护技术"><a class="markdownIt-Anchor" href="#第8章-恶意代码防护技术"></a> 第8章 恶意代码防护技术</h1>
+<ul>
+<li>
+<p>恶意代码：</p>
+<ul>
+<li>是指通过存储介质或者计算机网络传播，在未授权的情况下可能破坏系统运行的程序或代码</li>
+<li>特征：一段程序或代码；具有恶意行为，且在没有授权的情况下进入系统；具有在计算机系统之间传播的能力</li>
+<li>防御：预防、检测、识别、清除、数据备份与恢复</li>
+</ul>
+</li>
+<li>
+<p>计算机病毒：狭义的计算机病毒，即具有自我复制能力并需要寄生在宿主程序中的恶意代码</p>
+<ul>
+<li>生命周期：潜伏传播，触发执行阶段</li>
+<li>组成：引导触发，感染表现模块</li>
+</ul>
+</li>
+<li>
+<p>蠕虫：一种可以独立运行，能主动寻找感染目标并且能够自动传播的恶意程序。传播依赖于特定的计算机漏洞</p>
+<ul>
+<li>特征：主动攻击、利用软件漏洞、造成网络拥塞、破坏性、消耗系统资源、留下安全隐患、行踪隐蔽、反复性</li>
+<li>组成：扫描攻击，传输负载</li>
+</ul>
+</li>
+<li>
+<p>特洛伊木马</p>
+<ul>
+<li>木马具有欺骗性、隐蔽性、自动运行性和自动恢复等功能特点</li>
+<li>组成：木马程序由客户端程序和服务端程序两个部分组成</li>
+</ul>
+</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AF%BE%E7%A8%8B%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">课程复习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>网络攻击与防御</div>
+      <div>http://example.com/posts/40c678cb.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Nuthecz</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年12月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/abb54922.html" title="密码学">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">密码学</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/71cb8802.html" title="Android简单逆向">
+                        <span class="hidden-mobile">Android简单逆向</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>
+      目录
+    </span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+   <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+  var toc = jQuery('#toc');
+  if (toc.length === 0 || !window.tocbot) { return; }
+  var boardCtn = jQuery('#board-ctn');
+  var boardTop = boardCtn.offset().top;
+
+  window.tocbot.init(Object.assign({
+  tocSelector : '#toc-body',
+  contentSelector : '.markdown-body',
+  linkClass : 'tocbot-link',
+  activeLinkClass : 'tocbot-active-link',
+  listClass : 'tocbot-list',
+  isCollapsedClass: 'tocbot-is-collapsed',
+  collapsibleClass: 'tocbot-is-collapsible',
+  scrollSmooth : true,
+  includeTitleTags: true,
+  headingsOffset : -boardTop,
+  }, CONFIG.toc));
+  if (toc.find('.toc-list-item').length > 0) {
+  toc.css('visibility', 'visible');
+  }
+
+  Fluid.events.registerRefreshCallback(function() {
+  if ('tocbot' in window) {
+  tocbot.refresh();
+  var toc = jQuery('#toc');
+  if (toc.length === 0 || !tocbot) {
+  return;
+  }
+  if (toc.find('.toc-list-item').length > 0) {
+  toc.css('visibility', 'visible');
+  }
+  }
+  });
+  });
+  </script>
+  
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<!-- hexo injector body_end start --><script src="/js/backgroundize.js"></script><!-- hexo injector body_end end --></body>
+</html>

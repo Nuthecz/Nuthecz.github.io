@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291138646.JPG">
 <meta property="article:published_time" content="2022-10-03T10:18:21.000Z">
-<meta property="article:modified_time" content="2023-10-03T12:52:09.684Z">
+<meta property="article:modified_time" content="2024-01-27T12:47:59.755Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291138646.JPG">
@@ -479,7 +479,7 @@
 <h2 id="数据宽度"><a class="markdownIt-Anchor" href="#数据宽度"></a> 数据宽度</h2>
 <ul>
 <li>
-<p>字节/字（8bit）——可存储两个十六进制—8位二进制，例如FF</p>
+<p>字节/字(8bit)——可存储两个十六进制—8位二进制，例如FF</p>
 <ul>
 <li>十六进制占4位</li>
 </ul>
@@ -531,13 +531,13 @@
 <p>5、计算机中的几个常用的计量单位：BYTE,WORD,DWORD</p>
 <ul>
 <li>
-<p>BYTE——字节——8（BIT）</p>
+<p>BYTE——字节——8(BIT)</p>
 </li>
 <li>
-<p>WORD——字——16（BIT）</p>
+<p>WORD——字——16(BIT)</p>
 </li>
 <li>
-<p>DWORD——双字——32（BIT）</p>
+<p>DWORD——双字——32(BIT)</p>
 </li>
 </ul>
    <div class="note note-info">
@@ -547,12 +547,12 @@
 <li>
 <p>6、内存的数量特别庞大，无法对每个内存单位都起一个名字，所以用编号代替，我们称计算机CPU32位或者64位</p>
 <ul>
-<li>计算机内存的每一个字节会有一个编号（即内存编号的单位是字节）
+<li>计算机内存的每一个字节会有一个编号(即内存编号的单位是字节)
 <ul>
 <li>如：<span class="label label-primary">0x00000000，0x00000001…… 0xFFFFFFFF</span></li>
 </ul>
 </li>
-<li>32位计算机的编号最大是32位,也就是32个1,换成16进制为FFFFFFFF,也就是说,32位计算机内存寻址的最大范围是32位.而内存的单位是字节,那内存中能存储的信息最多位FFFFFFFF + 1字节,即4G（可以打补丁等进行扩展）</li>
+<li>32位计算机的编号最大是32位,也就是32个1,换成16进制为FFFFFFFF,也就是说,32位计算机内存寻址的最大范围是32位.而内存的单位是字节,那内存中能存储的信息最多位FFFFFFFF + 1字节,即4G(可以打补丁等进行扩展)</li>
 </ul>
 </li>
 </ul>
@@ -563,7 +563,7 @@
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291118828.png" srcset="/img/loading.gif" lazyload alt="202210032015464" /></p>
 <ul>
 <li>编号加<code>[]</code>表示这是内存编号，否则就是立即数</li>
-<li>往往将多个字节连在一起命名为一个编号，这就导致一个编号（包含了4个字节的内存空间）可以存储32位</li>
+<li>往往将多个字节连在一起命名为一个编号，这就导致一个编号(包含了4个字节的内存空间)可以存储32位</li>
 </ul>
 </li>
 <li>
@@ -571,13 +571,13 @@
 <ul>
 <li><code>mov dword ptr ds:[0x0012FF34], 0x12345678</code>(mov是移动数据)
 <ul>
-<li>遵循高位在后原则，即<code>[0x0012FF34]</code>对应的是78，而下一位<code>[0x0012FF35]</code>则是对应56（一个字节是8位，即两个十六进制数为一组），同时这个就是将4个字节组成了一个内存空间并命名</li>
+<li>遵循高位在后原则，即<code>[0x0012FF34]</code>对应的是78，而下一位<code>[0x0012FF35]</code>则是对应56(一个字节是8位，即两个十六进制数为一组)，同时这个就是将4个字节组成了一个内存空间并命名</li>
 </ul>
 </li>
 <li><code>mov eax, dword ptr ds:[0x0012FF34]</code>
 <ul>
 <li><code>dword</code>：要读\写多少  此时是4字节，byte = 1字节，word = 2字节</li>
-<li><code>ptr</code>: Point代表后面是一个指针（存的不是值，而是地址）</li>
+<li><code>ptr</code>: Point代表后面是一个指针(存的不是值，而是地址)</li>
 <li><code>ds</code>：段寄存器</li>
 <li><code>[0x0012FF34]</code>：内存编号，必须是32位，前面的0可以省略，会自动补0
 <ul>
@@ -588,7 +588,7 @@
 </li>
 <li>注意：
 <ul>
-<li>地址编号不要随便写，因为内存是由保护的，并不是所有的内存都可以直接读写（需要特别处理），建议地址编号写成esp的值</li>
+<li>地址编号不要随便写，因为内存是由保护的，并不是所有的内存都可以直接读写(需要特别处理)，建议地址编号写成esp的值</li>
 </ul>
 </li>
 </ul>
@@ -709,7 +709,7 @@
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291119091.png" srcset="/img/loading.gif" lazyload alt="202210032027304" /></p>
 <h3 id="进位标志cfcarry-flag"><a class="markdownIt-Anchor" href="#进位标志cfcarry-flag"></a> 进位标志CF(Carry Flag)</h3>
 <ul>
-<li>如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0（无符号运算，AL中看超没超过FF  ）
+<li>如果运算结果的最高位产生了一个进位或借位，那么，其值为1，否则其值为0(无符号运算，AL中看超没超过FF  )
 <ul>
 <li>最高位进位——CF=1
 <ul>
@@ -732,8 +732,8 @@
 <li>最低有效字节——**只看二进制中后8位 **
 <ul>
 <li><code>MOV AL, 3</code>——PE不变</li>
-<li><code>ADD AL, 3</code>——PE=1（6=110）</li>
-<li><code>ADD AL, 2</code>——PE=0（8=1000）</li>
+<li><code>ADD AL, 3</code>——PE=1(6=110)</li>
+<li><code>ADD AL, 2</code>——PE=0(8=1000)</li>
 </ul>
 </li>
 </ul>
@@ -766,7 +766,7 @@
 </ul>
 <h3 id="零标志zfzero-flag"><a class="markdownIt-Anchor" href="#零标志zfzero-flag"></a> 零标志ZF(Zero Flag)</h3>
 <ul>
-<li>零标志ZF用来反映运算结果是否为0，如果运算结果（mov是赋值，不是运算结果）为0，则其值为1，否则其值为0。在判断运算结果是否为0时，可使用此标志位
+<li>零标志ZF用来反映运算结果是否为0，如果运算结果(mov是赋值，不是运算结果)为0，则其值为1，否则其值为0。在判断运算结果是否为0时，可使用此标志位
 <ul>
 <li><code>XOR EAX, EAX</code>——ZF变成0</li>
 <li><code>MOV EAX, 2</code>——ZF不变，与mov没有关系</li>
@@ -776,7 +776,7 @@
 </ul>
 <h3 id="符号标志sfsign-flag"><a class="markdownIt-Anchor" href="#符号标志sfsign-flag"></a> 符号标志SF(Sign Flag)</h3>
 <ul>
-<li>符号标志SF用来反映运算结果的符号位，它与运算结果的最高位（转换为2进制的最高位）相同
+<li>符号标志SF用来反映运算结果的符号位，它与运算结果的最高位(转换为2进制的最高位)相同
 <ul>
 <li><code>MOV AL, 7F</code>——0111 1111</li>
 <li><code>ADD AL, 2</code>—进位了</li>
@@ -1141,7 +1141,7 @@
 <h4 id="cmp"><a class="markdownIt-Anchor" href="#cmp"></a> <code>CMP</code></h4>
 <ul>
 <li><strong>CMP</strong>对两个操作数进行比较，比较的方式相当于用目的操作数减源操作数的减法操作，但是 cmp 只影响相应的标志寄存器，不会将减法的结果送入目的操作数中。影响的标志位有 OF、SF、ZF、AF、PF 和 CF</li>
-<li>该指令是比较两个操作数,实际上,它相当于SUB指令,但是相减的结构并不保存到第一个操作数中，只是根据相减的结果 来改变零标志位（ZF）的,当两个操作数相等的时候,零标志位为1</li>
+<li>该指令是比较两个操作数,实际上,它相当于SUB指令,但是相减的结构并不保存到第一个操作数中，只是根据相减的结果 来改变零标志位(ZF)的,当两个操作数相等的时候,零标志位为1</li>
 <li>例一：观察Z位
 <ul>
 <li><code>MOV EAX, 100</code></li>
@@ -1196,7 +1196,7 @@
 <li><strong>RET</strong>用于过程(函数)的返回，该指令从堆栈的栈顶中弹出 4 个字节(这里的 4 个字节特指 32 位系统)送入 EIP 寄存器中。一般该指令在过程(函数)需要返回的位置或者是过程(函数)的结尾处</li>
 <li>与CALL相结合，call 指令调用过程(函数)时会将 call 指令的下一条指令压入栈顶，当过程(函数)执<br />
 行中遇到 ret 指令时，会将 call 指令压入的指令弹出送入 EIP 寄存器中，这样代码的流程就会接着 call 指令的下一条指令继续执行</li>
-<li>返回到call指令所处节点的下一个节点（上图中的<code>004183E1</code>），即产生了回溯，同时退栈</li>
+<li>返回到call指令所处节点的下一个节点(上图中的<code>004183E1</code>)，即产生了回溯，同时退栈</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs assembly">Ret<br>Retn imm<br></code></pre></td></tr></table></figure>
 <h3 id="retn"><a class="markdownIt-Anchor" href="#retn"></a> <code>RETN</code></h3>
@@ -1260,7 +1260,7 @@
 <ul>
 <li><code>MOV EAX, DWORD PTR DS:[0x13FFC4]</code>
 <ul>
-<li>读取了C4,C5,C6,C7四个字节（因为是dword，从C4开始读取存进eax中）</li>
+<li>读取了C4,C5,C6,C7四个字节(因为是dword，从C4开始读取存进eax中)</li>
 </ul>
 </li>
 <li><code>MOV EAX, DWORD PTR DS:[0x13FFC8]</code></li>
@@ -1391,10 +1391,10 @@
 <h2 id="堆栈引入"><a class="markdownIt-Anchor" href="#堆栈引入"></a> 堆栈引入</h2>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291122016.png" srcset="/img/loading.gif" lazyload alt="202210032020851" /></p>
 <ul>
-<li>1、BASE（栈底），TOP（栈顶）是2个32位的通用寄存器，里面存储的是内存单元编号（内存地址）</li>
+<li>1、BASE(栈底)，TOP(栈顶)是2个32位的通用寄存器，里面存储的是内存单元编号(内存地址)</li>
 <li>2、BASE里面存储了一个地址，记录起始地址</li>
 <li>3、TOP里面存储了一个地址，记录结束地址</li>
-<li>4、存入数据的时候，TOP的值减4（这里每次存取的是4个字节）；释放数据的时候，TOP的值加4（这里每次存取的是4个字节）</li>
+<li>4、存入数据的时候，TOP的值减4(这里每次存取的是4个字节)；释放数据的时候，TOP的值加4(这里每次存取的是4个字节)</li>
 <li>5、因为WIndows分配是高地址向低地址分配，所以TOP加4才能进行释放数据</li>
 <li>6、如果要读取中间的某个数据，可以通过TOP与BASE加上偏移的方式去读取</li>
 <li>7、此方法为堆栈，优点就是临时存储大量的数据，便于查找</li>
@@ -1442,7 +1442,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">学习笔记</a>
+  <a href="/categories/%E9%80%86%E5%90%91%E7%AC%94%E8%AE%B0/" class="category-chain-item">逆向笔记</a>
   
   
 

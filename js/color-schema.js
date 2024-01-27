@@ -251,7 +251,7 @@
     }
   }
 
-  // 当页面加载时，将显示模式设置为 localStorage 中自定义的值（如果有的话）
+  // 当页面加载时，将显示模式设置为 localStorage 中自定义的值(如果有的话)
   applyCustomColorSchemaSettings();
 
   Fluid.utils.waitElementLoaded(colorToggleIconSelector, function() {
