@@ -18,21 +18,21 @@
   
     <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举(Recursively Enumerable) 的语言描述的程序，其任何 非平凡(Non-trivial) 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《软件分析》">
+<meta property="og:title" content="《软件分析》_part1">
 <meta property="og:url" content="http://example.com/posts/4002e7c0.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
 <meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举(Recursively Enumerable) 的语言描述的程序，其任何 非平凡(Non-trivial) 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-10-20T15:00:12.000Z">
-<meta property="article:modified_time" content="2024-01-27T12:53:50.945Z">
+<meta property="article:modified_time" content="2024-01-31T15:45:18.120Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
   
   
   
-  <title>《软件分析》 - Nuthecz`Blog</title>
+  <title>《软件分析》_part1 - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -209,7 +209,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="《软件分析》"></span>
+            <span id="subtitle" data-typed-text="《软件分析》_part1"></span>
           
         </div>
 
@@ -232,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          13k 字
+          9.6k 字
         
       </span>
     
@@ -243,7 +243,7 @@
         
         
         
-          108 分钟
+          80 分钟
         
       </span>
     
@@ -281,7 +281,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">《软件分析》</h1>
+            <h1 style="display: none">《软件分析》_part1</h1>
             
             
               <div class="markdown-body">
@@ -425,7 +425,7 @@
 </ul>
 </li>
 <li>
-<p>程序点可以用控制流中相邻语句的<strong>顺序二元组</strong>表示。</p>
+<p><strong>程序点</strong>可以用控制流中相邻语句的<strong>顺序二元组</strong>表示。</p>
 <ul>
 <li>每个程序点都对应了一个数据流值(<strong>这个数据流值表征了在这个程序点能够观察到的所有可能的程序状态</strong>)–&gt;这里和后面提及的 bit vector 相联系，这个点可以看到所有可能的程序状态</li>
 <li>每一个不同的(集合具有互异性)数据流值都会有一个或者多个程序点与之对应。</li>
@@ -534,7 +534,7 @@
 <h3 id="comprehend-2"><a class="markdownIt-Anchor" href="#comprehend-2"></a> Comprehend</h3>
 <ul>
 <li>
-<p>可以假设以下，如果从后往前搜索，只要在某程序点处找到一个变量vi的使用，就证明在此之前任意可达此点的、定义了vi的程序点处，vi都是live的(<strong>这里疑惑为什么只保证了被使用，而没有保证没有重新定义就确定它满足条件</strong>)；而如果使用前向传播的算法，每到一个程序点都要正向搜索一遍后方的路径查看是否被使用，才能确认变量在此处是否live，虽然也能进行分析，但是效率较低</p>
+<p>可以假设以下，如果从后往前搜索，只要在某程序点处找到一个变量vi的使用，就证明在此之前任意可达此点的、定义了vi的程序点处，vi都是live的(<strong>这里疑惑为什么只保证了被使用，而没有保证没有重新定义就确定它满足条件</strong> --&gt; 它关注的是一个程序点(变量值的定义)到这个变量被使用的点，这条路径中该变量的值就是存活的，它强调变量的值被使用，如果被重新定义了，该值就不会再被使用，所以被使用一定标注着它没有重定义)；而如果使用前向传播的算法，每到一个程序点都要正向搜索一遍后方的路径查看是否被使用，才能确认变量在此处是否live，虽然也能进行分析，但是效率较低</p>
 </li>
 <li>
 <p>这里关注的是<code>程序中的的所有变量</code>，即<strong>数据流值是一个程序中所有变量</strong>。在程序点 p 处，变量为1，当且仅当变量在 p 点存活。</p>
@@ -549,7 +549,10 @@
 <p>分析：</p>
 <ul>
 <li>
-<p>一个基本块内，若 v = exp, 则就是 def v。若 exp = exp op v，那么就是 use v。一个变量要么是 use，要么是 def，根据 def 和 use 的先后顺序来决定。考虑基本块 B 及其后继 S。若 S 中，变量 v 被使用，那么我们就把 v 放到 S 的 IN 中(IN[S] = {v})，交给 B 来分析。因此对于活跃变量分析，其控制流处理是 <code>OUT[B] = U IN[S]</code>，就是 <code>B 的输出是所有后继 S 的输入的总和</code>。</p>
+<p>一个基本块内，若 v = exp, 则就是 def v。若 exp = exp op v，那么就是 use v。一个变量要么是 use，要么是 def，根据 def 和 use 的先后顺序来决定。对于上图，我觉得OUT[B]={v}只是一个初始条件，最后的结果都是看IN处的结果，所以OUT[B]中的v并不代表它是存活变量的意思。由此，上图中的4，5，6的差别就在于use 和 def 的先后上面，对于4，因为B先使用了v，所以可以理解v在B上面那个程序点就是存活的，因为分析的是一条从程序点出发的路径，它从一个程序点p出发，然后到B中def前都是存活的，这条路径也包括了IN[B]，所以v在IN[B]中是存活的。5，6的分析也是同样的。(这里注意最终结果只看IN，也就是只有IN中的数据才决定这个变量是否存活)</p>
+</li>
+<li>
+<p>考虑基本块 B 及其后继 S。若 S 中，变量 v 被使用，那么我们就把 v 放到 S 的 IN 中(IN[S] = {v})，交给 B 来分析。因此对于活跃变量分析，其控制流处理是 <code>OUT[B] = U IN[S]</code>，就是 <code>B 的输出是所有后继 S 的输入的总和</code>。</p>
 </li>
 <li>
 <p>在一个块中，若变量 v 被使用，那么我们需要添加到我们的 IN 里(IN[B] = {v})。而如果 v 被定义，那么在其之下的语句中，v 都是一个非活跃变量，因为没有语句再需要使用它。因此对于Transfer Function，IN 是从 OUT 中删去重新定值的变量，然后并上使用过的变量。需要注意，如果同一个块中，变量 v 的 def 先于 use ，那么实际上效果和没有 use 是一样的。</p>
@@ -573,7 +576,7 @@
 <ul>
 <li>为什么使用 backwards ?
 <ul>
-<li>使用 forwards 来确定变量在某一个程序点是否存活，那每到一个程序点，都需要查看之后的路径有没有在重定义之前使用该变量的情况，需要查看的情况众多</li>
+<li>使用 forwards 来确定变量在某一个程序点是否存活，那每到一个程序点，都需要查看之后的路径有没有在重定义之前使用该变量的情况，需要查看的情况众多。这里就是因为要保证这个值被使用了，所以要到后面找被使用的情况才能算这个变量的值在该点处是存活的</li>
 <li>使用 backwards 来确定，在 BB 中存在对于一个变量的使用而在同一个 BB 中没有重新定义，那么这个 BB 之前最近的一个 程序点 P(我们分析的那个 program point)，它这里一定是满足活跃变量的，即 IN[B] = {v}</li>
 </ul>
 </li>
@@ -596,6 +599,9 @@
 <li>
 <p>这个定义说明，在p处如果表达式available，就可以将其替换为最后一次运算的结果，或者可以检测全局通用表达式，感觉这里可以直接优化，首先计算表达式的结果，之后直接替换即可，相当于 <code>#define PI x + y, 这里x与y为常量</code>。</p>
 </li>
+<li>
+<p>也就是说一个表达式是可用的，指的是这个表达是的值肯定已经被计算过了，可以直接复用之前的结果，没必要再算一遍，也就是说，这个表达式 <strong>不需要忙碌于计算</strong> 。</p>
+</li>
 </ul>
 <h3 id="comprehend-3"><a class="markdownIt-Anchor" href="#comprehend-3"></a> Comprehend</h3>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310212025007.png" srcset="/img/loading.gif" lazyload alt="image-20231021202525968" /></p>
@@ -605,230 +611,43 @@
 </ul>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220921179.png" srcset="/img/loading.gif" lazyload alt="image-20231022092148128" /></p>
 <ul>
-<li>我们要求无论从哪条路径到达 B，表达式都应该已经计算，才能将其视为可用表达式，因此这是一个 must analysis。</li>
+<li>我们要求无论从哪条路径到达 B，表达式都应该已经计算，才能将其视为可用表达式，因此这是一个 must analysis。也就是说可以不优化每一个表达式，但是一定不能优化错误(也就是说一旦决定优化某个表达式，这个表达式就必须必然是可用表达式)。</li>
 <li>注意到图中，两条不同的路径可能会导致表达式的结果最终不一致。但是我们只关心它的值能不能够再被重复利用，因此可以认为表达式可用。</li>
-<li>v = x op y，则 gen x op y。当 x = a op b，则任何包含 x 的表达式都被 kill 掉。若 gen 和 kill 同时存在，<code>那么以最后一个操作为准</code>。</li>
+<li>v = x op y，则 gen x op y。当 x = a op b，则任何包含 x 的表达式都被 kill 掉。若 gen 和 kill 同时存在，<code>那么以最后一个操作为准</code>。这里kill的是B中被重定义的变量的集合，而不是单单指IN[B]中被重定义的变量的集合，这是因为 gen 和 kill 需要能够在数据流分析算法执行之前被静态的计算好，这样在算法过程中就不需要每次迭代都重新计算了(gen 和 kill 的生成一开始都需要固定)，并且我们之后是取差集操作，因此 kill 大一点并不会影响结果</li>
 <li>转移方程很好理解，和到达定值差不多。但是，由于我们是 must analysis，因此控制流处理是<code>取交集</code>，而非到达定值那样取并集。</li>
 </ul>
 <h3 id="algorithm-3"><a class="markdownIt-Anchor" href="#algorithm-3"></a> Algorithm</h3>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220923234.png" srcset="/img/loading.gif" lazyload alt="image-20231022092329180" /></p>
+<ul>
+<li>这里 OUT[B] = U(全集)，因为采取的取交集的操作，所以之后的数据会逐步减少，所以取全集剔除所有不合规的情况</li>
+</ul>
 <h3 id="example-3"><a class="markdownIt-Anchor" href="#example-3"></a> Example</h3>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221000927.png" srcset="/img/loading.gif" lazyload alt="image-20231022100017882" /></p>
 <h2 id="summarize-2"><a class="markdownIt-Anchor" href="#summarize-2"></a> Summarize</h2>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220933086.png" srcset="/img/loading.gif" lazyload alt="image-20231022093321043" /></p>
-<h1 id="data-flow-analysis-foundations"><a class="markdownIt-Anchor" href="#data-flow-analysis-foundations"></a> Data Flow Analysis - Foundations</h1>
-<h2 id="partial-order"><a class="markdownIt-Anchor" href="#partial-order"></a> Partial Order</h2>
-<p>所谓偏序集合(poset)，就是一个由集合 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>P</mi></mrow><annotation encoding="application/x-tex">P</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span></span></span></span> 和偏序关系 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊑</mo></mrow><annotation encoding="application/x-tex">\sqsubseteq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">⊑</span></span></span></span> 所组成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>P</mi><mo separator="true">,</mo><mo>⊑</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(P, \sqsubseteq)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">)</span></span></span></span> 对。这个对满足以下三个条件：</p>
-<ul>
-<li>Reflexivity 自反性: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∀</mi><mi mathvariant="normal">x</mi><mo>∈</mo><mi>P</mi><mo separator="true">,</mo><mi mathvariant="normal">x</mi><mo>⊑</mo><mi mathvariant="normal">x</mi></mrow><annotation encoding="application/x-tex">\forall\mathrm{x}\in P,\mathrm{x}\sqsubseteq\mathrm{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.73354em;vertical-align:-0.0391em;"></span><span class="mord">∀</span><span class="mord"><span class="mord mathrm">x</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathrm">x</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord"><span class="mord mathrm">x</span></span></span></span></span></li>
-<li>Antisymmetry 反对称性: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∀</mi><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>∈</mo><mi>P</mi><mo separator="true">,</mo><mi>x</mi><mo>⊑</mo><mi>y</mi><mo>∧</mo><mi>y</mi><mo>⊑</mo><mi>x</mi><mo>⟹</mo><mi>x</mi><mo>=</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">\forall x,y\in P,x\sqsubseteq y\land y\sqsubseteq x\Longrightarrow x=y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.75em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.549em;vertical-align:-0.024em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span></li>
-<li>Transitivity 传递性: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∀</mi><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>z</mi><mo>∈</mo><mi>P</mi><mo separator="true">,</mo><mi>x</mi><mo>⊑</mo><mi>y</mi><mo>∧</mo><mi>y</mi><mo>⊑</mo><mi>z</mi><mo>⟹</mo><mi mathvariant="normal">x</mi><mo>⊑</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">\forall x,y,z\in P,x\sqsubseteq y\land y\sqsubseteq z\Longrightarrow\mathrm{x}\sqsubseteq z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">P</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.75em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∧</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.549em;vertical-align:-0.024em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⟹</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord"><span class="mord mathrm">x</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span></li>
-<li>例子：小于等于关系就是一个偏序关系，但小于关系不是偏序关系，它是全序关系。</li>
-</ul>
-<p>偏序关系与全序关系的区别在于，全序关系可以让任意两个元素比较，而<code>偏序关系不保证所有元素都能进行比较</code></p>
-<h2 id="upper-and-lower-bounds"><a class="markdownIt-Anchor" href="#upper-and-lower-bounds"></a> Upper and Lower Bounds</h2>
-<ul>
-<li>
-<p>对于偏序集中的某子集 S 来说：</p>
-<ul>
-<li>
-<p>若存在元素 u 使得 S 的任意元素 x 有 x <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊑</mo></mrow><annotation encoding="application/x-tex">\sqsubseteq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">⊑</span></span></span></span> u，那么我们说 u 是 S 的上界(Upper bound)。</p>
-</li>
-<li>
-<p>同理，若存在元素 l 使得 S 的任意元素 x 有 l <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊑</mo></mrow><annotation encoding="application/x-tex">\sqsubseteq</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mrel">⊑</span></span></span></span> x，那么我们说 l 是 S 的下界(Lower bound)。</p>
-</li>
-</ul>
-</li>
-<li>
-<p>然后我们衍生出最小上界和最大下界的概念：</p>
-<ul>
-<li>
-<p>在 S 的所有上界中，我们记最小上界(Least upper bound, lub)为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊔</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\sqcup S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">⊔</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>, 满足所有上界 u 对 lub 有: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊔</mo><mi>S</mi><mo>⊑</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">\sqcup S \sqsubseteq u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord">⊔</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">u</span></span></span></span></p>
-</li>
-<li>
-<p>类似地我们也能定义出最大下界(Greatest lower bound, glb)为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊓</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\sqcap S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">⊓</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>, 满足所有下届 l 对 glb 有: $l \sqsubseteq \sqcup S $</p>
-</li>
-</ul>
-</li>
-<li>
-<p>当 S 的元素个数只有两个{a, b}时，我们还可以有另一种记法：</p>
-<ul>
-<li>
-<p>最小上界：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>⊔</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a \sqcup b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.55556em;vertical-align:0em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span>, a <code>join</code> b</p>
-</li>
-<li>
-<p>最大下界：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>⊓</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">a \sqcap b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.55556em;vertical-align:0em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊓</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal">b</span></span></span></span>, a <code>meet</code> b</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>并不是每个偏序集都有 lub 和 glb，但是如果有，那么该 lub, glb 将是唯一的。(可假设存在多个，然后用自反性证明它们是同一个)</p>
-<h2 id="lattice"><a class="markdownIt-Anchor" href="#lattice"></a> Lattice</h2>
-<h3 id="lattice-2"><a class="markdownIt-Anchor" href="#lattice-2"></a> Lattice</h3>
-<p>​	给定一个偏序集，如果任意元素 a, b 都有 lub 和 glb，那么这么偏序集就叫做 <strong>格(lattice)</strong>。也就是说一个lattice的任意两个元素组成的元素对都有lub和glb。</p>
-<ul>
-<li>属于 lattice 的：小于等于关系，子集关系</li>
-<li>不属于 lattice 的：子串关系</li>
-</ul>
-<h3 id="semilattice"><a class="markdownIt-Anchor" href="#semilattice"></a> Semilattice</h3>
-<p>​	给定偏序集，对于任意元素 a，b 只有 lub，则称此偏序集为一个 <code>join semilattice</code>，若是任意元素 a，b 只有 glb，则称此偏序集为一个 <code>meet semilattice</code></p>
-<h3 id="complete-lattice"><a class="markdownIt-Anchor" href="#complete-lattice"></a> Complete Lattice</h3>
-<p>​	给定一个偏序集，<code>任意子集S</code> 都存在 lub 和 glb，那么我们说这个 lattice 为<strong>全格(complete lattice)</strong></p>
-<ul>
-<li>属于全格的：子集关系</li>
-<li>不属于全格的：小于等于关系，因为全体正整数没有一个边界</li>
-</ul>
-<p>​	每一个全格都存在着 <strong>最大元素</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">⊤</mi></mrow><annotation encoding="application/x-tex">\top</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">⊤</span></span></span></span> (top)和 <strong>最小元素</strong> <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">⊥</mi></mrow><annotation encoding="application/x-tex">\bot</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">⊥</span></span></span></span> (bottom)，他们分别是整个集合的 lub 和 glb。</p>
-<p>​	如果一个 lattice 是有穷的，那么它一定是一个全格。然而，一个全格不一定是有穷的，例如[0, 1]之间的实数是无穷的，但是期间的小于等于关系可以使其成为全格。</p>
-<h3 id="product-lattice"><a class="markdownIt-Anchor" href="#product-lattice"></a> Product Lattice</h3>
-<p>​	另外还有 <strong>Product Lattice</strong>，多个 lattice 的<strong>笛卡尔积</strong>也能形成一个新的 lattice。</p>
-<ul>
-<li>product lattice 也是一个 lattice</li>
-<li>如果 product lattice L是全格的积，那么 L 也是全格。</li>
-</ul>
-<h2 id="data-flow-analysis-framework-via-lattice"><a class="markdownIt-Anchor" href="#data-flow-analysis-framework-via-lattice"></a> Data Flow Analysis Framework via Lattice</h2>
-<p>一个数据流分析框架(D, L, F)由以下元素组成：</p>
-<ul>
-<li>D: 数据流的方向，前向还是后向</li>
-<li>L: 包含了数据值 V 和 meet, join 符号的格</li>
-<li>F: V -&gt; V 的转移方程族</li>
-</ul>
-<p>从而，数据流分析可以被视为在 lattice 的值上迭代地应用转移方程和 meet/join 操作符。</p>
-<h2 id="monotonicity-and-fixed-point-theorem"><a class="markdownIt-Anchor" href="#monotonicity-and-fixed-point-theorem"></a> Monotonicity and Fixed Point Theorem</h2>
-<ul>
-<li>
-<p>对于问题----迭代算法在什么条件下可以停机？我们在这里引入不动点定理：</p>
-<ul>
-<li><strong>Monotonicity 单调性</strong>: 如果 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>⊑</mo><mi>y</mi><mo>⇒</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>⊑</mo><mi>f</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">x \sqsubseteq y \Rightarrow f(x)\sqsubseteq f(y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⇒</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>，则说函数f: L -&gt; L 是<strong>单调的</strong>。</li>
-<li><strong>FIxed Point Theorem 不动点定理</strong>: 给定一个全格 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>L</mi><mo separator="true">,</mo><mo>⊑</mo><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(L,\sqsubseteq)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mclose">)</span></span></span></span>，如果
-<ul>
-<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo>:</mo><mi>L</mi><mo>→</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">f: L \rightarrow L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span></span></span></span> 是单调的</li>
-<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>L</mi></mrow><annotation encoding="application/x-tex">L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span></span></span></span> 是有穷的(也就是f单调有界+L全格)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>那么</p>
-<ul>
-<li>
-<p>迭代<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mi>k</mi></msup><mo stretchy="false">(</mo><mi mathvariant="normal">⊥</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f^k(\bot)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">⊥</span><span class="mclose">)</span></span></span></span>可以得到最小不动点(least fixed point)。</p>
-</li>
-<li>
-<p>迭代<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mi>k</mi></msup><mo stretchy="false">(</mo><mi mathvariant="normal">⊤</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f^k(\top)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">⊤</span><span class="mclose">)</span></span></span></span>可以得到最大不动点(greatest fixed point)。</p>
-</li>
-</ul>
-</li>
-<li>
-<p>证明：</p>
-<ul>
-<li>根据<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">⊥</mi></mrow><annotation encoding="application/x-tex">\bot</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">⊥</span></span></span></span>和f的定义，我们可以得到：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">⊥</mi><mo>⊑</mo><mi>f</mi><mo stretchy="false">(</mo><mi mathvariant="normal">⊥</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">\bot \sqsubseteq f(\bot)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83041em;vertical-align:-0.13597em;"></span><span class="mord">⊥</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">⊥</span><span class="mclose">)</span></span></span></span>。由于 L 是有限的，且 f 单调，根据鸽笼原理，必然存在一个 k 使得$\bot \sqsubseteq f(\bot) \sqsubseteq f^2(\bot)\sqsubseteq …\sqsubseteq f^k(\bot)\sqsubseteq f^{k+1}(\bot) <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext>，且</mtext></mrow><annotation encoding="application/x-tex">，且</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord cjk_fallback">，</span><span class="mord cjk_fallback">且</span></span></span></span>f^k(\bot) = f^{k+1}(\bot)$。</li>
-<li>假设我们有另一个任意不动点 x，由于 f 是单调的，因此<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi mathvariant="normal">⊥</mi><mo stretchy="false">)</mo><mo>⊑</mo><mi>f</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><msup><mi>f</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mi mathvariant="normal">⊥</mi><mo stretchy="false">)</mo><mo>⊑</mo><msup><mi>f</mi><mn>2</mn></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msup><mi>f</mi><mrow><mi>F</mi><mi>i</mi><mi>x</mi></mrow></msup><mo>=</mo><msup><mi>f</mi><mi>k</mi></msup><mo stretchy="false">(</mo><mi mathvariant="normal">⊥</mi><mo stretchy="false">)</mo><mo>⊑</mo><msup><mi>f</mi><mi>k</mi></msup><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">f(\bot) \sqsubseteq f(x), f^2(\bot) \sqsubseteq f^2(x),...,f^{Fix} = f^k(\bot)\sqsubseteq f^k(x) = x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord">⊥</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">⊥</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.0913309999999998em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">F</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">⊥</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.099108em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">x</span></span></span></span>可知的确<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>f</mi><mrow><mi>F</mi><mi>i</mi><mi>x</mi></mrow></msup></mrow><annotation encoding="application/x-tex">f^{Fix}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.035771em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10764em;">f</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8413309999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.13889em;">F</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">x</span></span></span></span></span></span></span></span></span></span></span></span>是最小不动点。</li>
-</ul>
-</li>
-</ul>
-<p>通过上面的证明，我们又回答了一个问题：如果我们的迭代算法符合不动点定理的要求，那么迭代得到的不动点，确实就是最优不动点。</p>
-<h2 id="relate-iterative-algorithm-to-fixed-point-theorem"><a class="markdownIt-Anchor" href="#relate-iterative-algorithm-to-fixed-point-theorem"></a> Relate Iterative Algorithm to Fixed Point Theorem</h2>
-<p>以上我们只是定性的描述了是否能得到最优不动点，但是迭代算法怎样才能算是符合了不动点定理的要求呢？接下来介绍关联的方法。</p>
-<p>首先，回想 fact 的形式：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msubsup><mi>v</mi><mn>1</mn><mn>1</mn></msubsup><mo separator="true">,</mo><msubsup><mi>v</mi><mn>2</mn><mn>1</mn></msubsup><mo separator="true">,</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo separator="true">,</mo><msubsup><mi>v</mi><mi>k</mi><mn>1</mn></msubsup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(v_1^1,v_2^1,...,v_k^1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.097216em;vertical-align:-0.2831079999999999em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-2.4518920000000004em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24810799999999997em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-2.4518920000000004em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.24810799999999997em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-2.4168920000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right:0.03148em;">k</span></span></span><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2831079999999999em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>，可以将其视为一个有限 lattice，它的积也是有限 lattice，因此 fact 对应到 finite lattice 是可以的。然后，我们的迭代函数 F 包括了转移函数 f 和 join/meet 函数，证明 F 是单调的，那么也就能得到 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo>:</mo><mi>L</mi><mo>→</mo><mi>L</mi></mrow><annotation encoding="application/x-tex">F: L\rightarrow L</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">→</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">L</span></span></span></span> 是单调的。</p>
-<ul>
-<li>
-<p>这里分两部分。</p>
-<ul>
-<li>
-<p>转移函数，即 OUT = gen U (IN - kill)，显然是单调的。</p>
-</li>
-<li>
-<p>那么 join/meet 函数，我们要证明其单调，就是要证明：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∀</mi><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo separator="true">,</mo><mi>z</mi><mo>∈</mo><mi>L</mi><mo separator="true">,</mo><mi>x</mi><mo>⊑</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">\forall x,y,z\in L, x\sqsubseteq y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord">∀</span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">∈</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">L</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span></span></span></span>，有<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>⊔</mo><mi>z</mi><mo>⊑</mo><mi>y</mi><mo>⊔</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">x \sqcup z \sqsubseteq y \sqcup z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.55556em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.75em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>。</p>
-<ol>
-<li>由定义，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>⊑</mo><mi>y</mi><mo>⊔</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">y \sqsubseteq y \sqcup z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8304100000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.75em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span></li>
-<li>由传递性，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>⊑</mo><mi>y</mi><mo>⊔</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">x \sqsubseteq y \sqcup z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.75em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span></li>
-<li>则 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>y</mi><mo>⊔</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">y \sqcup z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.75em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span> 是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">x, z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span> 的 lub</li>
-<li>又 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>⊔</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">x \sqcup z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.55556em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span> 是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo separator="true">,</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">x, z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathnormal">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span> 的 lub</li>
-<li>因此 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>⊔</mo><mi>z</mi><mo>⊑</mo><mi>y</mi><mo>⊔</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">x \sqcup z \sqsubseteq y \sqcup z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.55556em;vertical-align:0em;"></span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.7719400000000001em;vertical-align:-0.13597em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.75em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span></span></span></span>，证毕。</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<p>于是我们就完成了迭代算法到不动点定理的对应。</p>
-<ul>
-<li>
-<p>现在我们要回答本文开头的第三个问题了，什么时候算法停机？</p>
-<ul>
-<li>这个问题就很简单了，因为每个 lattice 都有其高度。假设 lattice 的高度为 h，而我们的 CFG 节点数为 k，就算每次迭代可以使一个节点在 lattice 上升一个高度，那么最坏情况下，我们的迭代次数也就是 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>=</mo><mi>h</mi><mo>×</mo><mi>k</mi></mrow><annotation encoding="application/x-tex">i = h \times k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.65952em;vertical-align:0em;"></span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03148em;">k</span></span></span></span></li>
-</ul>
-</li>
-<li>
-<p>最后我们再列出这三个问题与其回答：</p>
-<ul>
-<li>
-<p>算法是否确保一定能停止/达到不动点？能!会不会总是有一个解答？<strong>可以！</strong></p>
-</li>
-<li>
-<p>如果能到达不动点，那么是不是只有一个不动点？可以有很多。如果有多个不动点，我们的结果是最优的吗？<strong>是的！</strong></p>
-</li>
-<li>
-<p>什么时候我们会能得到不动点？<strong>最坏情况下，是 lattice 的高度与 CFG 的节点数的乘积。</strong></p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="maymust-analysis-a-lattice-view"><a class="markdownIt-Anchor" href="#maymust-analysis-a-lattice-view"></a> May/Must Analysis, A Lattice View</h2>
-<h3 id="may"><a class="markdownIt-Anchor" href="#may"></a> MAY</h3>
-<ul>
-<li>
-<p>对于到达定值分析，下界代表没有任何可到达的定值，上界代表所有定值都可到达。</p>
-</li>
-<li>
-<p>下界代表 unsafe 的情形，即我们认为无到达定值，可对相关变量的存储空间进行替换。上界代表 safe but useless 的情况，即认为定值必然到达，但是这对我们寻找一个可替换掉的存储空间毫无意义。</p>
-</li>
-<li>
-<p>而因为我们采用了 join 函数，那么我们必然会从 lattice 的最小下界往上走。而越往上走(相对于truth点而言)，我们就会失去更多的精确值。那么，在所有不动点中我们寻找最小不动点，那么就能得到精确值最大的结果。</p>
-</li>
-</ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221522165.png" srcset="/img/loading.gif" lazyload alt="" /></p>
-<h3 id="must"><a class="markdownIt-Anchor" href="#must"></a> MUST</h3>
-<ul>
-<li>
-<p>在可用表达式分析中，下界代表无可用表达式，上界代表所有表达式都可用。</p>
-</li>
-<li>
-<p>下界代表 safe but useless 的情形，因为需要重新计算每个表达式，即使确实有表达式可用。而上界代表 unsafe，因为不是所有路径都能使表达式都可用。与 may analysis 一样，通过寻找最大不动点，我们能得到合法的结果中精确值最大的结果。</p>
-</li>
-</ul>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221525983.png" srcset="/img/loading.gif" lazyload alt="" /></p>
-<h2 id="distributivity-and-mop"><a class="markdownIt-Anchor" href="#distributivity-and-mop"></a> Distributivity and MOP</h2>
-<p>​	与我们之前使用的算法不同，我们以前使用的算法是在运行过程中沿着数据流反复迭代的，而MOP是找出从开头到结尾所有路径，分别进行传递函数计算，最后将算完的所有路径进行 $\sqcup / \sqcap $ (即不是根据节点与其前驱/后继节点的关系来迭代计算数据流，而是直接查找所有路径，根据所有路径的计算结果再取上/下界。这个结果是最理想的结果。)，公式如下：</p>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221646821.png" srcset="/img/loading.gif" lazyload alt="image-20231022164631766" /></p>
-<p>​	由于某些路径可能实际无法到达，因此MOP不是特别精确；而在正常的程序中路径过多，几乎无法全部枚举，因此MOP也不太实际。</p>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221648079.png" srcset="/img/loading.gif" lazyload alt="image-20231022164859036" /></p>
-<p>​	可以看到，迭代算法是 s3 对前驱取 join 后进行进行 f3 的转移，而 MOP 算法是对到达 s3 之后，s4 之前的路径结果取 join。</p>
-<ul>
-<li>
-<p>那么迭代算法和 MOP 哪个更精确呢？我们可以证明，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>⊔</mo><mi>F</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>⊑</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo>⊔</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x)\sqcup F(y)\sqsubseteq F(x\sqcup y)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⊔</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span>：</p>
-</li>
-<li>
-<p>这表明 MOP 是更为精确的。但这并没有结束。而如果 F 是可分配的，那么确实可以让偏序符号改为等于号。恰好，gen/kill problem 下，F 确实可分配因此我们能确定，迭代算法的精度与 MOP 相等。</p>
-</li>
-</ul>
-<h2 id="constant-propagation-worklist-algorithm"><a class="markdownIt-Anchor" href="#constant-propagation-worklist-algorithm"></a> Constant Propagation &amp; Worklist Algorithm</h2>
-<p>​	这里可以直接参考 <a target="_blank" rel="noopener" href="https://static-analysis.cuijiacai.com/04-dfa-fd/#_4-6-%E5%B8%B8%E9%87%8F%E4%BC%A0%E6%92%AD">这个博客</a></p>
+<h2 id="归纳"><a class="markdownIt-Anchor" href="#归纳"></a> 归纳</h2>
 <blockquote>
-<p>这里之后就参考 <a target="_blank" rel="noopener" href="https://static-analysis.cuijiacai.com/05-inter/">这篇博客了</a>，之后记录的是我对某些知识点的理解与记录</p>
+<p>这里对上文三种数据流分析做一个要点提取归纳</p>
 </blockquote>
-<h1 id="interprocedural-analysis"><a class="markdownIt-Anchor" href="#interprocedural-analysis"></a> Interprocedural Analysis</h1>
-<ol>
-<li><code>Dispatch </code>是从本身开始查找方法实现，如果没有找到，则继续向父类索引; 而对于在 CHA 中的 <code>Call Resolution</code> 算法而言, 对于 <code>virtual call</code> 需要对<strong>它本身和它所有的子类及其子类的子类</strong>都调用 <code>Dispatch</code></li>
-<li>这里需要区分一下 ICFG 与 IDFA 的区别，控制流是基础骨架, 而数据流是在骨架上的血肉</li>
-</ol>
-<p>​	<strong>过程间控制流图(Interprocedural Control Flow Graph，ICFG)</strong></p>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310252003222.png" srcset="/img/loading.gif" lazyload alt="image-20231025200307155" /></p>
-<p>​	<strong>过程内数据流分析(Intraprocedural Data-Flow Analysis，IDFA)</strong></p>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310252003060.png" srcset="/img/loading.gif" lazyload alt="image-20231025200324017" /></p>
-<h1 id="pointer-analysis"><a class="markdownIt-Anchor" href="#pointer-analysis"></a> Pointer Analysis</h1>
 <ul>
-<li>我们将分析一个指针可能指向的 <strong>内存区域(Memory Location)</strong>，以 <strong>程序(Program)</strong> 为输入，以程序中的 <strong>指向关系(Point-to Relation)</strong> 为输出的分析称作 <strong>指针分析(Pointer Analysis)</strong> 。</li>
+<li>什么改变了数据流的数据
+<ul>
+<li>对于 Initialization 而言，这里基础块初始化不会对数据流分析产生任何影响，它的设定我认为就是为了与下一次分析进行对比的，如果一样的话，就可以认为初始化的结果就是最终分析的结果(我认为不太可能，这样的话这个案例实在是太完美了)。</li>
+<li>同时，对于 Boundary 的初始化才会对数据流分析产生影响，但是这种影响也是固定的，因为程序流若是固定从上往下依次进行的，而没有后面数据对于前面造成影响的情况，那么数据流的多次分析结果就会是一样的。因为这里一开始边界一样，然后唯一计算的地方也被约束成了基础块的的固有操作(这里就是gen，use等，它在数据流分析算法执行之前被静态的计算好)，所以输入不变，执行流也只会从上往下执行(指后面的数据不会对之前的产生影响)，那么结果也不变。</li>
+<li>那么影响数据流分析的只有程序流中数据的循环利用了(例如for，while等循环，或者调用)，这些操作会将之后的数据传递给上面的处理。比如产生了第二轮的数据，那么在产生第三轮的时候，如果程序流存在后面的数值传递给前面的流程，那么对于这个产生第三轮数据的程序点，它的来源就有传向它的第二轮和第三轮，这个过程会影响一轮的输出，所以改变了数据流的数据。</li>
+</ul>
+</li>
+<li>最终结果看哪一块的数据
+<ul>
+<li>我们知道当这一轮的数据与上一轮相同时，我们就达到了一个平衡点，这个就是我们需要的。这个时候，我们具体看在某一个程序点的reach或变量存活等情况时，我们是根据 Direction 的状态来看的，正向(forwaeds)就是看OUT，反向(backwards)就是看IN，初始化的时候也是同样道理。</li>
+</ul>
+</li>
+<li>为什么转移方程都是对于基本块而言的
+<ul>
+<li>这里先说一下问题的含义，当我们使用gen，kill，use的时候，我们会发现它拿到的就是基础块中的所有结果来进行操作，但是我们分析的不应该是从IN里面的数据来进行转移吗(对于正向而言)，那么我直接分析IN和基本块中的交集岂不是更好，这样一来分析的数据就少了。</li>
+<li>这里确实分析的数据少了，但是会造成每一次迭代都要计算一遍这个取值，这样一来减少的时间和消耗又增多了。而对于直接采用基础块的数据，一来提前计算了，而且只用一遍，在复杂的情况中的损耗就更低了，二来这样不会对数据流造成影响，对于基础块中多kill的情况，如果在之后这个kill存在，那么它会在后面再次补进数据流中，否则就不必关心(因为这三种分析都是对于一条路径而言，后面不补的话就说明它到头了，后面没有了)</li>
+</ul>
+</li>
 </ul>
 
                 
@@ -868,7 +687,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>《软件分析》</div>
+      <div>《软件分析》_part1</div>
       <div>http://example.com/posts/4002e7c0.html</div>
     </div>
     <div class="license-meta">
@@ -913,9 +732,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/f88cd8e5.html" title="《软件分析》实验">
+                      <a href="/posts/707fd24f.html" title="《软件分析》_part2">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">《软件分析》实验</span>
+                        <span class="hidden-mobile">《软件分析》_part2</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

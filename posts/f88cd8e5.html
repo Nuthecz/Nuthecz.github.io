@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="相关配置  java配置  设置 Settings -&gt; Project Structure -&gt; SDK: java17 -- Language level: 17 - …………  设置 Settings -&gt; Build,Execution,Deployment -&gt; Gradle -&gt; Build and run using: interlliJ IDEA(下">
+    <meta name="description" content="相关配置  java配置  设置 Settings -&gt; Project Structure -&gt; SDK: java17 -- Language level: 17 - Sealed types, always-strict floating-point semantics 设置 Settings -&gt; Build,Execution,Deployment -&gt; Gra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《软件分析》实验">
 <meta property="og:url" content="http://example.com/posts/f88cd8e5.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="相关配置  java配置  设置 Settings -&gt; Project Structure -&gt; SDK: java17 -- Language level: 17 - …………  设置 Settings -&gt; Build,Execution,Deployment -&gt; Gradle -&gt; Build and run using: interlliJ IDEA(下">
+<meta property="og:description" content="相关配置  java配置  设置 Settings -&gt; Project Structure -&gt; SDK: java17 -- Language level: 17 - Sealed types, always-strict floating-point semantics 设置 Settings -&gt; Build,Execution,Deployment -&gt; Gra">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-10-24T03:18:56.000Z">
-<meta property="article:modified_time" content="2024-01-27T12:31:18.716Z">
+<meta property="article:modified_time" content="2024-01-31T15:58:24.753Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.8k 字
+          2.7k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          24 分钟
+          23 分钟
         
       </span>
     
@@ -287,15 +287,17 @@
                 <h1 id="相关配置"><a class="markdownIt-Anchor" href="#相关配置"></a> 相关配置</h1>
 <h2 id="java配置"><a class="markdownIt-Anchor" href="#java配置"></a> java配置</h2>
 <ol>
-<li>设置 <code>Settings -&gt; Project Structure -&gt; SDK: java17 -- Language level: 17 - …………</code>
-<ol>
+<li>设置 <code>Settings -&gt; Project Structure -&gt; SDK: java17 -- Language level: 17 - Sealed types, always-strict floating-point semantics</code></li>
 <li>设置 <code>Settings -&gt; Build,Execution,Deployment -&gt; Gradle -&gt; Build and run using: interlliJ IDEA(下面那个也一样)</code></li>
-</ol>
-</li>
 </ol>
 <h2 id="dot-png"><a class="markdownIt-Anchor" href="#dot-png"></a> dot-&gt;png</h2>
 <figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dos">dot -Tpng <span class="hljs-built_in">tree</span>.dot -o <span class="hljs-built_in">tree</span>.png<br># 其中<span class="hljs-built_in">tree</span>.dot为dot形式名称，<span class="hljs-built_in">tree</span>.png为图片png形式名称<br></code></pre></td></tr></table></figure>
-<h1 id="a1"><a class="markdownIt-Anchor" href="#a1"></a> A1</h1>
+<h1 id="lab1"><a class="markdownIt-Anchor" href="#lab1"></a> Lab1</h1>
+<h2 id="题目相关"><a class="markdownIt-Anchor" href="#题目相关"></a> 题目相关</h2>
+<blockquote>
+<p>实现活跃变量分析和通用的迭代求解器</p>
+</blockquote>
+<p>​	这里活跃变量分析就是指初始化和状态转移，控制流约束的部分；而迭代求解器就是通用的整个流程的处理</p>
 <h2 id="理解"><a class="markdownIt-Anchor" href="#理解"></a> 理解</h2>
 <h3 id="analysis"><a class="markdownIt-Anchor" href="#analysis"></a> analysis</h3>
 <ul>
@@ -303,8 +305,8 @@
 <ul>
 <li>这是一个抽象的数据流分析类，是<strong>具体的数据流分析与求解器之间的接口</strong>。一个具体的数据流分析(如活跃变量分析)需要实现它的接口，而求解器(如迭代求解器)需要通过它的接口来求解数据流。</li>
 <li>它是一个 <code>interface</code> , 其中包含 <code>newBoundaryFact</code>,<code>newInitialFact</code>,<code>meetInto</code>,<code>transferNode</code>的实现声名</li>
-<li>包含 <code>&lt;Node&gt;</code>类型, 它表示 CFG 的 BB</li>
-<li>包含 <code>&lt;Fact&gt;</code>类型, 它表示数据流分析中用来描述程序状态的元素, 即有关程序代码的信息或属性。它与Node联系在一起，表示一个{name: information}，即这里的 “facts” 是指分析确定的信息，如在程序某个点活跃的变量集。</li>
+<li>包含 <code>&lt;Node&gt;</code> 类型, 它表示 CFG 的 BB</li>
+<li>包含 <code>&lt;Fact&gt; </code> 类型, 它表示数据流分析中用来描述程序状态的元素, 即有关程序代码的信息或属性。它与Node联系在一起，表示一个{name: information}，即这里的 “facts” 是指分析确定的信息，如在程序某个点活跃的变量集。</li>
 </ul>
 </li>
 <li><code>pascal.taie.analysis.dataflow.analysis.LiveVariableAnalysis</code>
@@ -320,7 +322,7 @@
 </li>
 <li><code>pascal.taie.analysis.dataflow.fact.DataflowResult</code>
 <ul>
-<li>该类对象用于维护数据流分析的 CFG 中的 fact。可以通过它的 API 获取、设置 CFG 节点(BB?)的 <code>IN facts</code> 和 <code>OUT facts</code>, 这也表示fact存储有关 BB 的信息</li>
+<li>该类对象用于维护数据流分析的 CFG 中的 fact。可以通过它的 API 获取、设置 CFG 节点(BB)的 <code>IN facts</code> 和 <code>OUT facts</code>, 这也表示fact存储有关 BB 的信息</li>
 </ul>
 </li>
 <li><code>pascal.taie.analysis.graph.cfg.CFG</code>
@@ -383,21 +385,11 @@
 <p>在 <code>Assign.java</code> 中，soot(Tai-e)转化为三地址码时，对于语句</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-variable">d</span> <span class="hljs-operator">=</span> a + b;<br>c = a;<br><span class="hljs-comment">// 这里转化为三地址码，增加了临时变量temp$0</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	temp$0 = a;</span><br><span class="hljs-comment">    d = temp$0 + b;</span><br><span class="hljs-comment">    b = d;</span><br><span class="hljs-comment">    c = a;</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
 <ul>
-<li>在询问chatgpt时，它给出的答案是这里引入 <code>temp$0</code>并不是为了防止 <code>a</code>被修改，而是为了确保在计算 <code>d</code>的过程中，<code>a</code>的原始值保持不变。这可能是为了在计算过程中确保 <code>a</code>的值不会被无意间或意外地修改，以便获得正确的结果。</li>
+<li>在询问chatgpt时，它给出的答案是这里引入 <code>temp$0</code> 并不是为了防止 <code>a</code> 被修改，而是为了确保在计算 <code>d </code>的过程中，<code>a </code>的原始值保持不变。这可能是为了在计算过程中确保 <code>a</code>的值不会被无意间或意外地修改，以便获得正确的结果。</li>
 <li>这里我感觉它说的有道理，为了防止潜在的对a进行更改的可能而引入临时变量进行存储(<s>感觉是囿于静态分析sound–&gt;may analysis的性质，可能更改我就提出阻止策略</s>, 但是又感觉不对，静态分析是在IR基础上进行的，这里是生成IR的过程)</li>
 </ul>
 </li>
 </ol>
-<h1 id="a2"><a class="markdownIt-Anchor" href="#a2"></a> A2</h1>
-<h2 id="理解-2"><a class="markdownIt-Anchor" href="#理解-2"></a> 理解</h2>
-<ul>
-<li>这次搞明白代码的实现逻辑，同时跟着指南进行就很清晰地实现代码部分</li>
-<li>在这里 <code>ConstantPropagation</code> 实现的就是数据流的处理, 例如 <code>meetinto</code>, <code>Transfer Function</code>; 而 <code>Solver</code> 和 <code>WorkListSolver</code> 就是实现迭代算法的具体流程。这两个就相当于前面的是函数实现，后面就是利用函数来实现一个流程
-<ul>
-<li>这里需要注意, <code>meetinto</code> 处理的就是 两个 BB 之间数据的流动交汇情况, 这里指对于多个分支对同一个变量的赋值交汇在同一点的处理; 而 <code>TransferNode</code> 则是对于 BB 内部数据的处理，可以近似看作对于 Statement 的处理。</li>
-</ul>
-</li>
-</ul>
 
                 
               </div>
@@ -491,8 +483,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/4002e7c0.html" title="《软件分析》">
-                        <span class="hidden-mobile">《软件分析》</span>
+                      <a href="/posts/707fd24f.html" title="《软件分析》_part2">
+                        <span class="hidden-mobile">《软件分析》_part2</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
