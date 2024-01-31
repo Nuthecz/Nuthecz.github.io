@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
 <meta property="article:published_time" content="2022-10-09T04:39:57.000Z">
-<meta property="article:modified_time" content="2024-01-27T12:47:59.755Z">
+<meta property="article:modified_time" content="2024-01-28T08:24:56.235Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
@@ -376,14 +376,6 @@
 </ul>
 </li>
 </ul>
-<h2 id="函数"><a class="markdownIt-Anchor" href="#函数"></a> 函数</h2>
-<ul>
-<li><code>pow(a,b,c)</code>
-<ul>
-<li><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mi>o</mi><mi>w</mi><mo stretchy="false">(</mo><mi>a</mi><mo separator="true">,</mo><mi>b</mi><mo separator="true">,</mo><mi>c</mi><mo stretchy="false">)</mo><mo>=</mo><mo>=</mo><msup><mi>a</mi><mi>b</mi></msup><mtext> </mtext><mi mathvariant="normal">%</mi><mtext> </mtext><mi>c</mi></mrow><annotation encoding="application/x-tex">pow(a,b,c) == a^{b}\  \% \ c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">b</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.904668em;vertical-align:-0.05556em;"></span><span class="mord"><span class="mord mathnormal">a</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">b</span></span></span></span></span></span></span></span></span><span class="mspace"> </span><span class="mord">%</span><span class="mspace"> </span><span class="mord mathnormal">c</span></span></span></span></li>
-</ul>
-</li>
-</ul>
 <h1 id="crypto库"><a class="markdownIt-Anchor" href="#crypto库"></a> Crypto库</h1>
 <h2 id="utilnumber"><a class="markdownIt-Anchor" href="#utilnumber"></a> Util.number</h2>
 <ul>
@@ -520,6 +512,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> hashlib<br>obj = hashlib.md5()<br><span class="hljs-comment"># 构造一个hashlib的对象(obj)，此处的 md5 可以替换为SHA1, SHA224, SHA256, SHA384, SHA512等加密算法</span><br>obj.update(<span class="hljs-string">&quot;使用md5加密&quot;</span>.encode(<span class="hljs-string">&quot;utf-8&quot;</span>))<br><span class="hljs-comment"># update对指定字符串进行加密，但加密前需要对数据进行转码为 byte 类型</span><br>result = obj.hexdigest()<br><span class="hljs-comment"># 这里hexdigest与digest相同，使用二进制表示(实际转化为十六进制形式表示)</span><br><span class="hljs-built_in">print</span>(result)<br> <br><span class="hljs-comment"># 也可以不创建对象，直接进行加密</span><br>obj = hashlib.sha1(<span class="hljs-string">&quot;1231231231&quot;</span>.encode(<span class="hljs-string">&quot;utf-8&quot;</span>))<br></code></pre></td></tr></table></figure>
 <h2 id="aes"><a class="markdownIt-Anchor" href="#aes"></a> AES</h2>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/chouzhou9701/article/details/122019967">python实现AES加密解密</a></p>
+<p>补充：这里还涉及到White box AES的问题，详细看博客中另一篇文章[白盒AES分析]</p>
 
                 
               </div>
