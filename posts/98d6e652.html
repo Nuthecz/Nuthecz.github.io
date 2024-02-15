@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Tmux配置  基础使用 123456789101112# 关闭服务或sessiontmux kill-servertmux kill-session -t session_name# 新建sessiontmux new -s session_me# 操作C-a d # 退出sessionC-a shift+| # 左右分屏C-a shift+- # 上下分屏 分屏命令总结  gdb调试 ​	需">
+    <meta name="description" content="Tmux配置 ​	借用一下别人的关系图展示session，window，pane的关系。这里是tmux使用手册，下面有一些常用的快捷键。   session 123456789101112# 创建sessiontmux new -s session_name# 继续使用sessiontmux attach -t session_name# 关闭sessionCtrl-a d# 列举所有的sess">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pwn相关配置">
 <meta property="og:url" content="http://example.com/posts/98d6e652.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="Tmux配置  基础使用 123456789101112# 关闭服务或sessiontmux kill-servertmux kill-session -t session_name# 新建sessiontmux new -s session_me# 操作C-a d # 退出sessionC-a shift+| # 左右分屏C-a shift+- # 上下分屏 分屏命令总结  gdb调试 ​	需">
+<meta property="og:description" content="Tmux配置 ​	借用一下别人的关系图展示session，window，pane的关系。这里是tmux使用手册，下面有一些常用的快捷键。   session 123456789101112# 创建sessiontmux new -s session_name# 继续使用sessiontmux attach -t session_name# 关闭sessionCtrl-a d# 列举所有的sess">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402010000797.jpg">
 <meta property="article:published_time" content="2024-01-27T13:17:12.000Z">
-<meta property="article:modified_time" content="2024-01-31T16:15:43.336Z">
+<meta property="article:modified_time" content="2024-02-15T12:37:24.546Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402010000797.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          275 字
+          623 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          3 分钟
+          6 分钟
         
       </span>
     
@@ -285,13 +285,18 @@
               <div class="markdown-body">
                 
                 <h1 id="tmux配置"><a class="markdownIt-Anchor" href="#tmux配置"></a> Tmux配置</h1>
-<h2 id="基础使用"><a class="markdownIt-Anchor" href="#基础使用"></a> 基础使用</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 关闭服务或session</span><br>tmux kill-server<br>tmux kill-session -t session_name<br><br><span class="hljs-comment"># 新建session</span><br>tmux new -s session_me<br><br><span class="hljs-comment"># 操作</span><br>C-a d <span class="hljs-comment"># 退出session</span><br>C-a <span class="hljs-built_in">shift</span>+| <span class="hljs-comment"># 左右分屏</span><br>C-a <span class="hljs-built_in">shift</span>+- <span class="hljs-comment"># 上下分屏</span><br><br></code></pre></td></tr></table></figure>
+<p>​	借用一下别人的关系图展示session，window，pane的关系。这里是<a target="_blank" rel="noopener" href="https://louiszhai.github.io/2017/09/30/tmux/">tmux使用手册</a>，下面有一些常用的快捷键。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402151938660.png" srcset="/img/loading.gif" lazyload alt="image-20240215193845523" /></p>
+<h2 id="session"><a class="markdownIt-Anchor" href="#session"></a> session</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">创建session</span><br>tmux new -s session_name<br><span class="hljs-meta prompt_"># </span><span class="language-bash">继续使用session</span><br>tmux attach -t session_name<br><span class="hljs-meta prompt_"># </span><span class="language-bash">关闭session</span><br>Ctrl-a d<br><span class="hljs-meta prompt_"># </span><span class="language-bash">列举所有的session</span><br>tmux ls<br><span class="hljs-meta prompt_"># </span><span class="language-bash">杀死所有的session</span><br>tmux kill-server<br><span class="hljs-meta prompt_"># </span><span class="language-bash">杀死对应的session</span><br>tmux kill-session -t session_name<br></code></pre></td></tr></table></figure>
+<h2 id="window"><a class="markdownIt-Anchor" href="#window"></a> window</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">Ctrl-a c	# 创建新的窗口<br>Ctrl-a &amp;	# 关闭当前窗口<br>Ctrl-a n	# 到写一个窗口<br>Ctrl-a p	# 到上一个窗口<br>Ctrl-a f	# 切换窗口<br>Ctrl-a ,	# 重命名窗口<br></code></pre></td></tr></table></figure>
+<h2 id="pane"><a class="markdownIt-Anchor" href="#pane"></a> pane</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">Ctrl-a |	# 左右分屏<br>Ctrl-a -	# 上下分屏<br>Ctrl-a x	# 关闭当前pane，或者exit也可以<br></code></pre></td></tr></table></figure>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/luhao19980909/article/details/89718899#:~:text=ctrl%20%2B%20a%20%E6%9D%BE%E6%89%8B%E6%8C%89%20%22%20%23%E4%B8%8A%E4%B8%8B%E5%88%86%E5%B1%8F%20ctrl%20%2B,%2B%20a%20%E6%9D%BE%E6%89%8B%E6%8C%89%20%26%20%23%E5%85%B3%E9%97%AD%E6%89%80%E6%9C%89%E7%AA%97%E5%8F%A3%20exit%20%23%E5%85%B3%E9%97%AD%E5%BD%93%E5%89%8D%E7%AA%97%E5%8F%A3%201">分屏命令总结</a></p>
 <h1 id="gdb调试"><a class="markdownIt-Anchor" href="#gdb调试"></a> gdb调试</h1>
 <p>​	需要在tmux中执行python代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">content.tmux = [<span class="hljs-string">&#x27;tmux&#x27;</span>,<span class="hljs-string">&#x27;split&#x27;</span>,<span class="hljs-string">&#x27;h&#x27;</span>]<br>gdb.attach(p)<br></code></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://louiszhai.github.io/2017/09/30/tmux/">Tmux使用手册</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">context.terminal = [<span class="hljs-string">&#x27;tmux&#x27;</span>, <span class="hljs-string">&#x27;splitw&#x27;</span>, <span class="hljs-string">&#x27;-h&#x27;</span>, <span class="hljs-string">&#x27;-F&#x27;</span> <span class="hljs-string">&#x27;#&#123;pane_pid&#125;&#x27;</span>, <span class="hljs-string">&#x27;-P&#x27;</span>]<br><span class="hljs-comment"># gdb调试</span><br>gdb.attach(p)<br>gdb.debug(binary_path)<br></code></pre></td></tr></table></figure>
 
                 
               </div>

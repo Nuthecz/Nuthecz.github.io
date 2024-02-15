@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
 <meta property="article:published_time" content="2023-03-31T13:13:43.000Z">
-<meta property="article:modified_time" content="2024-02-06T09:38:42.485Z">
+<meta property="article:modified_time" content="2024-02-13T09:11:45.528Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8k 字
+          8.1k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          67 分钟
+          68 分钟
         
       </span>
     
@@ -508,6 +508,10 @@
 <h1 id="gdb"><a class="markdownIt-Anchor" href="#gdb"></a> GDB</h1>
 <p><a target="_blank" rel="noopener" href="https://linuxtools-rst.readthedocs.io/zh_CN/latest/tool/gdb.html">gdb调试利器</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/murkuo/p/15965270.html">pwngdb操作</a></p>
+<blockquote>
+<p>gdb的配置在于 ~/.gdbinit</p>
+<p>设置 base = 0x4000000 可以固定每次分析的基址，之后的断点可以使用 base + 偏移来进行</p>
+</blockquote>
 <h2 id="相关操作"><a class="markdownIt-Anchor" href="#相关操作"></a> 相关操作</h2>
 <h3 id="运行"><a class="markdownIt-Anchor" href="#运行"></a> 运行</h3>
 <ul>
@@ -515,7 +519,7 @@
 <li><code>continue</code>：简写c，继续执行，到下一个断点处(或运行结束)</li>
 <li><code>stepi &lt;n&gt;</code>：简写 <code>si &lt;n&gt;</code>，单步调试(n为多次执行)如果有函数调用，则进入函数；与命令n不同，n是不进入调用的函数的</li>
 <li><code>nexti &lt;n&gt;</code>：简写 <code>ni &lt;n&gt;</code>，单步跟踪程序，当遇到函数调用时，也不进入此函数体；此命令同 step 的主要区别是，step 遇到用户自定义的函数，将步进到函数中去运行，而 next 则直接调用函数，不会进入到函数体内。</li>
-<li><code>display</code>：这个可以设置每次gdb显示的调试信息，如 <code>display /4i $rip</code> 会让每次调试都显示出rip出来(i-&gt;instruction)</li>
+<li><code>display</code>：简写 <code>disp</code>，这个可以设置每次gdb显示的调试信息，如 <code>display /4i $rip</code> 会让每次调试都显示出rip出来(i-&gt;instruction)</li>
 <li><code>until</code>：当你厌倦了在一个循环体内单步跟踪时，这个命令可以运行程序直到退出循环体。</li>
 <li>until+行号： 运行至某行，不仅仅用来跳出循环</li>
 <li><code>finish</code>：运行程序，<strong>直到当前函数完成返回</strong>，并打印函数返回时的堆栈地址和返回值及参数值等信息。</li>
@@ -688,8 +692,15 @@
 </ul>
 <h3 id="其他设置"><a class="markdownIt-Anchor" href="#其他设置"></a> 其他设置</h3>
 <ul>
-<li>查看反汇编 <code>disassemble(disass) main</code></li>
-<li>之后以intel汇编查看  <code>set disassembly-flavor intel</code>。这里可以执行 <code>echo 'set disassembly-flavor intel' &gt; ~/.gdbinit</code> 来设置gdb配置</li>
+<li>
+<p>查看反汇编 <code>disassemble(disass) main</code></p>
+</li>
+<li>
+<p>之后以intel汇编查看  <code>set disassembly-flavor intel</code>。这里可以执行 <code>echo 'set disassembly-flavor intel' &gt; ~/.gdbinit</code> 来设置gdb配置。因为 gdb 的配置全在 <code>~/.gdbinit</code> 中，所以设置这个是必要的</p>
+</li>
+<li>
+<p>可以使用 <code>gdb -x a.gdb a.elf</code> 来使用gdb脚本调试程序</p>
+</li>
 </ul>
 <blockquote>
 <p>交互模式下直接回车的作用是重复上一指令，对于单步调试非常方便</p>

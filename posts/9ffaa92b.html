@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
 <meta property="article:published_time" content="2024-01-28T10:08:43.000Z">
-<meta property="article:modified_time" content="2024-02-05T03:02:38.184Z">
+<meta property="article:modified_time" content="2024-02-15T02:13:42.117Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
@@ -293,8 +293,7 @@ Recursive Traversal: ida、od(ctrl+a分析代码)</p>
 </blockquote>
 <ul>
 <li>线性扫描反汇编(Linear Sweep): 一条指令的结束，下一条指令的开始，需要确定起始位置。其能覆盖到全部代码，但是在冯诺依曼体系结构下不能区分数据和指令，从而导致将代码段中嵌入的数据误解释为指令的操作码，错误的将数据和指令混合反汇编，比如遇到一个jmp，其仍会反汇编jmp后紧跟着的数据，而这些数据往往是垃圾数据或是转表的数据等</li>
-<li>递归下降反汇编(Recursive Traversal): 递归下降算法中强调控制流，对可能的分支进行扫描，会根据指令是否被另一条指令引用来决定反汇编，但是其也会用到线性扫描来反汇编。它通过程序的控制流来确定反汇编的下一条指令，遇到非控制转移指令时顺序进行反汇编，而遇到控制转移指令时则从转移地址处开始进行反汇编(线性扫描)。缺点在于准确确定间接转移目的地址的难度较大，并且无法处理访问动态变量如堆<br />
-栈和寄存器等数据。</li>
+<li>递归下降反汇编(Recursive Traversal): 递归下降算法中强调控制流，对可能的分支进行扫描，会根据指令是否被另一条指令引用来决定反汇编，但是其也会用到线性扫描来反汇编。它通过程序的控制流来确定反汇编的下一条指令，遇到非控制转移指令时顺序进行反汇编，而遇到控制转移指令时则从转移地址处开始进行反汇编(线性扫描)。缺点在于准确确定间接转移目的地址的难度较大，并且无法处理访问动态变量如堆栈和寄存器等数据。</li>
 <li>IDA Pro简单介绍了递归下降反汇编(其处理顺序指令是线性扫描的方式)的一些缺陷，对于不明确的跳转除非启发式方法才能判断，并且其在处理call指令时会延时发编译，等等这些缺陷让我们能通过内联汇编来干扰IDA的反汇编</li>
 </ul>
 <blockquote>
