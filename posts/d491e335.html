@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="吾爱破解教程入门   APK 结构  总览 APK 的全称为  Android Package，它是使用 zip 算法压缩的文件，使用修改后缀名为 zip 即可被解压缩工具解压缩    文件 信息     assets目录 存放APK的静态资源文件，比如视频，音频，图片等   lib目录 存放的.so文件是c或c++编译的动态链接库文件，它们通常用于混淆等一系列操作，增加逆向的难度。armeab">
+    <meta name="description" content="吾爱破解教程入门–了解android   APK 结构  总览 APK 的全称为  Android Package，它是使用 zip 算法压缩的文件，使用修改后缀名为 zip 即可被解压缩工具解压缩    文件 信息     assets目录 存放APK的静态资源文件，比如视频，音频，图片等   lib目录 存放的.so文件是c或c++编译的动态链接库文件，它们通常用于混淆等一系列操作，增加逆向">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android逆向入门(1)">
 <meta property="og:url" content="http://example.com/posts/d491e335.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="吾爱破解教程入门   APK 结构  总览 APK 的全称为  Android Package，它是使用 zip 算法压缩的文件，使用修改后缀名为 zip 即可被解压缩工具解压缩    文件 信息     assets目录 存放APK的静态资源文件，比如视频，音频，图片等   lib目录 存放的.so文件是c或c++编译的动态链接库文件，它们通常用于混淆等一系列操作，增加逆向的难度。armeab">
+<meta property="og:description" content="吾爱破解教程入门–了解android   APK 结构  总览 APK 的全称为  Android Package，它是使用 zip 算法压缩的文件，使用修改后缀名为 zip 即可被解压缩工具解压缩    文件 信息     assets目录 存放APK的静态资源文件，比如视频，音频，图片等   lib目录 存放的.so文件是c或c++编译的动态链接库文件，它们通常用于混淆等一系列操作，增加逆向">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2024-02-24T08:20:45.000Z">
-<meta property="article:modified_time" content="2024-02-25T09:44:58.628Z">
+<meta property="article:modified_time" content="2024-02-26T01:57:31.454Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -241,7 +241,7 @@
         
         
         
-          103 分钟
+          105 分钟
         
       </span>
     
@@ -285,7 +285,7 @@
               <div class="markdown-body">
                 
                 <blockquote>
-<p>吾爱破解教程入门</p>
+<p>吾爱破解教程入门–了解android</p>
 </blockquote>
 <h1 id="apk-结构"><a class="markdownIt-Anchor" href="#apk-结构"></a> APK 结构</h1>
 <h2 id="总览"><a class="markdownIt-Anchor" href="#总览"></a> 总览</h2>
@@ -588,6 +588,11 @@
 </ul>
 <p>​	V1 签名的机制主要就在 META-INF 目录下的三个文件，MANIFEST.MF，ANDROID.SF，ANDROID.RSA，他们都是 V1 签名的产物。在某些情况下，直接对apk进行v1签名可以绕过apk的签名校验(我认为直接覆盖了之前的签名文件)</p>
 <p>​	V2方案会将 APK 文件视为 blob，并对整个文件进行签名检查。对 APK 进行的任何修改（包括对 ZIP 元数据进行的修改）都会使 APK 签名作废。这种形式的 APK 验证不仅速度要快得多，而且能够发现更多种未经授权的修改。</p>
+<ul>
+<li>相关资料 -&gt; <a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1731181-1-1.html">《安卓逆向这档事》六、校验的N次方-签名校验对抗、PM代{过}{滤}理、IO重定向 - 『移动安全区』 - 吾爱破解 - LCG - LSG |安卓破解|病毒分析|www.52pojie.cn</a></li>
+</ul>
+<h1 id="ndk开发"><a class="markdownIt-Anchor" href="#ndk开发"></a> NDK开发</h1>
+<p>​	NDK(Native Development Kit)是一套用于开发Android应用程序的工具集，它允许在C/C++中编写性能关键的部分代码，并将这些代码与Java代码进行连接。</p>
 <h1 id="challenge"><a class="markdownIt-Anchor" href="#challenge"></a> Challenge</h1>
 <h2 id="第一关"><a class="markdownIt-Anchor" href="#第一关"></a> 第一关</h2>
 <blockquote>
@@ -670,6 +675,7 @@
 <h2 id="第四关"><a class="markdownIt-Anchor" href="#第四关"></a> 第四关</h2>
 <p>​	首先找到关键的 <code>check</code> 方法，之后下断点进行调试，进入<code>invoke-virtual Base64Utils-&gt;encodeToString([B)String, v1, v0</code>，之后查看赋值后的 v0 的值，即为flag。这里需要注意调试的时候有很多bug，需要进入方法内才能看到返回值。</p>
 <p>​	或者使用 log 插桩方法，具体看这个-&gt;<a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1714727-1-1.html">《安卓逆向这档事》五、1000-7=？&amp;动态调试&amp;Log插桩 - 『移动安全区』 - 吾爱破解 - LCG - LSG |安卓破解|病毒分析|www.52pojie.cn</a></p>
+<h2 id="第五关"><a class="markdownIt-Anchor" href="#第五关"></a> 第五关</h2>
 <h1 id="参考-6"><a class="markdownIt-Anchor" href="#参考-6"></a> 参考</h1>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://www.52pojie.cn/home.php?mod=space&amp;uid=1109458&amp;do=thread&amp;view=me&amp;from=space">正己的帖子 - 吾爱破解 - LCG - LSG |安卓破解|病毒分析|www.52pojie.cn</a></li>
@@ -756,6 +762,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/posts/a5156944.html" title="Android逆向入门(2)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Android逆向入门(2)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
