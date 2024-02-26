@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2024-02-25T11:46:45.000Z">
-<meta property="article:modified_time" content="2024-02-26T01:54:51.157Z">
+<meta property="article:modified_time" content="2024-02-26T06:38:38.496Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.8k 字
+          8.9k 字
         
       </span>
     
@@ -293,7 +293,7 @@
 <p>用自己实现的<strong>app_process</strong>替换掉了系统原本提供的<strong>app_process</strong>，加载一个额外的jar包，入口从原来的： <strong>com.android.internal.osZygoteInit.main()被替换成了： de.robv.android.xposed.XposedBridge.main()</strong>，创建的Zygote进程就变成Hook的Zygote进程了，从而完成对zygote进程及其创建的Dalvik/ART虚拟机的劫持(zytoge注入)</p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402260801817.png" srcset="/img/loading.gif" lazyload alt="image-20240226080124647" /></p>
 <h2 id="xposed常用api"><a class="markdownIt-Anchor" href="#xposed常用api"></a> Xposed常用API</h2>
-<p>​	这里通过 Android Studio的 Logcat 打印日志来对程序的方法进行分析。</p>
+<p>​	这里通过 Android Studio的 Logcat 打印日志来对程序的方法进行分析。一个空白的文档，可以在这个上面进行开发 -&gt; <a target="_blank" rel="noopener" href="https://github.com/lz-ang/XposedSample">GitHub - lz-ang/XposedSample: Xposed框架在项目中使用</a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Hook</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IXposedHookLoadPackage</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">handleLoadPackage</span><span class="hljs-params">(XC_LoadPackage.LoadPackageParam loadPackageParam)</span> <span class="hljs-keyword">throws</span> Throwable &#123;<br>        <span class="hljs-keyword">if</span>(!loadPackageParam.packageName.equals(<span class="hljs-string">&quot;com.zj.wuaipojie&quot;</span>))&#123; <span class="hljs-comment">// 过滤出目标的程序的包</span><br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        <span class="hljs-comment">//	之后的hook代码就是在这个框架中填写</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h3 id="hook-变量"><a class="markdownIt-Anchor" href="#hook-变量"></a> hook 变量</h3>
 <p>静态变量与实例变量：</p>

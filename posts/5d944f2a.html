@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
 <meta property="article:published_time" content="2023-03-31T13:13:43.000Z">
-<meta property="article:modified_time" content="2024-02-13T09:11:45.528Z">
+<meta property="article:modified_time" content="2024-02-26T13:45:00.348Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202303291139743.JPG">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.1k 字
+          8.4k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          68 分钟
+          70 分钟
         
       </span>
     
@@ -492,6 +492,8 @@
 <h4 id="取数值"><a class="markdownIt-Anchor" href="#取数值"></a> 取数值</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> idc_bc695 <span class="hljs-keyword">import</span> *<br>cur_addr = <span class="hljs-number">0x6020c0</span>  <span class="hljs-comment">#起始地址</span><br>end_addr = <span class="hljs-number">0x60213c</span>  <span class="hljs-comment">#终止地址</span><br><span class="hljs-built_in">len</span> = end_addr - cur_addr<br>arr1 = []<br>arr2 = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>):<br>    arr1.append(Byte(cur_addr + i)) 		<span class="hljs-comment">#单个字节获取</span><br>    arr2.append(Dword(cur_addr + <span class="hljs-number">4</span> * i))	<span class="hljs-comment">#四个字节获取</span><br><span class="hljs-built_in">print</span>(arr1)<br><span class="hljs-built_in">print</span>(arr2)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Done&quot;</span>)<br></code></pre></td></tr></table></figure>
 <h2 id="插件及其使用"><a class="markdownIt-Anchor" href="#插件及其使用"></a> 插件及其使用</h2>
+<h3 id="配置python及插件"><a class="markdownIt-Anchor" href="#配置python及插件"></a> 配置python及插件</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">.\idapyswitch.exe --force-path your path of python3.dll	# 使用idapyswitch切换为自己的python程序<br><span class="hljs-meta prompt_"># </span><span class="language-bash">之后配置插件</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">配置findcrypto3插件，下载yara</span><br>python.exe -m pip install yara-python<br><span class="hljs-meta prompt_"># </span><span class="language-bash">配置patching插件</span><br>python.exe -m pip install keystone-engine<br></code></pre></td></tr></table></figure>
 <h3 id="bindiff"><a class="markdownIt-Anchor" href="#bindiff"></a> bindiff</h3>
 <ul>
 <li>可以看出二进制文件中的差异，样例:GUDOCTF–L!S!</li>
@@ -502,7 +504,12 @@
 </ul>
 <h3 id="d-810"><a class="markdownIt-Anchor" href="#d-810"></a> D-810</h3>
 <ul>
-<li>选择适当的规则，然后点击 <code>start</code>，之后就可以按 F5 自动反编译，解决OLLVM混淆。如果已经存在 F5缓存，可以将一段代码nop掉，之后撤销操作，再 F5 反编译即可</li>
+<li>
+<p>将 <code>d810</code> 文件夹与 <code>D810.py</code> 文件一同放在 <code>plugins</code> 目录下</p>
+</li>
+<li>
+<p>选择适当的规则，然后点击 <code>start</code>，之后就可以按 F5 自动反编译，解决OLLVM混淆。如果已经存在 F5缓存，可以将一段代码nop掉，之后撤销操作，再 F5 反编译即可</p>
+</li>
 </ul>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202401152139298.png" srcset="/img/loading.gif" lazyload alt="image-20240115213925148" /></p>
 <h1 id="gdb"><a class="markdownIt-Anchor" href="#gdb"></a> GDB</h1>

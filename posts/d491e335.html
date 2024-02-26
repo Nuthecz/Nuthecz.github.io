@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2024-02-24T08:20:45.000Z">
-<meta property="article:modified_time" content="2024-02-26T01:57:31.454Z">
+<meta property="article:modified_time" content="2024-02-26T06:19:56.983Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12k 字
+          17k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          105 分钟
+          141 分钟
         
       </span>
     
@@ -593,6 +593,159 @@
 </ul>
 <h1 id="ndk开发"><a class="markdownIt-Anchor" href="#ndk开发"></a> NDK开发</h1>
 <p>​	NDK(Native Development Kit)是一套用于开发Android应用程序的工具集，它允许在C/C++中编写性能关键的部分代码，并将这些代码与Java代码进行连接。</p>
+<h2 id="cpp文件说明"><a class="markdownIt-Anchor" href="#cpp文件说明"></a> cpp文件说明</h2>
+<p>​	cpp目录下包含两个文件 CMakeLists.txt 和 natice-lib.cpp。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">文件名</th>
+<th style="text-align:left">作用</th>
+<th style="text-align:left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">CMakeLists.txt</td>
+<td style="text-align:left">构建配置文件</td>
+<td style="text-align:left">CMakeLists.txt是用于配置NDK项目的构建系统的文件。它指定了构建所需的源文件、依赖项、编译选项等。在构建过程中，CMake会根据该文件的指示生成对应的构建脚本，用于编译本地代码并生成本地库。</td>
+</tr>
+<tr>
+<td style="text-align:left">native-lib.cpp</td>
+<td style="text-align:left">本地代码实现文件</td>
+<td style="text-align:left">native-lib.cpp是包含本地代码实现的文件。它定义了通过Java和本地代码之间进行通信的本地方法。该文件中的函数实现将被编译为本地库，供Java代码调用。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cmakeliststxt"><a class="markdownIt-Anchor" href="#cmakeliststxt"></a> CMakeLIsts.txt</h3>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># For more information about using CMake with Android Studio, read the</span><br><span class="hljs-comment"># documentation: https://d.android.com/studio/projects/add-native-code.html</span><br><br><span class="hljs-comment"># 设置构建本地库所需的CMake的最小版本要求</span><br><span class="hljs-keyword">cmake_minimum_required</span>(VERSION <span class="hljs-number">3.22</span>.<span class="hljs-number">1</span>)<br><br><span class="hljs-comment"># 声明和命名项目</span><br><span class="hljs-keyword">project</span>(<span class="hljs-string">&quot;ndkdemo&quot;</span>)<br><br><span class="hljs-comment"># 创建并命名一个库，设置其类型为STATIC或SHARED，并指定源代码的相对路径</span><br><span class="hljs-comment"># 可以定义多个库，CMake会为您构建它们</span><br><span class="hljs-comment"># Gradle会自动将共享库打包到APK中</span><br><span class="hljs-keyword">add_library</span>(<br>        <span class="hljs-comment"># 设置库的名称</span><br>        ndkdemo<br><br>        <span class="hljs-comment"># 设置库类型为共享库</span><br>        SHARED<br><br>        <span class="hljs-comment"># 提供源文件的相对路径</span><br>        native-lib.cpp)<br><br><span class="hljs-comment"># 搜索指定的预构建库并将路径存储为变量。</span><br><span class="hljs-comment"># 由于CMake默认在搜索路径中包含系统库，因此您只需指定要添加的公共NDK库的名称。</span><br><span class="hljs-comment"># CMake会在完成构建之前验证该库是否存在。</span><br><span class="hljs-keyword">find_library</span>(<br>        <span class="hljs-comment"># 设置路径变量的名称</span><br>        log-lib<br><br>        <span class="hljs-comment"># 指定要让CMake定位的NDK库的名称</span><br>        log)<br><br><span class="hljs-comment"># 指定CMake应链接到目标库的库。</span><br><span class="hljs-comment"># 您可以链接多个库，例如在此构建脚本中定义的库、预构建的第三方库或系统库。</span><br><span class="hljs-keyword">target_link_libraries</span>(<br>        <span class="hljs-comment"># 指定目标库</span><br>        ndkdemo<br><br>        <span class="hljs-comment"># 将目标库链接到NDK中包含的log库</span><br>        <span class="hljs-variable">$&#123;log-lib&#125;</span>)<br></code></pre></td></tr></table></figure>
+<h3 id="native-libcpp"><a class="markdownIt-Anchor" href="#native-libcpp"></a> native-lib.cpp</h3>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;jni.h&gt;</span> <span class="hljs-comment">// JNI头文件，提供了JNI函数和数据类型的定义</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span> <span class="hljs-comment">// C++标准库的string类</span></span><br><br><span class="hljs-comment">// 声明一个jni函数，该函数将会被Java代码调用</span><br><span class="hljs-comment">// JNIEXPORT表示这个函数是可导出的，并且可以被其他代码使用</span><br><span class="hljs-comment">// jstring表示这个函数返回的是一个Java字符串对象</span><br><span class="hljs-comment">// JNICALL是JNI函数的调用约定</span><br><span class="hljs-comment">// Java_com_example_ndkdemo_MainActivity_stringFromJNI是JNI函数的命名规则，与Java中对应的方法名对应</span><br><span class="hljs-comment">// Java打头，1包名,2类名,3方法名字;&quot;_&quot;号隔开</span><br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> <span class="hljs-function">JNIEXPORT jstring JNICALL</span><br><span class="hljs-function"><span class="hljs-title">Java_com_example_ndkdemo_MainActivity_stringFromJNI</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">        JNIEnv* env, <span class="hljs-comment">// JNIEnv是指向JNI环境的指针，可以用来访问JNI提供的功能</span></span></span><br><span class="hljs-params"><span class="hljs-function">        jobject <span class="hljs-comment">/* this */</span>)</span> </span>&#123; <span class="hljs-comment">// jobject是指向Java对象的指针，在本例中并没有使用</span><br><br>    std::string hello = <span class="hljs-string">&quot;Hello from C++&quot;</span>; <span class="hljs-comment">// 创建一个C++字符串对象</span><br>    <span class="hljs-keyword">return</span> env-&gt;<span class="hljs-built_in">NewStringUTF</span>(hello.<span class="hljs-built_in">c_str</span>()); <span class="hljs-comment">// 将C++字符串对象转换为Java字符串对象并返回</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="mainactivityjava"><a class="markdownIt-Anchor" href="#mainactivityjava"></a> MainActivity.java</h3>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MainActivity</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AppCompatActivity</span> &#123;<br><br>    <span class="hljs-comment">// Used to load the &#x27;ndkdemo&#x27; library on application startup.</span><br>    <span class="hljs-keyword">static</span> &#123;<br>        System.loadLibrary(<span class="hljs-string">&quot;ndkdemo&quot;</span>); <span class="hljs-comment">// 加载名为&quot;ndkdemo&quot;的库</span><br>    &#125;<br><br>    <span class="hljs-keyword">private</span> ActivityMainBinding binding; <span class="hljs-comment">// 声明一个ActivityMainBinding变量</span><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> &#123;<br>        <span class="hljs-built_in">super</span>.onCreate(savedInstanceState);<br><br>        binding = ActivityMainBinding.inflate(getLayoutInflater()); <span class="hljs-comment">// 使用ViewBinding将布局文件解析为一个ActivityMainBinding对象</span><br>        setContentView(binding.getRoot()); <span class="hljs-comment">// 将Activity的布局设置为根布局</span><br><br>        <span class="hljs-comment">// Example of a call to a native method</span><br>        <span class="hljs-type">TextView</span> <span class="hljs-variable">tv</span> <span class="hljs-operator">=</span> binding.sampleText; <span class="hljs-comment">// 获取布局文件中的TextView控件</span><br>        tv.setText(stringFromJNI()); <span class="hljs-comment">// 调用本地方法stringFromJNI()并将其返回的字符串设置为TextView的文本内容</span><br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * A native method that is implemented by the &#x27;ndkdemo&#x27; native library,</span><br><span class="hljs-comment">     * which is packaged with this application.</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">native</span> String <span class="hljs-title function_">stringFromJNI</span><span class="hljs-params">()</span>; <span class="hljs-comment">// 声明一个native方法stringFromJNI()</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="jni"><a class="markdownIt-Anchor" href="#jni"></a> JNI</h2>
+<p>​	NDK是开发套件，JNI才是调用的框架。所以与其说是NDK开发，不如说是JNI的开发。不过NDK是Android提供的开发套件。JNI可不是，JNI全称Java Native Interface,即Java本地接口，JNI是Java调用Native 语言的一种特性。通过JNI可以使得Java与C/C<ins>机型交互。即可以在Java代码中调用C/C</ins>等语言的代码或者在C/C++代码中调用Java代码。</p>
+<h3 id="注册方式"><a class="markdownIt-Anchor" href="#注册方式"></a> 注册方式</h3>
+<h4 id="静态注册"><a class="markdownIt-Anchor" href="#静态注册"></a> 静态注册</h4>
+<p>​	上述过程就是静态注册</p>
+<ul>
+<li>优点: 理解和使用方式简单, 属于傻瓜式操作, 使用相关工具按流程操作就行, 出错率低</li>
+<li>缺点: 当需要更改类名,包名或者方法时, 需要按照之前方法重新生成头文件, 灵活性不高</li>
+</ul>
+<h4 id="动态注册"><a class="markdownIt-Anchor" href="#动态注册"></a> 动态注册</h4>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;jni.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><br><span class="hljs-keyword">extern</span> <span class="hljs-string">&quot;C&quot;</span> &#123;<br><br><span class="hljs-function">JNIEXPORT jstring JNICALL <span class="hljs-title">Java_com_example_ndkdemo_MainActivity_nativeGetStringFromJNI</span><span class="hljs-params">(JNIEnv* env, jobject obj)</span> </span>&#123;<br>    std::string hello = <span class="hljs-string">&quot;Hello wuaipojie&quot;</span>;<br>    <span class="hljs-keyword">return</span> env-&gt;<span class="hljs-built_in">NewStringUTF</span>(hello.<span class="hljs-built_in">c_str</span>());<br>&#125;<br><br><span class="hljs-comment">// 定义本地方法注册函数</span><br><span class="hljs-function">JNIEXPORT jint JNICALL <span class="hljs-title">JNI_OnLoad</span><span class="hljs-params">(JavaVM* vm, <span class="hljs-type">void</span>* reserved)</span> </span>&#123;<br>    JNIEnv* env;<br>    <span class="hljs-keyword">if</span> (vm-&gt;<span class="hljs-built_in">GetEnv</span>(<span class="hljs-built_in">reinterpret_cast</span>&lt;<span class="hljs-type">void</span>**&gt;(&amp;env), JNI_VERSION_1_6) != JNI_OK) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 定义要注册的本地方法</span><br>    JNINativeMethod methods[] = &#123;<br>        &#123;<span class="hljs-string">&quot;nativeGetStringFromJNI&quot;</span>, <span class="hljs-string">&quot;()Ljava/lang/String;&quot;</span>, <span class="hljs-built_in">reinterpret_cast</span>&lt;<span class="hljs-type">void</span>*&gt;(Java_com_example_ndkdemo_MainActivity_nativeGetStringFromJNI)&#125;<br>    &#125;;<br><br>    <span class="hljs-comment">// 获取类引用</span><br>    jclass clazz = env-&gt;<span class="hljs-built_in">FindClass</span>(<span class="hljs-string">&quot;com/example/ndkdemo/MainActivity&quot;</span>);<br>    <span class="hljs-keyword">if</span> (clazz == <span class="hljs-literal">nullptr</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br><br>    <span class="hljs-comment">// 注册本地方法</span><br>    <span class="hljs-keyword">if</span> (env-&gt;<span class="hljs-built_in">RegisterNatives</span>(clazz, methods, <span class="hljs-built_in">sizeof</span>(methods) / <span class="hljs-built_in">sizeof</span>(methods[<span class="hljs-number">0</span>])) &lt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> JNI_VERSION_1_6;<br>&#125;<br><br>&#125; <span class="hljs-comment">// extern &quot;C&quot;</span><br></code></pre></td></tr></table></figure>
+<h3 id="数据类型比对"><a class="markdownIt-Anchor" href="#数据类型比对"></a> 数据类型比对</h3>
+<p>​	这里比对C++，java，JNI的数据类型，使用的时候需要正确转化</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">C++ 数据类型</th>
+<th style="text-align:left">Java 数据类型</th>
+<th style="text-align:left">JNI 数据类型签名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">jint</td>
+<td style="text-align:left">int</td>
+<td style="text-align:left">“I”</td>
+</tr>
+<tr>
+<td style="text-align:left">jboolean</td>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">“Z”</td>
+</tr>
+<tr>
+<td style="text-align:left">jbyte</td>
+<td style="text-align:left">byte</td>
+<td style="text-align:left">“B”</td>
+</tr>
+<tr>
+<td style="text-align:left">jchar</td>
+<td style="text-align:left">char</td>
+<td style="text-align:left">“C”</td>
+</tr>
+<tr>
+<td style="text-align:left">jshort</td>
+<td style="text-align:left">short</td>
+<td style="text-align:left">“S”</td>
+</tr>
+<tr>
+<td style="text-align:left">jlong</td>
+<td style="text-align:left">long</td>
+<td style="text-align:left">“J”</td>
+</tr>
+<tr>
+<td style="text-align:left">jfloat</td>
+<td style="text-align:left">float</td>
+<td style="text-align:left">“F”</td>
+</tr>
+<tr>
+<td style="text-align:left">jdouble</td>
+<td style="text-align:left">double</td>
+<td style="text-align:left">“D”</td>
+</tr>
+<tr>
+<td style="text-align:left">jobject</td>
+<td style="text-align:left">Object</td>
+<td style="text-align:left">“Ljava/lang/Object;”</td>
+</tr>
+<tr>
+<td style="text-align:left">jstring</td>
+<td style="text-align:left">String</td>
+<td style="text-align:left">“Ljava/lang/String;”</td>
+</tr>
+<tr>
+<td style="text-align:left">jarray</td>
+<td style="text-align:left">Array</td>
+<td style="text-align:left">“[elementType”</td>
+</tr>
+<tr>
+<td style="text-align:left">jobjectArray</td>
+<td style="text-align:left">Object[]</td>
+<td style="text-align:left">“[Ljava/lang/Object;”</td>
+</tr>
+<tr>
+<td style="text-align:left">jbooleanArray</td>
+<td style="text-align:left">boolean[]</td>
+<td style="text-align:left">“[Z”</td>
+</tr>
+<tr>
+<td style="text-align:left">jbyteArray</td>
+<td style="text-align:left">byte[]</td>
+<td style="text-align:left">“[B”</td>
+</tr>
+<tr>
+<td style="text-align:left">jcharArray</td>
+<td style="text-align:left">char[]</td>
+<td style="text-align:left">“[C”</td>
+</tr>
+<tr>
+<td style="text-align:left">jshortArray</td>
+<td style="text-align:left">short[]</td>
+<td style="text-align:left">“[S”</td>
+</tr>
+<tr>
+<td style="text-align:left">jintArray</td>
+<td style="text-align:left">int[]</td>
+<td style="text-align:left">“[I”</td>
+</tr>
+<tr>
+<td style="text-align:left">jlongArray</td>
+<td style="text-align:left">long[]</td>
+<td style="text-align:left">“[J”</td>
+</tr>
+<tr>
+<td style="text-align:left">jfloatArray</td>
+<td style="text-align:left">float[]</td>
+<td style="text-align:left">“[F”</td>
+</tr>
+<tr>
+<td style="text-align:left">jdoubleArray</td>
+<td style="text-align:left">double[]</td>
+<td style="text-align:left">“[D”</td>
+</tr>
+</tbody>
+</table>
 <h1 id="challenge"><a class="markdownIt-Anchor" href="#challenge"></a> Challenge</h1>
 <h2 id="第一关"><a class="markdownIt-Anchor" href="#第一关"></a> 第一关</h2>
 <blockquote>
