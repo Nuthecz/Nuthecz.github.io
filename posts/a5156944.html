@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="吾爱破解教程入门–Apk签名专题   Apk 签名  签名检验  Challenge  第五关">
+    <meta name="description" content="吾爱破解教程入门–Apk签名专题   Apk 签名  简介 ​	通过对 Apk 进行签名，开发者可以证明对 Apk 的所有权和控制权，可用于安装和更新其应用。而在 Android 设备上的安装 Apk，如果是一个没有被签名的 Apk，则会被拒绝安装。在安装 Apk 的时候，软件包管理器也会验证 Apk 是否已经被正确签名，并且通过签名证书和数据摘要验证是否合法没有被篡改。只有确认安全无篡改的情况">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android逆向入门(2)">
 <meta property="og:url" content="http://example.com/posts/a5156944.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="吾爱破解教程入门–Apk签名专题   Apk 签名  签名检验  Challenge  第五关">
+<meta property="og:description" content="吾爱破解教程入门–Apk签名专题   Apk 签名  简介 ​	通过对 Apk 进行签名，开发者可以证明对 Apk 的所有权和控制权，可用于安装和更新其应用。而在 Android 设备上的安装 Apk，如果是一个没有被签名的 Apk，则会被拒绝安装。在安装 Apk 的时候，软件包管理器也会验证 Apk 是否已经被正确签名，并且通过签名证书和数据摘要验证是否合法没有被篡改。只有确认安全无篡改的情况">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2024-02-25T11:46:45.000Z">
-<meta property="article:modified_time" content="2024-02-26T15:16:10.195Z">
+<meta property="article:modified_time" content="2024-02-27T15:31:08.700Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          37 字
+          1.3k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          1 分钟
+          12 分钟
         
       </span>
     
@@ -288,9 +288,48 @@
 <p>吾爱破解教程入门–Apk签名专题</p>
 </blockquote>
 <h1 id="apk-签名"><a class="markdownIt-Anchor" href="#apk-签名"></a> Apk 签名</h1>
+<h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<p>​	通过对 Apk 进行签名，开发者可以证明对 Apk 的所有权和控制权，可用于安装和更新其应用。而在 Android 设备上的安装 Apk，如果是一个没有被签名的 Apk，则会被拒绝安装。在安装 Apk 的时候，软件包管理器也会验证 Apk 是否已经被正确签名，并且通过签名证书和数据摘要验证是否合法没有被篡改。只有确认安全无篡改的情况下，才允许安装在设备上。</p>
+<p>简单来说，APK 的签名主要作用有两个：</p>
+<ol>
+<li>
+<p>证明 APK 的所有者。</p>
+</li>
+<li>
+<p>允许 Android 市场和设备校验 APK 的正确性。</p>
+</li>
+</ol>
+<p>​	Android 目前支持以下四种应用签名方案：</p>
+<ul>
+<li>v1 方案：基于 JAR 签名</li>
+<li>v2 方案：APK 签名方案 v2(在 Android 7.0 中引入)</li>
+<li>v3 方案：APK 签名方案 v3(在 Android 9 中引入)</li>
+<li>v4 方案：APK 签名方案 v4(在 Android 11 中引入)</li>
+</ul>
+<h2 id="v1-签名"><a class="markdownIt-Anchor" href="#v1-签名"></a> V1 签名</h2>
+<p>​	V1 签名的机制主要就在 META-INF 目录下的三个文件，MANIFEST.MF，ANDROID.SF，ANDROID.RSA，他们都是 V1 签名的产物。在某些情况下，直接对apk进行v1签名可以绕过apk的签名校验(我认为直接覆盖了之前的签名文件)</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402272330925.png" srcset="/img/loading.gif" lazyload alt="image-20240227233002806" /></p>
+<ul>
+<li><code>MANIFEST.MF</code>：摘要文件。程序遍历Apk包中的所有文件(entry)，对非文件夹非签名文件的文件，逐个用SHA1(安全哈希算法)生成摘要信息，再用Base64进行编码</li>
+<li><code>CERT.SF</code>：对摘要的签名文件。对前一步生成的MANIFEST.MF，使用SHA1-RSA算法，用开发者的私钥进行签名。在安装时只能使用公钥才能解密它。解密之后，将它与未加密的摘要信息(MANIFEST.MF文件)进行对比，如果相符，则表明内容没有被异常修改。</li>
+<li><code>CERT.RSA</code>：保存了公钥、所采用的加密算法等信息，实际包含了对CERT.SF文件的数字签名以及签名时所用的platform.x509.pem这个数字证书，可以用 keytool 进行查看</li>
+</ul>
+<h2 id="v2-签名"><a class="markdownIt-Anchor" href="#v2-签名"></a> V2 签名</h2>
+<p>​	V2方案会将 APK 文件视为 blob，并对整个文件进行签名检查。对 APK 进行的任何修改(包括对 ZIP 元数据进行的修改)都会使 APK 签名作废。这种形式的 APK 验证不仅速度要快得多，而且能够发现更多种未经授权的修改。</p>
 <h2 id="签名检验"><a class="markdownIt-Anchor" href="#签名检验"></a> 签名检验</h2>
+<p>​	不做任何修改，直接签名安装，应用闪退则说明大概率有签名校验。一般来说，普通的签名校验会导致软件的闪退，黑屏，卡启动页等。</p>
+<p>​	以下是签名可能使用的一些方法</p>
+<ul>
+<li><code>kill/KillProcess()</code> 可以杀死当前应用活动的进程，这一操作将会把所有该进程内的资源（包括线程全部清理掉）。当然，由于ActivityManager时刻监听着进程，一旦发现进程被非正常Kill，它将会试图去重启这个进程。这就是为什么，有时候当我们试图这样去结束掉应用时，发现它又自动重新启动的原因。</li>
+<li><code>system.exit</code> 杀死了整个进程，这时候活动所占的资源也会被释放。</li>
+<li><code>finish</code> 仅仅针对Activity，当调用finish()时，只是将活动推向后台，并没有立即释放内存，活动的资源并没有被清理</li>
+</ul>
 <h1 id="challenge"><a class="markdownIt-Anchor" href="#challenge"></a> Challenge</h1>
 <h2 id="第五关"><a class="markdownIt-Anchor" href="#第五关"></a> 第五关</h2>
+<h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1731181-1-1.html">《安卓逆向这档事》六、校验的N次方-签名校验对抗、PM代{过}{滤}理、IO重定向 - 『移动安全区』 - 吾爱破解 - LCG - LSG |安卓破解|病毒分析|www.52pojie.cn</a></li>
+</ul>
 
                 
               </div>
