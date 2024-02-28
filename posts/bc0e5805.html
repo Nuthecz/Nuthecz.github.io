@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2024-02-26T11:46:45.000Z">
-<meta property="article:modified_time" content="2024-02-28T01:32:06.096Z">
+<meta property="article:modified_time" content="2024-02-28T09:33:32.503Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          16k 字
+          22k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          133 分钟
+          181 分钟
         
       </span>
     
@@ -453,6 +453,7 @@
 <h4 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h4>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">日志捕获</span><br>logcat |grep &quot;D.zj2595&quot;<br></code></pre></td></tr></table></figure>
 <h2 id="基础语法"><a class="markdownIt-Anchor" href="#基础语法"></a> 基础语法</h2>
+<h3 id="java层"><a class="markdownIt-Anchor" href="#java层"></a> java层</h3>
 <table>
 <thead>
 <tr>
@@ -491,7 +492,105 @@
 </tr>
 </tbody>
 </table>
-<h2 id="常用api-2"><a class="markdownIt-Anchor" href="#常用api-2"></a> 常用API</h2>
+<h3 id="native层"><a class="markdownIt-Anchor" href="#native层"></a> native层</h3>
+<p>​	<code>Process</code> 对象代表当前被Hook的进程，能获取进程的信息，枚举模块，枚举范围等</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">API</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>Process.id</code></td>
+<td style="text-align:left">返回附加目标进程的 <code>PID</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Process.isDebuggerAttached()</code></td>
+<td style="text-align:left">检测当前是否对目标程序已经附加</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Process.enumerateModules()</code></td>
+<td style="text-align:left">枚举当前加载的模块，返回模块对象的数组</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Process.enumerateThreads()</code></td>
+<td style="text-align:left">枚举当前所有的线程，返回包含 <code>id</code>, <code>state</code>, <code>context</code> 等属性的对象数组</td>
+</tr>
+</tbody>
+</table>
+<p>​	<code>Module</code> 对象代表一个加载到进程的模块(例如，在 Windows 上的 DLL，或在 Linux/Android 上的 .so 文件),能查询模块的信息，如模块的基址、名称、导入/导出的函数等</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">API</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>Module.load()</code></td>
+<td style="text-align:left">加载指定so文件，返回一个Module对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>enumerateImports()</code></td>
+<td style="text-align:left">枚举所有Import库函数，返回Module数组对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>enumerateExports()</code></td>
+<td style="text-align:left">枚举所有Export库函数，返回Module数组对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>enumerateSymbols()</code></td>
+<td style="text-align:left">枚举所有Symbol库函数，返回Module数组对象</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Module.findExportByName(exportName)、Module.getExportByName(exportName)</code></td>
+<td style="text-align:left">寻找指定so中export库中的函数地址</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Module.findBaseAddress(name)、Module.getBaseAddress(name)</code></td>
+<td style="text-align:left">返回so的基地址</td>
+</tr>
+</tbody>
+</table>
+<p>​	<code>Memory</code>是一个工具对象，提供直接读取和修改进程内存的功能，能够读取特定地址的值、写入数据、分配内存等</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">方法</th>
+<th style="text-align:left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>Memory.copy()</code></td>
+<td style="text-align:left">复制内存</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Memory.scan()</code></td>
+<td style="text-align:left">搜索内存中特定模式的数据</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Memory.scanSync()</code></td>
+<td style="text-align:left">同上，但返回多个匹配的数据</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Memory.alloc()</code></td>
+<td style="text-align:left">在目标进程的堆上申请指定大小的内存，返回一个<code>NativePointer</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Memory.writeByteArray()</code></td>
+<td style="text-align:left">将字节数组写入一个指定内存</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Memory.readByteArray</code></td>
+<td style="text-align:left">读取内存</td>
+</tr>
+</tbody>
+</table>
+<h2 id="java层常用api"><a class="markdownIt-Anchor" href="#java层常用api"></a> java层常用API</h2>
 <p>​	下面是 hook 的基本框架，下面对于方法的hook都是在这个上面进行添加的</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">main</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">perform</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-title function_">hookTest1</span>();<br>    &#125;);<br>&#125;<br><span class="hljs-title function_">setImmediate</span>(main);<br></code></pre></td></tr></table></figure>
 <h3 id="hook-普通方法-2"><a class="markdownIt-Anchor" href="#hook-普通方法-2"></a> hook 普通方法</h3>
@@ -508,12 +607,118 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 静态方法</span><br><span class="hljs-keyword">var</span> <span class="hljs-title class_">ClassName</span>=<span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&quot;com.zj.wuaipojie.Demo&quot;</span>); <br><span class="hljs-title class_">ClassName</span>.<span class="hljs-title function_">privateFunc</span>(<span class="hljs-string">&quot;传参&quot;</span>);<br><br><br><span class="hljs-comment">// 非静态方法</span><br><span class="hljs-keyword">var</span> ret = <span class="hljs-literal">null</span>;<br><span class="hljs-title class_">Java</span>.<span class="hljs-title function_">perform</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">choose</span>(<span class="hljs-string">&quot;com.zj.wuaipojie.Demo&quot;</span>,&#123;    		<span class="hljs-comment">//要hook的类</span><br>        <span class="hljs-attr">onMatch</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params">instance</span>)&#123;<br>            ret=instance.<span class="hljs-title function_">privateFunc</span>(<span class="hljs-string">&quot;aaaaaaa&quot;</span>); 	<span class="hljs-comment">//要hook的方法(aaaaaaa)</span><br>        &#125;,<br>        <span class="hljs-attr">onComplete</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>            <span class="hljs-comment">//console.log(&quot;result: &quot; + ret);</span><br>        &#125;<br>    &#125;);<br>&#125;)<br><span class="hljs-comment">//return ret;</span><br></code></pre></td></tr></table></figure>
 <h3 id="inline-hook"><a class="markdownIt-Anchor" href="#inline-hook"></a> inline hook</h3>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">hook</span>(<span class="hljs-params"></span>) &#123;<br>	<span class="hljs-keyword">var</span> inline_B34 = base.<span class="hljs-title function_">add</span>(<span class="hljs-number">0xB34</span>).<span class="hljs-title function_">add</span>(<span class="hljs-number">0x0</span>)	# 根据so文件获取固定地址<br>    <span class="hljs-title class_">Interceptor</span>.<span class="hljs-title function_">attach</span>(inline_B34,&#123;<br>        <span class="hljs-attr">onEnter</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params">args</span>)&#123;<br>        	<span class="hljs-comment">// 这里通过this.context.寄存器得到寄存器的值</span><br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;called enter inline_B34  = &quot;</span> +<span class="hljs-title function_">hexdump</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">context</span>.<span class="hljs-property">x0</span>))<br>        &#125;,<br>        <span class="hljs-attr">onLeave</span>:<span class="hljs-keyword">function</span>(<span class="hljs-params">retval</span>)&#123;<br>        &#125;<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="so层常用api"><a class="markdownIt-Anchor" href="#so层常用api"></a> so层常用API</h2>
+<h3 id="基址获取方法"><a class="markdownIt-Anchor" href="#基址获取方法"></a> 基址获取方法</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> moduleAddr1 = <span class="hljs-title class_">Process</span>.<span class="hljs-title function_">findModuleByName</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>).<span class="hljs-property">base</span>;  <br><span class="hljs-keyword">var</span> moduleAddr2 = <span class="hljs-title class_">Process</span>.<span class="hljs-title function_">getModuleByName</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>).<span class="hljs-property">base</span>;  <br><span class="hljs-keyword">var</span> moduleAddr3 = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">findBaseAddress</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>);<br></code></pre></td></tr></table></figure>
+<h3 id="枚举导入导出表"><a class="markdownIt-Anchor" href="#枚举导入导出表"></a> 枚举导入导出表</h3>
+<ol>
+<li><strong>导出表（Export Table）</strong>：列出了库中可以被其他程序或库访问的所有公开函数和符号的名称。</li>
+<li><strong>导入表（Import Table）</strong>：列出了库需要从其他库中调用的函数和符号的名称。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">hookTest1</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">perform</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-comment">//打印导入表</span><br>        <span class="hljs-keyword">var</span> imports = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">enumerateImports</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i =<span class="hljs-number">0</span>; i &lt; imports.<span class="hljs-property">length</span>;i++)&#123;<br>            <span class="hljs-keyword">if</span>(imports[i].<span class="hljs-property">name</span> == <span class="hljs-string">&quot;vip&quot;</span>)&#123;<span class="hljs-comment">//导入表包含关键字</span><br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(imports[i])); <span class="hljs-comment">//通过JSON.stringify打印object数据</span><br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(imports[i].<span class="hljs-property">address</span>);<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//打印导出表</span><br>        <span class="hljs-keyword">var</span> <span class="hljs-built_in">exports</span> = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">enumerateExports</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i =<span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">exports</span>.<span class="hljs-property">length</span>;i++)&#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-built_in">exports</span>[i]));<br>        &#125;<br><br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="hook为导出函数"><a class="markdownIt-Anchor" href="#hook为导出函数"></a> hook为导出函数</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">hookTest6</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">perform</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-comment">//根据导出函数名打印基址</span><br>        <span class="hljs-keyword">var</span> soAddr = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">findBaseAddress</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>);<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(soAddr);<br>        <span class="hljs-keyword">var</span> funcaddr = soAddr.<span class="hljs-title function_">add</span>(<span class="hljs-number">0x1071C</span>);  <br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(funcaddr);<br>        <span class="hljs-keyword">if</span>(funcaddr != <span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-title class_">Interceptor</span>.<span class="hljs-title function_">attach</span>(funcaddr,&#123;<br>                <span class="hljs-attr">onEnter</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">args</span>)&#123;  <span class="hljs-comment">//args参数</span><br><br>                &#125;,<br>                <span class="hljs-attr">onLeave</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">retval</span>)&#123;  <span class="hljs-comment">//retval返回值</span><br>                    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(retval.<span class="hljs-title function_">toInt32</span>());<br>                &#125;<br>            &#125;)<br>        &#125;<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>​	这里函数地址有所不同</p>
+<ol>
+<li>安卓里一般32 位的 so 中都是 <code>thumb</code> 指令，64 位的 so 中都是 <code>arm</code> 指令</li>
+<li>通过IDA里的opcode bytes来判断，arm 指令为 4 个字节对齐，thumb 指令为 2 个字节对齐</li>
+<li>thumb 指令，函数地址计算方式： so 基址 + 函数在 so 中的偏移 + 1<br />
+arm 指令，  函数地址计算方式： so 基址 + 函数在 so 中的偏移</li>
+</ol>
+<h3 id="hook-基本方法"><a class="markdownIt-Anchor" href="#hook-基本方法"></a> hook 基本方法</h3>
+<h4 id="参数整型-布尔-char类型"><a class="markdownIt-Anchor" href="#参数整型-布尔-char类型"></a> 参数整型、布尔、char类型</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">hookTest2</span>(<span class="hljs-params"></span>)&#123;<br><span class="hljs-title class_">Java</span>.<span class="hljs-title function_">perform</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-comment">//根据导出函数名打印地址</span><br>    <span class="hljs-keyword">var</span> helloAddr = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">findExportByName</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>,<span class="hljs-string">&quot;Java_com_zj_wuaipojie_util_SecurityUtil_checkVip&quot;</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(helloAddr); <br>    <span class="hljs-keyword">if</span>(helloAddr != <span class="hljs-literal">null</span>)&#123;<br>        <span class="hljs-comment">//Interceptor.attach是Frida里的一个拦截器</span><br>        <span class="hljs-title class_">Interceptor</span>.<span class="hljs-title function_">attach</span>(helloAddr,&#123;<br>           	<span class="hljs-comment">//onEnter里可以打印和修改参数</span><br>            <span class="hljs-attr">onEnter</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">args</span>)&#123;  <span class="hljs-comment">//args传入参数</span><br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(args[<span class="hljs-number">0</span>]);  <span class="hljs-comment">//打印第一个参数的值</span><br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">context</span>.<span class="hljs-property">x1</span>);  <span class="hljs-comment">// 打印寄存器内容</span><br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(args[<span class="hljs-number">1</span>].<span class="hljs-title function_">toInt32</span>()); <span class="hljs-comment">//toInt32()转十进制</span><br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(args[<span class="hljs-number">2</span>].<span class="hljs-title function_">readCString</span>()); <span class="hljs-comment">//读取字符串 char类型</span><br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">hexdump</span>(args[<span class="hljs-number">2</span>])); <span class="hljs-comment">//内存dump</span><br>                args[<span class="hljs-number">0</span>] = <span class="hljs-title function_">ptr</span>(<span class="hljs-number">1000</span>); <span class="hljs-comment">//第一个参数修改为整数 1000，先转为指针再赋值</span><br><br>            &#125;,<br>            <span class="hljs-comment">//onLeave里可以打印和修改返回值</span><br>            <span class="hljs-attr">onLeave</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">retval</span>)&#123;  <span class="hljs-comment">//retval返回值</span><br>                retval.<span class="hljs-title function_">replace</span>(<span class="hljs-number">20000</span>);  <span class="hljs-comment">//返回值修改</span><br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(retval);<br>                <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;retval&quot;</span>,retval.<span class="hljs-title function_">toInt32</span>());<br>            &#125;<br>        &#125;)<br>    &#125;<br>&#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="参数string类型"><a class="markdownIt-Anchor" href="#参数string类型"></a> 参数string类型</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">hookTest2</span>(<span class="hljs-params"></span>)&#123;<br>    <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">perform</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)&#123;<br>        <span class="hljs-comment">//根据导出函数名打印地址</span><br>        <span class="hljs-keyword">var</span> helloAddr = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">findExportByName</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>,<span class="hljs-string">&quot;Java_com_zj_wuaipojie_util_SecurityUtil_vipLevel&quot;</span>);<br>        <span class="hljs-keyword">if</span>(helloAddr != <span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-title class_">Interceptor</span>.<span class="hljs-title function_">attach</span>(helloAddr,&#123;<br>                <span class="hljs-comment">//onEnter里可以打印和修改参数</span><br>                <span class="hljs-attr">onEnter</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">args</span>)&#123;  <span class="hljs-comment">//args传入参数</span><br>                    <span class="hljs-comment">// 方法一读取</span><br>                    <span class="hljs-keyword">var</span> jString = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">cast</span>(args[<span class="hljs-number">2</span>], <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>));<br>                    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;参数:&quot;</span>, jString.<span class="hljs-title function_">toString</span>());<br>                    <span class="hljs-comment">// 方法二读取</span><br>                    <span class="hljs-keyword">var</span> <span class="hljs-title class_">JNIEnv</span> = <span class="hljs-title class_">Java</span>.<span class="hljs-property">vm</span>.<span class="hljs-title function_">getEnv</span>();<br>                    <span class="hljs-keyword">var</span> originalStrPtr = <span class="hljs-title class_">JNIEnv</span>.<span class="hljs-title function_">getStringUtfChars</span>(args[<span class="hljs-number">2</span>], <span class="hljs-literal">null</span>).<span class="hljs-title function_">readCString</span>();        <br>                    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;参数:&quot;</span>, originalStrPtr);<br>                    <br>                    <span class="hljs-comment">//修改</span><br>                    <span class="hljs-keyword">var</span> newJString = <span class="hljs-title class_">JNIEnv</span>.<span class="hljs-title function_">newStringUtf</span>(modifiedContent);<br>                	args[<span class="hljs-number">2</span>] = newJString; <br>                &#125;,<br>                <span class="hljs-comment">//onLeave里可以打印和修改返回值</span><br>                <span class="hljs-attr">onLeave</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">retval</span>)&#123;  <span class="hljs-comment">//retval返回值</span><br>                    <span class="hljs-keyword">var</span> returnedJString = <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">cast</span>(retval, <span class="hljs-title class_">Java</span>.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;java.lang.String&#x27;</span>));<br>                    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;返回值:&quot;</span>, returnedJString.<span class="hljs-title function_">toString</span>());<br>                    <br>                    <span class="hljs-comment">//修改</span><br>                    <span class="hljs-keyword">var</span> <span class="hljs-title class_">JNIEnv</span> = <span class="hljs-title class_">Java</span>.<span class="hljs-property">vm</span>.<span class="hljs-title function_">getEnv</span>();<br>                	<span class="hljs-keyword">var</span> modifiedContent = <span class="hljs-string">&quot;无敌&quot;</span>;<br>                	<span class="hljs-keyword">var</span> newJString = <span class="hljs-title class_">JNIEnv</span>.<span class="hljs-title function_">newStringUtf</span>(modifiedContent);<br>                	retval.<span class="hljs-title function_">replace</span>(newJString);<br>                &#125;<br>            &#125;)<br>        &#125;<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="hook-dlopen"><a class="markdownIt-Anchor" href="#hook-dlopen"></a> hook dlopen</h3>
+<p>​	dlopen主要加载库文件，在so加载之前被调用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">hook_dlopen</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">var</span> dlopen = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">findExportByName</span>(<span class="hljs-literal">null</span>, <span class="hljs-string">&quot;dlopen&quot;</span>);<br>    <span class="hljs-title class_">Interceptor</span>.<span class="hljs-title function_">attach</span>(dlopen, &#123;<br>        <span class="hljs-attr">onEnter</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">args</span>) &#123;<br>            <span class="hljs-keyword">var</span> so_name = args[<span class="hljs-number">0</span>].<span class="hljs-title function_">readCString</span>();<br>            <span class="hljs-keyword">if</span> (so_name.<span class="hljs-title function_">indexOf</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>) != -<span class="hljs-number">1</span>) <span class="hljs-variable language_">this</span>.<span class="hljs-property">call_hook</span> = <span class="hljs-literal">true</span>;<br>        &#125;, <span class="hljs-attr">onLeave</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">retval</span>) &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">call_hook</span>) <span class="hljs-title function_">hookTest2</span>();<span class="hljs-comment">//这是是自己设置的hook函数，上文的hookTest2</span><br>        &#125;<br>    &#125;);<br>    <span class="hljs-comment">// 高版本Android系统使用android_dlopen_ext</span><br>    <span class="hljs-keyword">var</span> android_dlopen_ext = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">findExportByName</span>(<span class="hljs-literal">null</span>, <span class="hljs-string">&quot;android_dlopen_ext&quot;</span>);<br>    <span class="hljs-title class_">Interceptor</span>.<span class="hljs-title function_">attach</span>(android_dlopen_ext, &#123;<br>        <span class="hljs-attr">onEnter</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">args</span>) &#123;<br>            <span class="hljs-keyword">var</span> so_name = args[<span class="hljs-number">0</span>].<span class="hljs-title function_">readCString</span>();<br>            <span class="hljs-keyword">if</span> (so_name.<span class="hljs-title function_">indexOf</span>(<span class="hljs-string">&quot;lib52pojie.so&quot;</span>) != -<span class="hljs-number">1</span>) <span class="hljs-variable language_">this</span>.<span class="hljs-property">call_hook</span> = <span class="hljs-literal">true</span>;<br>        &#125;, <span class="hljs-attr">onLeave</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">retval</span>) &#123;<br>            <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">call_hook</span>) <span class="hljs-title function_">hookTest2</span>();<br>        &#125;<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
 <h1 id="objection"><a class="markdownIt-Anchor" href="#objection"></a> objection</h1>
 <h2 id="环境配置"><a class="markdownIt-Anchor" href="#环境配置"></a> 环境配置</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">不再更新了，所以建议python版本为3.8</span><br>pip install objection==1.11.0<br>pip install frida-tools==9.2.4<br></code></pre></td></tr></table></figure>
 <h2 id="基础使用"><a class="markdownIt-Anchor" href="#基础使用"></a> 基础使用</h2>
 <h3 id="命令注入"><a class="markdownIt-Anchor" href="#命令注入"></a> 命令注入</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">objection -g 包名 explore	<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">help</span>：不知道当前命令的效果是什么，在当前命令前加<span class="hljs-built_in">help</span>比如：<span class="hljs-built_in">help</span> [<span class="hljs-built_in">command</span>]，回车之后会出现当前命令的解释信息</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">按空格：不知道输入什么就按空格，会有提示出来</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-built_in">jobs</span>：可以进行多项hook</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">日志：objection的日志文件生成在 C:\Users\Administrator\.objection</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">启动前hook，spawn模式</span><br>objection -g 进程名 explore --startup-command &quot;android hooking watch class 路径.类名&quot;<br></code></pre></td></tr></table></figure>
+<h3 id="基础api"><a class="markdownIt-Anchor" href="#基础api"></a> 基础api</h3>
+<ul>
+<li>
+<p><code>memory list modules</code></p>
+<ul>
+<li>查看内存中加载的库</li>
+</ul>
+</li>
+<li>
+<p><code>memory list exports so名称</code></p>
+<ul>
+<li>查看库的导出函数</li>
+</ul>
+</li>
+<li>
+<p><code>android intent launch_activity 类名</code></p>
+<ul>
+<li>启动<code>activity</code>或<code>service</code>(可以用于一些没有验证的activity,在一些简单的ctf中有时候可以出奇效)</li>
+</ul>
+</li>
+<li>
+<p><code>android sslpinning disable</code></p>
+<ul>
+<li>关闭ssl校验</li>
+</ul>
+</li>
+<li>
+<p><code>android root disable</code></p>
+<ul>
+<li>关闭root检测</li>
+</ul>
+</li>
+</ul>
+<h3 id="内存漫游"><a class="markdownIt-Anchor" href="#内存漫游"></a> 内存漫游</h3>
+<p>​	这里需要提前打开软件，才能在内存中存在</p>
+<ul>
+<li><code>android heap search instances 类名</code>
+<ul>
+<li>获得 HashCode</li>
+</ul>
+</li>
+<li><code>android hooking list classes</code>
+<ul>
+<li>列举内存中所有的类</li>
+</ul>
+</li>
+<li><code>android hooking search classes 类名</code>
+<ul>
+<li>在内存中所有已加载的类中搜索包含特定关键词的类</li>
+</ul>
+</li>
+<li><code>android hooking list class_methods 类名</code>
+<ul>
+<li>内存漫游类中的所有方法</li>
+</ul>
+</li>
+</ul>
+<h3 id="hook"><a class="markdownIt-Anchor" href="#hook"></a> hook</h3>
+<ul>
+<li><code>android hooking watch class 类名</code>
+<ul>
+<li>hook所有方法</li>
+</ul>
+</li>
+<li><code>android hooking watch class_method 类名.方法名 --dump-args --dump-return --dump-backtrace</code>
+<ul>
+<li>hook方法的参数，返回值，调用栈</li>
+</ul>
+</li>
+<li><code>android hooking watch class_method 类名.$init</code>
+<ul>
+<li>hook构造函数</li>
+</ul>
+</li>
+<li><code>android hooking watch class_method 类名.方法名</code>
+<ul>
+<li>hook方法的所有重载</li>
+</ul>
+</li>
+</ul>
 <h1 id="参考"><a class="markdownIt-Anchor" href="#参考"></a> 参考</h1>
 <ul>
 <li>

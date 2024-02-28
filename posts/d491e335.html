@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2024-02-24T08:20:45.000Z">
-<meta property="article:modified_time" content="2024-02-27T15:29:09.779Z">
+<meta property="article:modified_time" content="2024-02-28T07:48:00.455Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          17k 字
+          18k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          142 分钟
+          150 分钟
         
       </span>
     
@@ -506,6 +506,53 @@
 </ul>
 </li>
 </ul>
+<h2 id="so-加载流程"><a class="markdownIt-Anchor" href="#so-加载流程"></a> so 加载流程</h2>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402281502132.png" srcset="/img/loading.gif" lazyload alt="image-20240228150220010" /></p>
+<p>linker的调用流程：</p>
+<ol>
+<li>在do_dlopen中通过find_library进行加载so</li>
+<li>在加载完so后通过call_constructors完成init_array的加载</li>
+<li>find_library最后调用load_libray完成so的转载</li>
+<li>最后通过load_library的elf_reader.load完成so的装载</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数名</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>android_dlopen_ext()</code> 、<code>dlopen()</code>、<code>do_dlopen()</code></td>
+<td style="text-align:left">这三个函数主要用于加载库文件。<code>android_dlopen_ext</code> 是系统的一个函数，用于在运行时动态加载共享库。与标准的 <code>dlopen()</code> 函数相比，<code>android_dlopen_ext</code> 提供了更多的参数选项和扩展功能，例如支持命名空间、符号版本等特性。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find_library()</code></td>
+<td style="text-align:left"><code>find_library()</code> 函数用于查找库，基本的用途是给定一个库的名字，然后查找并返回这个库的路径。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>call_constructors()</code></td>
+<td style="text-align:left"><code>call_constructors()</code> 是用于调用动态加载库中的构造函数的函数。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>init</code></td>
+<td style="text-align:left">库的构造函数，用于初始化库中的静态变量或执行其他需要在库被加载时完成的任务。如果没有定义<code>init</code>函数，系统将不会执行任何动作。需要注意的是，<code>init</code>函数不应该有任何参数，并且也没有返回值。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>init_array</code></td>
+<td style="text-align:left"><code>init_array</code>是ELF（Executable and Linkable Format，可执行和可链接格式）二进制格式中的一个特殊段（section），这个段包含了一些函数的指针，这些函数将在<code>main()</code>函数执行前被调用，用于初始化静态局部变量和全局变量。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>jni_onload</code></td>
+<td style="text-align:left">这是Android JNI(Java Native Interface)中的一个函数。当一个native库被系统加载时，该函数会被自动调用。<code>JNI_OnLoad</code>可以做一些初始化工作，例如注册你的native方法或者初始化一些数据结构。如果你的native库没有定义这个函数，那么JNI会使用默认的行为。<code>JNI_OnLoad</code>的返回值应该是需要的JNI版本，一般返回<code>JNI_VERSION_1_6</code>。</td>
+</tr>
+</tbody>
+</table>
+<p>下断点时机：<br />
+应用级别的：java_com_XXX；<br />
+外壳级别的：JNI_Onload，.init，.init_array(反调试);<br />
+系统级别的：fopen，fget，dvmdexfileopen(脱壳)；</p>
 <h1 id="虚拟机相关"><a class="markdownIt-Anchor" href="#虚拟机相关"></a> 虚拟机相关</h1>
 <h2 id="虚拟机"><a class="markdownIt-Anchor" href="#虚拟机"></a> 虚拟机</h2>
 <h3 id="jvm虚拟机"><a class="markdownIt-Anchor" href="#jvm虚拟机"></a> JVM虚拟机</h3>
