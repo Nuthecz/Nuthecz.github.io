@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Data Flow Analysis - Foundations  Partial Order 所谓偏序集合(poset)，就是一个由集合 PPP 和偏序关系 ⊑\sqsubseteq⊑ 所组成 (P,⊑)(P, \sqsubseteq)(P,⊑) 对。这个对满足以下三">
+    <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记 详细博客   Data Flow Analysis - Foundations  Partial Order 所谓偏序集合(poset)，就是一个由集合 PPP 和偏序关系 ⊑\sqsubseteq⊑ 所组成 (P,⊑)(P, \sqsubseteq)(P,⊑) 对。这个对">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《软件分析》_part2">
 <meta property="og:url" content="http://example.com/posts/707fd24f.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Data Flow Analysis - Foundations  Partial Order 所谓偏序集合(poset)，就是一个由集合 PPP 和偏序关系 ⊑\sqsubseteq⊑ 所组成 (P,⊑)(P, \sqsubseteq)(P,⊑) 对。这个对满足以下三">
+<meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记 详细博客   Data Flow Analysis - Foundations  Partial Order 所谓偏序集合(poset)，就是一个由集合 PPP 和偏序关系 ⊑\sqsubseteq⊑ 所组成 (P,⊑)(P, \sqsubseteq)(P,⊑) 对。这个对">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-10-21T15:00:12.000Z">
-<meta property="article:modified_time" content="2024-01-31T16:15:03.157Z">
+<meta property="article:modified_time" content="2024-02-29T11:42:46.708Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -232,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.1k 字
+          5.5k 字
         
       </span>
     
@@ -243,7 +243,7 @@
         
         
         
-          43 分钟
+          47 分钟
         
       </span>
     
@@ -291,6 +291,7 @@
 <p>Reference:</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhang971105/category_10471447.html">静态分析学习笔记</a></p>
 <p><a target="_blank" rel="noopener" href="https://ranger-nju.gitbook.io/static-program-analysis-book/">上课笔记</a></p>
+<p><a target="_blank" rel="noopener" href="https://static-analysis.cuijiacai.com/05-inter/">详细博客</a></p>
 </blockquote>
 <h1 id="data-flow-analysis-foundations"><a class="markdownIt-Anchor" href="#data-flow-analysis-foundations"></a> Data Flow Analysis - Foundations</h1>
 <h2 id="partial-order"><a class="markdownIt-Anchor" href="#partial-order"></a> Partial Order</h2>
@@ -319,10 +320,10 @@
 <p>然后我们衍生出最小上界和最大下界的概念：</p>
 <ul>
 <li>
-<p>在 S 的所有上界中，我们记最小上界(Least upper bound, lub)为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊔</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\sqcup S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">⊔</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>, 满足所有上界 u 对 lub 有: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊔</mo><mi>S</mi><mo>⊑</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">\sqcup S \sqsubseteq u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord">⊔</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">u</span></span></span></span></p>
+<p>在 S 的所有上界中，我们记<strong>最小上界</strong>(Least upper bound, lub)为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊔</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\sqcup S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">⊔</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>, 满足所有上界 u 对 lub 有: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊔</mo><mi>S</mi><mo>⊑</mo><mi>u</mi></mrow><annotation encoding="application/x-tex">\sqcup S \sqsubseteq u</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8193em;vertical-align:-0.13597em;"></span><span class="mord">⊔</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⊑</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal">u</span></span></span></span></p>
 </li>
 <li>
-<p>类似地我们也能定义出最大下界(Greatest lower bound, glb)为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊓</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\sqcap S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">⊓</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>, 满足所有下届 l 对 glb 有: $l \sqsubseteq \sqcup S $</p>
+<p>类似地我们也能定义出<strong>最大下界</strong>(Greatest lower bound, glb)为 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>⊓</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">\sqcap S</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord">⊓</span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span></span></span></span>, 满足所有下届 l 对 glb 有: $l \sqsubseteq \sqcup S $</p>
 </li>
 </ul>
 </li>
@@ -341,7 +342,7 @@
 <p>并不是每个偏序集都有 lub 和 glb，但是如果有，那么该 lub, glb 将是唯一的。(可假设存在多个，然后用自反性证明它们是同一个)</p>
 <h2 id="lattice"><a class="markdownIt-Anchor" href="#lattice"></a> Lattice</h2>
 <h3 id="lattice-2"><a class="markdownIt-Anchor" href="#lattice-2"></a> Lattice</h3>
-<p>​	给定一个偏序集，如果任意元素 a, b 都有 lub 和 glb，那么这么偏序集就叫做 <strong>格(lattice)</strong>。也就是说一个lattice的任意两个元素组成的元素对都有lub和glb。</p>
+<p>​	给定一个偏序集，如果任意元素 a, b 都有 lub 和 glb，那么这么偏序集就叫做 <strong>格(lattice)</strong>。也就是说<code>一个lattice的任意两个元素组成的元素对都有lub和glb</code>。</p>
 <ul>
 <li>属于 lattice 的：小于等于关系，子集关系</li>
 <li>不属于 lattice 的：子串关系</li>
@@ -488,11 +489,17 @@
 <p>这表明 MOP 是更为精确的。但这并没有结束。而如果 F 是可分配的，那么确实可以让偏序符号改为等于号。恰好，gen/kill problem 下，F 确实可分配因此我们能确定，迭代算法的精度与 MOP 相等。</p>
 </li>
 </ul>
-<h2 id="constant-propagation-worklist-algorithm"><a class="markdownIt-Anchor" href="#constant-propagation-worklist-algorithm"></a> Constant Propagation &amp; Worklist Algorithm</h2>
-<p>​	这里可以直接参考 <a target="_blank" rel="noopener" href="https://static-analysis.cuijiacai.com/04-dfa-fd/#_4-6-%E5%B8%B8%E9%87%8F%E4%BC%A0%E6%92%AD">这个博客</a></p>
-<blockquote>
-<p>这里之后就参考 <a target="_blank" rel="noopener" href="https://static-analysis.cuijiacai.com/05-inter/">这篇博客了</a>，之后记录的是我对某些知识点的理解与记录</p>
-</blockquote>
+<h2 id="constant-propagation"><a class="markdownIt-Anchor" href="#constant-propagation"></a> Constant Propagation</h2>
+<ul>
+<li>这里可以直接参考 <a target="_blank" rel="noopener" href="https://static-analysis.cuijiacai.com/04-dfa-fd/#_4-6-%E5%B8%B8%E9%87%8F%E4%BC%A0%E6%92%AD">这个博客</a></li>
+</ul>
+<p>​	常量传播问题解决的主要就是确定一个程序点的变量x是不是常量的问题，如果是常量，那么之后就可以直接简化为常量进行处理了。这里主要涉及两方面的情况，一个是控制流的交汇，也就是说两个分支相同名称的数据同时传入，我这里需要把这个数据认定为什么，另一个是状态转移方程，给一个变量赋值，我怎么确定右侧的结果是一个常量还是别的东西。</p>
+<p>​	它这里主要是增加了对于数据流交汇和状态转移的处理</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402291938557.png" srcset="/img/loading.gif" lazyload alt="image-20240229193802488" /></p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402291938916.png" srcset="/img/loading.gif" lazyload alt="image-20240229193816812" /></p>
+<p>​	再解决这两个之后，我们可以根据算法发现它是前向、Must的分析方法，因为常量的确定需要根据从上面传递的数值来判断，同时更换为常量不能存在错误，所以必须是必然性分析。</p>
+<h2 id="worklist-algorithm"><a class="markdownIt-Anchor" href="#worklist-algorithm"></a> Worklist Algorithm</h2>
+<p>​	同时这里涉及工作表法，也就是将所有的BB条件到 Worklist 中，然后从头到尾抽取一个进行控制流交汇和状态转移方程，如果结果与之前的相同(transferNode来判断结果)，那么就直接进行下一个 BB 的分析，如果不同，则这个 BB 的下面的 BB 的输入值会改变，那么就会影响到输出，所以需要将后续节点继续加入到 Worklist 中继续分析。</p>
 <h1 id="interprocedural-analysis"><a class="markdownIt-Anchor" href="#interprocedural-analysis"></a> Interprocedural Analysis</h1>
 <ol>
 <li><code>Dispatch </code>是从本身开始查找方法实现，如果没有找到，则继续向父类索引; 而对于在 CHA 中的 <code>Call Resolution</code> 算法而言, 对于 <code>virtual call</code> 需要对<strong>它本身和它所有的子类及其子类的子类</strong>都调用 <code>Dispatch</code></li>

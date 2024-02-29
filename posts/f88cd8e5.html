@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-10-24T03:18:56.000Z">
-<meta property="article:modified_time" content="2024-02-16T08:06:35.164Z">
+<meta property="article:modified_time" content="2024-02-29T11:55:02.772Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.1k 字
+          7.3k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          34 分钟
+          61 分钟
         
       </span>
     
@@ -306,7 +306,7 @@
 <li>这是一个抽象的数据流分析类，是<strong>具体的数据流分析与求解器之间的接口</strong>，数据流分析就是对于数据流动过程的处理，而求解器则是对于整个循环算法的实现。一个具体的数据流分析(如活跃变量分析)需要实现它的接口，而求解器(如迭代求解器)需要通过它的接口来求解数据流。</li>
 <li>它是一个 <code>interface</code> , 其中包含 <code>newBoundaryFact</code>,<code>newInitialFact</code>,<code>meetInto</code>,<code>transferNode</code>的实现声名</li>
 <li>包含 <code>&lt;Node&gt;</code> 类型, 它表示 CFG 的 BB</li>
-<li>包含 <code>&lt;Fact&gt; </code> 类型, 它表示数据流分析中用来描述程序状态的元素, 即有关程序代码的信息或属性。它与Node联系在一起，表示一个{name: information}，即这里的 “facts” 是指分析确定的信息，如在某个程序点活跃的变量集。facts 是对于一个程序点而言的，而一个 BB 拥有IN和OUT两个程序点，所以在进行<code>meetInto</code>和<code>transferNode</code>操作时，会有两个<code>SetFact&lt;Var&gt;</code>类型的变量(<code>&lt;Fact&gt;</code>指的是要分析数据中的一个，而<code>SetFact&lt;Var&gt;</code>才是指每一次经过 BB 分析的所有数据，注意实现的时候，LiveVariableAnalysis的具体实现与DataflowAnalysis的定义有所不同，进行了方法重载)</li>
+<li>包含 <code>&lt;Fact&gt; </code> 类型, 它表示数据流分析中用来描述程序状态的元素, 即有关程序代码的信息或属性。它与Node联系在一起，表示一个{name: information}，即这里的 “facts” 是指分析确定的信息，如在某个程序点活跃的变量集。facts 是对于一个程序点而言的，而一个 BB 拥有IN和OUT两个程序点，所以在进行<code>meetInto</code>和<code>transferNode</code>操作时，会有两个<code>SetFact&lt;Var&gt;</code>类型的变量(<code>&lt;Fact&gt;</code>指的是要分析数据中的一个，而<code>SetFact&lt;Var&gt;</code>才是指每一次经过 BB 分析的所有数据(这里指针对一个BB)，注意实现的时候，LiveVariableAnalysis的具体实现与DataflowAnalysis的定义有所不同，进行了方法重载)</li>
 </ul>
 </li>
 <li><code>pascal.taie.analysis.dataflow.analysis.LiveVariableAnalysis</code>
@@ -337,115 +337,111 @@
 <p>这是 Tai-e 的 IR 中的另一个关键接口，它用于表示程序中的所有<strong>语句</strong>。对于一个典型的程序设计语言来说，<strong>每个表达式都属于某条特定的语句</strong>。这里statement泛指所有的语句，其中至多只可能定义一个变量、而可能使用零或多个变量。</p>
 </li>
 <li>
-<pre class="highlight"><code class="java"><span class="hljs-comment">// 通过这两个接口，可以获得某条语句中定义或使用的所有表达式中的变量</span>
-Optional&lt;LValue&gt; <span class="hljs-title function_">getDef</span><span class="hljs-params">()</span>
-List&lt;RValue&gt; <span class="hljs-title function_">getUses</span><span class="hljs-params">()</span>
-&lt;!--code￼<span class="hljs-number">1</span>--&gt;
-
-
-
-</code></pre>
+<p>通过这两个接口，可以获得某条语句中定义或使用的所有表达式中的变量<code>Optional&lt;LValue&gt; getDef()</code>，<code>List&lt;RValue&gt; getUses()</code></p>
 </li>
 </ul>
 </li>
 <li>
-<p><code>public SetFact&lt;Var&gt; newInitialFact()</code></p>
+<p>这里注意区分表达式和语句的区别</p>
 <ul>
-<li>
-<pre class="highlight"><code class="java">    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> SetFact&lt;Var&gt; <span class="hljs-title function_">newInitialFact</span><span class="hljs-params">()</span> &#123;
-        <span class="hljs-comment">/* TODO - finish me */</span>
-        <span class="hljs-comment">// 返回初始化节点的向量，backward 的IN[B]=空</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SetFact</span>&lt;&gt;();
-    &#125;
-&lt;!--code￼<span class="hljs-number">2</span>--&gt;
-
-</code></pre>
-</li>
+<li>表达式(exp)通常用来计算值，它们可能由常量、变量、操作符(如加减乘除)以及函数调用组合而成。比如算数表达式 <code>a + b</code>, 方法调用 <code>foo()</code></li>
+<li>语句(stmt)是执行的单位，它们执行操作可能会改变程序的状态。包括赋值，控制流决策，循环等，比如赋值语句 <code>x = a + b</code> 包含了赋值操作，和算术表达式 <code>a + b</code></li>
+<li>因此，表达式是构成语句的元素，而语句则用表达式来执行程序中的操作。在数据流分析中，理解一个语句如何使用和定义表达式是至关重要的，因为它影响了变量在程序执行过程中的生命周期和作用域。</li>
+<li>这里<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20750344/answer/2154359337">引用</a>别人的回答 “表达式可以当做值赋给变量，语句不可以。写编译器匹配语法时，变量定义赋值语句的时候就知道必须要把expression和statement分开了，expression可以当做变量放到赋值语句右值的位置，也可以当做函数的参数，而statement用来组成block和program。”</li>
 </ul>
 </li>
 </ul>
+<h3 id="具体代码"><a class="markdownIt-Anchor" href="#具体代码"></a> 具体代码</h3>
+<h4 id="代码总览"><a class="markdownIt-Anchor" href="#代码总览"></a> 代码总览</h4>
+<p>​	这里主要是实现ConstantPropagation类的四个方法</p>
+<ol>
+<li><code>public SetFact&lt;Var&gt; newBoundaryFact()</code></li>
+<li><code>public SetFact&lt;Var&gt; newInitialFact()</code></li>
+<li><code>public void meetInto(SetFact&lt;Var&gt; fact, SetFact&lt;Var&gt; target)</code></li>
+<li><code>public boolean transferNode(Stmt stmt, SetFact&lt;Var&gt; in, SetFact&lt;Var&gt; out)</code></li>
+</ol>
+<p>这里分别代表着对于边界的初始化，对于BB基本块的初始化，数据流交汇的操作以及状态转移方程的操作</p>
+<h4 id="newboundaryfact"><a class="markdownIt-Anchor" href="#newboundaryfact"></a> newBoundaryFact</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> SetFact&lt;Var&gt; <span class="hljs-title function_">newBoundaryFact</span><span class="hljs-params">(CFG&lt;Stmt&gt; cfg)</span> &#123;<br>    <span class="hljs-comment">/* TODO - finish me */</span><br>    <span class="hljs-comment">//返回边界节点的向量，backward 的边界节点是 IN[exit] = 空</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SetFact</span>&lt;&gt;();<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="newinitialfact"><a class="markdownIt-Anchor" href="#newinitialfact"></a> newInitialFact</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> SetFact&lt;Var&gt; <span class="hljs-title function_">newInitialFact</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-comment">/* TODO - finish me */</span><br>    <span class="hljs-comment">// 返回初始化节点的向量，backward 的IN[B]=空</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SetFact</span>&lt;&gt;();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>​	这两个初始化的数据都是一样为空</p>
+<h4 id="meetinto"><a class="markdownIt-Anchor" href="#meetinto"></a> meetInto</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">meetInto</span><span class="hljs-params">(SetFact&lt;Var&gt; fact, SetFact&lt;Var&gt; target)</span> &#123;<br>    <span class="hljs-comment">/* TODO - finish me */</span><br>    <span class="hljs-comment">// target是OUT,将facts结合到target上</span><br>    target.union(fact);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>​	对于 <code>meetInto</code> 而言，它是将OUT分别于不同的IN来进行交汇，这样就不会多创造一个中间值来存储IN交汇的数据。同时出现了一些不变的 IN fact，可以直接忽略这一分支的IN，提高效率</p>
+<h4 id="transfernode"><a class="markdownIt-Anchor" href="#transfernode"></a> transferNode</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">transferNode</span><span class="hljs-params">(Stmt stmt, SetFact&lt;Var&gt; in, SetFact&lt;Var&gt; out)</span> &#123;<br>    <span class="hljs-comment">/* TODO - finish me */</span><br>    <span class="hljs-comment">//这里设置中间值Tmp,以便之后进行对比查看IN是否发生变化</span><br>    SetFact&lt;Var&gt; NewInTmp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SetFact</span>&lt;&gt;();<br>    <span class="hljs-comment">//对Tmp进行赋值</span><br>    NewInTmp.union(out);<br>    <span class="hljs-comment">//获取defB,之后获取数据,判断类型是否相同,然后删除</span><br>    <span class="hljs-keyword">if</span>(stmt.getDef().isPresent())&#123;<span class="hljs-comment">//判断值存在不为null</span><br>        <span class="hljs-type">LValue</span> <span class="hljs-variable">def</span> <span class="hljs-operator">=</span> stmt.getDef().get();<br>        <span class="hljs-keyword">if</span>(def <span class="hljs-keyword">instanceof</span> Var)&#123;<span class="hljs-comment">//这里是关注活跃变量，所以只分析Var类型的数据即可，它既可以是左值，也可以是右值</span><br>            NewInTmp.remove((Var)def);<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">//遍历useB,之后使用add进行添加(这里union类型为SetFact&lt;Var&gt;,所以不能使用)</span><br>    <span class="hljs-keyword">for</span>(RValue Use: stmt.getUses())&#123;<br>        <span class="hljs-keyword">if</span>(Use <span class="hljs-keyword">instanceof</span> Var)&#123;<br>            NewInTmp.add((Var) Use);<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">//比对transfer function之后的结果和一开始的结果有没有发生变化,不同就更新(set)</span><br>    <span class="hljs-keyword">if</span>(!NewInTmp.equals(in))&#123;<span class="hljs-comment">//equals相同返回true</span><br>        in.set(NewInTmp);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<span class="hljs-comment">//这里transferNode之后有改变返回true，DataflowAnalysis中定义的</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>​	这里就是创建一个拥有OUT的副本，然后对于副本进行删除def和加上use，最后和IN进行比较，不同就更新IN为副本。这样做是为了完成transferNode本身改变返回true的定义而设计的。</p>
+<h2 id="迭代求解器"><a class="markdownIt-Anchor" href="#迭代求解器"></a> 迭代求解器</h2>
+<h3 id="analysis-2"><a class="markdownIt-Anchor" href="#analysis-2"></a> analysis</h3>
 <ul>
-<li>
-<p><code>public boolean transferNode(Stmt stmt, SetFact&lt;Var&gt; in, SetFact&lt;Var&gt; out)</code></p>
+<li><code>pascal.taie.analysis.dataflow.fact.DataflowResult</code>
 <ul>
-<li>
-<pre class="highlight"><code class="java">    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">transferNode</span><span class="hljs-params">(Stmt stmt, SetFact&lt;Var&gt; in, SetFact&lt;Var&gt; out)</span> &#123;
-        <span class="hljs-comment">/* TODO - finish me */</span>
-        <span class="hljs-comment">//这里设置中间值Tmp,以便之后进行对比查看IN是否发生变化</span>
-        SetFact&lt;Var&gt; NewInTmp = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SetFact</span>&lt;&gt;();
-        <span class="hljs-comment">//对Tmp进行赋值</span>
-        NewInTmp.union(out);
-        <span class="hljs-comment">//获取defB,之后获取数据,判断类型是否相同,然后删除</span>
-        <span class="hljs-keyword">if</span>(stmt.getDef().isPresent())&#123;<span class="hljs-comment">//判断值存在不为null</span>
-            <span class="hljs-type">LValue</span> <span class="hljs-variable">def</span> <span class="hljs-operator">=</span> stmt.getDef().get();
-            <span class="hljs-keyword">if</span>(def <span class="hljs-keyword">instanceof</span> Var)&#123;<span class="hljs-comment">//这里是关注活跃变量，所以只分析Var类型的数据即可，它既可以是左值，也可以是右值</span>
-                NewInTmp.remove((Var)def);
-            &#125;
-        &#125;
-        <span class="hljs-comment">//遍历useB,之后使用add进行添加(这里union类型为SetFact&lt;Var&gt;,所以不能使用)</span>
-        <span class="hljs-keyword">for</span>(RValue Use: stmt.getUses())&#123;
-            <span class="hljs-keyword">if</span>(Use <span class="hljs-keyword">instanceof</span> Var)&#123;
-                NewInTmp.add((Var) Use);
-            &#125;
-        &#125;
-        <span class="hljs-comment">//比对transfer function之后的结果和一开始的结果有没有发生变化,不同就更新(set)</span>
-        <span class="hljs-keyword">if</span>(!NewInTmp.equals(in))&#123;<span class="hljs-comment">//equals相同返回true</span>
-            in.set(NewInTmp);
-            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<span class="hljs-comment">//这里transferNode之后有改变返回true，DataflowAnalysis中定义的</span>
-        &#125;
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-    &#125;
-&lt;!--code￼<span class="hljs-number">3</span>--&gt;
-
-</code></pre>
+<li>该类对象用于维护数据流分析的 CFG 中的 fact。可以通过它的 API 获取、设置 CFG 节点(BB)的 <code>IN facts</code> 和 <code>OUT facts</code>, 这也表示fact存储有关 BB 的信息</li>
+</ul>
 </li>
+<li><code>pascal.taie.analysis.graph.cfg.CFG</code>
+<ul>
+<li>这个类用于表示程序中方法的控制流图(control-flow graphs)。</li>
+<li>它是可迭代的，也就是说你可以通过一个 <em>for</em> 循环遍历其中的所有节点。这就意味着它维护了某些方法可以遍历所有的节点(CFG继承的接口Graph中方法 <code>Set&lt;N&gt; getNodes()</code> 可以遍历所有节点)</li>
+</ul>
+</li>
+<li><code>pascal.taie.analysis.dataflow.solver.Solver</code>
+<ul>
+<li>这是数据流分析求解器的基类，包含了求解器的抽象功能。它定义了数据流分析的基本流程和步骤，沿着CFG来对数据进行分析处理，它的具体分析逻辑和迭代算法由它的子类实现提供。</li>
+</ul>
+</li>
+<li><code>pascal.taie.analysis.dataflow.solver.IterativeSolver</code>
+<ul>
+<li>这个类扩展了 <code>Solver</code> 的功能并实现了迭代求解算法。</li>
+</ul>
+</li>
+<li>这里要分清楚控制流和数据流的区别
+<ul>
+<li>控制流图具体就是指由 BB 连接在一起的程序执行流程图，它是程序执行顺序的体现</li>
+<li>而数据流图则是指具体的数据在控制流图中的流动而形成的数据更改图，可以认为它以控制流为骨架，它是在上面流动的血，它体现出整个程序在某个状态的可能性。它是一个庞大的数据集，但是这里进行了简化处理，它只展示出我们需要分析的数据</li>
 </ul>
 </li>
 </ul>
+<h3 id="具体代码-2"><a class="markdownIt-Anchor" href="#具体代码-2"></a> 具体代码</h3>
+<h4 id="代码总览-2"><a class="markdownIt-Anchor" href="#代码总览-2"></a> 代码总览</h4>
+<p>​	主要就是完成位于 <code>Solver</code> 的 initializeBackward 方法，和位于 <code>IterativeSolver</code> 的 doSolveBackward 方法。</p>
+<ol>
+<li><code>Solver.initializeBackward(CFG,DataflowResult)</code></li>
+<li><code>IterativeSolver.doSolveBackward(CFG,DataflowResult)</code></li>
+</ol>
+<p>initializeBackward是整个CFG图的数据流初始化，调用了上面活跃变量分析的初始化方法，而doSolveBackward也是一样的操作，调用上面的方法，同时组织成一种遍历算法来进行迭代操作，从而获得最终答案。</p>
+<h4 id="initializebackward"><a class="markdownIt-Anchor" href="#initializebackward"></a> initializeBackward</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initializeBackward</span><span class="hljs-params">(CFG&lt;Node&gt; cfg, DataflowResult&lt;Node, Fact&gt; result)</span> &#123;<br>    <span class="hljs-comment">/* TODO - finish me */</span><br>    <span class="hljs-comment">/*</span><br><span class="hljs-comment">     这里的结果会从cfg中取出并存储在result,所以操作的最终实现需要result,这个操作相当于全部初始化</span><br><span class="hljs-comment">     首先设置 IN[exit] = 0</span><br><span class="hljs-comment">    */</span><br>    result.setInFact(cfg.getExit(), analysis.newBoundaryFact(cfg));<br>    <span class="hljs-comment">// 遍历所有的节点,设置所有的IN[B]=0, (OUT[B]=0?这是为了定义还是初始化?---&gt;</span><br>    <span class="hljs-comment">// 应该是为了初始化，这里是为了meet服务的，在上一个任务点中有讲述到，为了便于直接进行out U= IN，所以需要对out进行初始化</span><br>    <span class="hljs-keyword">for</span>(Node node: cfg.getNodes())&#123;<br>        <span class="hljs-keyword">if</span>(cfg.isExit(node)) <span class="hljs-keyword">continue</span>;<br>        result.setInFact(node, analysis.newInitialFact());<br>        result.setOutFact(node, analysis.newInitialFact());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>​	这里的初始化要和之前的<code>newBoundaryFact</code>和<code>newInitialFact</code>一起进行理解，其中<code>analysis</code>就是在这个Solver中定义的一个<code>protected final DataflowAnalysis&lt;Node, Fact&gt; analysis;</code>属性的值，它可以引用之前定义的这两个方法。我认为在Solver中完成这两个方法的功能也是可以的，但是这里分开就是为了解耦合(maybe)，或者说是将不同处的功能分离开，从而使代码更为健壮。</p>
+<h4 id="dosolvebackward"><a class="markdownIt-Anchor" href="#dosolvebackward"></a> doSolveBackward</h4>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doSolveBackward</span><span class="hljs-params">(CFG&lt;Node&gt; cfg, DataflowResult&lt;Node, Fact&gt; result)</span> &#123;<br>    <span class="hljs-comment">/* TODO - finish me */</span><br>    <span class="hljs-comment">// 设置中止循环: 到达不动点</span><br>    <span class="hljs-type">boolean</span> <span class="hljs-variable">flag</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;<br>    <span class="hljs-keyword">while</span>(flag)&#123;<br>        flag = <span class="hljs-literal">false</span>;<br>        <span class="hljs-comment">// 循环遍历所有的 Basic Block</span><br>        <span class="hljs-keyword">for</span>(Node BasicBlock: cfg.getNodes())&#123;<br>            <span class="hljs-comment">// 跳过EXIT BB</span><br>            <span class="hljs-keyword">if</span>(cfg.isExit(BasicBlock)) <span class="hljs-keyword">continue</span>;<br>            <span class="hljs-comment">// 获得当前 BB 的所有前驱 BB, 之后进行 Union</span><br>            <span class="hljs-keyword">for</span>(Node SuccBlock: cfg.getSuccsOf(BasicBlock))&#123;<br>                analysis.meetInto(result.getInFact(SuccBlock), result.getOutFact(BasicBlock));<br>            &#125;<br>            <span class="hljs-comment">// Transfer Function的实现, 同时完成是否达到不动点的判断</span><br> <span class="hljs-keyword">if</span>(analysis.transferNode(BasicBlock,result.getInFact(BasicBlock),result.getOutFact(BasicBlock)))&#123;<br>                flag = <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>​	这是在  首先设置<code>flag</code>来遍历所有轮，while里面遍历所有的 BB，然后施加数据流约束和转移方程约束，if中transferNode返回true表示上一次和这一次结果发生了变化，继续遍历下一轮，否则就结束了，达到了不动点。</p>
+<h2 id="流程理解"><a class="markdownIt-Anchor" href="#流程理解"></a> 流程理解</h2>
 <ul>
-<li>
-<p><code>IterativeSolver</code></p>
+<li>对于整个流程，就是使用 <code>DataflowAnalysis</code> 与 <code>Solver</code> 进行交互。
 <ul>
-<li>
-<pre class="highlight"><code class="java">    <span class="hljs-meta">@Override</span>
-    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">doSolveBackward</span><span class="hljs-params">(CFG&lt;Node&gt; cfg, DataflowResult&lt;Node, Fact&gt; result)</span> &#123;
-        <span class="hljs-comment">/* TODO - finish me */</span>
-        <span class="hljs-comment">// 设置中止循环: 到达不动点</span>
-        <span class="hljs-type">boolean</span> <span class="hljs-variable">flag</span> <span class="hljs-operator">=</span> <span class="hljs-literal">true</span>;
-        <span class="hljs-keyword">while</span>(flag)&#123;
-            flag = <span class="hljs-literal">false</span>;
-            <span class="hljs-comment">// 循环遍历所有的 Basic Block</span>
-            <span class="hljs-keyword">for</span>(Node BasicBlock: cfg.getNodes())&#123;
-                <span class="hljs-comment">// 跳过EXIT BB</span>
-                <span class="hljs-keyword">if</span>(cfg.isExit(BasicBlock)) <span class="hljs-keyword">continue</span>;
-                <span class="hljs-comment">// 获得当前 BB 的所有前驱 BB, 之后进行 Union</span>
-                <span class="hljs-keyword">for</span>(Node SuccBlock: cfg.getSuccsOf(BasicBlock))&#123;
-                    analysis.meetInto(result.getInFact(SuccBlock), result.getOutFact(BasicBlock));
-                &#125;
-                <span class="hljs-comment">// Transfer Function的实现, 同时完成是否达到不动点的判断</span>
-     <span class="hljs-keyword">if</span>(analysis.transferNode(BasicBlock,result.getInFact(BasicBlock),result.getOutFact(BasicBlock)))&#123;
-                    flag = <span class="hljs-literal">true</span>;
-                &#125;
-            &#125;
-        &#125;
-    &#125;
-&lt;!--code￼<span class="hljs-number">4</span>--&gt;
-
-</code></pre>
-</li>
-<li>
-<p>在询问chatgpt时，它给出的答案是这里引入 <code>temp$0</code> 并不是为了防止 <code>a</code> 被修改，而是为了确保在计算 <code>d </code> 的过程中，<code>a</code> 的原始值保持不变。这可能是为了在计算过程中确保 <code>a</code> 的值不会被无意间或意外地修改，以便获得正确的结果。</p>
-</li>
-<li>
-<p>这里我感觉它说的有道理，为了防止潜在的对a进行更改的可能而引入临时变量进行存储(<s>感觉是囿于静态分析sound–&gt;may analysis的性质，可能更改我就提出阻止策略</s>, 但是又感觉不对，静态分析是在IR基础上进行的，这里是生成IR的过程)。所以感觉应该是它的固有属性</p>
+<li><code>DataflowAnalysis</code> 对数据流进行处理, 使用子类 LiveVariableAnalysis 对基类的功能进行扩展, 实现了分析流中的初始化, Transfer Function 与 Control Flow 的实现。</li>
+<li><code>Solver</code> 实现了迭代解释器, 它通过子类 lterativeSolver 对基类功能进行实现。之后通过 cfg 表示当前的控制流, 然后使用由 DataflowAnalysis 定义的 analysis 来对 cfg 进行操作。
+<ul>
+<li>这里 <code>cfg</code> 是对于 Node 进行各项操作, 比如判断是否 Exit, 遍历寻找所有 BB。</li>
+<li>而 <code>analysis</code> 则是包含了所有对于数据流的操作，比如 meetInto, transferNode。</li>
+</ul>
 </li>
 </ul>
 </li>
 </ul>
+<h2 id="疑问"><a class="markdownIt-Anchor" href="#疑问"></a> 疑问</h2>
+<ol>
+<li>
+<p>在 <code>Assign.java</code> 中，soot(Tai-e)转化为三地址码时，对于语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-variable">d</span> <span class="hljs-operator">=</span> a + b;<br>c = a;<br><span class="hljs-comment">// 这里转化为三地址码，增加了临时变量temp$0</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	temp$0 = a;</span><br><span class="hljs-comment">    d = temp$0 + b;</span><br><span class="hljs-comment">    b = d;</span><br><span class="hljs-comment">    c = a;</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>在询问chatgpt时，它给出的答案是这里引入 <code>temp$0</code> 并不是为了防止 <code>a</code> 被修改，而是为了确保在计算 <code>d </code> 的过程中，<code>a</code> 的原始值保持不变。这可能是为了在计算过程中确保 <code>a</code> 的值不会被无意间或意外地修改，以便获得正确的结果。</li>
+<li>这里我感觉它说的有道理，为了防止潜在的对a进行更改的可能而引入临时变量进行存储(<s>感觉是囿于静态分析sound–&gt;may analysis的性质，可能更改我就提出阻止策略</s>, 但是又感觉不对，静态分析是在IR基础上进行的，这里是生成IR的过程)。所以感觉应该是它的固有属性</li>
+</ul>
+</li>
+</ol>
 
                 
               </div>
