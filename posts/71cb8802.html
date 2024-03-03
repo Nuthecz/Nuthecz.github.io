@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="跟随视频进行学习 参考教程 安卓反调试frida检测Neo 【精选】Frida 使用教程和错误汇总_frida 教程-CSDN博客 frida入门总结 - 『移动安全区』 - 吾爱破解   Android相关 frida学习  源码查看  http:&#x2F;&#x2F;androidxref.com&#x2F;   手机信息查看  手机信息 -&gt; 决定使用什么版本的server  adb shell中 cat &#x2F;p">
+    <meta name="description" content="Android相关  源码查看  http:&#x2F;&#x2F;androidxref.com&#x2F;   手机信息查看  手机信息 -&gt; 决定使用什么版本的server  adb shell中 cat &#x2F;proc&#x2F;cpuinfo 查看手机架构 adb shell中 getprop ro.product.cpu.abi 查看cpu处理器位数     查看包名   adb shell   dumpsys acti">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android简单逆向">
 <meta property="og:url" content="http://example.com/posts/71cb8802.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="跟随视频进行学习 参考教程 安卓反调试frida检测Neo 【精选】Frida 使用教程和错误汇总_frida 教程-CSDN博客 frida入门总结 - 『移动安全区』 - 吾爱破解   Android相关 frida学习  源码查看  http:&#x2F;&#x2F;androidxref.com&#x2F;   手机信息查看  手机信息 -&gt; 决定使用什么版本的server  adb shell中 cat &#x2F;p">
+<meta property="og:description" content="Android相关  源码查看  http:&#x2F;&#x2F;androidxref.com&#x2F;   手机信息查看  手机信息 -&gt; 决定使用什么版本的server  adb shell中 cat &#x2F;proc&#x2F;cpuinfo 查看手机架构 adb shell中 getprop ro.product.cpu.abi 查看cpu处理器位数     查看包名   adb shell   dumpsys acti">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2023-10-31T08:20:45.000Z">
-<meta property="article:modified_time" content="2024-02-28T07:16:06.580Z">
+<meta property="article:modified_time" content="2024-03-03T16:45:58.824Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5k 字
+          2.9k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          42 分钟
+          24 分钟
         
       </span>
     
@@ -284,15 +284,7 @@
             
               <div class="markdown-body">
                 
-                <blockquote>
-<p>跟随视频进行学习</p>
-<p>参考教程</p>
-<p><a target="_blank" rel="noopener" href="https://space.bilibili.com/27577421/channel/collectiondetail?sid=1105137">安卓反调试frida检测Neo</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_54352040/article/details/115734161">【精选】Frida 使用教程和错误汇总_frida 教程-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.52pojie.cn/thread-1128884-1-1.html">frida入门总结 - 『移动安全区』 - 吾爱破解</a></p>
-</blockquote>
-<h1 id="android相关"><a class="markdownIt-Anchor" href="#android相关"></a> Android相关</h1>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzI2MDcyNjA3Mg==&amp;mid=2247484102&amp;idx=1&amp;sn=a82b69ca30ad86ce94e1df778a23e63f&amp;chksm=ea640e91dd138787d25fce2d4b356a213b856f35fd46db3a779f36702fd3ab937a7af7976b23&amp;mpshare=1&amp;scene=23&amp;srcid=0113tIPSLLYqhvffrFmR87oj&amp;sharer_shareinfo=8f360e91069202b191849c480dd5bc49&amp;sharer_shareinfo_first=8f360e91069202b191849c480dd5bc49#rd">frida学习</a></p>
+                <h1 id="android相关"><a class="markdownIt-Anchor" href="#android相关"></a> Android相关</h1>
 <h2 id="源码查看"><a class="markdownIt-Anchor" href="#源码查看"></a> 源码查看</h2>
 <ul>
 <li><a target="_blank" rel="noopener" href="http://androidxref.com/">http://androidxref.com/</a></li>
@@ -342,25 +334,6 @@
 <ul>
 <li><code>ps -ef | grep (包的信息)</code></li>
 </ul>
-<h2 id="frida-运行"><a class="markdownIt-Anchor" href="#frida-运行"></a> frida 运行</h2>
-<ul>
-<li>在电脑端查看Android的frida是否运行
-<ul>
-<li><code>frida-ps -U | grep frida</code> 或者 <code>frida-ps -R</code>，<code>-U</code>为usb</li>
-<li><code>frida-ps -U | findstr frida</code> -&gt; windows cmd使用</li>
-</ul>
-</li>
-<li>在电脑端查看正在运行的 frida 程序
-<ul>
-<li><code>frida-ps -U | findstr frida</code></li>
-</ul>
-</li>
-<li>在手机查看 frida 的监听端口
-<ul>
-<li><code>netstat -tunlp</code></li>
-</ul>
-</li>
-</ul>
 <h1 id="adb-使用"><a class="markdownIt-Anchor" href="#adb-使用"></a> Adb 使用</h1>
 <h2 id="交互"><a class="markdownIt-Anchor" href="#交互"></a> 交互</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">adb install ./file.apk<br>adb push ./file.apk system/tmp<br>adb pull /sdcard/file		# 这里如果提示权限不足，需要在adb中移动文件到/sdcard/目录即可<br></code></pre></td></tr></table></figure>
@@ -387,24 +360,42 @@
 <li>高版本因为libc.so的路径改变了，所以显示不出所有的线程。<code>IDA_LIBC_PATH=/apex/com.android.runtime/lib64/bionic/libc.so ./android_server64</code> 启动服务可以完整显示</li>
 </ul>
 <h1 id="frida"><a class="markdownIt-Anchor" href="#frida"></a> frida</h1>
-<h2 id="使用"><a class="markdownIt-Anchor" href="#使用"></a> 使用</h2>
-<h3 id="attach模式-2"><a class="markdownIt-Anchor" href="#attach模式-2"></a> attach模式</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">frida -UF<br>frida -U -n 设置(进程名 frida-ps -U)<br>frida -U -N com.android.settings<br></code></pre></td></tr></table></figure>
-<h3 id="spawn模式-2"><a class="markdownIt-Anchor" href="#spawn模式-2"></a> spawn模式</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">frida -U -f com.android.settings --no-pause(后面--no……高版本不写)<br></code></pre></td></tr></table></figure>
-<h3 id="frida-server"><a class="markdownIt-Anchor" href="#frida-server"></a> frida-server</h3>
+<p>​	Frida-tools共有六个小工具分别是frida CLI、frida-ps、frida-trace、frida-discover、frida-ls-devices、frida-kill。</p>
+<h2 id="frida-2"><a class="markdownIt-Anchor" href="#frida-2"></a> frida</h2>
+<h3 id="参数讲解"><a class="markdownIt-Anchor" href="#参数讲解"></a> 参数讲解</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs shell">--version   					# 显示程序的版本号并退出<br>-h, --help  					# 显示此帮助信息并退出<br>-D ID, --device=ID   			# 连接到指定ID的设备上<br>-U, --usb          		 	 	# 连接到USB设备<br>-R, --remote         			# 连接到远程frida服务器<br>-f FILE, --file=FILE 			# spawn这个应用<br>-F, --attach-frontmost   	 	# 附加到最前端的应用程序<br>-p PID, --attach-pid=PID  		# 附加到PID<br>--debug  						# 启用兼容Node.js的脚本调试器<br>-l SCRIPT, --load=SCRIPT 		# 加载脚本。<br>-q 								# 安静模式（无提示），并在-l和-e之后退出。<br>--no-pause 						# 启动后自动启动主线程<br>-o LOGFILE, --output=LOGFILE 	# 输出到日志文件<br></code></pre></td></tr></table></figure>
+<h3 id="启动"><a class="markdownIt-Anchor" href="#启动"></a> 启动</h3>
 <ul>
-<li>frida-server的使用</li>
+<li>attach模式</li>
 </ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">frida -UF #测试是否连接成功<br>frida -U 进程名(通常为包名) -l hook.js<br></code></pre></td></tr></table></figure>
+<ul>
+<li>spawn模式</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">frida -U -f com.android.settings(进程名) hook.js --no-pause(后面--no……高版本不写)<br></code></pre></td></tr></table></figure>
+<h2 id="frida-server"><a class="markdownIt-Anchor" href="#frida-server"></a> frida-server</h2>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd /data/local/tmp<br>chmod 777 *<br>./frida-server-16.0.8-android-arm64<br><span class="hljs-meta prompt_"># </span><span class="language-bash">防止反调试，切换端口监听(默认端口为27042)</span><br>./frida-server-16.0.8-android-arm64 -l 0.0.0.0:1314<br></code></pre></td></tr></table></figure>
-<h2 id="frida-hook"><a class="markdownIt-Anchor" href="#frida-hook"></a> frida hook</h2>
-<h3 id="动态注册"><a class="markdownIt-Anchor" href="#动态注册"></a> 动态注册</h3>
-<h4 id="详情"><a class="markdownIt-Anchor" href="#详情"></a> 详情</h4>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/lyz_zyx/article/details/88690930">Android中JNI&amp;NDK入门(三) 之 动态注册Native函数</a></p>
-<h4 id="code"><a class="markdownIt-Anchor" href="#code"></a> Code</h4>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">readStdString</span>(<span class="hljs-params">str</span>) &#123;<br>    <span class="hljs-keyword">const</span> isTiny = (str.<span class="hljs-title function_">readU8</span>() &amp; <span class="hljs-number">1</span>) == <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> (isTiny) &#123;<br>        <span class="hljs-keyword">return</span> str.<span class="hljs-title function_">add</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">readUtf8String</span>();<br>    &#125;<br>    <span class="hljs-keyword">return</span> str.<span class="hljs-title function_">add</span>(<span class="hljs-number">2</span> * <span class="hljs-title class_">Process</span>.<span class="hljs-property">pointerSize</span>).<span class="hljs-title function_">readPointer</span>().<span class="hljs-title function_">readUtf8String</span>();<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">callPrettyMethod</span>(<span class="hljs-params">ArtMethodptr</span>) &#123;<br>    <span class="hljs-comment">// _ZN3art9ArtMethod12PrettyMethodEPS0_b</span><br>    <span class="hljs-keyword">var</span> <span class="hljs-title class_">PrettyMethod</span>_addr =  <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">findExportByName</span>(<span class="hljs-string">&quot;libart.so&quot;</span>, <span class="hljs-string">&quot;_ZN3art9ArtMethod12PrettyMethodEPS0_b&quot;</span>);<br>    <span class="hljs-keyword">var</span> <span class="hljs-title class_">PrettyMethodfunc</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">NativeFunction</span>(<span class="hljs-title class_">PrettyMethod</span>_addr, [<span class="hljs-string">&quot;pointer&quot;</span>, <span class="hljs-string">&quot;pointer&quot;</span>, <span class="hljs-string">&quot;pointer&quot;</span>], [<span class="hljs-string">&quot;pointer&quot;</span>, <span class="hljs-string">&quot;int&quot;</span>]);<br>    <span class="hljs-keyword">var</span> result = <span class="hljs-title class_">PrettyMethodfunc</span>(<span class="hljs-title class_">ArtMethodptr</span>, <span class="hljs-number">1</span>);<br>    <span class="hljs-keyword">var</span> stdstring = <span class="hljs-title class_">Memory</span>.<span class="hljs-title function_">alloc</span>(<span class="hljs-number">3</span> * <span class="hljs-title class_">Process</span>.<span class="hljs-property">pointerSize</span>);<br>    <span class="hljs-title function_">ptr</span>(stdstring).<span class="hljs-title function_">writePointer</span>(result[<span class="hljs-number">0</span>]);<br>    <span class="hljs-title function_">ptr</span>(stdstring).<span class="hljs-title function_">add</span>(<span class="hljs-number">1</span> * <span class="hljs-title class_">Process</span>.<span class="hljs-property">pointerSize</span>).<span class="hljs-title function_">writePointer</span>(result[<span class="hljs-number">1</span>]);<br>    <span class="hljs-title function_">ptr</span>(stdstring).<span class="hljs-title function_">add</span>(<span class="hljs-number">2</span> * <span class="hljs-title class_">Process</span>.<span class="hljs-property">pointerSize</span>).<span class="hljs-title function_">writePointer</span>(result[<span class="hljs-number">2</span>]);<br>    <span class="hljs-keyword">var</span> result = <span class="hljs-title function_">readStdString</span>(stdstring)<br>    <span class="hljs-keyword">return</span> result<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">hook_RegisterNativeMethod</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">var</span> <span class="hljs-title class_">RegisterNativeMethod</span>_addr = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">findExportByName</span>(<span class="hljs-string">&quot;libart.so&quot;</span>, <span class="hljs-string">&quot;_ZN3art16RuntimeCallbacks20RegisterNativeMethodEPNS_9ArtMethodEPKvPPv&quot;</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;RegisterNativeMethod_addr=&quot;</span>,<span class="hljs-title class_">RegisterNativeMethod</span>_addr)<br>    <span class="hljs-comment">// art::RuntimeCallbacks::RegisterNativeMethod(art::ArtMethod*, void const*, void**)</span><br>    <span class="hljs-title class_">Interceptor</span>.<span class="hljs-title function_">attach</span>(<span class="hljs-title class_">RegisterNativeMethod</span>_addr, &#123;<br>        <span class="hljs-attr">onEnter</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">args</span>) &#123;<br>            <span class="hljs-variable language_">this</span>.<span class="hljs-property">artmethod</span> = args[<span class="hljs-number">1</span>];<br>            <span class="hljs-keyword">var</span> methodname = <span class="hljs-title function_">callPrettyMethod</span>(<span class="hljs-title function_">ptr</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">artmethod</span>));<br>            <span class="hljs-keyword">var</span> address = args[<span class="hljs-number">2</span>];<br>            <span class="hljs-variable language_">this</span>.<span class="hljs-property">dex_method_index_</span> = <span class="hljs-title function_">ptr</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">artmethod</span>).<span class="hljs-title function_">add</span>(<span class="hljs-number">12</span>).<span class="hljs-title function_">readU32</span>();<br>            <span class="hljs-keyword">var</span> current_module = <span class="hljs-title class_">Process</span>.<span class="hljs-title function_">getModuleByAddress</span>(address)<br>            <span class="hljs-keyword">var</span> modulename = current_module.<span class="hljs-property">name</span><br>            <span class="hljs-keyword">var</span> base = current_module.<span class="hljs-property">base</span><br>            <span class="hljs-keyword">var</span> offset = address.<span class="hljs-title function_">sub</span>(base)<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;go into RegisterNativeMethod ---&quot;</span> + <span class="hljs-string">&quot;artmethodptr:&quot;</span> + <span class="hljs-title function_">ptr</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">artmethod</span>) + <span class="hljs-string">&quot;---methodidx:&quot;</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">dex_method_index_</span> + <span class="hljs-string">&quot;--addr:&quot;</span> + address + <span class="hljs-string">&quot;----name:&quot;</span> + methodname + <span class="hljs-string">&quot;---modulename:&quot;</span> + modulename + <span class="hljs-string">&quot;---offset:&quot;</span> + offset);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;, <span class="hljs-attr">onLeave</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">retval</span>) &#123;<br>        &#125;<br>    &#125;)<br>&#125;<br><span class="hljs-title function_">setImmediate</span>(hook_RegisterNativeMethod)<br><span class="hljs-comment">// frida -U -f com.wolf.ndktest -l hook_RegisterNativeMethod.js --no-pause -o out.log</span><br><span class="hljs-comment">// frida -U -f com.wolf.ndktest -l hook_RegisterNativeMethod.js  -o out.log</span><br></code></pre></td></tr></table></figure>
-<h4 id=""><a class="markdownIt-Anchor" href="#"></a> </h4>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">hook</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-comment">// 1. 拿到目标so的基址--base=0x77bbc412f0</span><br>    <span class="hljs-comment">// https://frida.re/docs/javascript-api/</span><br>    <span class="hljs-keyword">var</span> base = <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">findBaseAddress</span>(<span class="hljs-string">&quot;libwolf.so&quot;</span>)<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;base = &quot;</span>, base)<br>    <span class="hljs-comment">// 2. 由于该so是arm架构，所以偏移要加1</span><br>    <span class="hljs-keyword">var</span> bc = base.<span class="hljs-title function_">add</span>(<span class="hljs-number">0x14074</span>).<span class="hljs-title function_">add</span>(<span class="hljs-number">0x1</span>)<br>    <span class="hljs-comment">// 3. 获取函数的输入参数，输出返回值</span><br>    <span class="hljs-title class_">Interceptor</span>.<span class="hljs-title function_">attach</span>(bc, &#123; <br>        <span class="hljs-attr">onEnter</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">args</span>) &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;enter bc&quot;</span>)<br>        &#125;,<br>        <span class="hljs-attr">onLeave</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">retval</span>) &#123;<br>            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;level bc&quot;</span>)<br>        &#125;<br>    &#125;)<br><span class="hljs-title function_">setImmediate</span>(hook)<br><span class="hljs-comment">// frida -UF -l hook.js -o out2.log</span><br></code></pre></td></tr></table></figure>
+<h2 id="frida-ps"><a class="markdownIt-Anchor" href="#frida-ps"></a> frida-ps</h2>
+<p>​	frida-ps用于列出进程的一个命令行工具。</p>
+<h3 id="参数讲解-2"><a class="markdownIt-Anchor" href="#参数讲解-2"></a> 参数讲解</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">--version 						# 显示程序的版本号并退出<br>-h, --help 						# 显示此帮助信息并退出<br>-D ID, --device=ID 				# 连接到指定ID的设备上<br>-U, --usb 						# 连接到USB设备<br>-R, --remote 					# 连接到远程frida服务器<br>-H HOST, --host=HOST 			# 连接到HOST上的远程frida-server。<br>-O FILE, --options-file=FILE 	# 包含额外命令行选项的文本文件<br>-a, --applications 				# 仅列出应用程序<br>-i, --installed 				# 包括所有已安装的应用程序<br>-j, --json 						# 以JSON格式输出结果<br></code></pre></td></tr></table></figure>
+<h3 id="常用命令"><a class="markdownIt-Anchor" href="#常用命令"></a> 常用命令</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">查看当前手机运行的进程</span><br>frida-ps -U<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看设备所有应用程序</span><br>frida-ps -Ua<br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看设备上的所有已安装应用程序和对应的名字</span><br>frida-ps -Uai<br></code></pre></td></tr></table></figure>
+<h3 id="其他-2"><a class="markdownIt-Anchor" href="#其他-2"></a> 其他</h3>
+<ul>
+<li>
+<p>日志捕获</p>
+<ul>
+<li><code>logcat |grep &quot;D.zj2595&quot;</code></li>
+</ul>
+</li>
+<li>
+<p>在手机查看 frida 的监听端口</p>
+<ul>
+<li><code>netstat -tunlp</code></li>
+</ul>
+</li>
+</ul>
 <h1 id="资源汇总"><a class="markdownIt-Anchor" href="#资源汇总"></a> 资源汇总</h1>
 <ul>
 <li>
