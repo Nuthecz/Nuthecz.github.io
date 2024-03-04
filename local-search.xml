@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>什么是Adb</title>
+    <link href="/posts/586563fd.html"/>
+    <url>/posts/586563fd.html</url>
+    
+    <content type="html"><![CDATA[<h1 id="adb原理"><a class="markdownIt-Anchor" href="#adb原理"></a> Adb原理</h1><p>​Adb(Android Debug Bridge)被称为 Android调试桥，它是AOSP的一部分，用于在开发环境中与设备进行通信，执行各种设备操作。它是 PC 端和移动终端通信的桥梁，是一种C/S架构的服务，通常包含以下三个组件：</p><p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202403041955759.png" alt="image-20240304195530684" /></p><h2 id="客户端"><a class="markdownIt-Anchor" href="#客户端"></a> 客户端</h2><p>​Client是一个运行在 PC 端的组件，它主要用于发送命令，可以通过在命令行中使用adb进行调用。它主要解析push、install等命令，进行预处理，转化为指令或数据发送给服务端</p><h2 id="服务端"><a class="markdownIt-Anchor" href="#服务端"></a> 服务端</h2><p>​Server是一个与运行在 PC 端后台的组件(后台进程)，它的作用主要是两个：</p><ul><li>检测USB端口感知设备的连接和拔除，以及模拟器实例的启动或停止，简要而言，就是测试是否有设备连接。它维护了一张设备状态表，为每一个设备标记了一个状态：offline，bootloader，recovery或者online。</li><li>将 Client 的请求通过 usb或者tcp 的方式发送到对应的 adbd 上</li></ul><h2 id="守护进程"><a class="markdownIt-Anchor" href="#守护进程"></a> 守护进程</h2><p>​Daemon是一个存在于Android设备的一个后台进程，它是由init进程启动的，并且系统一开机就已经启动，它的主要作用是处理来自 Server 的命令请求，然后运行相关命令，再将结果返回给 Server</p><h2 id="工作原理"><a class="markdownIt-Anchor" href="#工作原理"></a> 工作原理</h2><p>​当启动一个 Adb 客户端时(在PC终端中输入命令执行就是创建客户端)，该客户端会检测 PC 后台是否有服务端正在运行，如果没有，它会先启动服务器进程，服务器在启动后会与本地 TCP 端口 5037 进行绑定，同时监听 adb 客户发出的命令(这里5037监听本机所有发送给自己的信息，所以客户端发送信息都是发送道5037这个端口上)。</p><p>​之后服务端会与所有正在运行的设备建立连接，它通过扫描PC的 5555 到 5585 之间(该范围供前 16 个模拟器使用)的奇数号端口查找模拟器，服务器一旦发现 adb 守护程序(adbd)，便会与相应的端口建立连接，请注意，每个模拟器都使用一对按顺序排列的端口(用于控制台连接的偶数号端口和用于 adb 连接的奇数号端口)</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">Emulator 1, console: 5554<br>Emulator 1, adb: 5555<br>Emulator 2, console: 5556<br>Emulator 2, adb: 5557 ...<br></code></pre></td></tr></table></figure><p>​在端口 5555 处与 adb 连接的模拟器与控制台监听端口为 5554 的模拟器是同一个。这里Server与adbd可以通过TCP/IP方法进行通信，同时也可以使用 USB 连接的方法进行通信。</p><p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202403042042159.png" alt="img" /></p><h1 id="安卓模拟器"><a class="markdownIt-Anchor" href="#安卓模拟器"></a> 安卓模拟器</h1><p>​这里普遍认为是开启模拟器的usb调试，然后使用 <code>adb connect 127.0.0.1:port</code> 进行连接，之后使用 <code>adb devices</code> 可以看到以 <code>&lt;ip:port&gt;</code> 为名称的设备出现。但是结合真机调试与模拟器测试，我认为安卓模拟器通常采用的是 TCP/IP 进行adb连接，而真机使用的是usb连接。</p><p>​对于真机，使用usb连接会在刚插入usb线并开启usb调试后被 adb-server 识别出来，使用 <code>adb devices</code> 可以看到以序列号为名称的设备</p><p>​对于模拟器，不开启usb调试，而是直接使用connect连接特定的端口就可以发现设备。这里需要注意在 NAT 模式下，必须保证模拟器有WIFI连接，这里认为模拟器是使用了 WIFI 连接到主机网卡的过程中绑定了本地的端口，然后因为server找不到模拟器(很多模拟器不使用端口5555 到 5585)，所以需要手动connect进行绑定。</p><h1 id="多设备下的adb"><a class="markdownIt-Anchor" href="#多设备下的adb"></a> 多设备下的adb</h1><p>​在多个设备环境中(比如多个模拟器)，直接使用 <code>adb shell</code> 等工具会因为不知道启用哪个设备而报错，这个时候就需要来指定设备。下面就是使用 <code>-s &lt;名称&gt;</code> 参数来指定设备进行调试。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">adb -s 127.0.0.1:21503 shell<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Android第一行代码</title>
     <link href="/posts/f131ce6d.html"/>
     <url>/posts/f131ce6d.html</url>
