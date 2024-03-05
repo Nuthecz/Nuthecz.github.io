@@ -18,21 +18,21 @@
   
     <meta name="description" content="Adb原理 ​	Adb(Android Debug Bridge)被称为 Android调试桥，它是AOSP的一部分，用于在开发环境中与设备进行通信，执行各种设备操作。它是 PC 端和移动终端通信的桥梁，是一种C&#x2F;S架构的服务，通常包含以下三个组件：   客户端 ​	Client是一个运行在 PC 端的组件，它主要用于发送命令，可以通过在命令行中使用adb进行调用。它主要解析push、insta">
 <meta property="og:type" content="article">
-<meta property="og:title" content="什么是Adb">
+<meta property="og:title" content="Adb多设备连接">
 <meta property="og:url" content="http://example.com/posts/586563fd.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
 <meta property="og:description" content="Adb原理 ​	Adb(Android Debug Bridge)被称为 Android调试桥，它是AOSP的一部分，用于在开发环境中与设备进行通信，执行各种设备操作。它是 PC 端和移动终端通信的桥梁，是一种C&#x2F;S架构的服务，通常包含以下三个组件：   客户端 ​	Client是一个运行在 PC 端的组件，它主要用于发送命令，可以通过在命令行中使用adb进行调用。它主要解析push、insta">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202403022100084.jpg">
 <meta property="article:published_time" content="2024-03-04T11:10:45.000Z">
-<meta property="article:modified_time" content="2024-03-04T14:35:21.083Z">
+<meta property="article:modified_time" content="2024-03-05T10:10:21.286Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202403022100084.jpg">
   
   
   
-  <title>什么是Adb - Nuthecz`Blog</title>
+  <title>Adb多设备连接 - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -207,7 +207,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="什么是Adb"></span>
+            <span id="subtitle" data-typed-text="Adb多设备连接"></span>
           
         </div>
 
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          4.4k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          18 分钟
+          37 分钟
         
       </span>
     
@@ -279,7 +279,7 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">什么是Adb</h1>
+            <h1 style="display: none">Adb多设备连接</h1>
             
             
               <div class="markdown-body">
@@ -311,12 +311,33 @@
 <p>​	在多个设备环境中(比如多个模拟器)，直接使用 <code>adb shell</code> 等工具会因为不知道启用哪个设备而报错，这个时候就需要来指定设备。下面就是使用 <code>-s &lt;名称&gt;</code> 参数来指定设备进行调试。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">adb -s 127.0.0.1:21503 shell<br></code></pre></td></tr></table></figure>
 <p>​	这里有点绷不住了，使用adb和frida-ps进行检测，会发现识别出的信息不同，这里使用usb连接真机，同时使用一个逍遥模拟器，它利用nat连接WIFI。先查看adb和frida-ps的相关参数。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs shell">adb --help<br>global options:<br>-d         use USB device (error if multiple devices connected)<br>-e         use TCP/IP device (error if multiple TCP/IP devices available)<br><br><br>frida-ps --help<br>Options:<br>-U, --usb             connect to USB device<br>-D ID, --device=ID    connect to device with the given ID<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs shell">adb --help<br>global options:<br>-a         listen on all network interfaces, not just localhost<br>-d         use USB device (error if multiple devices connected)<br>-e         use TCP/IP device (error if multiple TCP/IP devices available)<br>-s SERIAL  use device with given serial (overrides $ANDROID_SERIAL)<br><br><br>frida-ps --help<br>Options:<br>-U, --usb             connect to USB device<br>-D ID, --device=ID    connect to device with the given ID<br><br><br>objection --help<br>Options:<br>-N, --network            Connect using a network connection instead of USB.<br>-h, --host TEXT          [default: 127.0.0.1]<br>-p, --port INTEGER       [default: 27042]<br>-ah, --api-host TEXT     [default: 127.0.0.1]<br>-ap, --api-port INTEGER  [default: 8888]<br>-g, --gadget TEXT        Name of the Frida Gadget/Process to connect to.<br>[default: Gadget]<br>-S, --serial TEXT        A device serial to connect to.<br></code></pre></td></tr></table></figure>
 <ul>
 <li>使用adb的-d选项可以匹配usb连接的真机，-e选项可以连接模拟器</li>
 <li>而使用frida-ps的-U选项连接的却是模拟器</li>
 </ul>
-<p>​	猜测二者的检测机制不相同，<code>adb</code> 的连接可以检测出当前模拟器采用的就是TCP/IP连接，而<code>frida-ps</code> 的检测就显得有点奇怪，所以对于<code>frida-ps</code> 和 <code>frida</code>，则使用<code>-D ID</code>参数，通过命令 <code>adb devices</code> 中显示的 ID(名称) 来匹配不同的设备。对于 <code>objection</code>，则使用 <code>-S serial</code> 参数来识别设备，这里的serial就是上面的ID。</p>
+<p>​	猜测二者的检测机制不相同，<code>adb</code> 的连接可以检测出当前模拟器采用的就是TCP/IP连接，而 <code>frida-ps</code> 的检测就显得有点奇怪，所以对于 <code>frida-ps</code> 和 <code>frida</code>，则使用 <code>-D ID</code> 参数，通过命令 <code>adb devices</code> 中显示的 ID(名称) 来匹配不同的设备。对于 <code>objection</code> ，则使用 <code>-S serial</code> 参数来识别设备，这里的serial就是上面的ID。</p>
+<h1 id="无线wifi连接"><a class="markdownIt-Anchor" href="#无线wifi连接"></a> 无线(WIFI)连接</h1>
+<p>​	这里尝试使用无线网络进行测试objection的 <code>-p</code> 选项，因为目前的测试结果就是，我模拟器的frida-server监听7878端口，objection不能连接，同时设置 <code>adb forword tcp:27042 tcp:7878</code> 也无法连接。所以尝试无线连接真机看看 <code>-p</code> 选项是否成功。</p>
+<p>​	首先配置手机的无线连接，最为重要的就是手机需要存在 adbd进程。而使之存在有两种方法，一种是使用adb启动usb连接手机的无线调试功能(有点鸡肋，都能usb连接了，还要无线连接搞什么)，另一种就是使用Android中命令行指令启动无线调试，两种方案，一是adb来利用shell，二是可以下个termux使用命令行处理。详细查看 -&gt; <a target="_blank" rel="noopener" href="https://blog.csdn.net/lerous/article/details/108297330">adb wifi调试问题</a></p>
+<p>​	这样之后，<code>adb devices</code> 中就存在一个无线连接的设备了，可以直接adb进行来连接，这里注意PC和手机需要在同一个局域网内，尝试ping一下看看，可以ping通就表示无线连接可行。然后在手机中 <code>frida-server</code> 启动7878端口，然后PC中使用objection直接连接 <code>objection -N -h 192.168.123.213 -p 7878 -g com.zj.wuaipojie explore</code>，然后就成功了。</p>
+<p>​	然后断开无线连接，使用真机的usb连接来开启 <code>frida-server</code> 的7878端口，然后再使用 objection。然后可以发现，不论怎么使用端口转发，<code>-p 7878</code> 加不加，都无法使得 objection 连接到目标真机上面。</p>
+<p>​	这样一来，感觉可以验证模拟器对于frida一类就是个usb连接设备(adb理解它为TCP/IP连接的，adb是通过本地回环地址的端口进行设备连接的)，它的WIFI功能就是个摆设。而 <code>objection</code> 对于usb连接设备不提供 <code>frida-server</code> 的切换端口功能，它只对无线连接的设备提供。所以usb设备想要使用 <code>objection</code>，还是老老实实的用 <code>frida-server</code> 的默认端口 27042吧。</p>
+<p>​	PS：叠层甲，这个只是我拿真机与模拟器测试的结果，可能存在别的方案使得上述结论无效，如果存在，麻烦关于那里通知我一下，不胜感激。</p>
+<h1 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
+<blockquote>
+<p>这里是对 adb，frida，frida-ps，objection对于同时连接真机和模拟器设备的使用总结</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">List of devices attached<br>8C5X1J8JR       		device<br>127.0.0.1:21503 		device<br>192.168.123.213:5555    device	# WIFI连接是后来加的，和8C5X1J8JR是同一台真机设备<br></code></pre></td></tr></table></figure>
+<h2 id="adb"><a class="markdownIt-Anchor" href="#adb"></a> adb</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">模拟器设备</span><br>adb -e shell	<br><span class="hljs-meta prompt_"># </span><span class="language-bash">usb连接设备</span><br>adb -d shell	# 这两个命令面对同类设备只存在一个的情况时可以使用<br><span class="hljs-meta prompt_"># </span><span class="language-bash">WIFI连接设备</span><br>adb -a shell	# 这个只有单个设备时才能使用，条件比上面两个更苛刻<br><span class="hljs-meta prompt_"># </span><span class="language-bash">通用连接</span><br>adb -s 192.168.123.213:5555 shell	# -s SERIAL根据序列号来连接，是通用连接方式，多设备都可以连接<br></code></pre></td></tr></table></figure>
+<p>​	adb 将模拟器识别为 TCP/IP 连接设备，它通过本地回环地址的端口(模拟器adbd使用的端口)进行连接。</p>
+<h2 id="frida等"><a class="markdownIt-Anchor" href="#frida等"></a> frida等</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">通用连接</span><br>frida-ps -D ID	# 直接根据上面的 SERIAL充当ID 进行连接<br><span class="hljs-meta prompt_"># </span><span class="language-bash">模拟器连接</span><br>frida-ps -U		# 还存在一个usb设备的情况下，这个命令只匹配模拟器，若是只有一个模拟器没有真机，也匹配模拟器<br></code></pre></td></tr></table></figure>
+<p>​	frida等 将模拟器视为优先级更高的 usb连接设备，所以对于模拟器的连接直接使用 <code>-U</code> 就可以连接</p>
+<h2 id="objection"><a class="markdownIt-Anchor" href="#objection"></a> objection</h2>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">usb设备-&gt;usb连接的手机和模拟器，这个情况下，frida-server不能更改监听的端口</span><br>objection -S SERIAL -g &lt;package-name&gt; explore<br><span class="hljs-meta prompt_"># </span><span class="language-bash">WIFI设备，这个情况下可以随意更改frida-server监听端口</span><br>objection -N -h 192.168.123.213 -p 7878 -g &lt;package-name&gt; explore<br></code></pre></td></tr></table></figure>
+<p>​	objection 的 <code>-p</code> 设置只能适用于无线连接设备，usb连接设备(真机和模拟器)都不可以进行设置。这里 <code>frida-server</code> 的原理就是运行进程来监听安卓设备的一个端口，然后frida就是去连接安卓设备对应的端口并发送信息，<code>frida-server</code> 通过端口接收数据并执行操作。所以可能 objection 的 <code>-S</code> 选择设备只会采用默认的 <code>frida-server</code> 端口去连接。</p>
 
                 
               </div>
@@ -355,7 +376,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>什么是Adb</div>
+      <div>Adb多设备连接</div>
       <div>http://example.com/posts/586563fd.html</div>
     </div>
     <div class="license-meta">
