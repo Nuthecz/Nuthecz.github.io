@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
 <meta property="article:published_time" content="2024-02-26T14:04:57.000Z">
-<meta property="article:modified_time" content="2024-03-09T15:22:12.384Z">
+<meta property="article:modified_time" content="2024-03-09T16:06:09.027Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133030.JPG">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          818 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          14 分钟
+          7 分钟
         
       </span>
     
@@ -287,7 +287,7 @@
                 <h1 id="基础概念"><a class="markdownIt-Anchor" href="#基础概念"></a> 基础概念</h1>
 <p>​	ARM 架构在其发展过程中经历了多个版本的更新，每个版本都可能引入新的特性和改进。ARMv8 是 ARM 架构的一个重要版本，它引入了 64 位执行状态(AArch64)，这是 ARM 架构首次支持 64 位处理器和 64 位地址空间。</p>
 <h2 id="架构"><a class="markdownIt-Anchor" href="#架构"></a> 架构</h2>
-<p>​	拿Android来举例，它存在ARMv7，ARMv8两种架构的指令，这是两种架构，而不是x86,x64之类的指令集。所以ARMv7和ARMv8都有 AArch32 状态(它对应着x86)，而ARMv8 还支持 AArch64状态。</p>
+<p>​	拿Android来举例，它存在ARMv7，ARMv8两种架构的指令，这是两种架构，而不是x86,x64之类的指令集。所以ARMv7和ARMv8都有 AArch32 执行状态(它对应着x86)，而ARMv8 还支持 AArch64 执行状态。</p>
 <ul>
 <li>在 32 位 ARM 状态(AArch32)下，有 16 个通用寄存器(r0 到 r15)。其中 r13 通常作为堆栈指针(sp)，r14 作为链接寄存器(lr)，r15 作为程序计数器(pc)。</li>
 <li>在 64 位 ARM 状态(AArch64)下，有 31 个通用寄存器(x0 到 x30)。这些寄存器都是 64 位的，可以处理更大的数据量。此外，还有一些特殊寄存器，如程序计数器(pc)，堆栈指针(sp)和零寄存器(xzr)。</li>
@@ -306,103 +306,6 @@
 <li>AArch64 状态是新引入的 64 位执行状态，它有自己的新的 64 位指令集。此外，AArch64 状态也引入了新的 32 位指令集(相当于 AArch64 的 Thumb 模式)，以提高代码密度。</li>
 </ul>
 <h1 id="armv7"><a class="markdownIt-Anchor" href="#armv7"></a> ARMv7</h1>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">寄存器名称</th>
-<th style="text-align:left">功能介绍</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"><code>R0-R12</code></td>
-<td style="text-align:left">通用寄存器，用于存储临时数据。在函数调用时，<code>R0-R3</code>用于存储前四个参数，其余的参数通过堆栈传递。返回值也通过<code>R0</code>和<code>R1</code>传递。<code>R7</code>一般放系统调用号</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>R13(SP)</code></td>
-<td style="text-align:left">堆栈指针寄存器，指向当前堆栈的顶部。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>R14(LR)</code></td>
-<td style="text-align:left">链接寄存器，存储子程序的返回地址。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>R15(PC)</code></td>
-<td style="text-align:left">程序计数器，指向下一条要执行的指令。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>CPSR</code></td>
-<td style="text-align:left">当前程序状态寄存器，保存程序的状态信息，如算术运算的结果标志、中断禁止标志等。</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>FPSCR</code></td>
-<td style="text-align:left">浮点状态和控制寄存器，如果你在调试的代码中涉及到浮点运算，那么这个寄存器会比较重要。</td>
-</tr>
-</tbody>
-</table>
-<p>​	寄存器比对</p>
-<table>
-<thead>
-<tr>
-<th>ARM</th>
-<th>描述</th>
-<th>X86</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>R0</td>
-<td>通用寄存器</td>
-<td>EAX</td>
-</tr>
-<tr>
-<td>R1-R5</td>
-<td>通用寄存器</td>
-<td>EBX,ECX,EDX,ESI,EDI</td>
-</tr>
-<tr>
-<td>R6-R10</td>
-<td>通用寄存器</td>
-<td>-</td>
-</tr>
-<tr>
-<td>R11(FP)</td>
-<td>栈帧指针</td>
-<td>EBP</td>
-</tr>
-<tr>
-<td>R12</td>
-<td>内部程序调用</td>
-<td>-</td>
-</tr>
-<tr>
-<td>R13(SP)</td>
-<td>栈指针</td>
-<td>ESP</td>
-</tr>
-<tr>
-<td>R14(LR)</td>
-<td>链接寄存器</td>
-<td>-</td>
-</tr>
-<tr>
-<td>R14(LR)</td>
-<td>程序计数器/机器码指针</td>
-<td>EIP</td>
-</tr>
-<tr>
-<td>CPSR</td>
-<td>程序状态寄存器</td>
-<td>EFLAGS</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>R0-R12：用来在通用操作中存储临时的值，指针等。R0被用来存储函数调用的返回值。R7经常被用作存储系统调用号，R11存放着帮助我们找到栈帧边界的指针。以及，在ARM的函数调用约定中，前四个参数按顺序存放在R0-R3中。</li>
-<li>R13：SP(栈指针)。栈指针寄存器用来指向当前的栈顶。</li>
-<li>R14：LR(链接寄存器)。当一个函数调用发生，链接寄存器就被用来记录函数调用发生所在位置的下一条指令的地址。这么做允许我们快速的从子函数返回到父函数。</li>
-<li>R15：PC(程序计数器)。程序计数器是一个在程序指令执行时自增的计数器。它的大小在ARM模式下总是4字节对齐，在Thumb模式下总是两字节对齐。当执行一个分支指令时，PC存储目的地址。在程序执行中，ARM模式下的PC存储着当前指令加8(两条ARM指令后)的位置，Thumb(v1)模式下的PC存储着当前指令加4(两条Thumb指令后)的位置。这也是X86与ARM在PC上的主要不同之处。</li>
-</ul>
 <p>具体参考 -&gt; <a target="_blank" rel="noopener" href="https://www.cnblogs.com/hilfloser/p/10516610.html">ARM汇编基础 - hilfloser - 博客园 (cnblogs.com)</a></p>
 <h1 id="armv8"><a class="markdownIt-Anchor" href="#armv8"></a> ARMv8</h1>
 <p>具体参考 -&gt; <a target="_blank" rel="noopener" href="https://www.lyldalek.top/article/arm">https://www.lyldalek.top/article/arm</a></p>
