@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-10-21T15:00:12.000Z">
-<meta property="article:modified_time" content="2024-02-29T12:16:11.000Z">
+<meta property="article:modified_time" content="2024-03-09T12:23:43.310Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -232,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.5k 字
+          9.8k 字
         
       </span>
     
@@ -243,7 +243,7 @@
         
         
         
-          47 分钟
+          82 分钟
         
       </span>
     
@@ -461,7 +461,7 @@
 <p>下界代表 unsafe 的情形，即我们认为无到达定值，可对相关变量的存储空间进行替换。上界代表 safe but useless 的情况，即认为定值必然到达，但是这对我们寻找一个可替换掉的存储空间毫无意义。</p>
 </li>
 <li>
-<p>而因为我们采用了 join 函数，那么我们必然会从 lattice 的最小下界往上走。而越往上走(相对于truth点而言)，我们就会失去更多的精确值。那么，在所有不动点中我们寻找最小不动点，那么就能得到精确值最大的结果。</p>
+<p>而因为我们采用了 join 函数(并集)，那么我们必然会从 lattice 的最小下界往上走。而越往上走(相对于truth点而言)，我们就会失去更多的精确值。那么，在所有不动点中我们寻找最小不动点，那么就能得到精确值最大的结果。</p>
 </li>
 </ul>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221522165.png" srcset="/img/loading.gif" lazyload alt="" /></p>
@@ -471,14 +471,17 @@
 <p>在可用表达式分析中，下界代表无可用表达式，上界代表所有表达式都可用。</p>
 </li>
 <li>
-<p>下界代表 safe but useless 的情形，因为需要重新计算每个表达式，即使确实有表达式可用。而上界代表 unsafe，因为不是所有路径都能使表达式都可用。与 may analysis 一样，通过寻找最大不动点，我们能得到合法的结果中精确值最大的结果。</p>
+<p>下界代表 safe but useless 的情形，因为需要重新计算每个表达式，就是确实有表达式可用。而上界代表 unsafe，因为不是所有路径都能使表达式都可用。与 may analysis 一样，通过寻找最大不动点，我们能得到合法的结果中精确值最大的结果。</p>
 </li>
 </ul>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221525983.png" srcset="/img/loading.gif" lazyload alt="" /></p>
 <h2 id="distributivity-and-mop"><a class="markdownIt-Anchor" href="#distributivity-and-mop"></a> Distributivity and MOP</h2>
-<p>​	与我们之前使用的算法不同，我们以前使用的算法是在运行过程中沿着数据流反复迭代的，而MOP是找出从开头到结尾所有路径，分别进行传递函数计算，最后将算完的所有路径进行 $\sqcup / \sqcap $ (即不是根据节点与其前驱/后继节点的关系来迭代计算数据流，而是直接查找所有路径，根据所有路径的计算结果再取上/下界。这个结果是最理想的结果。)，公式如下：</p>
+<p>​	与我们之前使用的算法不同，我们以前使用的算法是在运行过程中沿着数据流反复迭代的，而MOP是找出从开头到结尾所有路径，分别进行传递函数计算，最后将算完的所有路径进行 $\sqcup / \sqcap $ (即不是根据节点与其前驱/后继节点的关系来迭代计算数据流，而是直接查找所有路径，根据所有路径的计算结果综合在一起再取上/下界。这个结果是最理想的结果。)，公式如下：</p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221646821.png" srcset="/img/loading.gif" lazyload alt="image-20231022164631766" /></p>
-<p>​	由于某些路径可能实际无法到达，因此MOP不是特别精确；而在正常的程序中路径过多，几乎无法全部枚举，因此MOP也不太实际。</p>
+<p>​	由于某些路径可能实际无法到达，因此MOP不是特别精确；而在正常的程序中路径过多，几乎无法全部枚举，因此MOP也不太实际。但是 MOP 比我们之前使用的迭代算法更精准</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>∨</mo><mi>F</mi><mo stretchy="false">(</mo><mi>y</mi><mo stretchy="false">)</mo><mo>⪯</mo><mi>F</mi><mo stretchy="false">(</mo><mi>x</mi><mo>∨</mo><mi>y</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">F(x)\lor F(y)\preceq F(x\lor y)
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">⪯</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.13889em;">F</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∨</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">y</span><span class="mclose">)</span></span></span></span></span></p>
+<p>​	这里我理解前者就是每条路径不受影响的向下传递，每条路径都是算出最精确的结果然后最后进行汇总。而后者就是先对于输入进行约束(对于may/must的分析是一样的，may使用U，但是要求是多种情况，但是先合并后公式，合并那部分就只计算了一遍，而MOP则是计算了两遍，可能会多出额外的数据，然后再合并，精准度更高)，然后套用公式，在使用公式之前，精度就已经损耗了，然后继续往下传播损失更大。下面使用格也可以进行证明。</p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310221648079.png" srcset="/img/loading.gif" lazyload alt="image-20231022164859036" /></p>
 <p>​	可以看到，迭代算法是 s3 对前驱取 join 后进行进行 f3 的转移，而 MOP 算法是对到达 s3 之后，s4 之前的路径结果取 join。</p>
 <ul>
@@ -497,14 +500,153 @@
 <p>​	它这里主要是增加了对于数据流交汇和状态转移的处理</p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402291938557.png" srcset="/img/loading.gif" lazyload alt="image-20240229193802488" /></p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402291938916.png" srcset="/img/loading.gif" lazyload alt="image-20240229193816812" /></p>
-<p>​	再解决这两个之后，我们可以根据算法发现它是前向、Must的分析方法，因为常量的确定需要根据从上面传递的数值来判断，同时更换为常量不能存在错误，所以必须是必然性分析。</p>
+<p>​	再解决这两个之后，我们可以根据算法发现它是<strong>前向、Must</strong>的分析方法，因为常量的确定需要根据从上面传递的数值来判断，同时更换为常量不能存在错误，所以必须是必然性分析。</p>
 <h2 id="worklist-algorithm"><a class="markdownIt-Anchor" href="#worklist-algorithm"></a> Worklist Algorithm</h2>
 <p>​	同时这里涉及工作表法，也就是将所有的BB条件到 Worklist 中，然后从头到尾抽取一个进行控制流交汇和状态转移方程，如果结果与之前的相同(transferNode来判断结果)，那么就直接进行下一个 BB 的分析，如果不同，则这个 BB 的下面的 BB 的输入值会改变，那么就会影响到输出，所以需要将后续节点继续加入到 Worklist 中继续分析。</p>
 <h1 id="interprocedural-analysis"><a class="markdownIt-Anchor" href="#interprocedural-analysis"></a> Interprocedural Analysis</h1>
-<ol>
-<li><code>Dispatch </code>是从本身开始查找方法实现，如果没有找到，则继续向父类索引; 而对于在 CHA 中的 <code>Call Resolution</code> 算法而言, 对于 <code>virtual call</code> 需要对<strong>它本身和它所有的子类及其子类的子类</strong>都调用 <code>Dispatch</code></li>
+<p>​	这里过程间分析只考虑值传递，指针传递在下一节。而过程间分析也就是考虑过程间(函数调用)的控制流，分析过程内的具体变化。然后这里</p>
+<h2 id="call-graph"><a class="markdownIt-Anchor" href="#call-graph"></a> Call Graph</h2>
+<h3 id="basic-concept"><a class="markdownIt-Anchor" href="#basic-concept"></a> Basic concept</h3>
+<p>​	调用图是程序中各过程(Procedure)之间调用关系的一种表示，考虑程序中的所有<strong>调用点</strong>(Call Site，调用表达式所在的语句)，所有的从调用点到 “<strong>目标方法(Target Method)</strong>——即被调用者(Callee)” 的边组成的集合为<strong>调用图(Call Graph)</strong></p>
+<p>​	对面向对象编程语言(Object-Oriented Programming Language，OOPL)的调用图构建，以Java为例，常见的方法有</p>
+<ul>
+<li>类层级结构分析(Class Hierarchy Analysis，CHA)</li>
+<li>快速类型分析(Rapid Type Analysis，RTA)</li>
+<li>变量类型分析(Variable Type Analysis，VTA)</li>
+<li>指针分析(Pointer Analysis，k-CFA)</li>
+</ul>
+<p>上面的四种方法自上而下精度(Precision)越来越高，但是效率(Efficiency)也越来越低。这一章重点讲解类层级结构分析的方法，在后面几章里面会讲解指针分析的方法。</p>
+<h3 id="method-call-in-java"><a class="markdownIt-Anchor" href="#method-call-in-java"></a> Method call in java</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>静态调用(Static Call)</th>
+<th>特殊调用(Special Call)</th>
+<th>虚调用(Virtual Call)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>指令</strong></td>
+<td><code>invokestatic</code></td>
+<td><code>invokespecial</code></td>
+<td><code>invokeinterface</code> ， <code>invokevirtual</code></td>
+</tr>
+<tr>
+<td><strong>接收对象(Receiver Object)</strong></td>
+<td>无</td>
+<td>有</td>
+<td>有</td>
+</tr>
+<tr>
+<td><strong>目标方法</strong></td>
+<td>静态方法</td>
+<td>构造函数，私有实例方法，基类实例方法</td>
+<td>其他的实例方法</td>
+</tr>
+<tr>
+<td><strong>目标方法数量</strong></td>
+<td>1</td>
+<td>1</td>
+<td>≥1(多态-Polymorphism)</td>
+</tr>
+<tr>
+<td><strong>决定时间(Determinacy)</strong></td>
+<td>编译时</td>
+<td>编译时</td>
+<td>运行时</td>
+</tr>
+</tbody>
+</table>
+<p>​	这里的调用其实是针对字节码的，也就是说在.class文件中可以看到不同方法的方法调用前缀，它主要用于JVM进行识别然后分情况进行处理。这里静态调用和特殊调用都是静态绑定的，也就是说每次的调用都是精准的，可以准确确定到具体的方法。但是虚调用实现的是 java 中的多态，对于某一个方法，他可能有很多重写方法(子类修改父类的方法，返回值和形参都不能改变)，同时因为实现多态的核心是向上转型，例如 <code>Parent p = new Child();</code>，所以具体运行中，要根据传递参数等上下文信息进行确定，所以它只能在运行时确定。而我们的之后的调用图就是要处理好虚调用，使用的 方法派发也是由 jvm 中对于虚调用的处理延申过来的。</p>
+<h3 id="virtual-call-method-dispatch"><a class="markdownIt-Anchor" href="#virtual-call-method-dispatch"></a> Virtual call method dispatch</h3>
+<ul>
+<li>方法的描述符(Descriptor)：方法的<code>返回类型</code>和<code>形参类型</code>组成</li>
+<li>方法的签名(Signature)：方法所在的<code>类名</code>，方法本身的<code>方法名</code>，和方法的<code>描述符</code>组成。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> &#123;<br>    T <span class="hljs-title function_">foo</span><span class="hljs-params">(P p, Q q, R r)</span> &#123; ... &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>​	上述方法的签名为 <code>&lt;C: T foo(P, Q, R)&gt;</code> ，其中 <code>C</code> 是类名， <code>T</code> 是返回类型， <code>(P, Q, R)</code> 是形参类型， <code>foo</code> 是方法名。在不产生歧义的前提下，方法签名可以简写为 <code>C.foo(P, Q, R)</code>，这里省略了返回类型，子类重写返回值和形参都不能改变，所以我认为使用其中一个条件就可以确定另外一个(容易混淆的重载，参数必定不同，返回类型无所谓，所以这里可以直接使用参数类型确定返回值)</p>
+<p>​	对于调用点 <code>o.foo()</code> 定义运行时刻解析调用点所调用的<strong>目标方法</strong>的过程为方法派发 <code>Dispatch(c,m)</code> ，其中 c 是接收对象的类型，m为方法签名。方法派发的过程简单理解就是从<strong>接收对象所在的类</strong>开始，按照<strong>从子类向到基类</strong>的顺序查找，直到找到一个方法名和描述符都相同的非抽象方法为止</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">foo</span><span class="hljs-params">()</span> &#123; ... &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">A</span> &#123;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">B</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">foo</span><span class="hljs-params">()</span> &#123; ... &#125;<br>&#125;<br><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">dispatch</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">A</span> <span class="hljs-variable">x</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">B</span>();<br>    x.foo();<br>    <br>    <span class="hljs-type">A</span> <span class="hljs-variable">y</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">C</span>();<br>    y.f00();<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>对于调用点 <code>x.foo()</code>，<code>Dispatch(B, A.foo()) = A.foo()</code></li>
+<li>对于调用点 <code>y.f00()</code>，<code>Dispatch(C, A.f00()) = A.f00()</code></li>
+</ul>
+<p>​	对于 <code>A x = new B();</code>，它的接收对象类型是 <code>B</code>。虽然 <code>x</code> 被声明为 <code>A</code> 类型，但实际上它被初始化为 <code>B</code> 类型的一个实例。因此，当调用 <code>x.foo();</code> 时，会调用 <code>B</code> 类型的 <code>foo</code> 方法。</p>
+<h3 id="class-hierarchy-analysis"><a class="markdownIt-Anchor" href="#class-hierarchy-analysis"></a> Class Hierarchy Analysis</h3>
+<p>​	这是一种算法，它是指通过查找类的层级结构来解析目标方法的过程，被称为 <code>Resolve</code>。使用到了 <code>Dispatch</code> 的方法。</p>
+<ul>
+<li>CHA需要知道整个程序的类之间的继承关系，也就是层级结构</li>
+<li>CHA会根据调用点处的<strong>接收变量(Receiver Variable)</strong> 的 <strong>声明类型(Declare Type)</strong> 来解析虚调用</li>
+<li>CHA假设声明类型为 <code>A</code> 的接收变量 <code>a</code> 可能会指向 <code>A</code> 类以及 <code>A</code> 的所有 <strong>子类(Subclass)</strong> 的对象</li>
+</ul>
+<p>​	CHA的调用解析算法处理虚调用的方式是暴力的枚举，将变量<strong>声明类型</strong>及其子类中所有和调用点处<strong>签名匹配的方法</strong>都视为可能的目标方法。这里需要注意区分 Dispatch 和 Resolve 对于父子类的不同寻找方向。</p>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202403090952016.png" srcset="/img/loading.gif" lazyload alt="image-20240309095232919" /></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">class</span> <span class="hljs-title class_">A</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">foo</span><span class="hljs-params">()</span> &#123; ... &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">A</span> &#123; &#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">C</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">B</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">foo</span><span class="hljs-params">()</span> &#123; ... &#125;<br>&#125;<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">D</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">B</span> &#123;<br>    <span class="hljs-keyword">void</span> <span class="hljs-title function_">foo</span><span class="hljs-params">()</span> &#123; ... &#125;<br>&#125;<br><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">resolve</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">C</span> <span class="hljs-variable">c</span> <span class="hljs-operator">=</span> ...;<br>    c.foo();<br>    <br>    <span class="hljs-type">A</span> <span class="hljs-variable">a</span> <span class="hljs-operator">=</span> ...;<br>    a.foo();<br>    <br>    <span class="hljs-type">B</span> <span class="hljs-variable">b</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">B</span>();<br>    b.foo();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>​	算法会对于每一个接收变量的<strong>声明类型本身及其子类</strong>关于调用点处的<strong>函数签名</strong>进行<strong>方法派发</strong>的操作，将所有找到的目标方法加入结果之中</p>
+<ul>
+<li><code>Resolve(c.foo()) = &#123;C.foo()&#125;</code>
+<ul>
+<li>virtual call，首先匹配声明类型C，对于它本身和每一个子类(C没有子类)进行遍历，这里遍历之后只有C类本身。然后 Dispatch(C, c.foo())，Dispatch从子类C到父类A进行寻找，发现C中存在匹配方法，匹配结束，得到 C.foo()</li>
+</ul>
+</li>
+<li><code>Resolve(a.foo()) = &#123;A.foo(), C.foo(), D.foo()&#125;</code>
+<ul>
+<li>virtual call，首先匹配声明类型A，对于它本身和每一个子类遍历，得到A，B，C，D。然后 Dispatch(A, a.foo())得到 A.foo()；Dispatch(B, a.foo())从子类到基类，得到 A.foo()；Dispatch(C, a.foo()) 在C类中匹配到方法，得到 C.foo()；Dispatch(D, a.foo()) 从D类中匹配到方法，得到 D.foo()</li>
+</ul>
+</li>
+<li><code>Resolve(b.foo()) = &#123;A.foo(), C.foo(), D.foo()&#125;</code>
+<ul>
+<li>virtual call，声明类型B，对于本身及子类遍历，得到B，C，D，然后Dispatch(B, b.foo())从子类到基类，匹配到 A.foo()方法；Dispatch(C, b.foo())，匹配到C类，Dispatch(D, b.foo())匹配到D类。</li>
+<li>同时CHA的Resolve算法只关心声明类型，所以 <code>new B()</code> 没有作用</li>
+</ul>
+</li>
+<li>IDEA使用CHA算法分析目标调用</li>
+</ul>
+<p>总结：<code>Dispatch </code>是<strong>从本身开始查找方法实现，如果没有找到，则继续向父类索引</strong>; 而对于在 CHA 中的 <code>Call Resolution</code> 算法而言, 对于 <code>virtual call</code> 需要对<strong>它本身和它所有的子类及其子类的子类</strong>都调用 <code>Dispatch</code>，然后根据 Dispatch 的规则，找到第一个符合条件的即可。</p>
+<h2 id="interprocedural-control-flow-graph"><a class="markdownIt-Anchor" href="#interprocedural-control-flow-graph"></a> Interprocedural Control Flow Graph</h2>
+<p>​	过程间控制流图(ICFG)由CFG边，调用边和返回边构成。即 <code>ICFG = CFG + call &amp; return edges</code> ，而 <code>CFG Edges = Call-to-return Edges + Normal Edges</code>。这里 Call-to-return Edges 就是为了传递无需进入调用的方法内部(比如说除了参数以外的其他变量的信息)的信息，可以直接从外面的这条边传递，提高效率。</p>
+<h2 id="intraprocedural-data-flow-analysis"><a class="markdownIt-Anchor" href="#intraprocedural-data-flow-analysis"></a> Intraprocedural Data-Flow Analysis</h2>
+<p>​	它主要是两方面的状态转移方程，边转移和结点转移(边转移就包含了之前的交汇，结点转移包含之前的转移方程)</p>
+<p>边转移</p>
+<ul>
+<li><strong>普通边转移(Normal Edge Transfer)</strong>：数据流沿着某个方法的CFG中的边的转移函数；</li>
+<li><strong>调用-返回边转移(Call-Return Edge Transfer)</strong>：数据流从调用点沿着调用-返回边到返回点的转移函数；</li>
+<li><strong>调用边转移(Call Edge Transfer)</strong>：数据流从调用点(见定义5.3)沿着调用边转移到被调用者的入口结点的转移函数；</li>
+<li><strong>返回边转移(Return Edge Transfer)</strong>：数据流从被调用者的出口结点沿着返回边转移到返回点(见定义5.8)的转移函数。</li>
+</ul>
+<p>结点转移</p>
+<ul>
+<li><strong>调用结点转移(Call Node Transfer)</strong>：调用点对应的结点的状态转移方程；</li>
+<li><strong>其他结点转移(Other Node Transfer)</strong>：调用点以外的其他结点的状态转移方程。</li>
+</ul>
+<h2 id="analyze-and-compare"><a class="markdownIt-Anchor" href="#analyze-and-compare"></a> Analyze and compare</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">过程内数据流分析</th>
+<th>过程间数据流分析</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><strong>程序表示</strong></td>
+<td style="text-align:center"><code>CFG</code></td>
+<td><code>ICFG = CFGs + call &amp; return Edges</code></td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>转移函数</strong></td>
+<td style="text-align:center">结点转移</td>
+<td>结点转移 + 边转移</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>这里的结点转移就是之前 BB 内部的转移方程，然后meet操作被分解到边转移中，根据不同的情况调整不同的meet操作</li>
 <li>这里需要区分一下 ICFG 与 IDFA 的区别，控制流是基础骨架, 而数据流是在骨架上的血肉</li>
-</ol>
+</ul>
 <p>​	<strong>过程间控制流图(Interprocedural Control Flow Graph，ICFG)</strong></p>
 <p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310252003222.png" srcset="/img/loading.gif" lazyload alt="image-20231025200307155" /></p>
 <p>​	<strong>过程内数据流分析(Intraprocedural Data-Flow Analysis，IDFA)</strong></p>
