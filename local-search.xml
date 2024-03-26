@@ -8,7 +8,7 @@
     <link href="/posts/c044cd4f.html"/>
     <url>/posts/c044cd4f.html</url>
     
-    <content type="html"><![CDATA[<h1 id="快捷键使用"><a class="markdownIt-Anchor" href="#快捷键使用"></a> 快捷键使用</h1>]]></content>
+    <content type="html"><![CDATA[<h1 id="快捷键使用"><a class="markdownIt-Anchor" href="#快捷键使用"></a> 快捷键使用</h1><ul><li><code>ctrl + alt + v / ctrl + enter</code><ul><li>自动引入局部变量(introduce local variable)，根据对象自动创建对象类型和对象名</li></ul></li></ul>]]></content>
     
     
     <categories>
