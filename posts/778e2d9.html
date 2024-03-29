@@ -16,23 +16,23 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="快捷键使用   ctrl + alt + v &#x2F; ctrl + enter  自动引入局部变量(introduce local variable)，根据对象自动创建对象类型和对象名    ctrl + Alt + L  代码格式化    F5  copy class -&gt; 也可以理解为另存为文件，因为一个class就是一个文件    Idea快捷键大全（Windows）-CSDN博客">
+    <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记 详细博客   Pointer Analysis  我们将分析一个指针可能指向的 内存区域(Memory Location)，以 程序(Program) 为输入，以程序中的 指向关系(Point-to Relation) 为输出的分析称作 指针分析(Pointer Analy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="IDEA使用">
-<meta property="og:url" content="http://example.com/posts/c044cd4f.html">
+<meta property="og:title" content="《软件分析》_part3">
+<meta property="og:url" content="http://example.com/posts/778e2d9.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="快捷键使用   ctrl + alt + v &#x2F; ctrl + enter  自动引入局部变量(introduce local variable)，根据对象自动创建对象类型和对象名    ctrl + Alt + L  代码格式化    F5  copy class -&gt; 也可以理解为另存为文件，因为一个class就是一个文件    Idea快捷键大全（Windows）-CSDN博客">
+<meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记 详细博客   Pointer Analysis  我们将分析一个指针可能指向的 内存区域(Memory Location)，以 程序(Program) 为输入，以程序中的 指向关系(Point-to Relation) 为输出的分析称作 指针分析(Pointer Analy">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
-<meta property="article:published_time" content="2024-03-26T11:00:12.000Z">
-<meta property="article:modified_time" content="2024-03-28T08:09:36.913Z">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
+<meta property="article:published_time" content="2024-03-29T00:47:12.000Z">
+<meta property="article:modified_time" content="2024-03-29T04:12:49.078Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052134429.JPG">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
   
   
   
-  <title>IDEA使用 - Nuthecz`Blog</title>
+  <title>《软件分析》_part3 - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -43,6 +43,8 @@
   <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/KaTeX/0.16.2/katex.min.css" />
 
 
 
@@ -201,13 +203,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133045.JPG') no-repeat center center; background-size: cover;">
+     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220951931.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="IDEA使用"></span>
+            <span id="subtitle" data-typed-text="《软件分析》_part3"></span>
           
         </div>
 
@@ -218,8 +220,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-03-26 19:00" pubdate>
-          2024年3月26日 晚上
+        <time datetime="2024-03-29 08:47" pubdate>
+          2024年3月29日 早上
         </time>
       </span>
     
@@ -230,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          158 字
+          1.1k 字
         
       </span>
     
@@ -241,7 +243,7 @@
         
         
         
-          2 分钟
+          9 分钟
         
       </span>
     
@@ -279,33 +281,82 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">IDEA使用</h1>
+            <h1 style="display: none">《软件分析》_part3</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="快捷键使用"><a class="markdownIt-Anchor" href="#快捷键使用"></a> 快捷键使用</h1>
+                <p>This is my curriculum understanding.</p>
+<blockquote>
+<p>Reference:</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhang971105/category_10471447.html">静态分析学习笔记</a></p>
+<p><a target="_blank" rel="noopener" href="https://ranger-nju.gitbook.io/static-program-analysis-book/">上课笔记</a></p>
+<p><a target="_blank" rel="noopener" href="https://static-analysis.cuijiacai.com/05-inter/">详细博客</a></p>
+</blockquote>
+<h1 id="pointer-analysis"><a class="markdownIt-Anchor" href="#pointer-analysis"></a> Pointer Analysis</h1>
 <ul>
-<li>
-<p><code>ctrl + alt + v / ctrl + enter</code></p>
+<li>我们将分析一个指针可能指向的 <strong>内存区域(Memory Location)</strong>，以 <strong>程序(Program)</strong> 为输入，以程序中的 <strong>指向关系(Point-to Relation)</strong> 为输出的分析称作 <strong>指针分析(Pointer Analysis)</strong> 。</li>
+<li>指针分析是一种可能性分析，采过近似的方法分析一个指针可能指向的对象的集合。</li>
+</ul>
+<h2 id="key-factor"><a class="markdownIt-Anchor" href="#key-factor"></a> Key Factor</h2>
+<table>
+<thead>
+<tr>
+<th>因素</th>
+<th>问题</th>
+<th>选择</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>堆抽象(Heap Abstraction)</strong></td>
+<td>如何对堆区内存建模？</td>
+<td>分配点(Allocation-site) 无储存(Storeless)</td>
+</tr>
+<tr>
+<td><strong>上下文敏感性(Context Sensitivity)</strong></td>
+<td>如何对调用语境建模？</td>
+<td>上下文敏感(Context-sensitive) 上下文不敏感(Context-insensitive)</td>
+</tr>
+<tr>
+<td><strong>流敏感性(Flow Sensitivity)</strong></td>
+<td>如何对控制流建模？</td>
+<td>流敏感(Flow-sensitive) 流不敏感(Flow-insensitive)</td>
+</tr>
+<tr>
+<td><strong>分析范围(Analysis Scope)</strong></td>
+<td>程序的哪个部分应该被分析？</td>
+<td>全程序(Whole-program) 需求驱动(Demand-driven)</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li>自动引入局部变量(introduce local variable)，根据对象自动创建对象类型和对象名</li>
+<li>堆抽象
+<ul>
+<li>简单而言，就是将动态分配的、无界的具体对象，构建为有限/有界的抽象对象。其中使用最多的就是<code>分配点抽象</code>，也就是将同一分配点处分配内存而产生的对象抽象为一个对象，常见于for循环中一条new语句对于对象的创建。</li>
 </ul>
 </li>
-<li>
-<p><code>ctrl + Alt + L</code></p>
+<li>上下文敏感
 <ul>
-<li>代码格式化</li>
+<li>对于同一个方法调用，如果区分其不同的调用语境，就是上下文敏感，反之就是不敏感。</li>
+<li>简单而言，如果对于某个方法调用，分配内存只构建出一个方法语境，调用该方法的语句都共用这一个语境，那么就是上下文不敏感；反之每次调用都构建一个方法语境，就是上下文敏感。</li>
 </ul>
 </li>
-<li>
-<p><code>F5</code></p>
+<li>流敏感
 <ul>
-<li>copy class -&gt; 也可以理解为另存为文件，因为一个class就是一个文件</li>
+<li>流敏感就是尊重语句的执行顺序，它需要在每一个程序点处都维护一个指向关系的映射表。也就是说，每分析一个语句，都是对于上一个语句结果的更新，然后在该语句中存储更新的结果</li>
+<li>对于流不敏感而言，只需要为整个程序维护一个指向关系的映射表。这里首先按照顺序处理，但是并不是对于每一个语句单独处理，而是将新处理的语句加到当前的语句集合中，这样就是对于整个语句进行处理，对于集合的结果进行更新，所以只需要维护一个映射表，也就是集合的结果。而对于算法使用时，可以根据算法的顺序来挑选相应的语句进行处理</li>
+</ul>
+</li>
+<li>分析范围
+<ul>
+<li>分为全程序分析和特定兴趣点分析，简单而言就是确定分析的内容</li>
 </ul>
 </li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38963960/article/details/89552704">Idea快捷键大全（Windows）-CSDN博客</a></p>
+<h2 id="rules"><a class="markdownIt-Anchor" href="#rules"></a> Rules</h2>
+<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202403290956425.png" srcset="/img/loading.gif" lazyload alt="image-20240329095618358" /></p>
+<p>​	这里实现指针分析的关键就是当 <code>pt(x)</code> 改变时，将改变的部分传递给和 x 相关的其他指针</p>
 
                 
               </div>
@@ -324,7 +375,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%9D%82%E9%A1%B9/" class="category-chain-item">杂项</a>
+  <a href="/categories/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/" class="category-chain-item">静态分析</a>
   
   
 
@@ -344,8 +395,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>IDEA使用</div>
-      <div>http://example.com/posts/c044cd4f.html</div>
+      <div>《软件分析》_part3</div>
+      <div>http://example.com/posts/778e2d9.html</div>
     </div>
     <div class="license-meta">
       
@@ -357,7 +408,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年3月26日</div>
+          <div>2024年3月29日</div>
         </div>
       
       
@@ -389,18 +440,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/778e2d9.html" title="《软件分析》_part3">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">《软件分析》_part3</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/ea54ff83.html" title="Android逆向入门(5)">
-                        <span class="hidden-mobile">Android逆向入门(5)</span>
+                      <a href="/posts/c044cd4f.html" title="IDEA使用">
+                        <span class="hidden-mobile">IDEA使用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -458,6 +503,11 @@
 
 
   
+
+
+  
+  
+
 
 
 
