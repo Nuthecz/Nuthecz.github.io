@@ -16,23 +16,23 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Tmux配置 ​	借用一下别人的关系图展示session，window，pane的关系。这里是tmux使用手册，下面有一些常用的快捷键。   session 123456789101112# 创建sessiontmux new -s session_name# 继续使用sessiontmux attach -t session_name# 关闭sessionCtrl-a d# 列举所有的sess">
+    <meta name="description" content="《软件分析》Lab6 分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pwn相关配置">
-<meta property="og:url" content="http://example.com/posts/98d6e652.html">
+<meta property="og:title" content="《软件分析》Lab6">
+<meta property="og:url" content="http://example.com/posts/9cdafb3a.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="Tmux配置 ​	借用一下别人的关系图展示session，window，pane的关系。这里是tmux使用手册，下面有一些常用的快捷键。   session 123456789101112# 创建sessiontmux new -s session_name# 继续使用sessiontmux attach -t session_name# 关闭sessionCtrl-a d# 列举所有的sess">
+<meta property="og:description" content="《软件分析》Lab6 分析">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402010000797.jpg">
-<meta property="article:published_time" content="2024-01-27T13:17:12.000Z">
-<meta property="article:modified_time" content="2024-04-04T08:41:25.962Z">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
+<meta property="article:published_time" content="2024-03-31T00:30:56.000Z">
+<meta property="article:modified_time" content="2024-04-02T00:39:59.627Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402010000797.jpg">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
   
   
   
-  <title>Pwn相关配置 - Nuthecz`Blog</title>
+  <title>《软件分析》Lab6 - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,13 +201,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402010000342.jpg') no-repeat center center; background-size: cover;">
+     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220951931.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Pwn相关配置"></span>
+            <span id="subtitle" data-typed-text="《软件分析》Lab6"></span>
           
         </div>
 
@@ -218,8 +218,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-27 21:17" pubdate>
-          2024年1月27日 晚上
+        <time datetime="2024-03-31 08:30" pubdate>
+          2024年3月31日 早上
         </time>
       </span>
     
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          747 字
+          4.8k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          7 分钟
+          40 分钟
         
       </span>
     
@@ -279,36 +279,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Pwn相关配置</h1>
+            <h1 style="display: none">《软件分析》Lab6</h1>
             
             
-              <div class="markdown-body">
-                
-                <h1 id="tmux配置"><a class="markdownIt-Anchor" href="#tmux配置"></a> Tmux配置</h1>
-<p>​	借用一下别人的关系图展示session，window，pane的关系。这里是<a target="_blank" rel="noopener" href="https://louiszhai.github.io/2017/09/30/tmux/">tmux使用手册</a>，下面有一些常用的快捷键。</p>
-<p><img src="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402151938660.png" srcset="/img/loading.gif" lazyload alt="image-20240215193845523" /></p>
-<h2 id="session"><a class="markdownIt-Anchor" href="#session"></a> session</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">创建session</span><br>tmux new -s session_name<br><span class="hljs-meta prompt_"># </span><span class="language-bash">继续使用session</span><br>tmux attach -t session_name<br><span class="hljs-meta prompt_"># </span><span class="language-bash">关闭session</span><br>Ctrl-a d<br><span class="hljs-meta prompt_"># </span><span class="language-bash">列举所有的session</span><br>tmux ls<br><span class="hljs-meta prompt_"># </span><span class="language-bash">杀死所有的session</span><br>tmux kill-server<br><span class="hljs-meta prompt_"># </span><span class="language-bash">杀死对应的session</span><br>tmux kill-session -t session_name<br></code></pre></td></tr></table></figure>
-<h2 id="window"><a class="markdownIt-Anchor" href="#window"></a> window</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">Ctrl-a c	# 创建新的窗口<br>Ctrl-a &amp;	# 关闭当前窗口<br>Ctrl-a n	# 到写一个窗口<br>Ctrl-a p	# 到上一个窗口<br>Ctrl-a f	# 切换窗口<br>Ctrl-a ,	# 重命名窗口<br></code></pre></td></tr></table></figure>
-<h2 id="pane"><a class="markdownIt-Anchor" href="#pane"></a> pane</h2>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">Ctrl-a |	# 左右分屏<br>Ctrl-a -	# 上下分屏<br>Ctrl-a x	# 关闭当前pane，或者exit也可以<br></code></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/luhao19980909/article/details/89718899#:~:text=ctrl%20%2B%20a%20%E6%9D%BE%E6%89%8B%E6%8C%89%20%22%20%23%E4%B8%8A%E4%B8%8B%E5%88%86%E5%B1%8F%20ctrl%20%2B,%2B%20a%20%E6%9D%BE%E6%89%8B%E6%8C%89%20%26%20%23%E5%85%B3%E9%97%AD%E6%89%80%E6%9C%89%E7%AA%97%E5%8F%A3%20exit%20%23%E5%85%B3%E9%97%AD%E5%BD%93%E5%89%8D%E7%AA%97%E5%8F%A3%201">分屏命令总结</a></p>
-<h1 id="gdb调试"><a class="markdownIt-Anchor" href="#gdb调试"></a> gdb调试</h1>
-<p>​	需要在tmux中执行python代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">context.terminal = [<span class="hljs-string">&#x27;tmux&#x27;</span>, <span class="hljs-string">&#x27;splitw&#x27;</span>, <span class="hljs-string">&#x27;-h&#x27;</span>, <span class="hljs-string">&#x27;-F&#x27;</span> <span class="hljs-string">&#x27;#&#123;pane_pid&#125;&#x27;</span>, <span class="hljs-string">&#x27;-P&#x27;</span>]<br><span class="hljs-comment"># gdb调试</span><br>gdb.attach(p)<br>gdb.debug(binary_path)<br>pause() <span class="hljs-comment"># 暂停进行调试</span><br></code></pre></td></tr></table></figure>
-<h1 id="other"><a class="markdownIt-Anchor" href="#other"></a> Other</h1>
-<ul>
-<li>gcc/g++ 版本切换
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jamesnulliu/p/5_Steps_to_Use_Cxx20_in_Ubuntu22.html">5 步在 Ubuntu22 上使用 C++20 - JamesNULLiu - 博客园 (cnblogs.com)</a></li>
-<li>这里需要注意在后面进行多版本控制时，g<ins>的目录写错了，注意自己修改一下，不然g</ins>的版本还是不变</li>
-</ul>
-</li>
-</ul>
+              
+              <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="246d0af47b11046b0c28c6c3d41fb39bb07305fc3ea494b0b5b530c25a6913a6">b08cef0d061ff7f32a9b6dda9d283aab582577b4f5b091fd866f1fc9bdb83f5c4878fb98d266faf0b7afe7714a504cef3aff30530ac9e819180ea9acbba3fa5b2fc7a802cb6da57fbc01ac6eca6a1a66ae906cd43df2ed068ca20c18ec2009b5eb19c4fc7ea4f720e0e78aa3e66e0d51293f64f89418cb6f7419e1acf2a896997742309522320d43036cbaa4e7335400c36ac232e1c44728703da44348034ec3754a064d53cc413411dde7000a2bdfa84738f053aeffe74b8e6f5d8747aaae17df7c785f85f479b3cde3101183ef31799ae6927ce26cec7108098eba19b05fa55629fb3cbc42d68eba38d16d72c7885f52d8833b97242b151533e6d4e4c90f04875a9ee53d176c554ce1b50aeaf9f539cf1568d8029cac4b4b2f49ffd70a16cc8eb75b6c0d0322a75a0654241e3ae66bbf045eb14d8459389e0a130ffac877174e83773ace43bbc959eb156ea7b333afe22adc39db3b9d6a94c9258651c011657df2a6d2ae51a10810ee2c027e17d5afe76b44c6cf83f1e8632fba7384d1265fe37bd93ff2940b950ad2152e427071597d089c521ab7acd242361c2f4aa96bbbaf196339b5a4824d5fb8715acf6b09c317d60697642aee9741da3efb9ced0875f701b38edba264e8e9a43c6fee50a4f05f19f38c5d53ae890dd58e405e4dada5c5efd73a3e6212fc2276a4415fea0b8c778d8c4bcfab35a841389475bb34ecc5e1c394f8c5896b1fc0808711440a2cd297209b17cf8bbd2177dc9b76c5fb11f11c8d16968c9e108abdda51de625195d32b6a5d7cea722c2dbf6a1198f9744b490af4ef3e4b4b9a65e2b4c23a37984f47808a9dcb3d59e5ac4b75b1b8f19dd26d255170da2dc06ed0f5c8b4199628c4ce8d228ccf34f3a49ececc923dae8ff42496595d15c7c35d8460a3b356ac9def0489a4a51740f92503cf5c386bdef18fd9e7313ade199a6e26134d72cb29b213b9a1373d2fee7aa42bd0ed4b4676b285099e09a0ca2707f9aca0f60ad09eeb7a00e6816e9f891cc30a7aecdb97774ef993cf3aa586289d1fb22526df2e9f55abde943f3c95c322a72e5fb9d0f066d1690c0ecb2e95bd9977e8b41d64874119610f8ee8a16eeedeb2965defb2e05f172a7a03edd053a6085f1f77cf6e3d8cf7cefc042dc00e3a0a436c16d8451378018742e0d150fead8a8d67e1b23c412e601a74e0cdfb7c22e50d728e762b26155e76cb873248d32d0324539464ebad8da3da8206d25ce2d44e2f430106b022826f2a754e5fb054ed19ed37b0d388e1286b3aac8f257e2ea6a5393f9284ae9b6d78b59edb215de09c15bedf32bb1aff53941447d10abb31dd822dd5aaa4dd2b293120aa2c1888c0504ab4d199a238ea02018ea5928c3d8798a2125e5502ac6c1fc86bd76bc2f599c9cbbf39714a249a290f37690ee7bba239fd548ae376fa218395c9cb063ba74271e0c7a05e9ac3a8a9a1ba23b30cd892ab6bb914875ca477d0afae7d7a73f75b13863f5275952f228ea3a0f1add81a35f394a6de14c6477c313f16c3d8681d8ff2e7a36f5415efc1623540e0acf459b6dd01b0f7b2bd24e1984c7821f0fa0bce3dba267593f75769b9c3a676006c085295160505db47f454b77d1ec637e823f9b14826b25f385c93d38159c5ec1c15bd4d9e5ef16f6b37638d0bfe1aad8c91ecb96652fa6e919ed2519f3ef82798ec6ee165cbd881be1bc2f29dc6865f022129947bb694600eaf933c48661a00299664dcb1c2b695189814976ba6a9d342eb53c8d796d6687520a06b3b8cd32ceafce69967ff1424628dacba935b0327bfafbacdef357dc09af59529d8d16606ab35cae0a45c9f631d3e5b8e972218e6e4dbda1b2f6590e38686c72ad3804627a3752bf83c4961161d5b6fff0b6a4c6a4598fa7c9ee2fd84228c2486ee8aa2dfcca1fc2faf26669116ee9e5e0e468b7a7768a53a676fc985c10c5734db2402ec027a5b1f1e4a0a7003b0246b4d661986e7ff9e3a6cb4c245432d47c5bb021849dfd46ec1434785bfe303cc0101e23129ecec12a01b5295d7e3b2e76f37fc375e5bdfc03c9edace16a8008881c1c516b4288001b5da10a4926c39bcc13223e451c6680d35169a3db4a8a6b7dfd1cb4b7e1aa7121012bec21da132d8ba8a7baa1f4f1a52744415592b010b40b28320ae7f49d9548ecf03541a110247377b5f651a498e76d3c8d7f20c3a652189c3d7650e8e72a4528d52e99503f649824015b09c91135117123afba7cd30ce434f9f87ec05bcf44a4a17df57eec3c5e31e471b41bbd07ad49b4eefff922fc2ff062d5de297dbfd090b4dca2acf5622c616f6281ec6c4aa04a6f535f49531b2e87326a9e8393932dd2047da72c35577b0453f5600fd2c6962a56f56e669eaec41fa6b098d803769a662c83eb5fa963fcfbfd3f6eebd1fab260872f3630832a5888b52df5218c2a521fce119fc63778b0027beca53cb9c6028fde8e095f8aa48f4787f7d1424d765d94d28fe8b84b52738f15bf1e716bb93baca9644af411bde2d9b80e9b49bafc92ecc54882f3cdef9a5d8c3c7670cae1da72bd0f9fdea84e65ec01b5e5fd9423ca33b21ff868e01b4c0280d33daa4acb74a2c021319b0ab2ae8bc08e72fe99b66661a695acc7a441daea7c862554cfeac5ebac70abc85e0f217c27d54d21c84c8eff4aee83b2c8375cee67d3dfc1dfff895bbcd2eb88244264c91231a05854d70c6de294d11436885fe2f7e01b00760de8d4ffd4336cddaeb42f62b597f9781c4795aa3285fc23ea3274fabfde2a21e7fd52003c7e6f2fd22012ac62e961fb2c6b8435173518ea82de6fbb68510dc3ed2e537ea4812160afe919eeab2e0e0d8a6e33c909f126bc81605981883b798c1e051980f38d9a237891e4d6b86709464e01c43ef5da3443eb6a4977cca5c1c92225cb6e861a55f21bddd254877d1c2ef6e824a299d0b998bb6360400cdb8177ecf9365b64d6c70db1b2632b83ae591bf441763df0c53e382c08ca233fb20f0c423a3e0792400ebe78db2d9016ce3857f9adb7ec5a5c0999ba437aa31339325d761b368787d760ae99e9105e89957b9a2de5e732be133937fad48a74a00e35e92932ab47f1a1b2caf8f46b29b11edb013bf8d948e85f45a4ea1a5ce48e5e813e8df7705caa8f9315045e5bd3205ba2a0fe2122e0a2d8df72170609407c37c9ceb391cc1be257c01d04e613cab98c881d469220b2e075af3570caf0cd2374783950799664e6076d210864c1908f88a74e2b59de6d1964f89f6c9a81782e41146baf3e088c4d840af43514ddbcf4623522792add61ff96b6e34a25a98aa49446489259bab0f3937788708612fbfd1</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+              
 
-                
-              </div>
+              
             
             <hr/>
             <div>
@@ -324,7 +313,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Pwn%E7%AC%94%E8%AE%B0/" class="category-chain-item">Pwn笔记</a>
+  <a href="/categories/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/" class="category-chain-item">静态分析</a>
   
   
 
@@ -344,8 +333,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Pwn相关配置</div>
-      <div>http://example.com/posts/98d6e652.html</div>
+      <div>《软件分析》Lab6</div>
+      <div>http://example.com/posts/9cdafb3a.html</div>
     </div>
     <div class="license-meta">
       
@@ -357,7 +346,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月27日</div>
+          <div>2024年3月31日</div>
         </div>
       
       
@@ -389,18 +378,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/9ffaa92b.html" title="花指令">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">花指令</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/a0244f85.html" title="Ubuntu和Wsl配置">
-                        <span class="hidden-mobile">Ubuntu和Wsl配置</span>
+                      <a href="/posts/5d3aa80.html" title="《软件分析》Lab5">
+                        <span class="hidden-mobile">《软件分析》Lab5</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -557,6 +540,23 @@
   
 
 
+
+
+  
+  <script defer>
+    if (document.getElementById('hbePass')) {
+      Fluid.utils.waitElementLoaded('hbe-prefix', function() {
+        var hbePrefix = document.querySelector('hbe-prefix');
+        hbePrefix.parentElement.classList.add('markdown-body');
+        Fluid.utils.retry(function() {
+          if (Fluid.boot && Fluid.boot.refresh) {
+            Fluid.boot.refresh();
+            return true;
+          }
+        }, 100, 10);
+      })
+    }
+  </script>
 
 
    <script>
