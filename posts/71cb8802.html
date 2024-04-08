@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2023-10-31T08:20:45.000Z">
-<meta property="article:modified_time" content="2024-04-03T00:05:10.740Z">
+<meta property="article:modified_time" content="2024-04-05T06:53:53.389Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -297,7 +297,7 @@
 <ul>
 <li><code>lsof</code> 该命令可以用于查看对应进程打开的文件</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">lsof -p 进程号 -l |grep 文件名<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">lsof -p 进程号 -l | grep 文件名<br></code></pre></td></tr></table></figure>
 <h2 id="adb命令"><a class="markdownIt-Anchor" href="#adb命令"></a> adb命令</h2>
 <p>​	需要使用 <code>adb shell</code> 进入 adb 环境执行命令，或者命令前加上 <code>adb shell</code> 来执行</p>
 <h3 id="连接设备"><a class="markdownIt-Anchor" href="#连接设备"></a> 连接设备</h3>
@@ -310,7 +310,7 @@
 <h3 id="包信息查看"><a class="markdownIt-Anchor" href="#包信息查看"></a> 包信息查看</h3>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">获取当前活动(处于前台)的系统服务信息然后过滤出正活动的任务</span><br>dumpsys activity top | grep TASK<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看包的信息</span><br>dumpsys package &lt;package-name&gt;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">查看包含 /data 的虚拟内存区域的详细信息，即查看包含/data名称的进程的相关信息，这里就是找到对应虚拟内存区域中的所有文件，它可以寻找包名所在文件的目录</span><br>cat /proc/&lt;pid&gt;/maps | grep /data<br></code></pre></td></tr></table></figure>
 <h3 id="交互"><a class="markdownIt-Anchor" href="#交互"></a> 交互</h3>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安装apk</span><br>adb install ./&lt;file&gt;.apk<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">推送电脑文件到 /data/local/tmp目录下</span><br>adb push ./&lt;file&gt;.apk /data/local/tmp		# 这里推荐frida-server等存储在/data/adb目录下，这个目录普通应用没有权限访问，可以避免文件读写检测到	<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">从手机获取文件</span><br>adb pull /sdcard/&lt;file&gt;		# 这里如果提示权限不足，需要在adb中移动文件到/sdcard/目录即可<br></code></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安装apk</span><br>adb install ./&lt;file&gt;.apk<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">推送电脑文件到 /data/local/tmp目录下</span><br>adb push ./&lt;file&gt;.apk /data/local/tmp		# 这里推荐frida-server等存储在/data/adb目录下，这个目录普通应用没有权限访问，可以避免文件读写检测到	<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">从手机获取文件</span><br>adb pull /sdcard/&lt;file&gt;		# 这里如果提示权限不足，需要在adb中移动文件到/sdcard/目录即可，这里对于每一个需要pull的文件，都请先mv到/sdcard/目录下再进行拉取<br></code></pre></td></tr></table></figure>
 <h3 id="其他"><a class="markdownIt-Anchor" href="#其他"></a> 其他</h3>
 <ul>
 <li><code>am</code> 主要用于启动或停止服务、发送广播、启动Activity等</li>
