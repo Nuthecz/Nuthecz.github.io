@@ -16,23 +16,23 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Gradle下载配置 ​	直接更换国内腾讯镜像源，打开gradle - wrapper -gradle-weapper.properties 进行更改。然后点击 Sync Now 进行同步。参考-&gt; Android导入项目时Gradle下载速度慢\超时\失败解决方法_导入gradle项目特别慢-CSDN博客 123456#Sun Feb 25 20:22:32 GMT+08:00 2024">
+    <meta name="description" content="《软件分析》Lab7 分析">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Android Studio配置">
-<meta property="og:url" content="http://example.com/posts/64c50d77.html">
+<meta property="og:title" content="《软件分析》Lab7">
+<meta property="og:url" content="http://example.com/posts/ebddcbac.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="Gradle下载配置 ​	直接更换国内腾讯镜像源，打开gradle - wrapper -gradle-weapper.properties 进行更改。然后点击 Sync Now 进行同步。参考-&gt; Android导入项目时Gradle下载速度慢\超时\失败解决方法_导入gradle项目特别慢-CSDN博客 123456#Sun Feb 25 20:22:32 GMT+08:00 2024">
+<meta property="og:description" content="《软件分析》Lab7 分析">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
-<meta property="article:published_time" content="2024-02-25T13:20:45.000Z">
-<meta property="article:modified_time" content="2024-04-30T12:27:30.194Z">
+<meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
+<meta property="article:published_time" content="2024-04-08T08:14:56.000Z">
+<meta property="article:modified_time" content="2024-04-08T08:30:42.097Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
+<meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
   
   
   
-  <title>Android Studio配置 - Nuthecz`Blog</title>
+  <title>《软件分析》Lab7 - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -201,13 +201,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241953130.png') no-repeat center center; background-size: cover;">
+     style="background: url('https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202310220951931.jpg') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Android Studio配置"></span>
+            <span id="subtitle" data-typed-text="《软件分析》Lab7"></span>
           
         </div>
 
@@ -218,8 +218,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-25 21:20" pubdate>
-          2024年2月25日 晚上
+        <time datetime="2024-04-08 16:14" pubdate>
+          2024年4月8日 下午
         </time>
       </span>
     
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          6.5k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          17 分钟
+          55 分钟
         
       </span>
     
@@ -279,64 +279,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Android Studio配置</h1>
+            <h1 style="display: none">《软件分析》Lab7</h1>
             
             
-              <div class="markdown-body">
-                
-                <h1 id="gradle下载配置"><a class="markdownIt-Anchor" href="#gradle下载配置"></a> Gradle下载配置</h1>
-<p>​	直接更换国内腾讯<a target="_blank" rel="noopener" href="https://mirrors.cloud.tencent.com/gradle/">镜像源</a>，打开<code>gradle - wrapper -gradle-weapper.properties</code> 进行更改。然后点击 <code>Sync Now</code> 进行同步。参考-&gt; <a target="_blank" rel="noopener" href="https://blog.csdn.net/Systemmax20/article/details/131343623">Android导入项目时Gradle下载速度慢\超时\失败解决方法_导入gradle项目特别慢-CSDN博客</a></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml">#Sun Feb 25 20:22:32 GMT+08:00 2024<br>distributionBase=GRADLE_USER_HOME<br>distributionPath=wrapper/dists<br>distributionUrl=https\://mirrors.cloud.tencent.com/gradle/gradle-8.2-bin.zip # 这里就对应替换为腾讯的镜像地址<br>zipStoreBase=GRADLE_USER_HOME<br>zipStorePath=wrapper/dists<br></code></pre></td></tr></table></figure>
-<p>​	但是这样也是很慢，还是得等，有时候还会突然跑到源地址去下载，搞不明白。(后续补充：有时候改了国内源，然后停止加载zip文件，之后重试一下就快很多了)</p>
-<h1 id="生成apk"><a class="markdownIt-Anchor" href="#生成apk"></a> 生成APK</h1>
-<ul>
-<li><code>build -&gt; Generate Signed Bundle or APK</code>：选择APK，然后创建key(注意需要路径完整)，之后再选择release即可</li>
-</ul>
-<h1 id="存储空间管理"><a class="markdownIt-Anchor" href="#存储空间管理"></a> 存储空间管理</h1>
-<ul>
-<li>移动 <code>.gradle</code> 到指定位置
-<ul>
-<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tc310/p/16884368.html">将 .gradle文件 从C盘移动到D盘 - tc310 - 博客园 (cnblogs.com)</a>，这里同时还需要相应修改 <code>idea.plugins.path</code> 和 <code>idea.log.path</code></li>
-</ul>
-</li>
-<li>移动 <code>.android</code> 到指定位置
-<ul>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42768634/article/details/115142632">https://blog.csdn.net/weixin_42768634/article/details/115142632</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="sd卡读写权限"><a class="markdownIt-Anchor" href="#sd卡读写权限"></a> SD卡读写权限</h1>
-<p>对于低版本sdk，只需要以下权限即可(在AndroidManifest.xml中修改)，在manifest标签中添加</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">uses-permission</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.permission.READ_EXTERNAL_STORAGE&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">uses-permission</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">uses-permission</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">uses-permission</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>​	而对于高版本的sdk，这里是34，则需要添加东西。新加入的在application标签中添加</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">uses-permission</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.permission.READ_EXTERNAL_STORAGE&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">uses-permission</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">uses-permission</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">uses-permission</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">uses-permission</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;android.permission.MANAGE_EXTERNAL_STORAGE&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">uses-permission</span>&gt;</span><br>    <br>android:requestLegacyExternalStorage=&quot;true&quot;<br></code></pre></td></tr></table></figure>
-<h1 id="生成apk-2"><a class="markdownIt-Anchor" href="#生成apk-2"></a> 生成apk</h1>
-<p>​	本来生成的 <code>app-debug.apk</code> 在路径 <code>/app/build/outputs/apk/debug/</code> 下面，后面不知道出现了什么差错，这个文件转移到了 <code>/app/build/intermediates/apk/debug/</code> 目录下了。怀疑之后生成的release版本也会转移位置，这里先存疑。</p>
-<h1 id="报错汇总"><a class="markdownIt-Anchor" href="#报错汇总"></a> 报错汇总</h1>
-<ul>
-<li>
-<p>遇到问题 <code>Cannot use connection to Gradle distribution 'https://mirrors.cloud.tencent.com/gradle/gradle-8.2-bin.zip' as it has been stopped.</code></p>
-<ul>
-<li>这里直接关闭项目，再重新打开即可。</li>
-</ul>
-</li>
-<li>
-<p><code>Error running 'app': Default Activity not found</code></p>
-<ul>
-<li>这里修改 configuration，更改 Launch Options -&gt; <code>Launch:nothing</code></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36792930/article/details/91041904">android studio怎么运行没有activity的service、broadcastReceiver、cotentProvicer等_androidstudio 如何启动服务?-CSDN博客</a></li>
-</ul>
-</li>
-<li>
-<p>日志不能在 As 中显示</p>
-<ul>
-<li>检查算法助手有没有 hook 对应程序，如果存在，那么它好像开机自启，自动将日志捕获了。关闭应用 hook 就可以显示日志了</li>
-</ul>
-</li>
-</ul>
+              
+              <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="f11e182f1907f227cc70c7af51cf2d730478483867db35294f6cb47286885db6">b08cef0d061ff7f32a9b6dda9d283aab582577b4f5b091fd866f1fc9bdb83f5c4878fb98d266faf0b7afe7714a504cef3aff30530ac9e819180ea9acbba3fa5b2fc7a802cb6da57fbc01ac6eca6a1a66ae906cd43df2ed068ca20c18ec2009b5eb19c4fc7ea4f720e0e78aa3e66e0d51293f64f89418cb6f7419e1acf2a896997742309522320d43036cbaa4e7335400c36ac232e1c44728703da44348034ec3754a064d53cc413411dde7000a2bdfa84738f053aeffe74b8e6f5d8747aaae17df7c785f85f479b3cde3101183ef31799ae6927ce26cec7108098eba19b05fa55629fb3cbc42d68eba38d16d72c7885f52d8833b97242b151533e6d4e4c90f04875a9ee53d176c554ce1b50aeaf9f539cf1568d8029cac4b4b2f49ffd70a16cc8eb75b6c0d0322a75a0654241e3ae66bbf045eb14d8459389e0a130ffac877174e83773ace43bbc959eb156ea7b333afe22adc39db3b9d6a94c9258651c011657df2a6d2ae51a10810ee2c027e17d5afe76b44c6cf83f1e8632fba7384d1265fe37bd93ff2940b950ad2152e427071597d089c521ab7acd242361c2f4aa96bbbaf196339b5a4824d5fb8715acf6b09c317d60697642aee9741da3efb9ced0875f701b38edba264e8e9a43c6fee50a4f05f19f38c5d53ae890dd58e405e4dada5c5efd73a3e6212fc2276a4415fea0b8c778d8c4bcfab35a841389475bb34ecc5e1c394f8c5896b1fc0808711440a2cd297209b17cf8bbd2177dc9b76c5fb11f11c8d16968c9e108abdda51de625195d32b6a5d7cea722c2dbf6a1198f9744b490af4ef3e4b4b9a65e2b4c23a37984f47808a9dcb3d59e5ac4b75b1b8f19dd26d255170da2dc06ed0f5c8b4199628c4ce8d228ccf34f3a49ececc923dae8ff42496595d15c7c35d8460a3b356ac9def0489a4a51740f92503cf5c386bdef18fd9e7313ade199a6e26134d72cb29b213b9a1373d2fee7aa42bd0ed4b4676b285099e09a0ca2707f9aca0f60ad09eeb7a00e6816e9f891cc30a7aecdb97774ef993cf3aa586289d1fb22526df2e9f55abde943f3c95c322a72e5fb9d0f066d1690c0ecb2e95bd9977e8b41d64874119610f8ee8a16eeedeb2965defb2e05f172a7a03edd053a6085f1f77cf6e3d8cf7cefc042dc00e3a0a436c16d8451378018742e0d150fead8a8d67e1b23c412e601a74e0cdfb7c22e50d728e762b26155e76cb873248d32d0324539464ebad8da3da8206d25ce2d44e2f430106b022826f2a754e5fb054ed19ed37b0d388e1286b3aac8f257e2ea6a5393f9284ae9b6d78b59edb215de09c15bedf32bb1aff53941447d10abb31dd822dd5aaa4dd2b293120aa2c1888c0504ab4d199a238ea02018ea5928c3d8798a2125e5502ac6c1fc86bd76bc2f599c9cbbf39714a249a290f37690ee7bba239fd548ae376fa218395c9cb063ba74271e0c7a05e9ac3a8a9a1ba23b30cd892ab6bb914875ca477d0afae7d7a73f75b13863f5275952f228ea3a0f1add81a35f394a6de14c6477c313f16c34d2239ab892e5906e9e6867c104b3731a4b1efac5f588b4f4a1fdcbf69d73ed5de6e3b229fdee9a57379d3db20d61c1127fe0624746684c9c177259a48dffcff3d6563652f0db973ec0f7e2ae8a37c796fdbaa8ee60d48eb437c995f78bde1f19bc4c2df18ea0716a63542819540c4c830905fe47916c030f5616cf225e5710fc541f7b88405a80f651649edc22d45eff6ca5b5d5e863d5ea2bd22e93776e4e71abe6094b991baa72f94b8dd4d86cdfe2448587bb9ce63c15bff200e652563e724e9405e596cee7e4b6f71ffc55032b769be3f8224bb76b9a513a59e28f705da93b014e4d5a75e7742b5bced16a2541c44a2483c0f92dc1c3b1813047937010385a5379a7ab759f5f3890c82868a655a3f003fb628b0fa6d8a251f0987636da156e78daf70efc9f9e0be9ce63c6903c7b2f5c4d8e49c8e45a1d2f6ca42cf73358d8a1b15fb1712df6cdf3f0f958dac1856450f17caf4372bde5dd6fef74a9fd6fce59bcd8a5bbf6453e12d46082effc41ee728ff16d00b74f06165bf1e32d3700428bf0ae4fd39006d415e560b772370d6523afb6aabd6b60abdf23ab4fad83ef1007e5fcc130b0739d586c78d44d7bbf2a1d137800335314f8264350b5b5fc5e39bed415cf601bef40c1749b3a979b1f249764d4b2f96fa194375ccba6683e73081f0557a8809ee1d5af7f2bca2f02c4e5e2ad9362529eb2839b89dcdabebd972cb79ea2e953df94ea4aadb122042b2ef731a8db4d0f7b855945694b9cb4651ccf81c7c2c22e89a1009086b35a1a8f5c787d222ea9900093b9d36591b4133d6e5d9bdb4266c528f910bfc827ea41172c82ee2f1469b36a738390f9cce90820b34e890b0f03527dbea9338ca3a4455a0d21f33e89c07415be5e9fe4df56c565e95084dce5c8c5904b4e4d212e74bc516fb62a167b03cb7462ec06e3c335acfd3b3e051072d166d4102dc5a188c5428aef9d964fd317da699fa44bbe794bdb22b6b3198e336390ef4c56bc4c3d0f6007830b4aa4663d4e28718f3a8fc1f0f508d3eaaa30e2e2c1ef45310d17ff642aacaf8610238891764cbdec690e29a3aa8f87b19b4793e5c4f5304e589026b6beb307f607b4a9f8885f9e7ac5a3b815d0e48b947348286d5f4b33a1a2fa7f16303926cb9e96f4c03ccd23506ca7a6ff7979df1c4896a7abcf48c2a5a383d2b7735867f2d57cd8545295e7042bfb79272f0c77338e0421ea32bb6f45c7e0bcfb077bd19094b589914070990ddc78b5834b3da3a5e85f75378b2cd687e22d95fe45682db18f8234e93c8eb0543239505fbb45be3cf43198ea7f7fb3272f3778a3caaf93136245cca4e054fe6cfe7fc2de4a7690efe75e0ba46fda8b76562aeb91d4cdffe2a7ecb7eaf974826b486a13bd6b1a2fb6782553ec5e5951494079902db5004b62517ba5a9499bc222efc2abded17bea58e8b6974d0ac196a98a792ca386310192eb6e41c70b9f6434a82607bcd71c084a4cee94435dcd6d1aad9a0f321f775106e84de2f54860270b6f4afebb1af3d316d55ce6729e67a3ad06beb3e01cb0b3ca7d52a42b53582037023ab1ed7e757d6146c320abd5e891e3b458c3f6a41e2508125a5f96abb062a7e5a10d75163fb286f6929a33ed7cc49c3cc5dd93f1ad259bde79997b1dd03a9bc130c8da3461d3a6f4b26e8e090f014b3bf76928fa992a491ac78894fc3548e12cd83cf046a4704a94d3d9aabf1f5b641a1d1861450486afed6e5676cbdedcddf04dfe97a852b437ebaa0a3830c9e9e3f72b702ac634e2eae7a633f7568e3a0ebd96a8a8191f25e109266d59184ad9682a5be7ba7e6f3b691d110e16e794305c02724252879e945a824fa41cf6d91fbf9abf7a669964d8f048a7b010a23f3d4f4293c16153a56facbd3472c1752d8b7d8319ce9466a19994e1f247639f6023bdea67c9eae3838c406cd9555e7754a50cbe96c185b0bc7fc29079c988d137f133448bee1b9463a0aed0c9c17bfd2441ed1181279daf3f914dda8a435e71e4d0ba3be962bf0f7c7953c4986692681102d3b845ad8f192b43c23c674376f7e726183a638c72f689ae54449dc769f09ee11342b53effce04d9ac2b3fa8bbff6370e19722e060b318d24eeba2c6fb30d2b782cd4fad44d7d9c1fe7c8eea3a9ad54535a299e6b2490adac09b3b4fb3e20036a30f8e4dfe72fcc189d29df6a3760d16f9d3edf4f55352b0318550da1d85cd8aa955e78d4374bcf9ffec1170b719887ec47ecf081bc22be4ce2b6eccead1b1ad0bbba30cf66ba9bdeff98f019452679337b66b8fdfe2f06f6cbbf036743ae1c9bfeef81436cf19ba54ba01ade7f7a3a5f5ca6c90dbd30208d23ebaf93e3537022968b49dcff2f11383207733b99edfb0af321e8bf91e2f847a94e9740fdd5ec9572b0f7e39fc6ac387a5a5dbe7e17e6c36f5324ae20e15506fe7e0197a4ae5fe7a74f2bc588defa6554695a23c11d13d87db1f996da4daee2c9e70501b5255d746359eacceda2ed8bf13c77a39204b44080651e309b787b538d613f5d9bcda6eea68a3c614f0148d06d6cd326aca00702dfaecde0d333a607d7061915c2296bf40818117c1a0d4d247157145d22898214d0973cbe112f6cb3c6e5aae91d6f58b4fa015d66f61ee8433e9cb72bc15b69c3c0dea7a780bf0c820c18335a8c6f844b4fc2ba818c63e98afe66288fd3b9c9e3c756e2ac727bbb3152ff2b5759671bd1ec073b2782c27e18050973969d67dfe69719e07aa8e8321bda47f675ffa9c7692466b48bf3fc3cef2a88dca74b9dbac1ba87fdfc3a34983e65d8a2c89fe43df9c4a385ffac461f0004a884b8eabccb9417a8f61d442215280461eec8e872f403b67a5a00c01d4e563adf061d35be748ded364d2fbb2d08444ef4d3fb9320ff23fe089fbae76ae80fc666bff265d2d879eb215d1a9aabc5459f497d43e004c261a790c799f6168fd2388a893e573cb62ee946f03a0f2d43dac03823603d6e2788a43746eee736ab6c106dce6f8ca04352d59cc1902e2b64403b9be531ea52672fe1a96c495032ab</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+              
 
-                
-              </div>
+              
             
             <hr/>
             <div>
@@ -352,7 +313,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Android/" class="category-chain-item">Android</a>
+  <a href="/categories/%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90/" class="category-chain-item">静态分析</a>
   
   
 
@@ -372,8 +333,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Android Studio配置</div>
-      <div>http://example.com/posts/64c50d77.html</div>
+      <div>《软件分析》Lab7</div>
+      <div>http://example.com/posts/ebddcbac.html</div>
     </div>
     <div class="license-meta">
       
@@ -385,7 +346,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月25日</div>
+          <div>2024年4月8日</div>
         </div>
       
       
@@ -417,18 +378,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/7b521994.html" title="Android实战练习">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Android实战练习</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/a5156944.html" title="Android逆向入门(2)">
-                        <span class="hidden-mobile">Android逆向入门(2)</span>
+                      <a href="/posts/9cdafb3a.html" title="《软件分析》Lab6">
+                        <span class="hidden-mobile">《软件分析》Lab6</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -585,6 +540,23 @@
   
 
 
+
+
+  
+  <script defer>
+    if (document.getElementById('hbePass')) {
+      Fluid.utils.waitElementLoaded('hbe-prefix', function() {
+        var hbePrefix = document.querySelector('hbe-prefix');
+        hbePrefix.parentElement.classList.add('markdown-body');
+        Fluid.utils.retry(function() {
+          if (Fluid.boot && Fluid.boot.refresh) {
+            Fluid.boot.refresh();
+            return true;
+          }
+        }, 100, 10);
+      })
+    }
+  </script>
 
 
    <script>
