@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2023-10-31T08:20:45.000Z">
-<meta property="article:modified_time" content="2024-04-29T00:24:33.544Z">
+<meta property="article:modified_time" content="2024-05-05T04:01:17.374Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.2k 字
+          7.4k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          61 分钟
+          62 分钟
         
       </span>
     
@@ -418,6 +418,10 @@
 <p>​	使用 <code>adb install xxxx.apk</code> 安装报错</p>
 <figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fsharp">adb<span class="hljs-operator">:</span> failed <span class="hljs-keyword">to</span> install .\xxxx.apk<span class="hljs-operator">:</span> Failure [INSTALL_PARSE_FAILED_NO_CERTIFICATES<span class="hljs-operator">:</span> Failed <span class="hljs-keyword">to</span> collect certificates from <span class="hljs-operator">/</span>data<span class="hljs-operator">/</span>app<span class="hljs-operator">/</span>vmdl2062104312.tmp<span class="hljs-operator">/</span><span class="hljs-keyword">base</span>.apk<span class="hljs-operator">:</span> Attempt <span class="hljs-keyword">to</span> <span class="hljs-built_in">get</span> length <span class="hljs-keyword">of</span> <span class="hljs-literal">null</span> <span class="hljs-type">array</span>]<br></code></pre></td></tr></table></figure>
 <p>​	这里是因为没有签名，之后再签名即可</p>
+<h2 id="adb错误"><a class="markdownIt-Anchor" href="#adb错误"></a> adb错误</h2>
+<h3 id="连不上设备"><a class="markdownIt-Anchor" href="#连不上设备"></a> 连不上设备</h3>
+<p>报错 <code>daemon not running； starting now at tcp:5037</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">kill-server						# 如果使用devices没有显示设备，尝试先杀死服务，然后连接报错就进行下面的流程<br>netstat -ano | findstr 5037		# 找出占用5037端口的应用的pid<br>taskkill -f -pid &lt;pid&gt;			# 关闭掉该应用<br></code></pre></td></tr></table></figure>
 <h1 id="资源汇总"><a class="markdownIt-Anchor" href="#资源汇总"></a> 资源汇总</h1>
 <ul>
 <li>
