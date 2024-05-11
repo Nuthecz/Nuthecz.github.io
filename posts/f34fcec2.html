@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="抓包专题">
+    <meta name="description" content="Arm汇编   Environment setup  Set tools  download the ndk find the path of ~&#x2F;environment&#x2F;android-ndk-r24&#x2F;toolchains&#x2F;llvm&#x2F;prebuilt&#x2F;linux-x86_64&#x2F;bin add the path command which is export PATH&#x3D;~&#x2F;.....&#x2F;bin:$">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android逆向入门(4)">
 <meta property="og:url" content="http://example.com/posts/f34fcec2.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="抓包专题">
+<meta property="og:description" content="Arm汇编   Environment setup  Set tools  download the ndk find the path of ~&#x2F;environment&#x2F;android-ndk-r24&#x2F;toolchains&#x2F;llvm&#x2F;prebuilt&#x2F;linux-x86_64&#x2F;bin add the path command which is export PATH&#x3D;~&#x2F;.....&#x2F;bin:$">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
 <meta property="article:published_time" content="2024-03-05T13:43:45.000Z">
-<meta property="article:modified_time" content="2024-03-08T03:56:15.337Z">
+<meta property="article:modified_time" content="2024-05-11T16:05:58.931Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402241952817.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4 字
+          6k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          1 分钟
+          50 分钟
         
       </span>
     
@@ -285,8 +285,153 @@
               <div class="markdown-body">
                 
                 <blockquote>
-<p>抓包专题</p>
+<p>Arm汇编</p>
 </blockquote>
+<h1 id="environment-setup"><a class="markdownIt-Anchor" href="#environment-setup"></a> Environment setup</h1>
+<h2 id="set-tools"><a class="markdownIt-Anchor" href="#set-tools"></a> Set tools</h2>
+<ol>
+<li>download the ndk</li>
+<li>find the path of <code>~/environment/android-ndk-r24/toolchains/llvm/prebuilt/linux-x86_64/bin</code></li>
+<li>add the path command which is <code>export PATH=~/...../bin:$PATH</code> to <code>~/.bashrc</code></li>
+</ol>
+<h2 id="how-to-use-clang"><a class="markdownIt-Anchor" href="#how-to-use-clang"></a> How to use clang</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">clang -target aarch64-linux-android21 hello.c -o arm_hello<br><span class="hljs-comment"># 这里的前缀或目标参数的格式是目标三元组，带有表示 minSdkVersion 的后缀</span><br><span class="hljs-comment"># 三元组在下面的表格中展示，21是后缀，这两个都可以进行更改</span><br><br><span class="hljs-comment"># 这里是相关的命令</span><br>clang -target aarch64-linux-android21 -E hello.c -o arm_hello.i         <span class="hljs-comment"># 预处理</span><br>clang -target aarch64-linux-android21 -S arm_hello.i -o arm_hello.s     <span class="hljs-comment"># 编译</span><br>clang -target aarch64-linux-android21 -c arm_hello.s -o arm_hello.o     <span class="hljs-comment"># 汇编</span><br>clang -target aarch64-linux-android21 arm_hello.o -o arm_hello          <span class="hljs-comment"># 链接</span><br><span class="hljs-comment"># 这里如果不加 `-o` 选项，那么会自动生成同名的文件，后缀名不同</span><br><br></code></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">ABI</th>
+<th style="text-align:left">三元组</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">armeabi-v7a</td>
+<td style="text-align:left"><code>armv7a-linux-androideabi</code></td>
+</tr>
+<tr>
+<td style="text-align:left">arm64-v8a</td>
+<td style="text-align:left"><code>aarch64-linux-android</code></td>
+</tr>
+<tr>
+<td style="text-align:left">x86</td>
+<td style="text-align:left"><code>i686-linux-android</code></td>
+</tr>
+<tr>
+<td style="text-align:left">x86-64</td>
+<td style="text-align:left"><code>x86_64-linux-android</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-to-use-gdb"><a class="markdownIt-Anchor" href="#how-to-use-gdb"></a> How to use gdb</h2>
+<ul>
+<li>path of gdb <code>/home/tcz/environment/android-ndk-r21e/prebuilt/android-arm64/gdbserver/gdbserver</code> -&gt; <code>/data/local/tmp/gdbserver64</code></li>
+<li>这里需要注意gdbserver的架构需要与调试的程序架构相同，所以在<code>~/.bashrc</code>中设置环境变量<code>alias gdb-arm='~/environment/android-ndk-r21e/prebuilt/linux-x86_64/bin/gdb'</code></li>
+<li>同时根据<code>android-ndk-r21e</code>的gdb只有<code>python2.7</code>的特性，需要配置特定python2的<code>gef-legacy</code>，这里就需要在<code>~/.gdbinit</code>中加入<code>set auto-load safe-path ~/android/arm/arm_study</code>允许特定目录加载自己的<code>.gdbinit</code>文件，然后在那个文件中填写<code>source /home/tcz/pwn/tools/gef-legacy/gef.py</code>进行gdb调用，这样就可以在这个目录下实现gdb-arm调用gef了</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-keyword">in</span> adb</span><br>./gdbserver :9090 ./arm_hello <br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-keyword">in</span> linux</span><br>adb forward tcp:9090 tcp:9090<br>gdb-arm    # 其实就是 ~/environment/android-ndk-r21e/prebuilt/linux-x86_64/bin/gdb<br><span class="hljs-meta prompt_">gef&gt; </span><span class="language-bash">target remote localhost:9090</span><br><br></code></pre></td></tr></table></figure>
+<h1 id="arm-v7a"><a class="markdownIt-Anchor" href="#arm-v7a"></a> arm-v7a</h1>
+<h2 id="汇编相关"><a class="markdownIt-Anchor" href="#汇编相关"></a> 汇编相关</h2>
+<h3 id="编译后文件"><a class="markdownIt-Anchor" href="#编译后文件"></a> 编译后文件</h3>
+<p>​	在经过 <code>clang</code> 对源文件(cpp文件)进行预处理和编译之后会生成一个<code>.s</code>的汇编文件，其内容包含了相关的汇编指令，简单的结构如下：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs x86asm">处理器信息<br>段<span class="hljs-meta">section</span><br><span class="hljs-meta">	.text</span><br><span class="hljs-meta">	.section</span>	.rodata<span class="hljs-number">.</span>str1<span class="hljs-number">.1</span>,<span class="hljs-string">&quot;aMS&quot;</span>,%progbits,<span class="hljs-number">1</span><br><span class="hljs-meta">	.section</span>	<span class="hljs-string">&quot;.note.GNU-stack&quot;</span>,<span class="hljs-string">&quot;&quot;</span>,%progbits<br>	<br>符号<br>	外部符号<br>	<span class="hljs-built_in">bl</span> printf<br><br>子程序<br><span class="hljs-meta">	.globl</span>	main                    @ -- Begin function main<br><span class="hljs-meta">	.type</span>	main,%function<br><span class="hljs-meta">	.code</span>	<span class="hljs-number">32</span>                      @ @main<br>	<br>main<br><span class="hljs-meta">	.fnstart</span>						@ 伪指令，方便读代码<br><span class="hljs-meta">	.fnend</span><br></code></pre></td></tr></table></figure>
+<p>​	这里根据hello.c的内容通过命令 <code>clang -target armv7a-linux-androideabi21 -S hello.c -o arm_hello321.s</code> 生成一个arm.s文件进行分析。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> ARM <span class="hljs-string">&quot;armv7a&quot;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;hello %s\n&quot;</span>, ARM);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs assembly">	.text<br>	.syntax unified<br>	.eabi_attribute	67, &quot;2.09&quot;	@ Tag_conformance<br>	.eabi_attribute	6, 10	@ Tag_CPU_arch<br>	.eabi_attribute	7, 65	@ Tag_CPU_arch_profile<br>	.eabi_attribute	8, 1	@ Tag_ARM_ISA_use<br>	.eabi_attribute	9, 2	@ Tag_THUMB_ISA_use<br>	.fpu	neon<br>	.eabi_attribute	34, 1	@ Tag_CPU_unaligned_access<br>	.eabi_attribute	15, 1	@ Tag_ABI_PCS_RW_data<br>	.eabi_attribute	16, 1	@ Tag_ABI_PCS_RO_data<br>	.eabi_attribute	17, 2	@ Tag_ABI_PCS_GOT_use<br>	.eabi_attribute	20, 1	@ Tag_ABI_FP_denormal<br>	.eabi_attribute	21, 1	@ Tag_ABI_FP_exceptions<br>	.eabi_attribute	23, 3	@ Tag_ABI_FP_number_model<br>	.eabi_attribute	24, 1	@ Tag_ABI_align_needed<br>	.eabi_attribute	25, 1	@ Tag_ABI_align_preserved<br>	.eabi_attribute	38, 1	@ Tag_ABI_FP_16bit_format<br>	.eabi_attribute	18, 4	@ Tag_ABI_PCS_wchar_t<br>	.eabi_attribute	26, 2	@ Tag_ABI_enum_size<br>	.eabi_attribute	14, 0	@ Tag_ABI_PCS_R9_use<br>	.file	&quot;hello.c&quot;<br>	.globl	main                    @ -- Begin function main<br>	.p2align	2<br>	.type	main,%function<br>	.code	32                      @ @main<br>main:<br>	.fnstart<br>@ %bb.0:<br>	.save	&#123;r11, lr&#125;<br>	push	&#123;r11, lr&#125;<br>	.setfp	r11, sp<br>	mov	r11, sp<br>	.pad	#8<br>	sub	sp, sp, #8<br>	ldr	r0, .LCPI0_0<br>.LPC0_0:<br>	add	r0, pc, r0<br>	ldr	r1, .LCPI0_1<br>.LPC0_1:<br>	add	r1, pc, r1<br>	movw	r2, #0<br>	str	r2, [sp, #4]<br>	bl	printf<br>	movw	r1, #0<br>	str	r0, [sp]                @ 4-byte Spill<br>	mov	r0, r1<br>	mov	sp, r11<br>	pop	&#123;r11, pc&#125;<br>	.p2align	2<br>@ %bb.1:<br>.LCPI0_0:<br>	.long	.L.str-(.LPC0_0+8)<br>.LCPI0_1:<br>	.long	.L.str.1-(.LPC0_1+8)<br>.Lfunc_end0:<br>	.size	main, .Lfunc_end0-main<br>	.cantunwind<br>	.fnend<br>                                        @ -- End function<br>	.type	.L.str,%object          @ @.str<br>	.section	.rodata.str1.1,&quot;aMS&quot;,%progbits,1<br>.L.str:<br>	.asciz	&quot;hello %s\n&quot;<br>	.size	.L.str, 10<br><br>	.type	.L.str.1,%object        @ @.str.1<br>.L.str.1:<br>	.asciz	&quot;armv7a&quot;<br>	.size	.L.str.1, 7<br><br><br>	.ident	&quot;Android (7019983 based on r365631c3) clang version 9.0.9 (https://android.googlesource.com/toolchain/llvm-project a2a1e703c0edb03ba29944e529ccbf457742737b) (based on LLVM 9.0.9svn)&quot;<br>	.section	&quot;.note.GNU-stack&quot;,&quot;&quot;,%progbits<br></code></pre></td></tr></table></figure>
+<p>​	上面就是得到的 <code>.s</code> 文件的具体信息，但是其中包含编译器和操作系统的一些对于运行没有帮助的额外信息，可以通过删减这些信息来精简文件，从而获得上面提到的简单的结构。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs assembly">	.text<br>	.syntax unified        			@ 表示编译的类型，可要可不要 <br>	.globl	main                    @ -- Begin function main<br>	.p2align	2<br>	.type	main,%function<br>	.code	32                      @ @main<br>main:<br>	.fnstart<br>@ %bb.0:<br>	.save	&#123;r11, lr&#125;<br>	push	&#123;r11, lr&#125;<br>	.setfp	r11, sp<br>	mov	r11, sp<br>	.pad	#8<br>	sub	sp, sp, #8<br>	ldr	r0, .LCPI0_0<br>.LPC0_0:<br>	add	r0, pc, r0<br>	ldr	r1, .LCPI0_1<br>.LPC0_1:<br>	add	r1, pc, r1<br>	movw	r2, #0<br>	str	r2, [sp, #4]<br>	bl	printf<br>	movw	r1, #0<br>	str	r0, [sp]                @ 4-byte Spill<br>	mov	r0, r1<br>	mov	sp, r11<br>	pop	&#123;r11, pc&#125;<br>	.p2align	2<br>@ %bb.1:<br>.LCPI0_0:<br>	.long	.L.str-(.LPC0_0+8)<br>.LCPI0_1:<br>	.long	.L.str.1-(.LPC0_1+8)<br>.Lfunc_end0:<br>	.size	main, .Lfunc_end0-main<br>	.cantunwind<br>	.fnend<br>                                        @ -- End function<br>	.type	.L.str,%object          @ @.str<br>	.section	.rodata.str1.1,&quot;aMS&quot;,%progbits,1<br>.L.str:<br>	.asciz	&quot;hello %s\n&quot;<br>	.size	.L.str, 10<br><br>	.type	.L.str.1,%object        @ @.str.1<br>.L.str.1:<br>	.asciz	&quot;armv7a&quot;<br>	.size	.L.str.1, 7<br><br><br>	.section	&quot;.note.GNU-stack&quot;,&quot;&quot;,%progbits<br></code></pre></td></tr></table></figure>
+<h2 id="寄存器"><a class="markdownIt-Anchor" href="#寄存器"></a> 寄存器</h2>
+<p>​	arm32的寄存器共17个，如下所示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs assembly">R0~R7 未分组寄存器<br>R8~R12 分组寄存器<br>R13~R14<br>	R13 SP<br>	R14 LR<br>R15 PC<br>CPSR	条件判断的标志寄存器<br></code></pre></td></tr></table></figure>
+<h2 id="程序调用"><a class="markdownIt-Anchor" href="#程序调用"></a> 程序调用</h2>
+<p>​	下面是程序调用的语句，参数少于4个使用r0~r3传参，参数大于4个时，多的参数使用栈传递，同时使用r0传递返回值，lr传递返回地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs assembly">bl printf<br></code></pre></td></tr></table></figure>
+<h2 id="汇编指令"><a class="markdownIt-Anchor" href="#汇编指令"></a> 汇编指令</h2>
+<ul>
+<li>
+<p>寻址方式</p>
+<ul>
+<li>立即数寻址 -&gt; <code>mov r0, #2</code></li>
+<li>寄存器寻址 -&gt; <code>mov r0, r1</code></li>
+<li>寄存器移位寻址
+<ul>
+<li>LSL 逻辑左移 -&gt; <code>mov r0, r1, LSL #4</code> r0 = r1 &lt;&lt; 44</li>
+<li>LSR 逻辑右移</li>
+<li>ROR 循环右移</li>
+<li>ASR 算术右移</li>
+<li>RRX 扩展的循环右移</li>
+</ul>
+</li>
+<li>Load Store 的寻址方式
+<ul>
+<li>ldr(保存到寄存器) 与 str(保存到内存)</li>
+<li>立即数</li>
+<li>寄存器 -&gt; <code>str r0,[r3]</code> *(r3) = r0</li>
+<li>基址变址 -&gt; <code>ldr r0,[r3, #4]</code> r0 = *(r3+4)</li>
+</ul>
+</li>
+<li>栈寻址
+<ul>
+<li>stmfd
+<ul>
+<li><code>push &#123;r5, r6, r7, lr&#125;</code></li>
+<li><code>stmfd sp!, &#123;r5-57, lr&#125;</code> 和上面等价</li>
+</ul>
+</li>
+<li>ldmfd</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>汇编指令</p>
+<ul>
+<li>跳转指令
+<ul>
+<li><code>B</code>  强制跳转指令</li>
+<li><code>BL</code> 带返回的跳转指令，lr寄存器存储返回地址</li>
+<li><code>BLX</code> 带返回和带状态切换的跳转指令，arm -&gt; thumb，thumb-&gt;arm</li>
+<li><code>BX</code> 带状态切换的跳转指令</li>
+</ul>
+</li>
+<li>数据处理指令
+<ul>
+<li>mov, add, sub, and, eor, orr, bic</li>
+<li><code>mov r0，r1</code></li>
+<li><code>add rO，r1, r2</code> -&gt; r0 = r1 + r2</li>
+<li><code>sub r0，r1, r2</code></li>
+<li><code>and rO，r1, r2</code> -&gt; r0 = r1 &amp; r2</li>
+<li><code>eor r0，r1，r2</code> -&gt; r0 = r1 ^ r2</li>
+<li><code>orr rO，r1, r2</code> -&gt; r0 = rr2</li>
+<li><code>bic r0，r1，#0xf</code> -&gt; 0x12345678 -&gt; 0x12345670</li>
+</ul>
+</li>
+<li>乘法指令
+<ul>
+<li><code>MUL rO，r1, r2</code> -&gt; r0 = r1 x r2</li>
+<li><code>MLA rO，r1, r2, r3</code>  -&gt; r0 = r1 x r2 + r3</li>
+<li><code>SMULL r0，r1，r2，r3</code>  -&gt; r0 = (r2 x r3)的低32位，r1 = (r2 xr3)的高32位</li>
+<li><code>SMLAL r0，r1，r2，r3</code>  -&gt; r0 = (r2 x r3)的低32位 + r0，r1 = (r2 x r3)的高32位 + r0</li>
+<li><code>UMULL r0，r1，r2，r3</code>  -&gt; r0 = (r2 x r3)的低32位，r1 = (r2 xr3)的高32位 -&gt; 无符号</li>
+<li><code>UMLAL r0，r1，r2，r3</code>  -&gt; r0 = (r2 x r3)的低32位 + r0，r1 = (r2 x r3)的高32位 + r0 -&gt; 无符号</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>内存访问指令</p>
+<ul>
+<li>ldr  4字节读取</li>
+<li>ldrb 1字节读取</li>
+<li>ldrh 2字节读取</li>
+<li>str  4字节写入</li>
+<li>strb 1字节写入</li>
+<li>strh 2字节写入</li>
+</ul>
+</li>
+</ul>
+<p>Arm的官方文档 -&gt; <a target="_blank" rel="noopener" href="https://developer.arm.com/documentation/ddi0406/cd?lang=en">ARM Architecture Reference Manual ARMv7-A and ARMv7-R edition</a></p>
+<h1 id="arm-v8"><a class="markdownIt-Anchor" href="#arm-v8"></a> arm-v8</h1>
+<p>​	参考资料 -&gt; <a target="_blank" rel="noopener" href="https://www.lyldalek.top/article/arm">ARM汇编 | Notion Blog (lyldalek.top)</a></p>
 
                 
               </div>
