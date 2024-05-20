@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="基础操作  转化  -&gt;Str  chr(a)  将int类型的a根据其ascii码转化为str字符   hex(a)  将int类型的a转化为其十六进制str类型   str(a)  将所有类型的a按照其本身转化为str类型   str &#x3D; a.decode()  将bytes类型的a转化为str类型     -&gt;Int   int(a,k)  a为k进制数，使用 int将k进制数">
+    <meta name="description" content="基础操作  转化 ​	这里强制自己使用byte类型，这样可以统一python的不同数据类型  all -&gt; byte 1234567891011121314151617181920212223242526def all2byte():    # string to byte    string &#x3D; &quot;Hello World&quot;    str_byte &#x3D; bytes(st">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Crypto &amp; 算法">
 <meta property="og:url" content="http://example.com/posts/108720dc.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="基础操作  转化  -&gt;Str  chr(a)  将int类型的a根据其ascii码转化为str字符   hex(a)  将int类型的a转化为其十六进制str类型   str(a)  将所有类型的a按照其本身转化为str类型   str &#x3D; a.decode()  将bytes类型的a转化为str类型     -&gt;Int   int(a,k)  a为k进制数，使用 int将k进制数">
+<meta property="og:description" content="基础操作  转化 ​	这里强制自己使用byte类型，这样可以统一python的不同数据类型  all -&gt; byte 1234567891011121314151617181920212223242526def all2byte():    # string to byte    string &#x3D; &quot;Hello World&quot;    str_byte &#x3D; bytes(st">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
 <meta property="article:published_time" content="2022-10-09T04:39:57.000Z">
-<meta property="article:modified_time" content="2024-01-28T08:24:56.235Z">
+<meta property="article:modified_time" content="2024-05-20T13:49:28.703Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133837.JPG">
@@ -232,7 +232,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.7k 字
+          11k 字
         
       </span>
     
@@ -243,7 +243,7 @@
         
         
         
-          73 分钟
+          95 分钟
         
       </span>
     
@@ -288,7 +288,13 @@
                 
                 <h1 id="基础操作"><a class="markdownIt-Anchor" href="#基础操作"></a> 基础操作</h1>
 <h2 id="转化"><a class="markdownIt-Anchor" href="#转化"></a> 转化</h2>
-<h3 id="-str"><a class="markdownIt-Anchor" href="#-str"></a> -&gt;Str</h3>
+<p>​	这里强制自己使用byte类型，这样可以统一python的不同数据类型</p>
+<h3 id="all-byte"><a class="markdownIt-Anchor" href="#all-byte"></a> all -&gt; byte</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">all2byte</span>():<br>    <span class="hljs-comment"># string to byte</span><br>    string = <span class="hljs-string">&quot;Hello World&quot;</span><br>    str_byte = <span class="hljs-built_in">bytes</span>(string, <span class="hljs-string">&#x27;utf-8&#x27;</span>)  <span class="hljs-comment"># -&gt; b&#x27;Hello World&#x27;</span><br>    <br>    <span class="hljs-comment"># hex string to byte</span><br>    hex_string = <span class="hljs-string">&quot;68 65 6c6c6f20776f726c64&quot;</span>  <span class="hljs-comment"># 这里空格不会影响结果，但是需要是两个字符一组</span><br>    hex_byte = <span class="hljs-built_in">bytes</span>.fromhex(hex_string)  <span class="hljs-comment"># -&gt; b&#x27;hello world&#x27;</span><br>    <span class="hljs-comment"># list(hex_byte) -&gt; [104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100]</span><br>    <br>    <span class="hljs-comment"># long int to byte</span><br>    long_i = <span class="hljs-number">6788912312</span>  <span class="hljs-comment"># 下面就是计算转化为16进制的字节数</span><br>    b = <span class="hljs-built_in">int</span>.to_bytes(long_i, (long_i.bit_length() + <span class="hljs-number">7</span>) // <span class="hljs-number">8</span>, byteorder=<span class="hljs-string">&quot;little&quot;</span>)  <span class="hljs-comment"># -&gt; b&#x27;\xb8\x94\xa6\x94\x01&#x27;</span><br>    <br>    <span class="hljs-comment"># hex int to byte</span><br>    hex_int = <span class="hljs-number">0x12345678</span><br>    int_byte = <span class="hljs-built_in">int</span>.to_bytes(hex_int, <span class="hljs-number">4</span>, byteorder=<span class="hljs-string">&#x27;little&#x27;</span>)  <span class="hljs-comment"># -&gt; b&#x27;xV4\x12&#x27;</span><br>    <br>    <span class="hljs-comment"># list to byte</span><br>    list_num = [<span class="hljs-number">0x12</span>, <span class="hljs-number">0x34</span>, <span class="hljs-number">0x56</span>, <span class="hljs-number">0x78</span>]<br>    list_byte = <span class="hljs-built_in">bytes</span>(list_num)  <span class="hljs-comment"># -&gt; b&#x27;\x124Vx&#x27;</span><br>    <br>    <span class="hljs-comment"># str list to byte</span><br>    str_list = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;E&#x27;</span>, <span class="hljs-string">&#x27;B&#x27;</span>, <span class="hljs-string">&#x27;E&#x27;</span>, <span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-string">&#x27;8&#x27;</span>, <span class="hljs-string">&#x27;9&#x27;</span>, <span class="hljs-string">&#x27;7&#x27;</span>, <span class="hljs-string">&#x27;4&#x27;</span>, <span class="hljs-string">&#x27;A&#x27;</span>, <span class="hljs-string">&#x27;9&#x27;</span>, <span class="hljs-string">&#x27;6&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;C&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>]<br>    <span class="hljs-comment"># 先转str再转byte</span><br>    b = <span class="hljs-built_in">bytes</span>(<span class="hljs-string">&quot;&quot;</span>.join(str_list), encoding=<span class="hljs-string">&quot;utf-8&quot;</span>)  <span class="hljs-comment"># -&gt; b&#x27;1CEBE08974A961C5&#x27;</span><br></code></pre></td></tr></table></figure>
+<h3 id="byte-all"><a class="markdownIt-Anchor" href="#byte-all"></a> byte -&gt; all</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">byte2all</span>():<br>    <span class="hljs-comment"># byte to string</span><br>    byte = <span class="hljs-string">b&#x27;Hello World&#x27;</span><br>    byte_str = <span class="hljs-built_in">str</span>(byte, <span class="hljs-string">&#x27;utf-8&#x27;</span>)  <span class="hljs-comment"># -&gt; &#x27;Hello World&#x27;</span><br>    <br>    <span class="hljs-comment"># byte to hex string</span><br>    byte = <span class="hljs-string">b&#x27;hello world&#x27;</span><br>    byte_hex = byte.<span class="hljs-built_in">hex</span>()  <span class="hljs-comment"># -&gt; &#x27;68656c6c6f20776f726c64&#x27;</span><br>    <br>    <span class="hljs-comment"># byte to long int</span><br>    byte = <span class="hljs-string">b&#x27;\xb8\x94\xa6\x94\x01&#x27;</span><br>    i = <span class="hljs-built_in">int</span>.from_bytes(byte, byteorder=<span class="hljs-string">&#x27;little&#x27;</span>)  <span class="hljs-comment"># -&gt; 6788912312</span><br>    <br>    <span class="hljs-comment"># byte to hex int</span><br>    byte = <span class="hljs-string">b&#x27;xV4\x12&#x27;</span><br>    int_num = <span class="hljs-built_in">int</span>.from_bytes(byte, byteorder=<span class="hljs-string">&#x27;little&#x27;</span>)  <span class="hljs-comment"># -&gt; 305419896 0x12345678</span><br>    <br>    <span class="hljs-comment"># byte to list</span><br>    byte = <span class="hljs-string">b&#x27;\x124Vx&#x27;</span><br>    list_num = <span class="hljs-built_in">list</span>(byte)  <span class="hljs-comment"># -&gt; [18, 52, 86, 120]</span><br>    <br>    <span class="hljs-comment"># byte to str list</span><br>    byte = <span class="hljs-string">b&#x27;1CEBE08974A961C5&#x27;</span><br>    str_list = [<span class="hljs-built_in">str</span>(byte[i:i + <span class="hljs-number">2</span>], <span class="hljs-string">&#x27;utf-8&#x27;</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span><br>                <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(byte), <span class="hljs-number">2</span>)]  <span class="hljs-comment"># -&gt; [&#x27;1C&#x27;, &#x27;EB&#x27;, &#x27;E0&#x27;, &#x27;89&#x27;, &#x27;74&#x27;, &#x27;A9&#x27;, &#x27;61&#x27;, &#x27;C5&#x27;]</span><br></code></pre></td></tr></table></figure>
+<h3 id="其余转换处理"><a class="markdownIt-Anchor" href="#其余转换处理"></a> 其余转换处理</h3>
+<h4 id="-str"><a class="markdownIt-Anchor" href="#-str"></a> -&gt;Str</h4>
 <ul>
 <li><code>chr(a)</code>
 <ul>
@@ -311,7 +317,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="-int"><a class="markdownIt-Anchor" href="#-int"></a> -&gt;Int</h3>
+<h4 id="-int"><a class="markdownIt-Anchor" href="#-int"></a> -&gt;Int</h4>
 <ul>
 <li>
 <p><code>int(a,k)</code></p>
@@ -320,6 +326,7 @@
 <li><code>int(a)</code>直接将字符a转化为int类型，此时a必须为数字字符
 <ul>
 <li>注意：不是转化为ascii码，而是转化为数字类型，即值不变，类型改变</li>
+<li>例如 <code>a_str = '0x1234', a_int = int(a_str, 16)</code></li>
 </ul>
 </li>
 </ul>
@@ -337,7 +344,7 @@
 </ul>
 </li>
 </ul>
-<h3 id="-bytes"><a class="markdownIt-Anchor" href="#-bytes"></a> -&gt;Bytes</h3>
+<h4 id="-bytes"><a class="markdownIt-Anchor" href="#-bytes"></a> -&gt;Bytes</h4>
 <ul>
 <li><code>str.encode(encoding='utf-8')</code>
 <ul>
@@ -350,6 +357,184 @@
 </ul>
 </li>
 </ul>
+<h2 id="数据处理"><a class="markdownIt-Anchor" href="#数据处理"></a> 数据处理</h2>
+<p>​	<code>struct</code>模块可以解决<code>bytes</code>和其他二进制数据类型的转换。pack<code>函数把任意数据类型变成</code>bytes，<code>unpack</code>把<code>bytes</code>变成相应的数据类型。这里的格式就是(format:str, <em>v1</em>, <em>v2</em>, <em>…</em>)，其中format对于后面的数据进行匹配，然后输出</p>
+<h3 id="pack"><a class="markdownIt-Anchor" href="#pack"></a> pack</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">struct.pack(<span class="hljs-string">&#x27;&lt;II&#x27;</span>, <span class="hljs-number">10240099</span>, <span class="hljs-number">1767863401</span>)  <span class="hljs-comment"># -&gt; b&#x27;\x00\x9c@ci_ti&#x27; 如果符合ascii的标准，就直接转化为字符</span><br></code></pre></td></tr></table></figure>
+<h3 id="unpack"><a class="markdownIt-Anchor" href="#unpack"></a> unpack</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">struct.unpack(<span class="hljs-string">&#x27;&lt;I&#x27;</span>, <span class="hljs-string">b&#x27;it_i&#x27;</span>)  <span class="hljs-comment"># -&gt; (1767863401,) 这里只有一个符合 I 的规则，所以只有一个数据</span><br></code></pre></td></tr></table></figure>
+<h4 id="format参数"><a class="markdownIt-Anchor" href="#format参数"></a> format参数</h4>
+<ul>
+<li>描述符</li>
+</ul>
+<p>struct可以指定使用大端序还是小端序来解析或者生成数据。</p>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Byte order</th>
+<th>Size</th>
+<th>Alignment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@</td>
+<td>native</td>
+<td>native</td>
+<td>native，凑足4个字节</td>
+</tr>
+<tr>
+<td>=</td>
+<td>native</td>
+<td>standard</td>
+<td>none</td>
+</tr>
+<tr>
+<td>&lt;</td>
+<td>little-endian</td>
+<td>standard</td>
+<td>none</td>
+</tr>
+<tr>
+<td>&gt;</td>
+<td>big-endian</td>
+<td>standard</td>
+<td>none</td>
+</tr>
+<tr>
+<td>!</td>
+<td>network(=big-endian)</td>
+<td>standard</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>数据格式</li>
+</ul>
+<h2 id="数据格式"><a class="markdownIt-Anchor" href="#数据格式"></a> 数据格式</h2>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>C Type</th>
+<th>Python type</th>
+<th>Standard size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x</td>
+<td>pad byte</td>
+<td>no value</td>
+<td></td>
+</tr>
+<tr>
+<td>c</td>
+<td>char</td>
+<td>string of length 1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>b</td>
+<td>signed char</td>
+<td>integer</td>
+<td>1</td>
+</tr>
+<tr>
+<td>B</td>
+<td>unsigned char</td>
+<td>integer</td>
+<td>1</td>
+</tr>
+<tr>
+<td>?</td>
+<td>_Bool</td>
+<td>bool</td>
+<td>1</td>
+</tr>
+<tr>
+<td>h</td>
+<td>short</td>
+<td>integer</td>
+<td>2</td>
+</tr>
+<tr>
+<td>H</td>
+<td>unsigned short</td>
+<td>integer</td>
+<td>2</td>
+</tr>
+<tr>
+<td>i</td>
+<td>int</td>
+<td>integer</td>
+<td>4</td>
+</tr>
+<tr>
+<td>I</td>
+<td>unsigned int</td>
+<td>integer</td>
+<td>4</td>
+</tr>
+<tr>
+<td>l</td>
+<td>long</td>
+<td>integer</td>
+<td>4</td>
+</tr>
+<tr>
+<td>L</td>
+<td>unsigned long</td>
+<td>integer</td>
+<td>4</td>
+</tr>
+<tr>
+<td>q</td>
+<td>long long</td>
+<td>integer</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Q</td>
+<td>unsigned long long</td>
+<td>integer</td>
+<td>8</td>
+</tr>
+<tr>
+<td>f</td>
+<td>float</td>
+<td>float</td>
+<td>4</td>
+</tr>
+<tr>
+<td>d</td>
+<td>double</td>
+<td>float</td>
+<td>8</td>
+</tr>
+<tr>
+<td>s</td>
+<td>char[]</td>
+<td>string</td>
+<td>1</td>
+</tr>
+<tr>
+<td>p</td>
+<td>char[]</td>
+<td>string</td>
+<td>1</td>
+</tr>
+<tr>
+<td>P</td>
+<td>void *</td>
+<td>integer</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Notes:</p>
 <h2 id="技巧"><a class="markdownIt-Anchor" href="#技巧"></a> 技巧</h2>
 <ul>
 <li>
@@ -445,10 +630,7 @@
 <h4 id="base64-2"><a class="markdownIt-Anchor" href="#base64-2"></a> base64</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> base64<br>encrypt = base64.b64encode(<span class="hljs-string">&#x27;AlwaysBeta&#x27;</span>.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><span class="hljs-comment"># Python3 中字符都是 unicode 编码，而 b64encode函数的参数为 byte 类型，所以必须先转码</span><br>decrypt = base64.b64decode(a)<br><br><span class="hljs-comment"># 换表解密</span><br>new_table = <span class="hljs-string">&quot;ABCDEFQRSTUVWXYPGHIJKLMNOZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span><br>old_table = <span class="hljs-string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&quot;</span><br>cipher = <span class="hljs-string">&quot;zMXHz3TIgnxLxJhFAdtZn2fFk3lYCrtPC2l9&quot;</span>.swapcase()<br><span class="hljs-comment">#swapcase是大小写转化，大写转小写等</span><br><span class="hljs-built_in">print</span>(base64.b64decode(cipher.translate(<span class="hljs-built_in">str</span>.maketrans(new_table, old_table))))<br></code></pre></td></tr></table></figure>
 <h2 id="rc4"><a class="markdownIt-Anchor" href="#rc4"></a> RC4</h2>
-<blockquote>
-<pre><code class="hljs">RC4的最终实现还是使用构造出来的盒子和你的输入进行异或，那么可以直接动调找到那个盒子，记录盒子的值，直接和最后比对的数据进行异或就可以得到flag。
-</code></pre>
-</blockquote>
+<p>​	RC4的最终实现还是使用构造出来的盒子和你的输入进行异或，那么可以直接动调找到那个盒子，记录盒子的值，直接和最后比对的数据进行异或就可以得到flag。</p>
 <h3 id="算法原理-3"><a class="markdownIt-Anchor" href="#算法原理-3"></a> 算法原理</h3>
 <ul>
 <li>
@@ -484,16 +666,12 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">output</span><span class="hljs-params">(ut32* m, ut32 n)</span> </span>&#123;<br>	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)&#123;<br>		<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;0x%08x &quot;</span>, m[i]);<br>	&#125;<br>	<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br><br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>;j &lt; len;j++)&#123;<br>		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> k = <span class="hljs-number">3</span>; k &gt;= <span class="hljs-number">0</span>; k --)&#123;<br>			<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%c&quot;</span>,((m[j]&gt;&gt;( <span class="hljs-number">8</span> * k )) &amp; <span class="hljs-number">0xff</span>));<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 <li>
-<p>python实现也需要将每个 <code>int</code> 类型从而往前转化为字符</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">result = <span class="hljs-string">&#x27;&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>):<br>    result += <span class="hljs-built_in">chr</span>((res[i]) &amp; <span class="hljs-number">0xff</span>)<br>    result += <span class="hljs-built_in">chr</span>((res[i] &gt;&gt; <span class="hljs-number">8</span>) &amp; <span class="hljs-number">0xff</span>)<br>    result += <span class="hljs-built_in">chr</span>((res[i] &gt;&gt; <span class="hljs-number">16</span>) &amp; <span class="hljs-number">0xff</span>)<br>    result += <span class="hljs-built_in">chr</span>((res[i] &gt;&gt; <span class="hljs-number">24</span>) &amp; <span class="hljs-number">0xff</span>)<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
-</li>
-<li>
 <p>python还可以使用内置函数进行操作</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">res = decrypt(n, v, k)<span class="hljs-comment"># res为数组</span><br>    <span class="hljs-keyword">for</span> r <span class="hljs-keyword">in</span> res:<br>        <span class="hljs-built_in">print</span>(r.to_bytes(<span class="hljs-number">4</span>, <span class="hljs-string">&#x27;little&#x27;</span>).decode(), end=<span class="hljs-string">&#x27;&#x27;</span>)<br><span class="hljs-comment"># 参考 DASCTF &amp; CBCTF 2023 auuuu3的Exp</span><br><span class="hljs-comment"># 这里libnum.n2s()也可以转换，但是它是逆序输出，需要转换一下      </span><br></code></pre></td></tr></table></figure>
 </li>
 <li>
 <p>python使用struct进行转换</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">res = [<span class="hljs-number">1767863401</span>, <span class="hljs-number">1700945779</span>, <span class="hljs-number">1633644133</span>, <span class="hljs-number">1852795999</span>, <span class="hljs-number">1633967975</span>, <span class="hljs-number">1769430905</span>, <span class="hljs-number">1970235508</span>, <span class="hljs-number">1870225268</span>, <span class="hljs-number">2037210997</span>, <span class="hljs-number">1769104991</span>, <span class="hljs-number">6581861</span>, <span class="hljs-number">0</span>]<br>result = <span class="hljs-string">&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(res)):<br>        result += struct.pack(<span class="hljs-string">&#x27;&lt;I&#x27;</span>, res[i]).decode(<span class="hljs-string">&#x27;ISO-8859-1&#x27;</span>) <span class="hljs-comment"># &lt;I为小端序，&gt;I为大端序。ISO-8859-1是转化字符为指定编码格式</span><br>    <span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">res = [<span class="hljs-number">1767863401</span>, <span class="hljs-number">1700945779</span>, <span class="hljs-number">1633644133</span>, <span class="hljs-number">1852795999</span>, <span class="hljs-number">1633967975</span>, <span class="hljs-number">1769430905</span>, <span class="hljs-number">1970235508</span>, <span class="hljs-number">1870225268</span>, <span class="hljs-number">2037210997</span>, <span class="hljs-number">1769104991</span>, <span class="hljs-number">6581861</span>, <span class="hljs-number">0</span>]<br>result = <span class="hljs-string">b&#x27;&#x27;</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(res)):<br>        result += struct.pack(<span class="hljs-string">&#x27;&lt;I&#x27;</span>, res[i]) <span class="hljs-comment"># &lt;I为小端序，&gt;I为大端序</span><br>    <span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
@@ -504,7 +682,7 @@
 <h4 id="xtea"><a class="markdownIt-Anchor" href="#xtea"></a> xTea</h4>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> ctypes <span class="hljs-keyword">import</span> * <br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">encrypt</span>(<span class="hljs-params">v, key</span>):   <br>    v0, v1 = c_uint32(v[<span class="hljs-number">0</span>]), c_uint32(v[<span class="hljs-number">1</span>])<br>    delta = <span class="hljs-number">0x9E3779B9</span><br><br>    total = c_uint32(<span class="hljs-number">0</span>)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>):  <br>        v0.value += (((v1.value &lt;&lt; <span class="hljs-number">4</span>) ^ (v1.value &gt;&gt; <span class="hljs-number">5</span>)) + v1.value) ^ (total.value + key[total.value &amp; <span class="hljs-number">3</span>])<br>        total.value += delta <br>        v1.value += (((v0.value &lt;&lt; <span class="hljs-number">4</span>) ^ (v0.value &gt;&gt; <span class="hljs-number">5</span>)) + v0.value) ^ (total.value + key[(total.value&gt;&gt;<span class="hljs-number">11</span>) &amp; <span class="hljs-number">3</span>])<br><br>    <span class="hljs-keyword">return</span> v0.value, v1.value <br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt</span>(<span class="hljs-params">v, key</span>):<br>    v0, v1  = c_uint32(v[<span class="hljs-number">0</span>]), c_uint32(v[<span class="hljs-number">1</span>])<br>    delta = <span class="hljs-number">0x9E3779B9</span><br>  <br>    total = c_uint32(delta * <span class="hljs-number">32</span>)<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">32</span>):<br>        v1.value -= (((v0.value &lt;&lt; <span class="hljs-number">4</span>) ^ (v0.value &gt;&gt; <span class="hljs-number">5</span>)) + v0.value) ^ (total.value + key[(total.value&gt;&gt;<span class="hljs-number">11</span>) &amp; <span class="hljs-number">3</span>])<br>        total.value -= delta <br>        v0.value -= (((v1.value &lt;&lt; <span class="hljs-number">4</span>) ^ (v1.value &gt;&gt; <span class="hljs-number">5</span>)) + v1.value) ^ (total.value + key[total.value &amp; <span class="hljs-number">3</span>])<br><br>    <span class="hljs-keyword">return</span> v0.value, v1.value <br>  <br><span class="hljs-comment"># test</span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    <span class="hljs-comment"># 待加密的明文，两个32位整型，即64bit的明文数据</span><br>    value = [<span class="hljs-number">0x12345678</span>, <span class="hljs-number">0x78563412</span>]<br>    <span class="hljs-comment"># 四个key，每个是32bit，即密钥长度为128bit</span><br>    key = [<span class="hljs-number">0x1</span>, <span class="hljs-number">0x2</span>, <span class="hljs-number">0x3</span>, <span class="hljs-number">0x4</span>]<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Data is : &quot;</span>, <span class="hljs-built_in">hex</span>(value[<span class="hljs-number">0</span>]), <span class="hljs-built_in">hex</span>(value[<span class="hljs-number">1</span>]))<br>    res = encrypt(value, key)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Encrypted data is : &quot;</span>, <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">0</span>]), <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">1</span>]))<br>    res = decrypt(res, key)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted data is : &quot;</span>, <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">0</span>]), <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">1</span>]))<br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Data is :  0x12345678 0x78563412</span><br><span class="hljs-string">Encrypted data is :  0xae685ec7 0x59af4238</span><br><span class="hljs-string">Decrypted data is :  0x12345678 0x78563412</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
 <h4 id="xxtea"><a class="markdownIt-Anchor" href="#xxtea"></a> xxTea</h4>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> ctypes <span class="hljs-keyword">import</span> *<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">MX</span>(<span class="hljs-params">z, y, total, key, p, e</span>):<br>    temp1 = (z.value&gt;&gt;<span class="hljs-number">5</span> ^ y.value&lt;&lt;<span class="hljs-number">2</span>) + (y.value&gt;&gt;<span class="hljs-number">3</span> ^ z.value&lt;&lt;<span class="hljs-number">4</span>)<br>    temp2 = (total.value ^ y.value) + (key[(p&amp;<span class="hljs-number">3</span>) ^ e.value] ^ z.value)<br>  <br>    <span class="hljs-keyword">return</span> c_uint32(temp1 ^ temp2)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">encrypt</span>(<span class="hljs-params">n, v, key</span>):<br>    delta = <span class="hljs-number">0x9e3779b9</span> <br>    rounds = <span class="hljs-number">6</span> + <span class="hljs-number">52</span>//n<br><br>    total = c_uint32(<span class="hljs-number">0</span>)<br>    z = c_uint32(v[n-<span class="hljs-number">1</span>])<br>    e = c_uint32(<span class="hljs-number">0</span>)<br>  <br>    <span class="hljs-keyword">while</span> rounds &gt; <span class="hljs-number">0</span>:<br>        total.value += delta  <br>        e.value = (total.value &gt;&gt; <span class="hljs-number">2</span>) &amp; <span class="hljs-number">3</span><br>        <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n-<span class="hljs-number">1</span>):<br>            y = c_uint32(v[p+<span class="hljs-number">1</span>])<br>            v[p] = c_uint32(v[p] + MX(z,y,total,key,p,e).value).value<br>            z.value = v[p]<br>        y = c_uint32(v[<span class="hljs-number">0</span>])<br>        v[n-<span class="hljs-number">1</span>] = c_uint32(v[n-<span class="hljs-number">1</span>] + MX(z,y,total,key,n-<span class="hljs-number">1</span>,e).value).value<br>        z.value = v[n-<span class="hljs-number">1</span>]<br>        rounds -= <span class="hljs-number">1</span> <br><br>    <span class="hljs-keyword">return</span> v<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt</span>(<span class="hljs-params">n, v, key</span>):<br>    delta = <span class="hljs-number">0x9e3779b9</span><br>    rounds = <span class="hljs-number">6</span> + <span class="hljs-number">52</span>//n <br>  <br>    total = c_uint32(rounds * delta)<br>    y = c_uint32(v[<span class="hljs-number">0</span>])<br>    e = c_uint32(<span class="hljs-number">0</span>)<br><br>    <span class="hljs-keyword">while</span> rounds &gt; <span class="hljs-number">0</span>:<br>        e.value = (total.value &gt;&gt; <span class="hljs-number">2</span>) &amp; <span class="hljs-number">3</span><br>        <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>):<br>            z = c_uint32(v[p-<span class="hljs-number">1</span>])<br>            v[p] = c_uint32((v[p] - MX(z,y,total,key,p,e).value)).value<br>            y.value = v[p]<br>        z = c_uint32(v[n-<span class="hljs-number">1</span>])  <br>        v[<span class="hljs-number">0</span>] = c_uint32(v[<span class="hljs-number">0</span>] - MX(z,y,total,key,<span class="hljs-number">0</span>,e).value).value<br>        y.value = v[<span class="hljs-number">0</span>]  <br>        total.value -= delta<br>        rounds -= <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">return</span> v <br><br><br><span class="hljs-comment">#  test  </span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>	<span class="hljs-comment"># 该算法中每次可加密不只64bit的数据，并且加密的轮数由加密数据长度决定</span><br>    v = [<span class="hljs-number">0x12345678</span>, <span class="hljs-number">0x78563412</span>]<br>    k = [<span class="hljs-number">0x1</span>, <span class="hljs-number">0x2</span>, <span class="hljs-number">0x3</span>, <span class="hljs-number">0x4</span>]<br>    n = <span class="hljs-number">2</span><br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Data is : &quot;</span>, <span class="hljs-built_in">hex</span>(v[<span class="hljs-number">0</span>]), <span class="hljs-built_in">hex</span>(v[<span class="hljs-number">1</span>]))<br>    res = encrypt(n, v, k)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Encrypted data is : &quot;</span>, <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">0</span>]), <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">1</span>]))<br>    res = decrypt(n, res, k)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted data is : &quot;</span>, <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">0</span>]), <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">1</span>]))<br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Data is :  0x12345678 0x78563412</span><br><span class="hljs-string">Encrypted data is :  0xef86c2bb 0x25f31b5e</span><br><span class="hljs-string">Decrypted data is :  0x12345678 0x78563412</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> ctypes <span class="hljs-keyword">import</span> *<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">MX</span>(<span class="hljs-params">z, y, total, key, p, e</span>):<br>    temp1 = (z.value&gt;&gt;<span class="hljs-number">5</span> ^ y.value&lt;&lt;<span class="hljs-number">2</span>) + (y.value&gt;&gt;<span class="hljs-number">3</span> ^ z.value&lt;&lt;<span class="hljs-number">4</span>)<br>    temp2 = (total.value ^ y.value) + (key[(p&amp;<span class="hljs-number">3</span>) ^ e.value] ^ z.value)<br>  <br>    <span class="hljs-keyword">return</span> c_uint32(temp1 ^ temp2)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">encrypt</span>(<span class="hljs-params">n, v, key</span>):<br>    delta = <span class="hljs-number">0x9e3779b9</span> <br>    rounds = <span class="hljs-number">6</span> + <span class="hljs-number">52</span>//n<br><br>    total = c_uint32(<span class="hljs-number">0</span>)<br>    z = c_uint32(v[n-<span class="hljs-number">1</span>])<br>    e = c_uint32(<span class="hljs-number">0</span>)<br>  <br>    <span class="hljs-keyword">while</span> rounds &gt; <span class="hljs-number">0</span>:<br>        total.value += delta  <br>        e.value = (total.value &gt;&gt; <span class="hljs-number">2</span>) &amp; <span class="hljs-number">3</span><br>        <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n-<span class="hljs-number">1</span>):<br>            y = c_uint32(v[p+<span class="hljs-number">1</span>])<br>            v[p] = c_uint32(v[p] + MX(z,y,total,key,p,e).value).value<br>            z.value = v[p]<br>        y = c_uint32(v[<span class="hljs-number">0</span>])<br>        v[n-<span class="hljs-number">1</span>] = c_uint32(v[n-<span class="hljs-number">1</span>] + MX(z,y,total,key,n-<span class="hljs-number">1</span>,e).value).value<br>        z.value = v[n-<span class="hljs-number">1</span>]<br>        rounds -= <span class="hljs-number">1</span> <br><br>    <span class="hljs-keyword">return</span> v<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt</span>(<span class="hljs-params">n, v, key</span>):<br>    delta = <span class="hljs-number">0x9e3779b9</span><br>    rounds = <span class="hljs-number">6</span> + <span class="hljs-number">52</span>//n <br>  <br>    total = c_uint32(rounds * delta)<br>    y = c_uint32(v[<span class="hljs-number">0</span>])<br>    e = c_uint32(<span class="hljs-number">0</span>)<br><br>    <span class="hljs-keyword">while</span> rounds &gt; <span class="hljs-number">0</span>:<br>        e.value = (total.value &gt;&gt; <span class="hljs-number">2</span>) &amp; <span class="hljs-number">3</span><br>        <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, -<span class="hljs-number">1</span>):<br>            z = c_uint32(v[p-<span class="hljs-number">1</span>])<br>            v[p] = c_uint32((v[p] - MX(z,y,total,key,p,e).value)).value<br>            y.value = v[p]<br>        z = c_uint32(v[n-<span class="hljs-number">1</span>])  <br>        v[<span class="hljs-number">0</span>] = c_uint32(v[<span class="hljs-number">0</span>] - MX(z,y,total,key,<span class="hljs-number">0</span>,e).value).value<br>        y.value = v[<span class="hljs-number">0</span>]  <br>        total.value -= delta<br>        rounds -= <span class="hljs-number">1</span><br><br>    <span class="hljs-keyword">return</span> v <br><br><br><span class="hljs-comment">#  test  </span><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>	<span class="hljs-comment"># 该算法中每次可加密不只64bit的数据，并且加密的轮数由加密数据长度决定</span><br>    v = [<span class="hljs-number">0x12345678</span>, <span class="hljs-number">0x78563412</span>]<br>    k = [<span class="hljs-number">0x1</span>, <span class="hljs-number">0x2</span>, <span class="hljs-number">0x3</span>, <span class="hljs-number">0x4</span>]<br>    n = <span class="hljs-number">2</span><span class="hljs-comment">#这里2为轮数，也就是v的个数</span><br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Data is : &quot;</span>, <span class="hljs-built_in">hex</span>(v[<span class="hljs-number">0</span>]), <span class="hljs-built_in">hex</span>(v[<span class="hljs-number">1</span>]))<br>    res = encrypt(n, v, k)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Encrypted data is : &quot;</span>, <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">0</span>]), <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">1</span>]))<br>    res = decrypt(n, res, k)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Decrypted data is : &quot;</span>, <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">0</span>]), <span class="hljs-built_in">hex</span>(res[<span class="hljs-number">1</span>]))<br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">Data is :  0x12345678 0x78563412</span><br><span class="hljs-string">Encrypted data is :  0xef86c2bb 0x25f31b5e</span><br><span class="hljs-string">Decrypted data is :  0x12345678 0x78563412</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
 <h2 id="md5"><a class="markdownIt-Anchor" href="#md5"></a> MD5</h2>
 <h3 id="算法原理-5"><a class="markdownIt-Anchor" href="#算法原理-5"></a> 算法原理</h3>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/hawinlolo/article/details/94464237">MD5 加密算法详解</a></p>

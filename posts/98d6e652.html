@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402010000797.jpg">
 <meta property="article:published_time" content="2024-01-27T13:17:12.000Z">
-<meta property="article:modified_time" content="2024-04-04T08:41:25.962Z">
+<meta property="article:modified_time" content="2024-05-20T09:06:14.635Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402010000797.jpg">
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          747 字
+          1.5k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          7 分钟
+          13 分钟
         
       </span>
     
@@ -296,7 +296,10 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/luhao19980909/article/details/89718899#:~:text=ctrl%20%2B%20a%20%E6%9D%BE%E6%89%8B%E6%8C%89%20%22%20%23%E4%B8%8A%E4%B8%8B%E5%88%86%E5%B1%8F%20ctrl%20%2B,%2B%20a%20%E6%9D%BE%E6%89%8B%E6%8C%89%20%26%20%23%E5%85%B3%E9%97%AD%E6%89%80%E6%9C%89%E7%AA%97%E5%8F%A3%20exit%20%23%E5%85%B3%E9%97%AD%E5%BD%93%E5%89%8D%E7%AA%97%E5%8F%A3%201">分屏命令总结</a></p>
 <h1 id="gdb调试"><a class="markdownIt-Anchor" href="#gdb调试"></a> gdb调试</h1>
 <p>​	需要在tmux中执行python代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">context.terminal = [<span class="hljs-string">&#x27;tmux&#x27;</span>, <span class="hljs-string">&#x27;splitw&#x27;</span>, <span class="hljs-string">&#x27;-h&#x27;</span>, <span class="hljs-string">&#x27;-F&#x27;</span> <span class="hljs-string">&#x27;#&#123;pane_pid&#125;&#x27;</span>, <span class="hljs-string">&#x27;-P&#x27;</span>]<br><span class="hljs-comment"># gdb调试</span><br>gdb.attach(p)<br>gdb.debug(binary_path)<br>pause() <span class="hljs-comment"># 暂停进行调试</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 打开一个全新的窗格</span><br>context.terminal = [<span class="hljs-string">&#x27;tmux&#x27;</span>, <span class="hljs-string">&#x27;new-window&#x27;</span>]<br><span class="hljs-comment"># 下面两个相同，都是打开一个水平分割的窗格</span><br>context.terminal = [<span class="hljs-string">&#x27;tmux&#x27;</span>, <span class="hljs-string">&#x27;splitw&#x27;</span>, <span class="hljs-string">&#x27;-h&#x27;</span>, <span class="hljs-string">&#x27;-F&#x27;</span> <span class="hljs-string">&#x27;#&#123;pane_pid&#125;&#x27;</span>, <span class="hljs-string">&#x27;-P&#x27;</span>]<br>context.terminal = [<span class="hljs-string">&#x27;tmux&#x27;</span>,<span class="hljs-string">&#x27;splitw&#x27;</span>,<span class="hljs-string">&#x27;-h&#x27;</span>]<br><span class="hljs-comment"># gdb调试</span><br>gdb.attach(p)<br>gdb.debug(binary_path)<br>pause() <span class="hljs-comment"># 暂停进行调试</span><br></code></pre></td></tr></table></figure>
+<h1 id="模板"><a class="markdownIt-Anchor" href="#模板"></a> 模板</h1>
+<h2 id="通常"><a class="markdownIt-Anchor" href="#通常"></a> 通常</h2>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br><span class="hljs-comment"># 配置框架</span><br><span class="hljs-comment">#context(arch = &#x27;i386&#x27; , os = &#x27;linux&#x27;, log_level=&quot;debug&quot;) # 32位结构</span><br>context(arch = <span class="hljs-string">&#x27;amd64&#x27;</span> , os = <span class="hljs-string">&#x27;linux&#x27;</span>, log_level=<span class="hljs-string">&quot;debug&quot;</span>)<br>context.terminal = [<span class="hljs-string">&#x27;tmux&#x27;</span>,<span class="hljs-string">&#x27;splitw&#x27;</span>,<span class="hljs-string">&#x27;-h&#x27;</span>]<br>file_name = <span class="hljs-string">&#x27;./file&#x27;</span><br>elf = ELF(file_name)<br><span class="hljs-comment">#libc = ELF(&#x27;./libc-2.31.so&#x27;)</span><br><br><span class="hljs-comment"># 选择模式</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test</span>(<span class="hljs-params">mode</span>):<br>    <span class="hljs-keyword">if</span> mode:<br>        <span class="hljs-keyword">return</span> process(file_name)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> remote(<span class="hljs-string">&#x27;111.222.333.444&#x27;</span>, <span class="hljs-number">32265</span>)<br><br><span class="hljs-comment"># 调试程序</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">dbg</span>(<span class="hljs-params">p</span>):<br>    gdb.attach(p)<br>    <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    p = test(<span class="hljs-number">1</span>)<br>    dbg(p)<br>    p.interactive()<br></code></pre></td></tr></table></figure>
 <h1 id="other"><a class="markdownIt-Anchor" href="#other"></a> Other</h1>
 <ul>
 <li>gcc/g++ 版本切换
