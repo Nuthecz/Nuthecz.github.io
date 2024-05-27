@@ -16,23 +16,23 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="模板  通常 12345678910111213141516171819202122232425262728from pwn import *# 配置框架#context(arch &#x3D; &amp;#x27;i386&amp;#x27; , os &#x3D; &amp;#x27;linux&amp;#x27;, log_level&#x3D;&quot;debug&quot;) # 32位结构context(arch &#x3D; &amp;#x27;amd64&amp;">
+    <meta name="description" content="主要包含System Security Dojo的一些关卡的方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Pwn相关小技巧">
-<meta property="og:url" content="http://example.com/posts/9fc4ccba.html">
+<meta property="og:title" content="Pwn.college(4)">
+<meta property="og:url" content="http://example.com/posts/e6f3ff64.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="模板  通常 12345678910111213141516171819202122232425262728from pwn import *# 配置框架#context(arch &#x3D; &amp;#x27;i386&amp;#x27; , os &#x3D; &amp;#x27;linux&amp;#x27;, log_level&#x3D;&quot;debug&quot;) # 32位结构context(arch &#x3D; &amp;#x27;amd64&amp;">
+<meta property="og:description" content="主要包含System Security Dojo的一些关卡的方法">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402010000797.jpg">
-<meta property="article:published_time" content="2024-01-26T13:17:12.000Z">
-<meta property="article:modified_time" content="2024-05-24T09:49:28.263Z">
+<meta property="article:published_time" content="2024-05-25T12:28:45.000Z">
+<meta property="article:modified_time" content="2024-05-26T10:01:42.829Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/file/202402010000797.jpg">
   
   
   
-  <title>Pwn相关小技巧 - Nuthecz`Blog</title>
+  <title>Pwn.college(4) - Nuthecz`Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -207,7 +207,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Pwn相关小技巧"></span>
+            <span id="subtitle" data-typed-text="Pwn.college(4)"></span>
           
         </div>
 
@@ -218,8 +218,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-26 21:17" pubdate>
-          2024年1月26日 晚上
+        <time datetime="2024-05-25 20:28" pubdate>
+          2024年5月25日 晚上
         </time>
       </span>
     
@@ -230,7 +230,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.3k 字
+          7.9k 字
         
       </span>
     
@@ -241,7 +241,7 @@
         
         
         
-          11 分钟
+          67 分钟
         
       </span>
     
@@ -279,38 +279,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Pwn相关小技巧</h1>
+            <h1 style="display: none">Pwn.college(4)</h1>
             
             
-              <div class="markdown-body">
-                
-                <h1 id="模板"><a class="markdownIt-Anchor" href="#模板"></a> 模板</h1>
-<h2 id="通常"><a class="markdownIt-Anchor" href="#通常"></a> 通常</h2>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br><span class="hljs-comment"># 配置框架</span><br><span class="hljs-comment">#context(arch = &#x27;i386&#x27; , os = &#x27;linux&#x27;, log_level=&quot;debug&quot;) # 32位结构</span><br>context(arch = <span class="hljs-string">&#x27;amd64&#x27;</span> , os = <span class="hljs-string">&#x27;linux&#x27;</span>, log_level=<span class="hljs-string">&quot;debug&quot;</span>)<br>context.terminal = [<span class="hljs-string">&#x27;tmux&#x27;</span>,<span class="hljs-string">&#x27;splitw&#x27;</span>,<span class="hljs-string">&#x27;-h&#x27;</span>]<br>file_name = <span class="hljs-string">&#x27;./file&#x27;</span><br>elf = ELF(file_name)<br><span class="hljs-comment">#libc = ELF(&#x27;./libc-2.31.so&#x27;)</span><br><br><span class="hljs-comment"># 选择模式</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">test</span>(<span class="hljs-params">mode = <span class="hljs-number">1</span></span>):<br>    <span class="hljs-keyword">if</span> mode:<br>        <span class="hljs-keyword">return</span> process(file_name)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> remote(<span class="hljs-string">&#x27;111.222.333.444&#x27;</span>, <span class="hljs-number">32265</span>)<br><br><span class="hljs-comment"># 调试程序</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">dbg</span>(<span class="hljs-params">p, mode = <span class="hljs-number">1</span></span>):<br>    <span class="hljs-keyword">if</span> mode == <span class="hljs-number">1</span>:<br>    	gdb.attach(p)<br>    <span class="hljs-keyword">else</span>:<br>        gdb.debug(file_name, <span class="hljs-string">&#x27;break main&#x27;</span>)<br>        <br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    p = test(<span class="hljs-number">1</span>)<br>    dbg(p)<br>    p.interactive()<br></code></pre></td></tr></table></figure>
-<h1 id="利用资源"><a class="markdownIt-Anchor" href="#利用资源"></a> 利用资源</h1>
-<h2 id="系统调用表"><a class="markdownIt-Anchor" href="#系统调用表"></a> 系统调用表</h2>
-<p><a target="_blank" rel="noopener" href="https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/">Linux System Call Table for x86 64 · Ryan A. Chapman (rchapman.org)</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/Nashi_Ko/article/details/120288385">Linux X86架构 32 系统调用表_32位 syscall-CSDN博客</a></p>
-<h1 id="一些工具"><a class="markdownIt-Anchor" href="#一些工具"></a> 一些工具</h1>
-<h2 id="strace"><a class="markdownIt-Anchor" href="#strace"></a> Strace</h2>
-<ul>
-<li><strong>Strace</strong> <strong>用于检查一个应用程序所使用的系统调用以及它所接收的系统信息</strong> 。strace会追踪程序运行时的整个生命周期，输出每一个系统调用的名字、参数、返回值和执行所消耗的时间等，是高级运维和开发人员排查问题的杀手铜</li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/106890931">Linux程序调试工具工具—strace命令 - 知乎 (zhihu.com)</a></li>
-</ul>
-<h2 id="ltrace"><a class="markdownIt-Anchor" href="#ltrace"></a> ltrace</h2>
-<ul>
-<li><strong>ltrace 能够跟踪进程的库函数调用</strong> ，它会显现出调用了哪个库函数，而 <strong>strace则是跟踪进程的每个系统调用</strong></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/107063011">Linux库函数调用工具—ltrace命令 - 知乎 (zhihu.com)</a></li>
-</ul>
-<p><a target="_blank" rel="noopener" href="https://www.yanbinghu.com/2018/05/28/26708.html">系统调用和库函数的区别 | 守望的个人博客 (yanbinghu.com)</a></p>
-<h2 id="cyclic"><a class="markdownIt-Anchor" href="#cyclic"></a> cyclic</h2>
-<p>​	cyclic 命令是一个可以随机生成一串字符串的命令，后面直接加数字可以生成相应数字长度的字符串。同时可以通过 <code>-l + 4个字符</code> 计算这4个字母之前有几个字符。这样就可以通过输入过长的字符而报错来计算出栈溢出的大小(栈大小 + push rsp)。</p>
-<h2 id="ropgadget"><a class="markdownIt-Anchor" href="#ropgadget"></a> ROPgadget</h2>
-<p>​	利用方式如下，它用来寻找含有特定汇编指令的地址</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">ROPgadget --binary file_name --only &#x27;pop|ret&#x27; | grep &#x27;eax&#x27;<br></code></pre></td></tr></table></figure>
+              
+              <div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="1934f00417347196757c4ca2db17d7cc9ceae7cf73ac469cad030134a1565457">6ca2c47afb202d5322d0c67c479bdef2ffc2ef06766e8f95a6982bb813c6a94c1ae3d40026402bab790bb670f330bc0c0109dc3a49781f997d0b6ce7676d62719afba96b96f87cad8b80342d9a2c0fbee10da5472013d2c205981f4f9ddd3ef6767af0761953423e5f3f0cfc22d0ce211798c2efce1ac910406332e32f421b90f3d1a04b9124b17d53ef3c1565c9a2a1b9de0eb30096b9c32af2dd35ca2facfb7558f4695be6495e17011ef5ebd56943cf847a49f9b24a009d716ba13f48b7c5dfa8c036e0b70cce7e577ea2db5a74529fd67b7542de380808fdf93b0a8d513f745529e49329ece60753e92dbeb78f53de2226f0f524c7a45d0c5b0a4d182f9f70fe0f0d06ef13e00a981b8d7b88d061243db8fb17bd7400bb8bf9ea2c9871fd73510ac15f04a52569977272eb05a9df75639b23959b38583cc083cc8849b9011eed4f17dbc77ab87e20b908cedd10630590c1b80eb61efded788c232258a7d642f971f6c4a7ca5314a8d3b83a47b41f482b62d73cba334ef0a287f595a19136675554ae550079af5e11f0554b5eb0f72fbe67cbe462c406a9ff0670e5f22805fed86f2e842bdabe95cfc241c3ef7f1b5924817ad649c7ea404064e5b9972c7ac53410fe4293d9f1d68e190ff05da7a4da18a75e2d71550d9b5adac8441a1d4f4e2791f22535b4edfc5941737092a210d4a10729b98d42de81a13445bea625e981223d031c1a4bf19c28ae2cd0abfa38a986ba1bacf76f9770ac2fc40fa2ec5b8ec368f5c00c1e2b48323613e63994dc6d0af3bcbc85040415f372a3f1740ca71762aa58262141fbd522de0ee73a3cd1f8831b591aa85b2a9a936f7b71d43857e62778349b1b69dd56570c7eb5c9a91f1f6c0443d8b4014c4273e288466fba1195034dcdc461c8a9a68d94ada4e36a86d0af0751738856e46c3a00a687db2d51ae76d84382c2639a6e6ca889a339e50c1ae72de52352ebcc59b01e5281bba1dee559faceaff0dd04001d3b90b48a29f63b02f71a265e9827ee42baed2da40d7dd95215997d55783824266228078608ac3e9aa25cbc84c25395a991f3d394cf9bcc1ae1ff1932540e88be7ffc8865a2c2b204c392e2c83be96b2d977b7533ddf6ecc8d57453fc3ea071eb3b1bebdeeee7e22b99854f522496c73be0754aab945f67cdb396f86cbefe84c652b358667fd577ac550bdf76d26910e80febdfa4a020c21a56acd8355a429be665ba6ccea7c21f3c937f9db80d34ff5ba251fea42d73c7f407d7cc37dd10414bfdbf552129d7d8f9abee9f5a84d3b9dfb206b77e78cb6cbcae94010de61b9fa43dd05899927287a08fd6fe489611075b0c2b32c3a9229c6429c4a0f42124cf5ddcf4597baea83dbc239ef4421d02c379edba74f7efdc17c9ee52ead6a9bee26704aa559000681fe821743cc1f359fcce856bbaff3a86fa5dc3794a101d3ead82a3f2321c7521e19951d85cb448adc8f71695255dc3362f8ab19c355c73c90e597249107d45e85478d2fe6c9abc85bb0be6c7fcfb04a58528e9fb8e90cbd5c2ba9ee7a5a5f4270c8d590af74181cd912d09ed6b84ed4c6b95deee5bb6e657b0f2c71e8939ebf8bcb8d3bf4e3f454bca38386bf245982447bb7d8c4e39c4e43851ede84e85a0788e13e6780cf5c86cf17facb60d492dd4282785491f6110df55fa2c81031eee77ce0d6176ea17e598e1c7094ed80eb10f2ee032dba261ae009881c508b87412d0c61bd002e4bd1e97cb495bc9ffae51930cf8d476c708452890dd684ddfed4930c595790a5d9c3fe3d701dfc4ce71c0ad7a10705b6c27526998ec571283ed2433172484abcec157cf660d0321dd6ae02d44b4b787d2cd24990b1f3a80472a0ac1ce52f7456773027f4d04b7449fe617f23a2b46b73c4bc593d9dd01189a22af2fc5c1468ce864d10cef105a1d55c53f5b3b03f65fba5c46f6b85894b329ea1387fc6a10d15385003cdd67868cb924ece993bba527d1398a80b50836a8815dbeb0da8b17708d42b4c565df8d28c5e7d6439600c9444f80f0f51ac023001eaf18cc4eb32bf0b28a350d350da82653e5324d8343059c34275c26189f3f19c1fa2e5d55b2b15c9a9b00825f8f35ad3ce016f28d9c3ce2cae627dc4296a77dcc4106933750c21f297a69227c09b5429b2740e624c2f87b464174ffddf22ae658e5eb28b107fee0000f53ccb88a843fe38ba81d414d93c7ff226eaf3215baec2d6a65a151a588d749dfd96e0b807e36a27dca69a1a6249813ccf0e022991d12c103fd1ea3e1a802249853f9540359f694659e2caf687c39bf971716292d3dbecfc4b7752e04b8ad0977b6f97f2f71ed34cd1759e93ecb67cf060cbfe1ed14f908752976e911d6effffa2deb6072cb485eec7c3722da3214c6f05ff8e9b0cfc2b894fa168d915af2112a4c32efa30e12cce8a764788d0e183f127427154c3f98fd923a46f869408e1a2f4557b5536073217c686f54cac3fc0dcf2485492b8dce05f1729de4415be660092ac78393bd9734d703d630a732780faf6cc06224246dc3e157e0fecd92da0ab06e138117aabd501fa7db8aad7528dd3ab48124889df9a6d04dac3987808a5c0c75435f582a70040603c16a1bd28915aaad08996b689f4f96fbcb7a29bfab942593563256a7d31aacc5703fbcd527436ecf1f170d9e2f86f7af9e1348b091d71131510800ccecada237e330ddbb4fd139bd6e72004d73ca3f211b3d9d86fc903b27f1affc43f19ccd14f1541a2771220cc048dbb2dfb166e5bf43695c2148272ca169ae5c1be55bc790ba96a9979b03f44ba4d1ae517b39a0e8eeda5c8b003695ebea86d9773e7ebcd28a02819c811f9bdd83a3046fda30a77899d6479b80be880adfeabe2aefea1da53bbb86283c2f8100e4ebd4561e2194fe308850f7c7d664d42cb4081910336c294c85229f29bd8558f9a4b4f77128a604e7b89de42e106e44142ac2a92616d454332048a9504569521fbf370828e719e12d03dba17d8208369fae722cce1c9f45a13b989be76a93ea43bcdd00e5e13d188f325d7bea492cf3d95e1e4c515f2e9af599d68bfb5db6612c671171dd8552ada3cff9415f974a76b15fc509c1106d6e7d9396b38e0516f1dd73c8e6f0f86ad8ee30bf72de321ed2f5d31eb565bcdd921cd924a4b486ad030fbd5c3ac7c31ce169d413add488629292079f7ee1b79974a6b20474686d833575e7303672d23922eae72a363823cc3d34ee42da9fe5d106fdc3d9b09445176fbc884056d5284b4fde3a79e2b24d52e2e3c722c3455010a6c82a4b8edb1e8dcb888ebc1a57ce1c01f8f1298f331ed4a7c5021452219ed43eb7e16b0665aae8f4b380adb313917ddd697eba3db2a64bf63ead67061e5cabeacfd2f3ed3ae0e8b52dadf487b428c3c8cc213624c982bbf4b42c7c3f429c3ebbe1374d6246d79451dc011a37d2a106db331e04ceb54d6fd71b92b6101e791918adb4d54f7c292a235e1b66ee441aa3b877153954b50976f3c836c1b18d0ad079c52c1bd744f0a66c755c40792b717b11c937d31a388fe17192fc0c550fcb21039d818493e305c32eb2086e10ab313832a5386bceaaf569b1ca9182ef22a6adccecb8a8402c031a635e70e86ce77d00e42bd63574da68d471da9ad975e804af3c42892396838be5af3e05d8e88683e2143433a42df92abd03b89083596f7d3d669245b7314fdd762fea5811fde8004bbda75d0ac80728d17c3c158939d8ed2d6904115ae15a634967467f350b62bff05a3fe52e9e0ce7941829f52f4df0b1752bd5e84d8d03d247faff08d6ceb6aa94955733defece749c4bc5beee3af2aefcfff2956302d836dda8d977025831b25cfc21cf070c79d56c5294254aa446f8f54024b236eb37f4d7dc55af2ded7f3cedc7d368430085b9bf82bfccc4cc5bff831c25b3ec452edae3a6e5a7e3e4c9d28414dd9a70b12d540821d5d38fc06eb46af9bf17e593fc3d97e982091332b402f91b1430fa128c90d47da638f6606c45c910d234e3a18b78147347cbc87834cfa456c9a2a974c2647440089cc727c63a10f3937ab9c0099537595dca8a215bef688da842dc417823075a552031ae774d02abf4295b329f42692fb625f82c5f62fff420d18f2037c38f60f637ff891d4fb3d3195a1922dbd1e74a8f433c507ba4560c6b039a07faa920b85f63738b5abe3fc7113b582fe95b3599e763b7cfd65fc803e819be472261c7e54a91a99250c2a277a89b538d75e9eedb43fb6e9de500e43da92516eec7016944060efb6e4c50c522e008be72a1b24acfe6f780d298d189fabaadc8e2e4cdb2ff14816158cdf17c9b58d0292b7858b2487807149833d57af05b01dba75c655356baa85908ecee7970ff499cb55f40fdbabeb3448b7cccdbc90873ba776901b0d9b20e90460754ed2f2d5fbe72b9f94bf682adfcc4e48cad3da1e4590fa55816a31cb599c026673b9de73dfcb3e9874495128a7d2323d454bf5dea84873327a1bb863b28400abb3cc9a1e5b0bb2f6c037a561e49cc64f1f51026ef7e9548a5787f38016b07d1cb64d97ca065fb67575f95aecbbda77245c9db3c55fbc1398f415d4de5f21ffe1c2fbc82133c3302b55de26cf638faefa12adf537efc107296de5e2b9e0d60a1a20b1320749be58f565250ea88014dd5d718012673fb1978ca918622c06ef6dcc50552a9f90100e85bec9b1afc0ea151632e817c2c84865b462bf4ed6d7dde43fd69064273a6a7380168d9db08c706c11b6efe5acd24962b20ef458f7f45c4e002fdb0fdd1994cc32c1abf8a3add10cb4fbf08f4be80b9f91a429c56e0458dd7e0fb7a0167024ab188ce4e389b28fb627d16df9fff082e4726ccb3ce71432daa3527fe488be76d4c8d001ba72054de8bd7ebde5d2fc7e78be2efc67734bf547bc17fade2fd3f75233ed614f3427d7797bb5d8366d16969fce9db850398fb3311425de1ac435c7a22634437f9700b7c10223de30de390af58040521efd3b1704d30e4880dd7a18b9a6a2d9d690c72d54cea52343007eed292f3a7789d5f9e4e6d696e76a2ffa28f5914242f45c79afec069f470de3beef53454d112fb0ba53a7cd1e4ac9b9c6574e631cfe28bda7adf09dfca4952896c18ededb6b63d07511759bc6aaa254f1495614f514a3da67a4c4e470a63f36ccf3e3b44fba89b5ba5eb4d6e0bcda85c8d9028be4b0f93d4f1bcb7721cbbd2f2aabe5d34bb458d7da42e7a8beed0fb2cffa72ce6d4d644124938ac9e8ba2a3f4ea162a61a11f9a25138d1cd50f909443237dad9f94f286b580cc804647f23a50cdd1d53db33effe4048f88c4fe782e6a68be40e28e2724f20040f9acd5c2b541f9c7ada0f433a80c2e0eb0a74cb2200e678746b764a05f14d81014a40564423cb311e565caaeb594b995cd7ac612017492b40f6fcc2061c6dcbeb7e7def7487aa4a3fd162c7bc29c863e9085e2583f094880a478a355ba36981c6b8eca0dc4fe5d222661f8f842976a7063952acfa1801e7f3d6bccb73a96a55de11de38a72ee9badae036cfddd03d6b2c6b0c93935b90c1d55596651fd6aa70ca1185f8d64</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-default">
+      <input class="hbe hbe-input-field hbe-input-field-default" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-default" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-default">Hey, password is required here.</span>
+      </label>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css">
+              
 
-                
-              </div>
+              
             
             <hr/>
             <div>
@@ -346,8 +333,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Pwn相关小技巧</div>
-      <div>http://example.com/posts/9fc4ccba.html</div>
+      <div>Pwn.college(4)</div>
+      <div>http://example.com/posts/e6f3ff64.html</div>
     </div>
     <div class="license-meta">
       
@@ -359,7 +346,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月26日</div>
+          <div>2024年5月25日</div>
         </div>
       
       
@@ -391,18 +378,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/a0244f85.html" title="Ubuntu和Wsl配置">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Ubuntu和Wsl配置</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/fd6916f2.html" title="一些资源">
-                        <span class="hidden-mobile">一些资源</span>
+                      <a href="/posts/ebddcbac.html" title="《软件分析》Lab7">
+                        <span class="hidden-mobile">《软件分析》Lab7</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -559,6 +540,23 @@
   
 
 
+
+
+  
+  <script defer>
+    if (document.getElementById('hbePass')) {
+      Fluid.utils.waitElementLoaded('hbe-prefix', function() {
+        var hbePrefix = document.querySelector('hbe-prefix');
+        hbePrefix.parentElement.classList.add('markdown-body');
+        Fluid.utils.retry(function() {
+          if (Fluid.boot && Fluid.boot.refresh) {
+            Fluid.boot.refresh();
+            return true;
+          }
+        }, 100, 10);
+      })
+    }
+  </script>
 
 
    <script>
