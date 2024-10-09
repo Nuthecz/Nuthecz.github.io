@@ -16,16 +16,16 @@
   <meta name="author" content="Nuthecz">
   <meta name="keywords" content="">
   
-    <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举(Recursively Enumerable) 的语言描述的程序，其任何 非平凡(Non-trivial) 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
+    <meta name="description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Static Analysis  Basic Concepts  静态分析定义 静态分析是指在实际运行程序 P 之前，通过分析静态程序 P 本身来推测程序的行为，并判断程序是否满足某些特定的 性质(Property) Q。  因此，根据定义，我们可以使用静态分析来查看程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《软件分析》_part1">
 <meta property="og:url" content="http://example.com/posts/4002e7c0.html">
 <meta property="og:site_name" content="Nuthecz&#96;Blog">
-<meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Intermediate Representation  Rice定理  对于使用 递归可枚举(Recursively Enumerable) 的语言描述的程序，其任何 非平凡(Non-trivial) 的性质都是无法完美确定的。  关于递归可枚举，其含义是存在某个计算">
+<meta property="og:description" content="This is my curriculum understanding.  Reference: 静态分析学习笔记 上课笔记   Static Analysis  Basic Concepts  静态分析定义 静态分析是指在实际运行程序 P 之前，通过分析静态程序 P 本身来推测程序的行为，并判断程序是否满足某些特定的 性质(Property) Q。  因此，根据定义，我们可以使用静态分析来查看程">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
 <meta property="article:published_time" content="2023-10-20T15:00:12.000Z">
-<meta property="article:modified_time" content="2024-02-28T15:45:46.685Z">
+<meta property="article:modified_time" content="2024-10-09T11:02:35.274Z">
 <meta property="article:author" content="Nuthecz">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://nuthecz.oss-cn-hangzhou.aliyuncs.com/cover/202303052133118.JPG">
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.6k 字
+          10k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          80 分钟
+          85 分钟
         
       </span>
     
@@ -280,16 +280,35 @@
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/zhang971105/category_10471447.html">静态分析学习笔记</a></p>
 <p><a target="_blank" rel="noopener" href="https://ranger-nju.gitbook.io/static-program-analysis-book/">上课笔记</a></p>
 </blockquote>
-<h1 id="intermediate-representation"><a class="markdownIt-Anchor" href="#intermediate-representation"></a> Intermediate Representation</h1>
-<h2 id="rice定理"><a class="markdownIt-Anchor" href="#rice定理"></a> Rice定理</h2>
-<ul>
-<li>对于使用 <strong>递归可枚举(Recursively Enumerable)</strong> 的语言描述的程序，其任何 <strong>非平凡(Non-trivial)</strong> 的性质都是无法完美确定的。
+<h1 id="static-analysis"><a class="markdownIt-Anchor" href="#static-analysis"></a> Static Analysis</h1>
+<h2 id="basic-concepts"><a class="markdownIt-Anchor" href="#basic-concepts"></a> Basic Concepts</h2>
+<blockquote>
+<p>静态分析定义<br />
+静态分析是指在实际运行程序 P 之前，通过分析静态程序 P 本身来推测程序的行为，并判断程序是否满足某些特定的 <strong>性质(Property)</strong> Q。</p>
+</blockquote>
+<p>因此，根据定义，我们可以使用静态分析来查看程序 P 是否存在死代码，是否有空指针的解引用等方面，但是往往它并不能给出一个确切的答案(给出的结果可能是过近似或者欠近似，后文会讲)。为什么不会存在确切的结果，下文的定理给出了答案。</p>
+<blockquote>
+<p>Rice定理<br />
+对于使用 递归可枚举(Recursively Enumerable) 的语言描述的程序，其任何 非平凡(Non-trivial) 的性质都是无法完美确定的。</p>
+</blockquote>
 <ul>
 <li>关于递归可枚举，其含义是存在某个计算函数(可以是图灵机)，能够将这种语言中的所有合法字符串枚举出来。目前我们所能想到的所有的编程语言都是递归可枚举语言。</li>
 <li>关于非平凡，如果一种性质是所有的程序都满足的或者都不满足的，那么这种性质就是平凡的，除此之外的性质都是非平凡的。其实和程序运行时的行为相关的，让我们感兴趣的性质，基本都是非平凡的性质(可以理解为不确定的性质)。</li>
 </ul>
-</li>
+<h2 id="type"><a class="markdownIt-Anchor" href="#type"></a> Type</h2>
+<blockquote>
+<p>完美静态分析<br />
+如果一个静态分析 S 能够对于程序的某个非平凡性质 Q 给出确切的答案，我们就称 S 是 P 关于 Q 的 <strong>完美静态分析(Perfect Static Analysis)</strong> 。我们定义程序P的关于Q的真实行为 <strong>真相(Truth)</strong>，那么完美静态分析有两层含义：</p>
+<ul>
+<li>完全性(<strong>Soundness</strong>)：真相一定包含在 S 给出的答案中；</li>
+<li>正确性(<strong>Completeness</strong>)：S 给出的答案一定包含在真相中；</li>
 </ul>
+<p>记这个静态分析程序给出的答案集合 A ，真相集合为 T ，则完美的静态分析满足：<br />
+T ⊆ A ∧ A ⊆ T ⇔ A = T<br />
+其中， T⊆A 体现了完全性， A⊆T 体现了正确性。</p>
+</blockquote>
+<p>简单理解，一个完美的静态分析给出的答案应当既是对的，也是全的。但是 Rice定理告诉我们，不存在完美的静态分析，那么静态分析是否就没用了呢？并不是，有用和完美之间，往往是有着一片广阔的空间的。我们的静态分析，也就是从这片空间中寻找过近似和欠近似。</p>
+<h1 id="intermediate-representation"><a class="markdownIt-Anchor" href="#intermediate-representation"></a> Intermediate Representation</h1>
 <h2 id="compilers-and-static-analyzers"><a class="markdownIt-Anchor" href="#compilers-and-static-analyzers"></a> Compilers and Static Analyzers</h2>
 <p>编译器将源代码(<code>Source code</code>)转换为机器代码(<code>Machine Code</code>)。其中的流程框架如下</p>
 <ul>
